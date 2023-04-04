@@ -8,26 +8,35 @@ namespace Ensharp
 {
     class Printing_Star
     {
-        static void Main(string[] args) //메인함수
+        public static void Main(String[] args) //메인함수
         {
             Menu menu = new Menu(); //menu 클래스의 객체 생성
             menu.Display_menu(); //객체를 이용하여 display_menu 함수 호출하기 
         }
     }
 
-    
+
     class Menu //메뉴를 표시하는 클래스
     {
         public void Display_menu() //메뉴를 표시하는 메소드
         {
+            Printing_Midstar printing_Midstar = new Printing_Midstar();
+            Printing_Midstar_Reverse printing_Midstar_Reverse = new Printing_Midstar_Reverse();
+
             Console.WriteLine();
             Console.WriteLine("----------------------------Menu-----------------------------");
             Console.WriteLine();
-            Console.WriteLine("               1) 가운데 정렬 별 찍기 ");
-            Console.WriteLine("               2) 1번의 반대로 찍기 ");
-            Console.WriteLine("               3) 모래 시계 ");
-            Console.WriteLine("               4) 다이아 ");
-            Console.WriteLine("               5) 종료 ");
+            Console.WriteLine("1) 가운데 정렬 별 찍기 ");
+            printing_Midstar.Midstar_Printing(3);
+            Console.WriteLine("2) 1번의 반대로 찍기 ");
+            printing_Midstar_Reverse.Mindstar_Printing_Reverse(3);
+            Console.WriteLine("3) 모래 시계 ");
+            printing_Midstar_Reverse.Mindstar_Printing_Reverse(2);
+            printing_Midstar.Midstar_Printing(2);
+            Console.WriteLine("4) 다이아 ");
+            printing_Midstar.Midstar_Printing(2);
+            printing_Midstar_Reverse.Mindstar_Printing_Reverse(2);
+            Console.WriteLine("5) 종료 ");
             Console.WriteLine();
             Console.WriteLine("-------------------------------------------------------------");
             Console.WriteLine();
@@ -115,10 +124,11 @@ namespace Ensharp
                 Console.WriteLine();
                 Num_input numInput = new Num_input(); // 객체 생성 
                 numInput.Number_input(); // Num_input 클래스의 Number_input()함수 호출
-                
+
             }
 
-            else if (menu_num == 5) {
+            else if (menu_num == 5)
+            {
                 Console.WriteLine("                   프로그램을 종료합니다.");
                 Console.WriteLine();
                 Console.WriteLine();
@@ -154,8 +164,8 @@ namespace Ensharp
                     cnt++;
                 }
                 cnt = 0;
-                
-                while (cnt != i*2-1)
+
+                while (cnt != i * 2 - 1)
                 {
                     Console.Write("*");
                     cnt++;
@@ -181,14 +191,14 @@ namespace Ensharp
             int cnt = 0;
             for (int i = 1; i <= NumOfLine; i++)
             {
-                while (cnt != i-1)
+                while (cnt != i - 1)
                 {
                     Console.Write(" ");
                     cnt++;
                 }
                 cnt = 0;
 
-                while (cnt !=NumOfLine*2-(i*2-1))
+                while (cnt != NumOfLine * 2 - (i * 2 - 1))
                 {
                     Console.Write("*");
                     cnt++;
@@ -207,5 +217,5 @@ namespace Ensharp
         }
     }
 
-    
+
 }
