@@ -1,0 +1,15 @@
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\bin\Debug\net6.0\PrintingStar.exe
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\bin\Debug\net6.0\PrintingStar.deps.json
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\bin\Debug\net6.0\PrintingStar.runtimeconfig.json
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\bin\Debug\net6.0\PrintingStar.dll
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\bin\Debug\net6.0\PrintingStar.pdb
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\obj\Debug\net6.0\PrintingStar.csproj.AssemblyReference.cache
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\obj\Debug\net6.0\PrintingStar.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\obj\Debug\net6.0\PrintingStar.AssemblyInfoInputs.cache
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\obj\Debug\net6.0\PrintingStar.AssemblyInfo.cs
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\obj\Debug\net6.0\PrintingStar.csproj.CoreCompileInputs.cache
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\obj\Debug\net6.0\PrintingStar.dll
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\obj\Debug\net6.0\refint\PrintingStar.dll
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\obj\Debug\net6.0\PrintingStar.pdb
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\obj\Debug\net6.0\PrintingStar.genruntimeconfig.cache
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\1차_별찍기\src\PrintingStar\obj\Debug\net6.0\ref\PrintingStar.dll
