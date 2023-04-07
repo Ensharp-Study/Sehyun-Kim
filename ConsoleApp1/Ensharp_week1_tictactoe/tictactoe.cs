@@ -84,7 +84,7 @@ namespace tictactoe
         //틱택토 화면 실제로 나오는 부분
         private string a1 = "   ", b1 = "   ", c1 = "   ", d1 = "   ", e1 = "   ", f1 = "   ", g1 = "   ", h1 = "   ", i1 = "   ";
         private string a2 = "   ", b2 = "   ", c2 = "   ", d2 = "   ", e2 = "   ", f2 = "   ", g2 = "   ", h2 = "   ", i2 = "   ";
-        private int cnt=0;
+        private int cnt=1;
         private int win1=0, win2=0, comwin=0, userwin=0;
 
         public void Display1() //버전1
@@ -133,6 +133,7 @@ namespace tictactoe
 
         }
         public void Display2() { //버전2
+            
             Console.Clear();
 
             cnt++;
@@ -161,16 +162,14 @@ namespace tictactoe
             Console.WriteLine("----------------");
             Console.WriteLine("l" + g2 + "I" + h2 + " I" + i2 + " I");
             Console.WriteLine("----------------");
-            if (cnt % 2 != 0)
+            if (cnt % 2 == 0)
             {
                 user1();
-                
             }
             
-            else
+            else if (cnt % 2 == 1)
             {
                 user2();
-                
             }
 
 
