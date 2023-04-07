@@ -126,28 +126,28 @@ namespace Menu
                     break;
 
                 case 2:
-                    b = " 0 ";
+                    b = " O ";
                     break;
                 case 3:
-                    c = " 0 ";
+                    c = " O ";
                     break;
                 case 4:
-                    d = " 0 ";
+                    d = " O ";
                     break;
                 case 5:
-                    e = " 0 ";
+                    e = " O ";
                     break;
                 case 6:
-                    f = " 0 ";
+                    f = " O ";
                     break;
                 case 7:
-                    g = " 0 ";
+                    g = " O ";
                     break;
                 case 8:
-                    h = " 0 ";
+                    h = " O ";
                     break;
                 case 9:
-                    i = " 0 ";
+                    i = " O ";
                     break;
             }
 
@@ -198,50 +198,76 @@ namespace Menu
             //가로빙고
 
             if (a.Trim() == "O" && b.Trim() == "O" && c.Trim() == "O" || d.Trim() == "O" && e.Trim() == "O" && f.Trim() == "O" || g.Trim() == "O" && h.Trim() == "O" && i.Trim() == "O")
-            {  //Trim -> 양쪽 공백을 제거
+            {  //Trim -> 양쪽 공백을                                                                                                             제거
                 win1++;
-                
+                resetting();
+
             }
             if (a.Trim() == "X" && b.Trim() == "X" && c.Trim() == "X" || d.Trim() == "X" && e.Trim() == "X" && f.Trim() == "X" || g.Trim() == "X" && h.Trim() == "X" && i.Trim() == "X")
             {
                 win2++;
+                resetting();
+
             }
+                //세로빙고
+             if (a.Trim() == "O" && d.Trim() == "O" && g.Trim() == "O" || b.Trim() == "O" && e.Trim() == "O" && h.Trim() == "O" || c.Trim() == "O" && f.Trim() == "O" && i.Trim() == "O")
+                {
+                    win1++;
+                resetting();
 
-            //세로빙고
+                }
 
-            if (a.Trim() == "O" && d.Trim() == "O" && g.Trim() == "O" || b.Trim() == "O" && e.Trim() == "O" && h.Trim() == "O" || c.Trim() == "O" && f.Trim() == "O" && i.Trim() == "O")
-            {
-                win1++;
-            }
+                if (a.Trim() == "X" && d.Trim() == "X" && g.Trim() == "X" || b.Trim() == "X" && e.Trim() == "X" && h.Trim() == "X" || c.Trim() == "X" && f.Trim() == "X" && i.Trim() == "X")
+                {
+                    win2++;
+                resetting();
 
-            if (a.Trim() == "X" && d.Trim() == "X" && g.Trim() == "X" || b.Trim() == "X" && e.Trim() == "X" && h.Trim() == "X" || c.Trim() == "X" && f.Trim() == "X" && i.Trim() == "X")
-            {
-                win2++;
-            }
+                }
 
-            //대각선빙고
+                //대각선빙고
 
-            if (a.Trim() == "O" && e.Trim() == "O" && i.Trim() == "O" || c.Trim() == "O" && e.Trim() == "O" && g.Trim() == "O" )
-            {
-                win1++;
-                Console.WriteLine("안라나");
-            }
+                if (a.Trim() == "O" && e.Trim() == "O" && i.Trim() == "O" || c.Trim() == "O" && e.Trim() == "O" && g.Trim() == "O")
+                {
+                    win1++;
+                resetting();
 
-            if (a.Trim() == "X" && e.Trim() == "X" && i.Trim() == "X" || c.Trim() == "X" && e.Trim() == "X" && g.Trim() == "X")
-            {
-                win2++;
-                Console.WriteLine("안라나");
+                }
+
+                if (a.Trim() == "X" && e.Trim() == "X" && i.Trim() == "X" || c.Trim() == "X" && e.Trim() == "X" && g.Trim() == "X")
+                {
+                    win2++;
+                resetting();
+
+                }
+
+
             }
 
             
-        }
 
+
+        
         public void Score()
         {
-            Console.WriteLine("★*★*user1★*★*     ★*★*user2★*★* ");
+            Console.WriteLine("★*★*user1*★*★     ★*★*user2*★*★ ");
             Console.WriteLine("        " + win1 + "                     " + win2 + "        ");
             Console.WriteLine("★＊★＊★＊★＊★    ★*★＊★＊★＊★\n\n");
 
         }
+
+        public void resetting()
+        {
+            a = "   ";
+            b = "   ";
+            c = "   ";
+            d = "   ";
+            e = "   ";
+            f = "   ";
+            g = "   ";
+            h = "   ";
+            i = "   ";
+
+        }
+
     }
 }
