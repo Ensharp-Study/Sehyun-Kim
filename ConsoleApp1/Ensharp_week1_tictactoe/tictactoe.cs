@@ -6,6 +6,7 @@ using static System.Console;
 
 namespace tictactoe
 {
+    //해야할거 1. 예외처리 2. 무승부
     class tictactoe
     {
         public static void Main(String[] args) //메인함수
@@ -57,7 +58,7 @@ namespace tictactoe
             switch (num)
             {
                 case 1:
-                   
+                    game.Display1();
                     break;
 
                 case 2:
@@ -80,15 +81,63 @@ namespace tictactoe
 
     class Game 
     {
-        //틱택토 화면(버전2) 실제로 나오는 부분
-        private string a = "   ", b = "   ", c = "   ", d = "   ", e = "   ", f = "   ", g = "   ", h = "   ", i = "   ";
+        //틱택토 화면 실제로 나오는 부분
+        private string a1 = "   ", b1 = "   ", c1 = "   ", d1 = "   ", e1 = "   ", f1 = "   ", g1 = "   ", h1 = "   ", i1 = "   ";
+        private string a2 = "   ", b2 = "   ", c2 = "   ", d2 = "   ", e2 = "   ", f2 = "   ", g2 = "   ", h2 = "   ", i2 = "   ";
         private int cnt=0;
         private int win1=0, win2=0, comwin=0, userwin=0;
-        public void Display2() { 
+
+        public void Display1() //버전1
+        {
+            Console.Clear();
+            Console.WriteLine("        <Scoreboard>\n");
+            Console.WriteLine(" ★*user*★  ★*Computer*★   ");
+            Console.WriteLine("     " + userwin + "             " + comwin);
+            Console.WriteLine(" ★＊★＊★  ★＊★＊★＊★   \n\n");
+
+            Console.WriteLine("  press ①~⑨");
+            Console.WriteLine("press zero to quit\n");
+
+            Console.WriteLine("----------------");
+            Console.WriteLine("l ① I ② I ③ I");
+            Console.WriteLine("----------------");
+            Console.WriteLine("l ④ I ⑤ I ⑥ I");
+            Console.WriteLine("----------------");
+            Console.WriteLine("l ⑦ I ⑧ I ⑨ I");
+            Console.WriteLine("----------------");
+
+            Console.WriteLine("----------------");
+            Console.WriteLine("l" + a1 + "I" + b1 + " I" + c1 + " I");
+            Console.WriteLine("----------------");
+            Console.WriteLine("l" + d1 + "I" + e1 + " I" + f1 + " I");
+            Console.WriteLine("----------------");
+            Console.WriteLine("l" + g1 + "I" + h1 + " I" + i1 + " I");
+            Console.WriteLine("----------------");
+
+            if (cnt % 2 != 0)
+            {
+                user1();
+
+            }
+            else
+            {
+
+            }
+            Random rand = new Random();
+
+            
+             Console.WriteLine(rand.Next(1,10)); //1이상 10미만의 랜덤 숫자 생성
+
+            
+            
+
+        }
+        public void Display2() { //버전2
             Console.Clear();
 
             cnt++;
             Judge();
+            Console.WriteLine("        <Scoreboard>\n");
             Console.WriteLine(" ★*user1*★  ★*user2*★   ");
             Console.WriteLine("     " + win1 + "           " + win2);
             Console.WriteLine(" ★＊★＊★  ★＊★＊★   \n\n");
@@ -106,11 +155,11 @@ namespace tictactoe
             Console.WriteLine("----------------");
             
             Console.WriteLine("----------------");
-            Console.WriteLine("l"+a+ "I" + b + " I" + c + " I");
+            Console.WriteLine("l"+a2+ "I" + b2 + " I" + c2 + " I");
             Console.WriteLine("----------------");
-            Console.WriteLine("l" + d + "I" + e + " I" + f + " I");
+            Console.WriteLine("l" + d2 + "I" + e2 + " I" + f2 + " I");
             Console.WriteLine("----------------");
-            Console.WriteLine("l" + g + "I" + h + " I" + i + " I");
+            Console.WriteLine("l" + g2 + "I" + h2 + " I" + i2 + " I");
             Console.WriteLine("----------------");
             if (cnt % 2 != 0)
             {
@@ -141,32 +190,32 @@ namespace tictactoe
                     break;
 
                 case 1:
-                    a = " O ";
+                    a2 = " O ";
                     break;
 
                 case 2:
-                    b = " O ";
+                    b2 = " O ";
                     break;
                 case 3:
-                    c = " O ";
+                    c2 = " O ";
                     break;
                 case 4:
-                    d = " O ";
+                    d2 = " O ";
                     break;
                 case 5:
-                    e = " O ";
+                    e2 = " O ";
                     break;
                 case 6:
-                    f = " O ";
+                    f2 = " O ";
                     break;
                 case 7:
-                    g = " O ";
+                    g2 = " O ";
                     break;
                 case 8:
-                    h = " O ";
+                    h2 = " O ";
                     break;
                 case 9:
-                    i = " O ";
+                    i2 = " O ";
                     break;
 
             }
@@ -190,32 +239,32 @@ namespace tictactoe
                     break;
 
                 case 1:
-                    a = " X ";
+                    a2 = " X ";
                     break;
 
                 case 2:
-                    b = " X ";
+                    b2 = " X ";
                     break;
                 case 3:
-                    c = " X ";
+                    c2 = " X ";
                     break;
                 case 4:
-                    d = " X ";
+                    d2 = " X ";
                     break;
                 case 5:
-                    e = " X ";
+                    e2 = " X ";
                     break;
                 case 6:
-                    f = " X ";
+                    f2 = " X ";
                     break;
                 case 7:
-                    g = " X ";
+                    g2 = " X ";
                     break;
                 case 8:
-                    h = " X ";
+                    h2 = " X ";
                     break;
                 case 9:
-                    i = " X ";
+                    i2 = " X ";
                     break;
             }
 
@@ -229,27 +278,28 @@ namespace tictactoe
         {
             //가로빙고
 
-            if (a.Trim() == "O" && b.Trim() == "O" && c.Trim() == "O" || d.Trim() == "O" && e.Trim() == "O" && f.Trim() == "O" || g.Trim() == "O" && h.Trim() == "O" && i.Trim() == "O")
+            if (a2.Trim() == "O" && b2.Trim() == "O" && c2.Trim() == "O" || d2.Trim() == "O" && e2.Trim() == "O" && f2.Trim() == "O" || g2.Trim() == "O" && h2.Trim() == "O" && i2.Trim() == "O")
             {  //Trim -> 양쪽 공백을 제거                                                                                                          
                 win1++;
+
                 resetting();
 
             }
-            if (a.Trim() == "X" && b.Trim() == "X" && c.Trim() == "X" || d.Trim() == "X" && e.Trim() == "X" && f.Trim() == "X" || g.Trim() == "X" && h.Trim() == "X" && i.Trim() == "X")
+            if (a2.Trim() == "X" && b2.Trim() == "X" && c2.Trim() == "X" || d2.Trim() == "X" && e2.Trim() == "X" && f2.Trim() == "X" || g2.Trim() == "X" && h2.Trim() == "X" && i2.Trim() == "X")
             {
                 win2++;
                 resetting();
 
             }
             //세로빙고
-             if (a.Trim() == "O" && d.Trim() == "O" && g.Trim() == "O" || b.Trim() == "O" && e.Trim() == "O" && h.Trim() == "O" || c.Trim() == "O" && f.Trim() == "O" && i.Trim() == "O")
+             if (a2.Trim() == "O" && d2.Trim() == "O" && g2.Trim() == "O" || b2.Trim() == "O" && e2.Trim() == "O" && h2.Trim() == "O" || c2.Trim() == "O" && f2.Trim() == "O" && i2.Trim() == "O")
                 {
                     win1++;
                 resetting();
 
                 }
 
-                if (a.Trim() == "X" && d.Trim() == "X" && g.Trim() == "X" || b.Trim() == "X" && e.Trim() == "X" && h.Trim() == "X" || c.Trim() == "X" && f.Trim() == "X" && i.Trim() == "X")
+                if (a2.Trim() == "X" && d2.Trim() == "X" && g2.Trim() == "X" || b2.Trim() == "X" && e2.Trim() == "X" && h2.Trim() == "X" || c2.Trim() == "X" && f2.Trim() == "X" && i2.Trim() == "X")
                 {
                     win2++;
                 resetting();
@@ -258,14 +308,14 @@ namespace tictactoe
 
              //대각선빙고
 
-                if (a.Trim() == "O" && e.Trim() == "O" && i.Trim() == "O" || c.Trim() == "O" && e.Trim() == "O" && g.Trim() == "O")
+                if (a2.Trim() == "O" && e2.Trim() == "O" && i2.Trim() == "O" || c2.Trim() == "O" && e2.Trim() == "O" && g2.Trim() == "O")
                 {
                     win1++;
                 resetting();
 
                 }
 
-                if (a.Trim() == "X" && e.Trim() == "X" && i.Trim() == "X" || c.Trim() == "X" && e.Trim() == "X" && g.Trim() == "X")
+                if (a2.Trim() == "X" && e2.Trim() == "X" && i2.Trim() == "X" || c2.Trim() == "X" && e2.Trim() == "X" && g2.Trim() == "X")
                 {
                     win2++;
                 resetting();
@@ -313,15 +363,16 @@ namespace tictactoe
 
         public void resetting() //변수 a~i의 값을 초기화하는 메소드
         {
-            a = "   ";
-            b = "   ";
-            c = "   ";
-            d = "   ";
-            e = "   ";
-            f = "   ";
-            g = "   ";
-            h = "   ";
-            i = "   ";
+            a2 = "   ";
+            b2 = "   ";
+            c2 = "   ";
+            d2 = "   ";
+            e2 = "   ";
+            f2 = "   ";
+            g2 = "   ";
+            h2 = "   ";
+            i2 = "   ";
+            cnt = 0;
 
         }
 
