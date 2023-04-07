@@ -43,9 +43,11 @@ namespace Menu
 
     class Number
     {
+        public int num=0;
+        public int count = 0;
         public void Numberinput()
         {
-            int num;
+
             num = int.Parse(Console.ReadLine());
             Console.WriteLine();
 
@@ -55,28 +57,33 @@ namespace Menu
             switch (num)
             {
                 case 1:
-                    Console.Clear();
-                    game.display();
+                    count = 1;
                     break;
 
                 case 2:
+                    count = 2;
+                    game.display();
                     break;
 
                 case 3:
+                    count = 3;
+                    game.Score();
                     break;
 
                 case 4:
+                    return;
                     break;
-
+                
             }
         }
     }
 
-    class Game
+    class Game 
     {
+        //틱택토 화면 실제로 나오는 부분
         private string a = "   ", b = "   ", c = "   ", d = "   ", e = "   ", f = "   ", g = "   ", h = "   ", i = "   ";
         private int cnt=0;
-        private int win1=0, win2=0;
+        private int win1=0, win2=0, comwin=0, userwin=0;
         public void display() { 
             Console.Clear();
 
@@ -84,6 +91,8 @@ namespace Menu
             Judge();
             Score();
             Console.WriteLine("  press ①~⑨");
+            Console.WriteLine("press zero to quit\n");
+
             Console.WriteLine("----------------");
             Console.WriteLine("l ① I ② I ③ I");
             Console.WriteLine("----------------");
@@ -114,6 +123,7 @@ namespace Menu
 
         }
 
+        //유저 대 유저 게임에서 유저1의 입력값 저장
         public void user1()
         {
             int essence;
@@ -121,6 +131,12 @@ namespace Menu
 
             switch (essence)
             {
+                case 0:
+                    Console.Clear();
+                    Menu menu = new Menu();
+                    menu.Display();
+                    break;
+
                 case 1:
                     a = " O ";
                     break;
@@ -149,10 +165,15 @@ namespace Menu
                 case 9:
                     i = " O ";
                     break;
+
             }
+
+            //유저의 입력값에 따라서 a~i 변수에 'O' 를 넣어주고, 바로 틱택토 화면에 적용되도록 display 메소드 호출
 
             display();
         }
+
+        //유저 대 유저 게임에서 유저2의 입력값 저장 
         public void user2()
         {
             int essence;
@@ -190,15 +211,18 @@ namespace Menu
                     break;
             }
 
+            //유저의 입력값에 따라서 a~i 변수에 'O' 를 넣어주고, 바로 틱택토 화면에 적용되도록 display 메소드 호출
+
             display();
         }
 
-        public void Judge()
+        public void Judge() //틱택토 화면에서 빙고가 나왔는지 판단하는 메소드
+                            // 빙고가 나왔다면 resetting 메소드로 a~i 변수의 값을 공백으로 초기화하고, 이긴 유저의 점수 하나 올리기
         {
             //가로빙고
 
             if (a.Trim() == "O" && b.Trim() == "O" && c.Trim() == "O" || d.Trim() == "O" && e.Trim() == "O" && f.Trim() == "O" || g.Trim() == "O" && h.Trim() == "O" && i.Trim() == "O")
-            {  //Trim -> 양쪽 공백을                                                                                                             제거
+            {  //Trim -> 양쪽 공백을 제거                                                                                                          
                 win1++;
                 resetting();
 
@@ -209,7 +233,7 @@ namespace Menu
                 resetting();
 
             }
-                //세로빙고
+            //세로빙고
              if (a.Trim() == "O" && d.Trim() == "O" && g.Trim() == "O" || b.Trim() == "O" && e.Trim() == "O" && h.Trim() == "O" || c.Trim() == "O" && f.Trim() == "O" && i.Trim() == "O")
                 {
                     win1++;
@@ -224,7 +248,7 @@ namespace Menu
 
                 }
 
-                //대각선빙고
+             //대각선빙고
 
                 if (a.Trim() == "O" && e.Trim() == "O" && i.Trim() == "O" || c.Trim() == "O" && e.Trim() == "O" && g.Trim() == "O")
                 {
@@ -243,19 +267,49 @@ namespace Menu
 
             }
 
+    
+        
+        public void Score() //점수판을 보여주는 메소드
+        {
+            Number number = new Number();
+            if (number.count == 1|| number.count == 3)
+            {
+                Console.WriteLine("       <Scoreboard>\n\n\n");
+                Console.WriteLine("① ★*user*★  ★*Computer*★   ");
+                Console.WriteLine("       " + userwin + "             " + comwin);
+                Console.WriteLine("   ★＊★＊★  ★＊★＊★＊★   \n\n");
+            }
+            
+            else if (number.count == 2 || number.count == 3)
+            {
+                Console.WriteLine("② ★*user1*★  ★*user2*★   ");
+                Console.WriteLine("       " + win1 + "            " + win2);
+                Console.WriteLine("   ★＊★＊★   ★＊★＊★   \n\n\n");
+                Console.WriteLine("    Press 0 to back menu");
+            }
+
+            if (number.count == 3)
+            {
+                int essence;
+                essence = int.Parse(ReadLine());
+
+                if (essence == 0)
+                {
+                    Console.Clear();
+                    Menu menu = new Menu();
+                    menu.Display();
+                }
+            }
+
+            
+
             
 
 
-        
-        public void Score()
-        {
-            Console.WriteLine("★*★*user1*★*★     ★*★*user2*★*★ ");
-            Console.WriteLine("        " + win1 + "                     " + win2 + "        ");
-            Console.WriteLine("★＊★＊★＊★＊★    ★*★＊★＊★＊★\n\n");
 
         }
 
-        public void resetting()
+        public void resetting() //변수 a~i의 값을 초기화하는 메소드
         {
             a = "   ";
             b = "   ";
