@@ -1,0 +1,15 @@
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\bin\Debug\net6.0\Ensharp_week1_tictactoe.exe
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\bin\Debug\net6.0\Ensharp_week1_tictactoe.deps.json
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\bin\Debug\net6.0\Ensharp_week1_tictactoe.runtimeconfig.json
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\bin\Debug\net6.0\Ensharp_week1_tictactoe.dll
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\bin\Debug\net6.0\Ensharp_week1_tictactoe.pdb
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\obj\Debug\net6.0\Ensharp_week1_tictactoe.csproj.AssemblyReference.cache
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\obj\Debug\net6.0\Ensharp_week1_tictactoe.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\obj\Debug\net6.0\Ensharp_week1_tictactoe.AssemblyInfoInputs.cache
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\obj\Debug\net6.0\Ensharp_week1_tictactoe.AssemblyInfo.cs
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\obj\Debug\net6.0\Ensharp_week1_tictactoe.csproj.CoreCompileInputs.cache
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\obj\Debug\net6.0\Ensharp_week1_tictactoe.dll
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\obj\Debug\net6.0\refint\Ensharp_week1_tictactoe.dll
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\obj\Debug\net6.0\Ensharp_week1_tictactoe.pdb
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\obj\Debug\net6.0\Ensharp_week1_tictactoe.genruntimeconfig.cache
+C:\Users\user\OneDrive\바탕 화면\엔샵 스터디\ConsoleApp1\Ensharp_week1_tictactoe\obj\Debug\net6.0\ref\Ensharp_week1_tictactoe.dll

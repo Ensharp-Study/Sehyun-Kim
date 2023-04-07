@@ -36,21 +36,21 @@ namespace Menu
             Console.WriteLine("★                                                              ★");
             Console.WriteLine("★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★");
 
-           Number number = new Number();
-           number.Numberinput();
+            Number number = new Number();
+            number.Numberinput();
         }
     }
-    
+
     class Number
     {
         public void Numberinput()
         {
-            int num = 0;
+            int num;
             num = int.Parse(Console.ReadLine());
             Console.WriteLine();
 
             Game game = new Game();
-            
+
 
             switch (num)
             {
@@ -75,11 +75,11 @@ namespace Menu
     class Game
     {
         private string a = "   ", b = "   ", c = "   ", d = "   ", e = "   ", f = "   ", g = "   ", h = "   ", i = "   ";
-        
+
         Number number = new Number();
         public void computer()
         {
-            
+
             Console.WriteLine("----------------");
             Console.WriteLine("l ① I ② I ③ I");
             Console.WriteLine("----------------");
@@ -96,19 +96,22 @@ namespace Menu
             Console.WriteLine("l{0} I{0} I{0} I", g, h, i);
             Console.WriteLine("----------------");
 
+            number.Question();
+
         }
 
-        public void Number(int a)
+        public void Question()
         {
             int essence = int.Parse(Console.ReadLine());
 
             switch (essence)
             {
                 case 1:
-                    a='O'
+                    a = "O";
                     break;
             }
-    }
+        }
 
-    
+
+    }
 }
