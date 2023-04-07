@@ -151,7 +151,7 @@ namespace tictactoe
             if (selectedNumbers.Contains(essence))
             {
                 Console.WriteLine("이미 선택한 영역입니다.");
-                Console.WriteLine("다른 영역을 선택하세요!");
+                Console.WriteLine("다른 영역을 선택하세요.");
                 ver1user();
             }
             selectedNumbers.Add(essence);
