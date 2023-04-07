@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using static System.Console;
 
-namespace Menu
+namespace tictactoe
 {
     class tictactoe
     {
@@ -17,8 +17,9 @@ namespace Menu
 
     class Menu
     {
-        public void Display()
+        public void Display() //메뉴 디스플레이
         {
+            Console.Clear();
             Console.WriteLine("★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★");
             Console.WriteLine(" *                          　                                  *");
             Console.WriteLine("★                                                              ★");
@@ -41,10 +42,9 @@ namespace Menu
         }
     }
 
-    class Number
+    class Number //메뉴에서 번호 선택
     {
         public int num=0;
-        public int count = 0;
         public void Numberinput()
         {
 
@@ -57,16 +57,16 @@ namespace Menu
             switch (num)
             {
                 case 1:
-                    count = 1;
+                   
                     break;
 
                 case 2:
-                    count = 2;
-                    game.display();
+                    
+                    game.Display2();
                     break;
 
                 case 3:
-                    count = 3;
+                   
                     game.Score();
                     break;
 
@@ -80,16 +80,20 @@ namespace Menu
 
     class Game 
     {
-        //틱택토 화면 실제로 나오는 부분
+        //틱택토 화면(버전2) 실제로 나오는 부분
         private string a = "   ", b = "   ", c = "   ", d = "   ", e = "   ", f = "   ", g = "   ", h = "   ", i = "   ";
         private int cnt=0;
         private int win1=0, win2=0, comwin=0, userwin=0;
-        public void display() { 
+        public void Display2() { 
             Console.Clear();
 
             cnt++;
             Judge();
-            Score();
+            Console.WriteLine(" ★*user1*★  ★*user2*★   ");
+            Console.WriteLine("     " + win1 + "           " + win2);
+            Console.WriteLine(" ★＊★＊★  ★＊★＊★   \n\n");
+
+
             Console.WriteLine("  press ①~⑨");
             Console.WriteLine("press zero to quit\n");
 
@@ -132,7 +136,6 @@ namespace Menu
             switch (essence)
             {
                 case 0:
-                    Console.Clear();
                     Menu menu = new Menu();
                     menu.Display();
                     break;
@@ -170,7 +173,7 @@ namespace Menu
 
             //유저의 입력값에 따라서 a~i 변수에 'O' 를 넣어주고, 바로 틱택토 화면에 적용되도록 display 메소드 호출
 
-            display();
+            Display2();
         }
 
         //유저 대 유저 게임에서 유저2의 입력값 저장 
@@ -181,6 +184,11 @@ namespace Menu
 
             switch (essence)
             {
+                case 0:
+                    Menu menu = new Menu();
+                    menu.Display();
+                    break;
+
                 case 1:
                     a = " X ";
                     break;
@@ -211,9 +219,9 @@ namespace Menu
                     break;
             }
 
-            //유저의 입력값에 따라서 a~i 변수에 'O' 를 넣어주고, 바로 틱택토 화면에 적용되도록 display 메소드 호출
+            //유저의 입력값에 따라서 a~i 변수에 'X' 를 넣어주고, 바로 틱택토 화면에 적용되도록 display 메소드 호출
 
-            display();
+            Display2();
         }
 
         public void Judge() //틱택토 화면에서 빙고가 나왔는지 판단하는 메소드
@@ -271,25 +279,19 @@ namespace Menu
         
         public void Score() //점수판을 보여주는 메소드
         {
-            Number number = new Number();
-            if (number.count == 1|| number.count == 3)
-            {
-                Console.WriteLine("       <Scoreboard>\n\n\n");
+            
+                Console.WriteLine("        <Scoreboard>\n\n\n");
                 Console.WriteLine("① ★*user*★  ★*Computer*★   ");
                 Console.WriteLine("       " + userwin + "             " + comwin);
                 Console.WriteLine("   ★＊★＊★  ★＊★＊★＊★   \n\n");
-            }
             
-            else if (number.count == 2 || number.count == 3)
-            {
+            
+            
                 Console.WriteLine("② ★*user1*★  ★*user2*★   ");
                 Console.WriteLine("       " + win1 + "            " + win2);
                 Console.WriteLine("   ★＊★＊★   ★＊★＊★   \n\n\n");
                 Console.WriteLine("    Press 0 to back menu");
-            }
-
-            if (number.count == 3)
-            {
+            
                 int essence;
                 essence = int.Parse(ReadLine());
 
@@ -307,7 +309,7 @@ namespace Menu
 
 
 
-        }
+        
 
         public void resetting() //변수 a~i의 값을 초기화하는 메소드
         {
