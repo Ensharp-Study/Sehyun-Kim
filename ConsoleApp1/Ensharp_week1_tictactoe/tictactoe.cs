@@ -6,7 +6,7 @@ using static System.Console;
 
 namespace tictactoe
 {
-    //해야할거 1. 예외처리 2. 무승부
+
     class tictactoe
     {
         public static void Main(String[] args) //메인함수
@@ -18,6 +18,8 @@ namespace tictactoe
 
     class Menu
     {
+        public int win1, win2, comwin, userwin;
+        
         public void Display() //메뉴 디스플레이
         {
             Console.Clear();
@@ -67,7 +69,7 @@ namespace tictactoe
                     break;
 
                 case 3:
-                   
+                    Console.Clear();
                     game.Score();
                     break;
 
@@ -81,11 +83,13 @@ namespace tictactoe
 
     class Game 
     {
+        Menu menu=new Menu();
+        
         //틱택토 화면 실제로 나오는 부분
         private string a1 = "   ", b1 = "   ", c1 = "   ", d1 = "   ", e1 = "   ", f1 = "   ", g1 = "   ", h1 = "   ", i1 = "   ";
         private string a2 = "   ", b2 = "   ", c2 = "   ", d2 = "   ", e2 = "   ", f2 = "   ", g2 = "   ", h2 = "   ", i2 = "   ";
         private int cnt=1;
-        private int win1=0, win2=0, comwin=0, userwin=0;
+        
         Random random = new Random();
 
         /// /////////////////////////////////
@@ -101,7 +105,7 @@ namespace tictactoe
             Judge1();
             Console.WriteLine("        <Scoreboard>\n");
             Console.WriteLine(" ★*user*★  ★*Computer*★   ");
-            Console.WriteLine("     " + userwin + "             " + comwin);
+            Console.WriteLine("     " + menu.userwin + "             " + menu.comwin);
             Console.WriteLine(" ★＊★＊★  ★＊★＊★＊★   \n\n");
 
             Console.WriteLine("  press ①~⑨");
@@ -125,13 +129,13 @@ namespace tictactoe
 
             
 
-            if (cnt % 2 == 1)
+            if (cnt % 2 == 0)
             {
                 ver1user();
             }
 
 
-            else if (cnt % 2 == 0)
+            else if (cnt % 2 == 1)
             {
                 ver1com();
 
@@ -144,6 +148,12 @@ namespace tictactoe
         {
             int essence;
             essence = int.Parse(ReadLine());
+            if (selectedNumbers.Contains(essence))
+            {
+                Console.WriteLine("이미 선택한 영역입니다.");
+                Console.WriteLine("다른 영역을 선택하세요!");
+                ver1user();
+            }
             selectedNumbers.Add(essence);
             numbers.Remove(essence);
             switch (essence)
@@ -240,6 +250,8 @@ namespace tictactoe
 
         }
 
+        
+
         public void Judge1() //틱택토 화면에서 빙고가 나왔는지 판단하는 메소드
                              // 빙고가 나왔다면 resetting 메소드로 a~i 변수의 값을 공백으로 초기화하고, 이긴 유저의 점수 하나 올리기
         {
@@ -247,29 +259,37 @@ namespace tictactoe
 
             if (a1.Trim() == "O" && b1.Trim() == "O" && c1.Trim() == "O" || d1.Trim() == "O" && e1.Trim() == "O" && f1.Trim() == "O" || g1.Trim() == "O" && h1.Trim() == "O" && i1.Trim() == "O")
             {  //Trim -> 양쪽 공백을 제거                                                                                                          
-                userwin++;
+                menu.userwin++;
 
                 resetting1();
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
 
             }
             if (a1.Trim() == "X" && b1.Trim() == "X" && c1.Trim() == "X" || d1.Trim() == "X" && e1.Trim() == "X" && f1.Trim() == "X" || g1.Trim() == "X" && h1.Trim() == "X" && i1.Trim() == "X")
             {
-                comwin++;
+                menu.comwin++;
                 resetting1();
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
 
             }
             //세로빙고
             if (a1.Trim() == "O" && d1.Trim() == "O" && g1.Trim() == "O" || b1.Trim() == "O" && e1.Trim() == "O" && h1.Trim() == "O" || c1.Trim() == "O" && f1.Trim() == "O" && i1.Trim() == "O")
             {
-                userwin++;
+                menu.userwin++;
                 resetting1();
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
 
             }
 
             if (a1.Trim() == "X" && d1.Trim() == "X" && g1.Trim() == "X" || b1.Trim() == "X" && e1.Trim() == "X" && h1.Trim() == "X" || c1.Trim() == "X" && f1.Trim() == "X" && i1.Trim() == "X")
             {
-                comwin++;
+                menu.comwin++;
                 resetting1();
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
 
             }
 
@@ -277,15 +297,19 @@ namespace tictactoe
 
             if (a1.Trim() == "O" && e1.Trim() == "O" && i1.Trim() == "O" || c1.Trim() == "O" && e1.Trim() == "O" && g1.Trim() == "O")
             {
-                userwin++;
+                menu.userwin++;
                 resetting1();
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
 
             }
 
             if (a1.Trim() == "X" && e1.Trim() == "X" && i1.Trim() == "X" || c1.Trim() == "X" && e1.Trim() == "X" && g1.Trim() == "X")
             {
-                comwin++;
+                menu.comwin++;
                 resetting1();
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
 
             }
 
@@ -303,7 +327,7 @@ namespace tictactoe
             Judge2();
             Console.WriteLine("        <Scoreboard>\n");
             Console.WriteLine(" ★*user1*★  ★*user2*★   ");
-            Console.WriteLine("     " + win1 + "           " + win2);
+            Console.WriteLine("     " + menu.win1 + "           " + menu.win2);
             Console.WriteLine(" ★＊★＊★  ★＊★＊★   \n\n");
 
 
@@ -342,7 +366,15 @@ namespace tictactoe
         public void user1()
         {
             int essence;
-            essence=int.Parse(ReadLine());
+            essence = int.Parse(ReadLine());
+            if (selectedNumbers.Contains(essence))
+            {
+                Console.WriteLine("이미 선택한 영역입니다.");
+                Console.WriteLine("다른 영역을 선택하세요!");
+                user1();
+            }
+            selectedNumbers.Add(essence);
+            numbers.Remove(essence);
 
             switch (essence)
             {
@@ -392,6 +424,14 @@ namespace tictactoe
         {
             int essence;
             essence = int.Parse(ReadLine());
+            if (selectedNumbers.Contains(essence))
+            {
+                Console.WriteLine("이미 선택한 영역입니다.");
+                Console.WriteLine("다른 영역을 선택하세요!");
+                user2();
+            }
+            selectedNumbers.Add(essence);
+            numbers.Remove(essence);
 
             switch (essence)
             {
@@ -442,47 +482,53 @@ namespace tictactoe
 
             if (a2.Trim() == "O" && b2.Trim() == "O" && c2.Trim() == "O" || d2.Trim() == "O" && e2.Trim() == "O" && f2.Trim() == "O" || g2.Trim() == "O" && h2.Trim() == "O" && i2.Trim() == "O")
             {  //Trim -> 양쪽 공백을 제거                                                                                                          
-                win1++;
+                menu.win1++;
 
                 resetting2();
-
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
             }
             if (a2.Trim() == "X" && b2.Trim() == "X" && c2.Trim() == "X" || d2.Trim() == "X" && e2.Trim() == "X" && f2.Trim() == "X" || g2.Trim() == "X" && h2.Trim() == "X" && i2.Trim() == "X")
             {
-                win2++;
+                menu.win2++;
                 resetting2();
-
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
             }
             //세로빙고
              if (a2.Trim() == "O" && d2.Trim() == "O" && g2.Trim() == "O" || b2.Trim() == "O" && e2.Trim() == "O" && h2.Trim() == "O" || c2.Trim() == "O" && f2.Trim() == "O" && i2.Trim() == "O")
                 {
-                    win1++;
+                menu.win1++;
                 resetting2();
-
-                }
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
+            }
 
                 if (a2.Trim() == "X" && d2.Trim() == "X" && g2.Trim() == "X" || b2.Trim() == "X" && e2.Trim() == "X" && h2.Trim() == "X" || c2.Trim() == "X" && f2.Trim() == "X" && i2.Trim() == "X")
                 {
-                    win2++;
+                menu.win2++;
                 resetting2();
-
-                }
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
+            }
 
              //대각선빙고
 
                 if (a2.Trim() == "O" && e2.Trim() == "O" && i2.Trim() == "O" || c2.Trim() == "O" && e2.Trim() == "O" && g2.Trim() == "O")
                 {
-                    win1++;
+                menu.win1++;
                 resetting2();
-
-                }
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
+            }
 
                 if (a2.Trim() == "X" && e2.Trim() == "X" && i2.Trim() == "X" || c2.Trim() == "X" && e2.Trim() == "X" && g2.Trim() == "X")
                 {
-                    win2++;
+                menu.win2++;
                 resetting2();
-
-                }
+                List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+                selectedNumbers.Clear();
+            }
 
 
             }
@@ -494,13 +540,13 @@ namespace tictactoe
             
                 Console.WriteLine("        <Scoreboard>\n\n\n");
                 Console.WriteLine("① ★*user*★  ★*Computer*★   ");
-                Console.WriteLine("       " + userwin + "             " + comwin);
+                Console.WriteLine("       " + menu.userwin + "             " + menu.comwin);
                 Console.WriteLine("   ★＊★＊★  ★＊★＊★＊★   \n\n");
             
             
             
                 Console.WriteLine("② ★*user1*★  ★*user2*★   ");
-                Console.WriteLine("       " + win1 + "            " + win2);
+                Console.WriteLine("       " + menu.win1 + "            " + menu.win2);
                 Console.WriteLine("   ★＊★＊★   ★＊★＊★   \n\n\n");
                 Console.WriteLine("    Press 0 to back menu");
             
