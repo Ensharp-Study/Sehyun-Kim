@@ -22,7 +22,7 @@ namespace Menu
             Console.WriteLine("★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★＊★");
             Console.WriteLine(" *                          　                                  *");
             Console.WriteLine("★                                                              ★");
-            Console.WriteLine("*                   Welcome to play Tic Tac Toe!                *");
+            Console.WriteLine("*                     Welcome to Tic Tac Toe!                   *");
             Console.WriteLine("★                                                              ★");
             Console.WriteLine(" *                          　                                  *");
             Console.WriteLine("★                                                              ★");
@@ -56,7 +56,7 @@ namespace Menu
             {
                 case 1:
                     Console.Clear();
-                    game.computer();
+                    game.display();
                     break;
 
                 case 2:
@@ -75,11 +75,15 @@ namespace Menu
     class Game
     {
         private string a = "   ", b = "   ", c = "   ", d = "   ", e = "   ", f = "   ", g = "   ", h = "   ", i = "   ";
+        private int cnt=0;
+        private int win1=0, win2=0;
+        public void display() { 
+            Console.Clear();
 
-        Number number = new Number();
-        public void computer()
-        {
-
+            cnt++;
+            Judge();
+            Score();
+            Console.WriteLine("  press ①~⑨");
             Console.WriteLine("----------------");
             Console.WriteLine("l ① I ② I ③ I");
             Console.WriteLine("----------------");
@@ -87,31 +91,157 @@ namespace Menu
             Console.WriteLine("----------------");
             Console.WriteLine("l ⑦ I ⑧ I ⑨ I");
             Console.WriteLine("----------------");
+            
+            Console.WriteLine("----------------");
+            Console.WriteLine("l"+a+ "I" + b + " I" + c + " I");
+            Console.WriteLine("----------------");
+            Console.WriteLine("l" + d + "I" + e + " I" + f + " I");
+            Console.WriteLine("----------------");
+            Console.WriteLine("l" + g + "I" + h + " I" + i + " I");
+            Console.WriteLine("----------------");
+            if (cnt % 2 != 0)
+            {
+                user1();
+                
+            }
+            
+            else
+            {
+                user2();
+                
+            }
 
-            Console.WriteLine("----------------");
-            Console.WriteLine("l${a} I{0} I{0} I", a, b, c);
-            Console.WriteLine("----------------");
-            Console.WriteLine("l{0} I{0} I{0} I", d, e, f);
-            Console.WriteLine("----------------");
-            Console.WriteLine("l{0} I{0} I{0} I", g, h, i);
-            Console.WriteLine("----------------");
-
-            number.Question();
 
         }
 
-        public void Question()
+        public void user1()
         {
-            int essence = int.Parse(Console.ReadLine());
+            int essence;
+            essence=int.Parse(ReadLine());
 
             switch (essence)
             {
                 case 1:
-                    a = "O";
+                    a = " O ";
+                    break;
+
+                case 2:
+                    b = " 0 ";
+                    break;
+                case 3:
+                    c = " 0 ";
+                    break;
+                case 4:
+                    d = " 0 ";
+                    break;
+                case 5:
+                    e = " 0 ";
+                    break;
+                case 6:
+                    f = " 0 ";
+                    break;
+                case 7:
+                    g = " 0 ";
+                    break;
+                case 8:
+                    h = " 0 ";
+                    break;
+                case 9:
+                    i = " 0 ";
                     break;
             }
+
+            display();
+        }
+        public void user2()
+        {
+            int essence;
+            essence = int.Parse(ReadLine());
+
+            switch (essence)
+            {
+                case 1:
+                    a = " X ";
+                    break;
+
+                case 2:
+                    b = " X ";
+                    break;
+                case 3:
+                    c = " X ";
+                    break;
+                case 4:
+                    d = " X ";
+                    break;
+                case 5:
+                    e = " X ";
+                    break;
+                case 6:
+                    f = " X ";
+                    break;
+                case 7:
+                    g = " X ";
+                    break;
+                case 8:
+                    h = " X ";
+                    break;
+                case 9:
+                    i = " X ";
+                    break;
+            }
+
+            display();
         }
 
+        public void Judge()
+        {
+            //가로빙고
 
+            if (a.Trim() == "O" && b.Trim() == "O" && c.Trim() == "O" || d.Trim() == "O" && e.Trim() == "O" && f.Trim() == "O" || g.Trim() == "O" && h.Trim() == "O" && i.Trim() == "O")
+            {  //Trim -> 양쪽 공백을 제거
+                win1++;
+                
+            }
+            if (a.Trim() == "X" && b.Trim() == "X" && c.Trim() == "X" || d.Trim() == "X" && e.Trim() == "X" && f.Trim() == "X" || g.Trim() == "X" && h.Trim() == "X" && i.Trim() == "X")
+            {
+                win2++;
+            }
+
+            //세로빙고
+
+            if (a.Trim() == "O" && d.Trim() == "O" && g.Trim() == "O" || b.Trim() == "O" && e.Trim() == "O" && h.Trim() == "O" || c.Trim() == "O" && f.Trim() == "O" && i.Trim() == "O")
+            {
+                win1++;
+            }
+
+            if (a.Trim() == "X" && d.Trim() == "X" && g.Trim() == "X" || b.Trim() == "X" && e.Trim() == "X" && h.Trim() == "X" || c.Trim() == "X" && f.Trim() == "X" && i.Trim() == "X")
+            {
+                win2++;
+            }
+
+            //대각선빙고
+
+            if (a.Trim() == "O" && e.Trim() == "O" && i.Trim() == "O" || c.Trim() == "O" && e.Trim() == "O" && g.Trim() == "O" )
+            {
+                win1++;
+                Console.WriteLine("안라나");
+            }
+
+            if (a.Trim() == "X" && e.Trim() == "X" && i.Trim() == "X" || c.Trim() == "X" && e.Trim() == "X" && g.Trim() == "X")
+            {
+                win2++;
+                Console.WriteLine("안라나");
+            }
+
+            
+        }
+
+        public void Score()
+        {
+            Console.WriteLine("★*★*user1★*★*     ★*★*user2★*★* ");
+            Console.WriteLine("        " + win1 + "                     " + win2 + "        ");
+            Console.WriteLine("★＊★＊★＊★＊★    ★*★＊★＊★＊★\n\n");
+
+        }
     }
 }
