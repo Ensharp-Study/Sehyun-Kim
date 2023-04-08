@@ -9,14 +9,14 @@ using System.Linq;
 using System.Text;
 using static System.Console;
 
-using Tictactoe;
+using TicTacToe;
 
 namespace TicTacToe
 {
     internal class Game
     {
-        
-            Menu menu = new Menu();
+
+        Menu menu = new Menu();
 
             //틱택토 화면 실제로 나오는 부분
             private string a1 = "   ", b1 = "   ", c1 = "   ", d1 = "   ", e1 = "   ", f1 = "   ", g1 = "   ", h1 = "   ", i1 = "   ";
@@ -39,7 +39,7 @@ namespace TicTacToe
                 Judge1();
                 Console.WriteLine("        <Scoreboard>\n");
                 Console.WriteLine(" ★*user*★  ★*Computer*★   ");
-                Console.WriteLine("     " + Menu.userwin + "             " + Menu.comwin);
+            Console.WriteLine("     " + Menu.userwin + "             " + Menu.comwin);
                 Console.WriteLine(" ★＊★＊★  ★＊★＊★＊★   \n\n");
 
                 Console.WriteLine("  press ①~⑨");
@@ -94,7 +94,7 @@ namespace TicTacToe
                 switch (essence)
                 {
                     case 0:
-                        Menu menu = new Menu();
+                    Menu menu = new Menu();
                         menu.Display();
                         break;
 
@@ -364,7 +364,7 @@ namespace TicTacToe
 
                 if (a1.Trim() == "O" && b1.Trim() == "O" && c1.Trim() == "O" || d1.Trim() == "O" && e1.Trim() == "O" && f1.Trim() == "O" || g1.Trim() == "O" && h1.Trim() == "O" && i1.Trim() == "O")
                 {  //Trim -> 양쪽 공백을 제거                                                                                                          
-                    Menu.userwin++;
+                Menu.userwin++;
                     Console.WriteLine("User win!\n");
                     Resetting1();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -374,7 +374,7 @@ namespace TicTacToe
                 }
                 if (a1.Trim() == "X" && b1.Trim() == "X" && c1.Trim() == "X" || d1.Trim() == "X" && e1.Trim() == "X" && f1.Trim() == "X" || g1.Trim() == "X" && h1.Trim() == "X" && i1.Trim() == "X")
                 {
-                    Menu.comwin++;
+                Menu.comwin++;
                     Console.WriteLine("Computer win!\n");
                     Resetting1();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -384,7 +384,7 @@ namespace TicTacToe
                 //세로빙고
                 if (a1.Trim() == "O" && d1.Trim() == "O" && g1.Trim() == "O" || b1.Trim() == "O" && e1.Trim() == "O" && h1.Trim() == "O" || c1.Trim() == "O" && f1.Trim() == "O" && i1.Trim() == "O")
                 {
-                    Menu.userwin++;
+                Menu.userwin++;
                     Console.WriteLine("User win!\n");
                     Resetting1();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -394,7 +394,7 @@ namespace TicTacToe
 
                 if (a1.Trim() == "X" && d1.Trim() == "X" && g1.Trim() == "X" || b1.Trim() == "X" && e1.Trim() == "X" && h1.Trim() == "X" || c1.Trim() == "X" && f1.Trim() == "X" && i1.Trim() == "X")
                 {
-                    Menu.comwin++;
+                Menu.comwin++;
                     Console.WriteLine("Computer win!\n");
                     Resetting1();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -406,7 +406,7 @@ namespace TicTacToe
 
                 if (a1.Trim() == "O" && e1.Trim() == "O" && i1.Trim() == "O" || c1.Trim() == "O" && e1.Trim() == "O" && g1.Trim() == "O")
                 {
-                    Menu.userwin++;
+                Menu.userwin++;
                     Console.WriteLine("User win!\n");
                     Resetting1();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -416,7 +416,7 @@ namespace TicTacToe
 
                 if (a1.Trim() == "X" && e1.Trim() == "X" && i1.Trim() == "X" || c1.Trim() == "X" && e1.Trim() == "X" && g1.Trim() == "X")
                 {
-                    Menu.comwin++;
+                Menu.comwin++;
                     Console.WriteLine("Computer win!\n");
                     Resetting1();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -447,7 +447,7 @@ namespace TicTacToe
                 Judge2();
                 Console.WriteLine("        <Scoreboard>\n");
                 Console.WriteLine(" ★*user1*★  ★*user2*★   ");
-                Console.WriteLine("     " + Menu.user1win + "           " + Menu.user2win);
+            Console.WriteLine("     " + Menu.user1win + "           " + Menu.user2win);
                 Console.WriteLine(" ★＊★＊★  ★＊★＊★   \n\n");
 
 
@@ -499,7 +499,7 @@ namespace TicTacToe
                 switch (essence)
                 {
                     case 0:
-                        Menu menu = new Menu();
+                    Menu menu = new Menu();
                         menu.Display();
                         break;
 
@@ -556,7 +556,7 @@ namespace TicTacToe
                 switch (essence)
                 {
                     case 0:
-                        Menu menu = new Menu();
+                    Menu menu = new Menu();
                         menu.Display();
                         break;
 
@@ -602,7 +602,7 @@ namespace TicTacToe
 
                 if (a2.Trim() == "O" && b2.Trim() == "O" && c2.Trim() == "O" || d2.Trim() == "O" && e2.Trim() == "O" && f2.Trim() == "O" || g2.Trim() == "O" && h2.Trim() == "O" && i2.Trim() == "O")
                 {  //Trim -> 양쪽 공백을 제거                                                                                                          
-                    Menu.user1win++;
+                Menu.user1win++;
                     Console.WriteLine("User1 win!\n");
                     Resetting2();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -610,7 +610,7 @@ namespace TicTacToe
                 }
                 if (a2.Trim() == "X" && b2.Trim() == "X" && c2.Trim() == "X" || d2.Trim() == "X" && e2.Trim() == "X" && f2.Trim() == "X" || g2.Trim() == "X" && h2.Trim() == "X" && i2.Trim() == "X")
                 {
-                    Menu.user2win++;
+                Menu.user2win++;
                     Console.WriteLine("User2 win!\n");
                     Resetting2();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -619,7 +619,7 @@ namespace TicTacToe
                 //세로빙고
                 if (a2.Trim() == "O" && d2.Trim() == "O" && g2.Trim() == "O" || b2.Trim() == "O" && e2.Trim() == "O" && h2.Trim() == "O" || c2.Trim() == "O" && f2.Trim() == "O" && i2.Trim() == "O")
                 {
-                    Menu.user1win++;
+                Menu.user1win++;
                     Console.WriteLine("User1 win!\n");
                     Resetting2();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -628,7 +628,7 @@ namespace TicTacToe
 
                 if (a2.Trim() == "X" && d2.Trim() == "X" && g2.Trim() == "X" || b2.Trim() == "X" && e2.Trim() == "X" && h2.Trim() == "X" || c2.Trim() == "X" && f2.Trim() == "X" && i2.Trim() == "X")
                 {
-                    Menu.user2win++;
+                Menu.user2win++;
                     Console.WriteLine("User2 win!\n");
                     Resetting2();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -639,7 +639,7 @@ namespace TicTacToe
 
                 if (a2.Trim() == "O" && e2.Trim() == "O" && i2.Trim() == "O" || c2.Trim() == "O" && e2.Trim() == "O" && g2.Trim() == "O")
                 {
-                    Menu.user1win++;
+                Menu.user1win++;
                     Console.WriteLine("User1 win!\n");
                     Resetting2();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -648,7 +648,7 @@ namespace TicTacToe
 
                 if (a2.Trim() == "X" && e2.Trim() == "X" && i2.Trim() == "X" || c2.Trim() == "X" && e2.Trim() == "X" && g2.Trim() == "X")
                 {
-                    Menu.user2win++;
+                Menu.user2win++;
                     Console.WriteLine("User2 win!\n");
                     Resetting2();
                     List<int> numbers = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
@@ -672,13 +672,13 @@ namespace TicTacToe
 
                 Console.WriteLine("        <Scoreboard>\n\n\n");
                 Console.WriteLine("① ★*user*★  ★*Computer*★   ");
-                Console.WriteLine("       " + Menu.userwin + "             " + Menu.comwin);
+            Console.WriteLine("       " + Menu.userwin + "             " + Menu.comwin);
                 Console.WriteLine("   ★＊★＊★  ★＊★＊★＊★   \n\n");
 
 
 
                 Console.WriteLine("② ★*user1*★  ★*user2*★   ");
-                Console.WriteLine("       " + Menu.user1win + "            " + Menu.user2win);
+            Console.WriteLine("       " + Menu.user1win + "            " + Menu.user2win);
                 Console.WriteLine("   ★＊★＊★   ★＊★＊★   \n\n\n");
                 Console.WriteLine("    Press 0 to back menu");
 
@@ -688,7 +688,7 @@ namespace TicTacToe
                 if (essence == 0)
                 {
                     Console.Clear();
-                    Menu menu = new Menu();
+                Menu menu = new Menu();
                     menu.Display();
                 }
             }
