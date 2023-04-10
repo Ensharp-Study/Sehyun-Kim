@@ -38,10 +38,12 @@ namespace Library
             Console.WriteLine("                      ■         0을 눌러 돌아가기        ■               ");
             Console.WriteLine("                      □■□■□■□■□■□■□■□■□■□");
 
+
             Display display = new Display();
             int num = int.Parse(Console.ReadLine());
             switch (num)
             {
+
                 case 0:
                     display.inputInfo();
                     break;
