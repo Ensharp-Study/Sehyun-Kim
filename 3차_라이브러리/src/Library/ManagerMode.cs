@@ -13,6 +13,8 @@ namespace Library
         BookData bookData = new BookData();
         UserMode mode = new UserMode();
         public List<BookConstructor> BookList = new List<BookConstructor>();
+
+        //설계 단계에서 상속 생각하고 설계하기 
         public void modOfManager()
         {
 
@@ -43,6 +45,7 @@ namespace Library
                     display.InitialDisplay();
                     break;
                 case 1:
+                    //함수로 빼기 
                     foreach (BookConstructor book in bookData.BookList)  //전체 도서 표시
                     {
                         Console.WriteLine("=================================================");
@@ -95,7 +98,7 @@ namespace Library
                 case 0:
                     modOfManager();
                     break;
-                case 1:
+                case 1: //함수로 빼기 매직넘버 mvc 패턴 
                     Console.Write("제목을 입력하세요 : ");
                     string title = Console.ReadLine();
                     foreach (BookConstructor book in bookData.BookList)

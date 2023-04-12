@@ -80,7 +80,8 @@ namespace Library
             Console.WriteLine("                      □■□■□■□■□■□■□■□■□■□\n\n");
             
             int num = int.Parse(Console.ReadLine());
-
+            //mvc 패턴 -> 분리하기
+            //매직 넘버
             switch (num)
             {
                 case 0:

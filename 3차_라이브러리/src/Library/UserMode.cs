@@ -80,6 +80,7 @@ namespace Library
                     break;
                 case 7:
                     deleteinfo();
+                    usermenu();
                     break;
             }
 
