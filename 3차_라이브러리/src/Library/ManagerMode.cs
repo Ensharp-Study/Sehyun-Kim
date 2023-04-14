@@ -287,7 +287,7 @@ namespace Library
                     Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
                     Console.SetCursorPosition(5, 13);
                     int idinput = int.Parse(Console.ReadLine());
-                    BookData.BookList[booklistnumber].id = idinput;
+                    BookData.BookList[booklistnumber].id = idinput; 
                     /*
                     if (book.quantity > 1) //책이 여러권이면 수량 하나 삭제 
                     {
