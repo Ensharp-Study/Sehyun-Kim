@@ -4,17 +4,16 @@ using System.Linq;
 using System.Text;
 using static System.Console;
 using System.Threading.Tasks;
+using Library;
+using static Library.LoginOrNewmember;
 
 namespace Library
 {
 
     internal class UserMode
     {
-        BookData bookData = new BookData();
+        
         public static int booklistnumber = 0;
-        List<BookConstructor> BookList = new List<BookConstructor>();
-        List<BookConstructor> rentedBooks = new List<BookConstructor>();
-        List<BookConstructor> returnedBooks = new List<BookConstructor>();
         public void usermenu()
         { //로그인 또는 회원가입 메뉴
 
@@ -38,13 +37,14 @@ namespace Library
             Console.WriteLine("                      ■         0을 눌러 돌아가기        ■               ");
             Console.WriteLine("                      □■□■□■□■□■□■□■□■□■□");
 
-
             Display display = new Display();
+
             int num = int.Parse(Console.ReadLine());
             switch (num)
             {
 
                 case 0:
+                    Console.Clear();
                     display.inputInfo();
                     break;
 
@@ -61,16 +61,18 @@ namespace Library
                     break;
 
                 case 3:
-                    borrowhistory();
+                    
                     returnBook();
                     usermenu();
                     break;
 
                 case 4:
+                    Console.Clear();
                     borrowhistory();
                     usermenu();
                     break;
                 case 5:
+                    Console.Clear();
                     returnhistory();
                     usermenu();
                     break;
@@ -80,7 +82,7 @@ namespace Library
                     break;
                 case 7:
                     deleteinfo();
-                    usermenu();
+                    
                     break;
             }
 
@@ -88,8 +90,9 @@ namespace Library
         public void allBook()
         {
 
-            foreach (BookConstructor book in bookData.BookList)  //전체 도서 표시
+            foreach (BookConstructor book in BookData.BookList)  //전체 도서 표시
             {
+                
                 Console.WriteLine("=================================================");
                 Console.WriteLine("  ID: " + book.id);
                 Console.WriteLine("  Title: " + book.bookName);
@@ -100,6 +103,7 @@ namespace Library
                 Console.WriteLine("  publicationDate: " + book.publicationDate);
                 Console.WriteLine("  isbn: " + book.isbn);
                 Console.WriteLine("  info: " + book.info);
+                Console.WriteLine("  대여 가능한 책: " + book.rentpossible + "권");
                 Console.WriteLine("==================================================");
             }
         }
@@ -107,25 +111,30 @@ namespace Library
 
         public void searchBook()
         {
-            BookData bookData = new BookData();  // BookData 객체 생성
 
             Console.WriteLine(" < 도서 찾기 >  \n");
 
             Console.WriteLine(" ⓛ 제목으로 찾기 ");
             Console.WriteLine(" ② 작가명으로 찾기");
             Console.WriteLine(" ③ 출판사명으로 찾기");
+            Console.WriteLine(" 0을 눌러 돌아가기");
 
             int num = int.Parse(Console.ReadLine());
 
             switch (num)
             {
+                case 0:
+                    Console.Clear();
+                    usermenu();
+                    break;
                 case 1:
                     Console.Write("제목을 입력하세요 : ");
                     string title = Console.ReadLine();
-                    foreach (var book in bookData.BookList)
+                    foreach (var book in BookData.BookList)
                     {
                         if (book.bookName.IndexOf(title, StringComparison.OrdinalIgnoreCase) >= 0)
                         {
+                            Console.Clear();
                             Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
                             Console.WriteLine("  ID: " + book.id);
                             Console.WriteLine("  Title: " + book.bookName);
@@ -136,6 +145,7 @@ namespace Library
                             Console.WriteLine("  publicationDate: " + book.publicationDate);
                             Console.WriteLine("  isbn: " + book.isbn);
                             Console.WriteLine("  info: " + book.info);
+                            Console.WriteLine("  대여 가능한 책: " + book.rentpossible + "권");
                             Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
                         }
                     }
@@ -145,10 +155,11 @@ namespace Library
                 case 2:
                     Console.Write("작가명을 입력하세요 : ");
                     string authorname = Console.ReadLine();
-                    foreach (var book in bookData.BookList)
+                    foreach (var book in BookData.BookList)
                     {
-                        if (book.bookName.IndexOf(authorname, StringComparison.OrdinalIgnoreCase) >= 0)
+                        if (book.author.IndexOf(authorname, StringComparison.OrdinalIgnoreCase) >= 0)
                         {
+                            Console.Clear();
                             Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
                             Console.WriteLine("  ID: " + book.id);
                             Console.WriteLine("  Title: " + book.bookName);
@@ -159,6 +170,7 @@ namespace Library
                             Console.WriteLine("  publicationDate: " + book.publicationDate);
                             Console.WriteLine("  isbn: " + book.isbn);
                             Console.WriteLine("  info: " + book.info);
+                            Console.WriteLine("  대여 가능한 책: " + book.rentpossible + "권");
                             Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
                         }
                     }
@@ -167,10 +179,11 @@ namespace Library
                 case 3:
                     Console.Write("출판사명을 입력하세요 : ");
                     string publishername = Console.ReadLine();
-                    foreach (var book in bookData.BookList)
+                    foreach (var book in BookData.BookList)
                     {
-                        if (book.bookName.IndexOf(publishername, StringComparison.OrdinalIgnoreCase) >= 0)
+                        if (book.publisher.IndexOf(publishername, StringComparison.OrdinalIgnoreCase) >= 0)
                         {
+                            Console.Clear();
                             Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
                             Console.WriteLine("  ID: " + book.id);
                             Console.WriteLine("  Title: " + book.bookName);
@@ -181,6 +194,7 @@ namespace Library
                             Console.WriteLine("  publicationDate: " + book.publicationDate);
                             Console.WriteLine("  isbn: " + book.isbn);
                             Console.WriteLine("  info: " + book.info);
+                            Console.WriteLine("  대여 가능한 책: " + book.rentpossible + "권");
                             Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
                         }
                     }
@@ -195,15 +209,41 @@ namespace Library
 
         public void borrowBook()
         {
+            Console.Clear();
+            allBook();
             Console.WriteLine("대여할 책 id를 입력하세요.");
+            Console.WriteLine("(뒤로 가려면 0을 누르세요.)");
             int inputBookId = int.Parse(Console.ReadLine());
-            
-            foreach (var book in bookData.BookList)
+            if (inputBookId == 0)
             {
+                Console.Clear();
+                usermenu();
+
+            }
+            int i = 0;
+            foreach (var book in BookData.BookList)
+            {
+                i++;
                 if (book.id == inputBookId)
                 {
-                    Console.WriteLine("대여 완료했습니다.");
-                    rentedBooks.Add(book);
+                    booklistnumber = i - 1;
+
+                    if (BookData.BookList[booklistnumber].rentpossible == 0)
+                    {
+                        Console.WriteLine("대여 가능한 도서가 없습니다.");
+                    }
+                    if (BookData.BookList[booklistnumber].rentpossible > 0)
+                    {
+                        
+                        BookData.BookList[booklistnumber].rentpossible--;
+                        UserData.UserList[userlistnumber].rentedbooklist.Add(book);
+                        Console.WriteLine("대여 완료했습니다.");
+                        //BookData.rentpossibleBook.Add(book);
+                    }
+
+                    
+                        
+                   
                     
                     break;
                 }
@@ -212,24 +252,42 @@ namespace Library
 
         public void returnBook()
         {
+            borrowhistory();
             Console.WriteLine("반납할 책 id를 입력하세요.");
+            Console.WriteLine("(뒤로 가려면 0을 누르세요.)");
             int inputBookId2 = int.Parse(Console.ReadLine());
-            foreach (var book in bookData.BookList)
+
+            if (inputBookId2 == 0)
             {
+                Console.Clear();
+                usermenu();
+
+            }
+            int i = 0;
+            foreach (var book in BookData.BookList)
+            {
+                i++;
                 if (book.id == inputBookId2)
                 {
+                    booklistnumber = i - 1;
+                    
+                    BookData.BookList[booklistnumber].rentpossible++;
+                    UserData.UserList[userlistnumber].rentedbooklist.Remove(book);
+                    UserData.UserList[userlistnumber].returnedbooklist.Add(book);
+                    //BookData.rentimpossibleBook.Add(book);
+                    //BookData.rentpossibleBook.Remove(book);
                     Console.WriteLine("반납 완료했습니다.");
-                    returnedBooks.Add(book);
-                    rentedBooks.Remove(book);
                     break;
                 }
             }
-        }
-
+        }//userlistnumber로 해당회원리스트접근가능 
+        //패키징하면데이터x const
         public void borrowhistory()
         {
-            foreach (BookConstructor book in rentedBooks)
+            Console.Clear();
+            foreach (BookConstructor book in UserData.UserList[userlistnumber].rentedbooklist)
             {
+                Console.WriteLine("현재 회원님이 대여 중인 도서를 표시합니다.");
                 Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
                 Console.WriteLine("  ID: " + book.id);
                 Console.WriteLine("  Title: " + book.bookName);
@@ -243,11 +301,14 @@ namespace Library
                 Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
             }
         }
-
+        
         public void returnhistory()
         {
-            foreach (BookConstructor book in returnedBooks)
+            Console.Clear();
+            foreach (BookConstructor book in UserData.UserList[userlistnumber].returnedbooklist)
             {
+                
+                Console.WriteLine("회원님의 반납 이력을 표시합니다.");
                 Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
                 Console.WriteLine("  ID: " + book.id);
                 Console.WriteLine("  Title: " + book.bookName);
@@ -261,68 +322,114 @@ namespace Library
                 Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
             }
         }
-
+        
         public void modifyinfo()
-        {
-
+        { 
+            
+            Console.Clear();
+            //현재 회원 정보를 표시함
+            Console.WriteLine("현재 회원님의 정보를 표시합니다.");
+            Console.WriteLine("=================================================");
+                Console.WriteLine("  userid: " + UserData.UserList[userlistnumber].userid);
+                Console.WriteLine("  Name: " + UserData.UserList[userlistnumber].Name);
+                Console.WriteLine("  Age: " + UserData.UserList[userlistnumber].Age);
+                Console.WriteLine("  PhoneNumber: " + UserData.UserList[userlistnumber].PhoneNumber);
+                Console.WriteLine("  Address: " + UserData.UserList[userlistnumber].Address);
+                Console.WriteLine("==================================================");
+            
             Console.WriteLine("어떤 정보를 수정하시겠습니까?");
+            
             Console.WriteLine("1. password");
             Console.WriteLine("2. Name");
             Console.WriteLine("3. Age");
             Console.WriteLine("4. PhoneNumber");
             Console.WriteLine("5. Address");
-            List<UserData> userList = new List<UserData>();
-
+            //userlistnumber 로그인 클래스에서 받아서 저장되어있음
             int num= int.Parse(Console.ReadLine());
+            Console.Clear();
             switch (num)
             {
                 case 1:
-                    string pwinput = Console.ReadLine();
-                    foreach (UserData user in userList)
-                    {
-                        user.password = pwinput;
-                    }
+                    Console.WriteLine("새로운 패스워드를 입력하세요.");
+                    string pwinput = GetHiddenConsoleInput();
+                    UserData.UserList[userlistnumber].password = pwinput;
                         
                     break;
                 case 2:
+                    Console.WriteLine("새로운 이름을 입력하세요.");
                     string nameinput = Console.ReadLine();
-                    foreach (UserData user in userList)
-                    {
-                        user.Name = nameinput;
-                    }
+                    UserData.UserList[userlistnumber].Name = nameinput;
                     break;
                 case 3:
+                    Console.WriteLine("새로운 나이를 입력하세요.");
                     int ageinput = int.Parse(Console.ReadLine());
-                    foreach (UserData user in userList)
-                    {
-                        user.Age = ageinput;
-                    }
+                    UserData.UserList[userlistnumber].Age = ageinput;
                     break;
                 case 4:
+                    Console.WriteLine("새로운 전화번호를 입력하세요.");
                     int phoneinput = int.Parse(Console.ReadLine());
-                    foreach (UserData user in userList)
-                    {
-                        user.PhoneNumber = phoneinput;
-                    }
+                    UserData.UserList[userlistnumber].PhoneNumber = phoneinput;
                     break;
                 case 5:
-                    int addressinput = int.Parse(Console.ReadLine());
-                    foreach (UserData user in userList)
-                    {
-                        user.Address = addressinput;
-                    }
+                    Console.WriteLine("새로운 주소를 입력하세요.");
+                    string addressinput = Console.ReadLine();
+                    UserData.UserList[userlistnumber].Address = addressinput;
                     break;
             }
+            Console.Clear();
             Console.WriteLine("정보가 수정되었습니다.");
-
+            Console.WriteLine("수정된 회원님의 정보를 표시합니다.");
+            Console.WriteLine("=================================================");
+            Console.WriteLine("  userid: " + UserData.UserList[userlistnumber].userid);
+            Console.WriteLine("  Name: " + UserData.UserList[userlistnumber].Name);
+            Console.WriteLine("  Age: " + UserData.UserList[userlistnumber].Age);
+            Console.WriteLine("  PhoneNumber: " + UserData.UserList[userlistnumber].PhoneNumber);
+            Console.WriteLine("  Address: " + UserData.UserList[userlistnumber].Address);
+            Console.WriteLine("==================================================");
 
         }
-
+        public string GetHiddenConsoleInput()
+        {
+            string input = "";
+            ConsoleKeyInfo key;
+            do
+            {
+                key = Console.ReadKey(true);
+                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                {
+                    input += key.KeyChar;
+                    Write("*");
+                }
+                else
+                {
+                    if (key.Key == ConsoleKey.Backspace && input.Length > 0)
+                    {
+                        input = input.Substring(0, (input.Length - 1));
+                        ClearLine(Console.CursorLeft, Console.CursorTop);
+                        Write(new string(' ', Console.WindowWidth));
+                        ClearLine(Console.CursorLeft, Console.CursorTop);
+                        for (int i = 0; i < input.Length; i++)
+                        {
+                            Write("*");
+                        }
+                    }
+                }
+            } while (key.Key != ConsoleKey.Enter);
+            return input;
+        }
+        private void ClearLine(int left, int top)
+        {
+            Console.SetCursorPosition(left, top);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(left, top);
+        }
         public void deleteinfo()
         {
-            List<UserData> userList = new List<UserData>();
-            // 사용자가 대여한 도서가 있는지 확인합니다.
-            bool hasRentedBooks = rentedBooks.Any(book => book.id > 0);
+            Console.Clear();
+            Display display = new Display();
+            List<UserConstructor> userList = new List<UserConstructor>();
+            // 사용자가 대여한 도서가 있는지 확인
+            bool hasRentedBooks = UserData.UserList[userlistnumber].rentedbooklist.Any(book => book.id > 0);
 
             if (hasRentedBooks)
             {
@@ -330,9 +437,12 @@ namespace Library
             }
             else
             {
-                // 사용자 데이터를 UserData 클래스 내부의 Remove 메서드를 사용하여 삭제합니다.
+                UserData.UserList.RemoveAt(userlistnumber);
+                Console.WriteLine("회원 탈퇴되었습니다.");
+                display.InitialDisplay();
                 
             }
         }
     }
 }
+//UserData.UserList[userlistnumber].rentedbooklist.Add(book);

@@ -10,9 +10,9 @@ namespace Library
     internal class BookData
     {
 
-        public List<BookConstructor> BookList = new List<BookConstructor>();
+        public static List<BookConstructor> BookList = new List<BookConstructor>();
 
-        public BookData()
+        public static void bookData()
         {
             BookList.Add(new BookConstructor()
             {
@@ -24,8 +24,9 @@ namespace Library
                 price = 20000,
                 publicationDate = "2010.07.18",
                 isbn = "12345678",
-                info = "코딩"
-            });
+                info = "코딩",
+                rentpossible = 3
+            }) ;
 
             BookList.Add(new BookConstructor()
             {
@@ -37,7 +38,8 @@ namespace Library
                 price = 17000,
                 publicationDate = "2018.09.24",
                 isbn = "79854657",
-                info = "회로"
+                info = "회로",
+                rentpossible = 5
             });
 
             BookList.Add(new BookConstructor()
@@ -50,7 +52,8 @@ namespace Library
                 price = 20000,
                 publicationDate = "2021.11.22",
                 isbn = "3425342",
-                info = "글쓰기"
+                info = "글쓰기",
+                rentpossible = 3
             });
 
             BookList.Add(new BookConstructor()
@@ -63,7 +66,8 @@ namespace Library
                 price = 32000,
                 publicationDate = "2014.01.13",
                 isbn = "123432478",
-                info = "화학"
+                info = "화학",
+                rentpossible = 1
             });
 
             BookList.Add(new BookConstructor()
@@ -76,7 +80,8 @@ namespace Library
                 price = 20000,
                 publicationDate = "2004.06.12",
                 isbn = "2432478",
-                info = "간호"
+                info = "간호",
+                rentpossible = 4
             });
 
             BookList.Add(new BookConstructor()
@@ -89,7 +94,8 @@ namespace Library
                 price = 14000,
                 publicationDate = "2022.08.05",
                 isbn = "9856778",
-                info = "코딩"
+                info = "코딩",
+                rentpossible = 2
             });
 
         }

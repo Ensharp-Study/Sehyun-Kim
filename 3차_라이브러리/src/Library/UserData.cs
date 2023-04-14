@@ -2,42 +2,36 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using static System.Console;
 using System.Threading.Tasks;
 
 namespace Library
 {
     internal class UserData
-     {
-        public string userid { get; set; }
-        public string password { get; set; }
-        public string Name { get; set; }
-        public int Age { get; set; }
-        public int PhoneNumber { get; set; }
-        public int Address { get; set; }
-
+    {
+        public static List<UserConstructor> UserList = new List<UserConstructor>();
         
-
-        public UserData()
+        public static void userData()
         {
+            UserList.Add(new UserConstructor()
+            {
+                userid = "sehyun",
+                password = "1234",
+                Name = "김세현",
+                Age = 21,
+                PhoneNumber = 01040244794,
+                Address = "서울시 광진구 화양동",
+                
+            });
+
+            UserList.Add(new UserConstructor()
+            {
+                userid = "id",
+                password = "0000",
+                Name = "정재현",
+                Age = 21,
+                PhoneNumber = 01020032003,
+                Address = "서울시 광진구 군자동"
+            });
         }
-        public UserData(string userid, string password, string Name, int Age,
-            int PhoneNumber, int Address )
-        {
-            this.userid = userid;
-            this.password = password;
-            this.Name = Name;
-            this.Age = Age;
-            this.PhoneNumber= PhoneNumber;
-            this.Address = Address;
-            
-        }
-
-       
     }
-   
-        
-
-    }
-
-
+}

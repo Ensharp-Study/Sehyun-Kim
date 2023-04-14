@@ -16,7 +16,6 @@ namespace Library
             loginOrNewmember = new LoginOrNewmember(this);
         }
 
-
         public void InitialDisplay() { //처음 메뉴 디스플레이
 
             
@@ -37,19 +36,24 @@ namespace Library
             Console.WriteLine("                      □          ① 유저 모드            □            ");
             Console.WriteLine("                      ■         ② 관리자 모드           ■                    ");
             Console.WriteLine("                      □                                  □               ");
-            Console.WriteLine("                      ■                                  ■               ");
+            Console.WriteLine("                      ■        0을 눌러 종료하기         ■               ");
             Console.WriteLine("                      □■□■□■□■□■□■□■□■□■□\n\n");
 
-
+            
             int number = int.Parse(Console.ReadLine());
             ManagerMode managerMode = new ManagerMode();
             switch (number)
             {
+                case 0:
+                    Console.Clear();
+                    return;
+                    break;
                 case 1: //유저모드 -> 로그인 또는 회원가입 
                     Console.Clear();
                     inputInfo();
                     break;
                 case 2: //관리자모드
+                    Console.Clear();
                     managerMode.modOfManager();
                     break;
             }
@@ -80,8 +84,7 @@ namespace Library
             Console.WriteLine("                      □■□■□■□■□■□■□■□■□■□\n\n");
             
             int num = int.Parse(Console.ReadLine());
-            //mvc 패턴 -> 분리하기
-            //매직 넘버
+
             switch (num)
             {
                 case 0:

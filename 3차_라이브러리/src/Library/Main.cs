@@ -14,7 +14,10 @@ namespace Library
         {
 
             Display display = new Display();
+            UserData.userData();
+            BookData.bookData();
             display.InitialDisplay();
+            
         }
     }
         

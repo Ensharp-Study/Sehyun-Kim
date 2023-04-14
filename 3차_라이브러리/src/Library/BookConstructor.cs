@@ -18,11 +18,13 @@ namespace Library
         public string publicationDate { get; set; }
         public string isbn { get; set; }
         public string info { get; set; }
+
+        public int rentpossible { get; set; }
         public BookConstructor()
         {
         }
         public BookConstructor(int id, string bookName, string author, string publisher,
-            int quantity, int price, string publicationDate, string isbn, string info)
+            int quantity, int price, string publicationDate, string isbn, string info, int rentpossible)
         {
             this.id = id;
             this.bookName = bookName;
@@ -32,6 +34,7 @@ namespace Library
             this.quantity = quantity;
             this.isbn = isbn;
             this.info = info;
+            this.rentpossible = rentpossible;
         }
 
 
