@@ -9,7 +9,7 @@ namespace Library
     internal class CheckInputIsEnter
     {
         public KeyValuePair<string, int> SaveIDIfNotEnter(string randomExpression, int isOrNot)
-        //반환값 2개 이상이면 type 이름을 dynamic으로 쓸 수 있다.
+        
         {
             ConsoleKeyInfo IDinput = Console.ReadKey();
             if (IDinput.Key == ConsoleKey.Enter) //입력한 값이 엔터면
