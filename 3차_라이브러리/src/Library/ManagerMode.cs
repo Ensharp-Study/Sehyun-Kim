@@ -250,6 +250,9 @@ namespace Library
         {
             Console.Clear();
             allBook();
+            ViewRulesForBookData viewRulesForBookData = new ViewRulesForBookData();
+            DetermineWithRegularExpression determineWithRegularExpression = new DetermineWithRegularExpression();
+            CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter();
             Console.WriteLine("수정할 책 id를 입력하세요.");
             int inputBookId = int.Parse(Console.ReadLine());
             int i = 0;
@@ -261,8 +264,8 @@ namespace Library
                 {
                     Console.Clear();
                     Console.WriteLine("현재 해당 도서의 정보입니다.");
-
                     booklistnumber = i - 1;
+
                     Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
                     Console.WriteLine("  ID: " + BookData.BookList[booklistnumber].id);
                     Console.WriteLine("  Title: " + BookData.BookList[booklistnumber].bookName);
@@ -285,22 +288,174 @@ namespace Library
                     Console.WriteLine("  isbn: ");
                     Console.WriteLine("  info: ");
                     Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
-                    Console.SetCursorPosition(5, 13);
-                    int idinput = int.Parse(Console.ReadLine());
-                    BookData.BookList[booklistnumber].id = idinput; 
-                    /*
-                    if (book.quantity > 1) //책이 여러권이면 수량 하나 삭제 
-                    {
-                        BookData.BookList[booklistnumber].quantity--;
-                        i = 0;
-                    }
-                    else //책이 한권일때 리스트에서 아예 삭제 
-                    {
-                        BookData.BookList.RemoveAt(booklistnumber);
-                        i = 0;
-                    }
+                    viewRulesForBookData.RulesForBookData();
 
-                    */
+                    //ㅡㅡㅡㅡㅡㅡㅡIDㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    
+                    Console.SetCursorPosition(5, 13);
+                    string randomExpression = "";
+                    int isOrNot=0;
+
+                    while (true)
+                    {
+                       KeyValuePair<string, int> result = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, isOrNot);
+
+                        if (isOrNot == 1) {
+                            break;
+                        }
+                    }
+                    determineWithRegularExpression.JudgeBookID(randomExpression);
+                    
+                    //ㅡㅡㅡㅡㅡㅡㅡTitleㅡㅡㅡㅡㅡㅡㅡㅡ
+                    Console.SetCursorPosition(8, 14);
+                    int count = 0;
+                    while (true ) //입력값이 엔터가 아닐 경우 
+                    {
+                        ConsoleKeyInfo key = Console.ReadKey(true);
+                        if (key.Key == ConsoleKey.Enter)
+                        {
+                            break;
+                        }
+                        else if   (Char.IsLetterOrDigit(key.KeyChar))
+                        {
+                            if (count == 0)
+                            {
+                                BookData.BookList[booklistnumber].bookName="";
+                            }
+                            BookData.BookList[booklistnumber].bookName += key.KeyChar;
+                            Console.Write(key.KeyChar);
+                            count = 1;
+                        }
+                        
+                    }
+                    count = 0;
+                    //ㅡㅡㅡㅡㅡㅡㅡauthorㅡㅡㅡㅡㅡㅡㅡㅡ
+                    Console.SetCursorPosition(9, 15);
+                    while (true) //입력값이 엔터가 아닐 경우 
+                    {
+                        ConsoleKeyInfo key = Console.ReadKey(true);
+                        if (key.Key == ConsoleKey.Enter)
+                        {
+                            break;
+                        }
+                        else if (Char.IsLetterOrDigit(key.KeyChar))
+                        {
+                            if (count == 0)
+                            {
+                                BookData.BookList[booklistnumber].author = "";
+                            }
+                            BookData.BookList[booklistnumber].author += key.KeyChar;
+                            Console.Write(key.KeyChar);
+                            count = 1;
+                        }
+
+                    }
+                    count = 0;
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    Console.SetCursorPosition(12, 16);
+                    while (true) //입력값이 엔터가 아닐 경우 
+                    {
+                        ConsoleKeyInfo key = Console.ReadKey(true);
+                        if (key.Key == ConsoleKey.Enter)
+                        {
+                            break;
+                        }
+                        else if (Char.IsLetterOrDigit(key.KeyChar))
+                        {
+                            if (count == 0)
+                            {
+                                BookData.BookList[booklistnumber].publisher = "";
+                            }
+                            BookData.BookList[booklistnumber].publisher += key.KeyChar;
+                            Console.Write(key.KeyChar);
+                            count = 1;
+                        }
+
+                    }
+                    count = 0;
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    Console.SetCursorPosition(8, 17);
+                    string priceinput = Console.ReadLine();
+                    if (priceinput != "") //입력값이 엔터가 아닐 경우 
+                    {
+                        int intpriceinput = int.Parse(priceinput);
+                        BookData.BookList[booklistnumber].price = intpriceinput;
+                    }
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    Console.SetCursorPosition(11, 18);
+                    string quantityinput = Console.ReadLine();
+                    if (quantityinput != "") //입력값이 엔터가 아닐 경우 
+                    {
+                        int intquantityinput = int.Parse(quantityinput);
+                        BookData.BookList[booklistnumber].price = intquantityinput;
+                    }
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    Console.SetCursorPosition(18, 19);
+                    while (true) //입력값이 엔터가 아닐 경우 
+                    {
+                        ConsoleKeyInfo key = Console.ReadKey(true);
+                        if (key.Key == ConsoleKey.Enter)
+                        {
+                            break;
+                        }
+                        else if (Char.IsLetterOrDigit(key.KeyChar))
+                        {
+                            if (count == 0)
+                            {
+                                BookData.BookList[booklistnumber].publicationDate = "";
+                            }
+                            BookData.BookList[booklistnumber].publicationDate += key.KeyChar;
+                            Console.Write(key.KeyChar);
+                            count = 1;
+                        }
+
+                    }
+                    count = 0;
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    Console.SetCursorPosition(7, 20);
+                    while (true) //입력값이 엔터가 아닐 경우 
+                    {
+                        ConsoleKeyInfo key = Console.ReadKey(true);
+                        if (key.Key == ConsoleKey.Enter)
+                        {
+                            break;
+                        }
+                        else if (Char.IsLetterOrDigit(key.KeyChar))
+                        {
+                            if (count == 0)
+                            {
+                                BookData.BookList[booklistnumber].isbn = "";
+                            }
+                            BookData.BookList[booklistnumber].isbn += key.KeyChar;
+                            Console.Write(key.KeyChar);
+                            count = 1;
+                        }
+
+                    }
+                    count = 0;
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    Console.SetCursorPosition(7, 21);
+                    while (true) //입력값이 엔터가 아닐 경우 
+                    {
+                        ConsoleKeyInfo key = Console.ReadKey(true);
+                        if (key.Key == ConsoleKey.Enter)
+                        {
+                            break;
+                        }
+                        else if (Char.IsLetterOrDigit(key.KeyChar))
+                        {
+                            if (count == 0)
+                            {
+                                BookData.BookList[booklistnumber].info = "";
+                            }
+                            BookData.BookList[booklistnumber].info += key.KeyChar;
+                            Console.Write(key.KeyChar);
+                            count = 1;
+                        }
+
+                    }
+                    count = 0;
+
                     /*
                     Console.WriteLine("수정하고 싶은 번호를 입력하세요.");
                     Console.WriteLine("1. id");
