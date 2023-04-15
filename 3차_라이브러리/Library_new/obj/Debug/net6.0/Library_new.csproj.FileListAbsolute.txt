@@ -1,0 +1,15 @@
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\obj\Debug\net6.0\Library_new.csproj.AssemblyReference.cache
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\obj\Debug\net6.0\Library_new.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\obj\Debug\net6.0\Library_new.AssemblyInfoInputs.cache
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\obj\Debug\net6.0\Library_new.AssemblyInfo.cs
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\obj\Debug\net6.0\Library_new.csproj.CoreCompileInputs.cache
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\bin\Debug\net6.0\Library_new.exe
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\bin\Debug\net6.0\Library_new.deps.json
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\bin\Debug\net6.0\Library_new.runtimeconfig.json
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\bin\Debug\net6.0\Library_new.dll
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\bin\Debug\net6.0\Library_new.pdb
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\obj\Debug\net6.0\Library_new.dll
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\obj\Debug\net6.0\refint\Library_new.dll
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\obj\Debug\net6.0\Library_new.pdb
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\obj\Debug\net6.0\Library_new.genruntimeconfig.cache
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\3차_라이브러리 new\Library_new\obj\Debug\net6.0\ref\Library_new.dll
