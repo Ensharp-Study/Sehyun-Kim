@@ -290,172 +290,189 @@ namespace Library
                     Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
                     viewRulesForBookData.RulesForBookData();
 
-                    //ㅡㅡㅡㅡㅡㅡㅡIDㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    //ㅡㅡㅡㅡㅡㅡㅡIDㅡㅡㅡㅡㅡㅡㅡㅡㅡ 
                     
                     Console.SetCursorPosition(5, 13);
                     string randomExpression = "";
                     int isOrNot=0;
-
+                    int Entercase = 0;
                     while (true)
                     {
                        KeyValuePair<string, int> result = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, isOrNot);
+                        randomExpression = result.Key;
 
-                        if (isOrNot == 1) {
+                        if (result.Value == 1) { //엔터면 멈추기 엔터 아니면 계속 입력받기 
+                            Entercase = 1;
                             break;
                         }
                     }
-                    determineWithRegularExpression.JudgeBookID(randomExpression);
+                    if (Entercase == 0)
+                    {
+                        determineWithRegularExpression.JudgeBookID(randomExpression); //형식에 맞는지 검사하기 
+                    }
+                    
                     
                     //ㅡㅡㅡㅡㅡㅡㅡTitleㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(8, 14);
-                    int count = 0;
-                    while (true ) //입력값이 엔터가 아닐 경우 
+                    randomExpression = "";
+                    isOrNot = 0;
+                    Entercase = 0;
+                    while (true)
                     {
-                        ConsoleKeyInfo key = Console.ReadKey(true);
-                        if (key.Key == ConsoleKey.Enter)
+                        KeyValuePair<string, int> result = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, isOrNot);
+                        randomExpression = result.Key;
+
+                        if (result.Value == 1)
                         {
+                            Entercase = 1;//엔터면 멈추기 엔터 아니면 계속 입력받기 
                             break;
                         }
-                        else if   (Char.IsLetterOrDigit(key.KeyChar))
-                        {
-                            if (count == 0)
-                            {
-                                BookData.BookList[booklistnumber].bookName="";
-                            }
-                            BookData.BookList[booklistnumber].bookName += key.KeyChar;
-                            Console.Write(key.KeyChar);
-                            count = 1;
-                        }
-                        
                     }
-                    count = 0;
+                    if (Entercase == 0)
+                    {
+                        determineWithRegularExpression.JudgeBookName(randomExpression); //형식에 맞는지 검사하기 
+                    }
+
                     //ㅡㅡㅡㅡㅡㅡㅡauthorㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(9, 15);
-                    while (true) //입력값이 엔터가 아닐 경우 
+                    randomExpression = "";
+                    isOrNot = 0;
+                    Entercase = 0;
+                    while (true)
                     {
-                        ConsoleKeyInfo key = Console.ReadKey(true);
-                        if (key.Key == ConsoleKey.Enter)
-                        {
+                        KeyValuePair<string, int> result = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, isOrNot);
+                        randomExpression = result.Key;
+
+                        if (result.Value == 1)
+                        { //엔터면 멈추기 엔터 아니면 계속 입력받기 
+                            Entercase = 1;
                             break;
                         }
-                        else if (Char.IsLetterOrDigit(key.KeyChar))
-                        {
-                            if (count == 0)
-                            {
-                                BookData.BookList[booklistnumber].author = "";
-                            }
-                            BookData.BookList[booklistnumber].author += key.KeyChar;
-                            Console.Write(key.KeyChar);
-                            count = 1;
-                        }
-
                     }
-                    count = 0;
-                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    if (Entercase == 0)
+                    {
+                        determineWithRegularExpression.Judgeauthor(randomExpression); //형식에 맞는지 검사하기 
+                    }
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡpublisherㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(12, 16);
-                    while (true) //입력값이 엔터가 아닐 경우 
+                    randomExpression = "";
+                    isOrNot = 0;
+                    Entercase = 0;
+                    while (true)
                     {
-                        ConsoleKeyInfo key = Console.ReadKey(true);
-                        if (key.Key == ConsoleKey.Enter)
-                        {
+                        KeyValuePair<string, int> result = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, isOrNot);
+                        randomExpression = result.Key;
+
+                        if (result.Value == 1)
+                        { //엔터면 멈추기 엔터 아니면 계속 입력받기 
+                            Entercase = 1;
                             break;
                         }
-                        else if (Char.IsLetterOrDigit(key.KeyChar))
-                        {
-                            if (count == 0)
-                            {
-                                BookData.BookList[booklistnumber].publisher = "";
-                            }
-                            BookData.BookList[booklistnumber].publisher += key.KeyChar;
-                            Console.Write(key.KeyChar);
-                            count = 1;
-                        }
-
                     }
-                    count = 0;
-                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    if (Entercase == 0)
+                    {
+                        determineWithRegularExpression.JudgePublisher(randomExpression); //형식에 맞는지 검사하기 
+                    }
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡpriceㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(8, 17);
-                    string priceinput = Console.ReadLine();
-                    if (priceinput != "") //입력값이 엔터가 아닐 경우 
+                    randomExpression = "";
+                    isOrNot = 0;
+                    Entercase = 0;
+                    while (true)
                     {
-                        int intpriceinput = int.Parse(priceinput);
-                        BookData.BookList[booklistnumber].price = intpriceinput;
+                        KeyValuePair<string, int> result = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, isOrNot);
+                        randomExpression = result.Key;
+
+                        if (result.Value == 1)
+                        { //엔터면 멈추기 엔터 아니면 계속 입력받기 
+                            Entercase = 1;
+                            break;
+                        }
                     }
-                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    if (Entercase == 0)
+                    {
+                        determineWithRegularExpression.Judgeprice(randomExpression); //형식에 맞는지 검사하기 
+                    }
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡquantityㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(11, 18);
-                    string quantityinput = Console.ReadLine();
-                    if (quantityinput != "") //입력값이 엔터가 아닐 경우 
+                    randomExpression = "";
+                    isOrNot = 0;
+                    Entercase = 0;
+                    while (true)
                     {
-                        int intquantityinput = int.Parse(quantityinput);
-                        BookData.BookList[booklistnumber].price = intquantityinput;
+                        KeyValuePair<string, int> result = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, isOrNot);
+                        randomExpression = result.Key;
+
+                        if (result.Value == 1)
+                        { //엔터면 멈추기 엔터 아니면 계속 입력받기
+                            Entercase = 1;
+                            break;
+                        }
                     }
-                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    if (Entercase == 0)
+                    {
+                        determineWithRegularExpression.Judgequantity(randomExpression); //형식에 맞는지 검사하기 
+                    }
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡpublcationㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(18, 19);
-                    while (true) //입력값이 엔터가 아닐 경우 
+                    randomExpression = "";
+                    isOrNot = 0;
+                    Entercase = 0;
+                    while (true)
                     {
-                        ConsoleKeyInfo key = Console.ReadKey(true);
-                        if (key.Key == ConsoleKey.Enter)
-                        {
+                        KeyValuePair<string, int> result = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, isOrNot);
+                        randomExpression = result.Key;
+
+                        if (result.Value == 1)
+                        { //엔터면 멈추기 엔터 아니면 계속 입력받기 
+                            Entercase = 1;
                             break;
                         }
-                        else if (Char.IsLetterOrDigit(key.KeyChar))
-                        {
-                            if (count == 0)
-                            {
-                                BookData.BookList[booklistnumber].publicationDate = "";
-                            }
-                            BookData.BookList[booklistnumber].publicationDate += key.KeyChar;
-                            Console.Write(key.KeyChar);
-                            count = 1;
-                        }
-
                     }
-                    count = 0;
-                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    if (Entercase == 0)
+                    {
+                        determineWithRegularExpression.JudgepublicationDate(randomExpression); //형식에 맞는지 검사하기 
+                    }
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡisbnㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(7, 20);
-                    while (true) //입력값이 엔터가 아닐 경우 
+                    randomExpression = "";
+                    isOrNot = 0;
+                    Entercase = 0;
+                    while (true)
                     {
-                        ConsoleKeyInfo key = Console.ReadKey(true);
-                        if (key.Key == ConsoleKey.Enter)
-                        {
+                        KeyValuePair<string, int> result = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, isOrNot);
+                        randomExpression = result.Key;
+
+                        if (result.Value == 1)
+                        { //엔터면 멈추기 엔터 아니면 계속 입력받기
+                            Entercase = 1;
                             break;
                         }
-                        else if (Char.IsLetterOrDigit(key.KeyChar))
-                        {
-                            if (count == 0)
-                            {
-                                BookData.BookList[booklistnumber].isbn = "";
-                            }
-                            BookData.BookList[booklistnumber].isbn += key.KeyChar;
-                            Console.Write(key.KeyChar);
-                            count = 1;
-                        }
-
                     }
-                    count = 0;
-                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
+                    if (Entercase == 0)
+                    {
+                        determineWithRegularExpression.Judgeisbn(randomExpression); //형식에 맞는지 검사하기 
+                    }
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡinfoㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(7, 21);
-                    while (true) //입력값이 엔터가 아닐 경우 
+                    randomExpression = "";
+                    isOrNot = 0;
+                    Entercase = 0;
+                    while (true)
                     {
-                        ConsoleKeyInfo key = Console.ReadKey(true);
-                        if (key.Key == ConsoleKey.Enter)
-                        {
+                        KeyValuePair<string, int> result = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, isOrNot);
+                        randomExpression = result.Key;
+
+                        if (result.Value == 1)
+                        { //엔터면 멈추기 엔터 아니면 계속 입력받기 
+                            Entercase = 1;
                             break;
                         }
-                        else if (Char.IsLetterOrDigit(key.KeyChar))
-                        {
-                            if (count == 0)
-                            {
-                                BookData.BookList[booklistnumber].info = "";
-                            }
-                            BookData.BookList[booklistnumber].info += key.KeyChar;
-                            Console.Write(key.KeyChar);
-                            count = 1;
-                        }
-
                     }
-                    count = 0;
-
+                    if (Entercase == 0)
+                    {
+                        determineWithRegularExpression.Judgeinfo(randomExpression); //형식에 맞는지 검사하기 
+                    }
                     /*
                     Console.WriteLine("수정하고 싶은 번호를 입력하세요.");
                     Console.WriteLine("1. id");
