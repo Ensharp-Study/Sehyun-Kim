@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using static System.Console;
 using System.Threading.Tasks;
+using Library.Controllers;
 
 
 namespace Library
@@ -17,6 +18,9 @@ namespace Library
             UserData.userData();
             BookData.bookData();
             display.InitialDisplay();
+
+            TestController testController = new TestController();
+            
             
         }
     }
