@@ -11,13 +11,6 @@ namespace Library.View
 {
     internal class HomeDisplay
     {
-        //private LoginOrNewmember loginOrNewmember;
-
-        //public HomeDisplay()
-        //{
-        //    loginOrNewmember = new LoginOrNewmember(this);
-        //}
-        //UserSignUpDisplay userSignUpDisplay = new UserSignUpDisplay;
         public void InitialDisplay() { //처음 메뉴 디스플레이
 
             UserData userData = new UserData();

@@ -11,13 +11,6 @@ namespace Library.View
         private BookData bookData;
         private UserData userData;
 
-        // private LoginOrNewmember loginOrNewmember;
-        //private HomeDisplay homeDisplay;
-
-        //public UserSignUpDisplay(HomeDisplay homeDisplay)
-        //{
-        //    this.homeDisplay = homeDisplay;
-        //}
         public UserSignUpDisplay(BookData bookData, UserData userData)
         {
             this.bookData = bookData;
@@ -29,16 +22,6 @@ namespace Library.View
             HomeDisplay homeDisplay = new HomeDisplay();
             LoginOrNewmember loginOrNewmember = new LoginOrNewmember(bookData,userData);
            
-        /*
-        private HomeDisplay display;
-    UserMode userMode = new UserMode();
-    UserData userData = new UserData();
-    UserSignUpDisplay userSignUpDisplay = new UserSignUpDisplay();
-    public LoginOrNewmember(HomeDisplay display)
-    {
-        this.display = display;
-    }
-        */
 
 
         Console.WriteLine("                                                                     ");
