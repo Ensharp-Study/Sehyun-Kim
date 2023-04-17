@@ -22,11 +22,10 @@ namespace Library.Controller
             this.userData = userData;
         }
 
-
         public void JudgeID(string EssenceValue, int TypeCheck, int booklistnumber) //아이디 정규식 검사 
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
-
+           
 
             Regex reg = new Regex(@"^[0-9]+");//숫자로만 이루어져 있는가?
 
@@ -51,12 +50,15 @@ namespace Library.Controller
             else
             {
                 bookData.BookList[booklistnumber].id = Int32.Parse(EssenceValue);
+                
             }
         }
         
         public void JudgeBookName(string BookNameValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
+           
+
             Regex reg = new Regex(@"^[\p{L}\p{N}]+$");//영어,한글,숫자 1글자 이상으로 이루어져 있는가?
 
             if (!reg.IsMatch(BookNameValue))
@@ -85,6 +87,8 @@ namespace Library.Controller
         public void Judgeauthor(string authorValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
+           
+
             Regex reg = new Regex(@"^[\p{L}]+$");//영어, 한글 1글자 이상으로 이루어져 있는가?
 
             if (!reg.IsMatch(authorValue))
@@ -113,6 +117,8 @@ namespace Library.Controller
         public void JudgePublisher(string PublisherValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
+            
+
             Regex reg = new Regex(@"^[\p{L}\p{N}]+$");//영어,한글,숫자 1글자 이상으로 이루어져 있는가?
 
             if (!reg.IsMatch(PublisherValue))
@@ -141,7 +147,7 @@ namespace Library.Controller
         public void Judgeprice(string priceValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
-            ManagerMode managerMode = new ManagerMode(bookData, userData);    
+           
             Regex reg = new Regex(@"^[1-9][0-9]{0,6}$");//1-9999999 사이 자연수로 이루어져 있는가?
 
             if (!reg.IsMatch(priceValue))
@@ -170,7 +176,7 @@ namespace Library.Controller
         
         public void Judgequantity(string quantityValue, int TypeChec, int booklistnumber)
         {
-            CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
+            CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData); 
 
             Regex reg = new Regex(@"^[1-9][0-9]{0,2}$");//1-999 사이 자연수로 이루어져 있는가?
             if (!reg.IsMatch(quantityValue))
@@ -199,6 +205,8 @@ namespace Library.Controller
         public void JudgepublicationDate(string publicationDateValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
+            
+
             Regex reg = new Regex(@"^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])");//출판일자로 이루어져 있는가?
 
             if (!reg.IsMatch(publicationDateValue))
@@ -227,6 +235,7 @@ namespace Library.Controller
         public void Judgeisbn(string isbnValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
+            
             Regex reg = new Regex(@"^\d{9}$");//정수 9개로 이루어져 있는가?
 
             if (!reg.IsMatch(isbnValue))
@@ -257,6 +266,8 @@ namespace Library.Controller
         public void Judgeinfo(string infoValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
+            
+
             Regex reg = new Regex(@"^[\p{L}\p{N}]+$");//영어,한글,숫자 1글자 이상으로 이루어져 있는가?
 
             if (!reg.IsMatch(infoValue))
