@@ -356,127 +356,65 @@ namespace Library.Controller
                     string randomExpression = ""; //임의의 식 변수 
                     int Entercase = 0;
                     int TypeCheck = 0;
-                    KeyValuePair<string, int> result1 = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, Entercase);
+                    checkInputIsEnter.SaveIDIfNotEnter(randomExpression, Entercase,booklistnumber);
 
-                    if (result1.Value >= 1)
-                    {
-                        determineWithRegularExpression.JudgeID(randomExpression, TypeCheck); //형식에 맞는지 검사하기
-                        bookData.BookList[booklistnumber].id = Int32.Parse(randomExpression);
-                    }
-                    //형식이 맞으면 BookData.BookList[booklistnumber].id 에 저장하기 
                     
                     //ㅡㅡㅡㅡㅡㅡㅡTitleㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(8, 14);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    result1 = checkInputIsEnter.SaveTitleIfNotEnter(randomExpression, Entercase);
-
-                    if (result1.Value >= 1)
-                    {
-                        determineWithRegularExpression.JudgeBookName(randomExpression, TypeCheck); //형식에 맞는지 검사하기
-                        bookData.BookList[booklistnumber].bookName = randomExpression;
-                        
-                    }
+                    checkInputIsEnter.SaveTitleIfNotEnter(randomExpression, Entercase, booklistnumber);
 
                     //ㅡㅡㅡㅡㅡㅡㅡauthorㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(9, 15);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    result1 = checkInputIsEnter.SaveAuthorIfNotEnter(randomExpression, Entercase);
-
-                    if (result1.Value >= 1)
-                    {
-                        determineWithRegularExpression.Judgeauthor(randomExpression, TypeCheck); //형식에 맞는지 검사하기
-                        bookData.BookList[booklistnumber].author = randomExpression;
-                        
-                    }
+                    checkInputIsEnter.SaveAuthorIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡpublisherㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(12, 16);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    result1 = checkInputIsEnter.SavePublisherIfNotEnter(randomExpression, Entercase);
-
-                    if (result1.Value >= 1)
-                    {
-                        determineWithRegularExpression.JudgePublisher(randomExpression, TypeCheck); //형식에 맞는지 검사하기
-                        bookData.BookList[booklistnumber].publisher = randomExpression;
-                        
-                    }
+                    checkInputIsEnter.SavePublisherIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡpriceㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(8, 17);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    result1 = checkInputIsEnter.SavePriceIfNotEnter(randomExpression, Entercase);
-
-                    if (result1.Value >= 1)
-                    {
-                        determineWithRegularExpression.Judgeprice(randomExpression, TypeCheck); //형식에 맞는지 검사하기
-                        bookData.BookList[booklistnumber].price = Int32.Parse(randomExpression);
-                        
-                    }
+                    checkInputIsEnter.SavePriceIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡquantityㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(11, 18);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    result1 = checkInputIsEnter.SaveQuantityIfNotEnter(randomExpression, Entercase);
-
-                    if (result1.Value >= 1)
-                    {
-                        determineWithRegularExpression.Judgequantity(randomExpression, TypeCheck); //형식에 맞는지 검사하기
-                        bookData.BookList[booklistnumber].quantity = Int32.Parse(randomExpression);
-                        
-                    }
+                    checkInputIsEnter.SaveQuantityIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡpublcationㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(18, 19);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    result1 = checkInputIsEnter.SavePublicationIfNotEnter(randomExpression, Entercase);
-
-                    if (result1.Value >= 1)
-                    {
-                        determineWithRegularExpression.JudgepublicationDate(randomExpression, TypeCheck); //형식에 맞는지 검사하기
-                        bookData.BookList[booklistnumber].publicationDate = randomExpression;
-                        
-                    }
+                    checkInputIsEnter.SavePublicationIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡisbnㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(7, 20);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    result1 = checkInputIsEnter.SaveIsbnIfNotEnter(randomExpression, Entercase);
-
-                    if (result1.Value >= 1)
-                    {
-                        determineWithRegularExpression.Judgeisbn(randomExpression, TypeCheck); //형식에 맞는지 검사하기
-                        bookData.BookList[booklistnumber].isbn = randomExpression;
-                        
-                    }
+                    checkInputIsEnter.SaveIsbnIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡinfoㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(7, 21);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    result1 = checkInputIsEnter.SaveInfoIfNotEnter(randomExpression, Entercase);
-
-                    if (result1.Value >= 1)
-                    {
-                        determineWithRegularExpression.Judgeinfo(randomExpression, TypeCheck); //형식에 맞는지 검사하기
-                        bookData.BookList[booklistnumber].info = randomExpression;
-                        
-                    }
+                    checkInputIsEnter.SaveInfoIfNotEnter(randomExpression, Entercase, booklistnumber);
                     
                 }
-                    
 
 
 
-                }
+
+            }
             }
         }
     }

@@ -23,14 +23,14 @@ namespace Library.Controller
         }
 
 
-        public void JudgeID(string EssenceValue, int TypeCheck) //아이디 정규식 검사 
+        public void JudgeID(string EssenceValue, int TypeCheck, int booklistnumber) //아이디 정규식 검사 
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
 
 
             Regex reg = new Regex(@"^[0-9]+");//숫자로만 이루어져 있는가?
 
-            if(!reg.IsMatch(EssenceValue))
+            if (!reg.IsMatch(EssenceValue))
             {
                 int variablelength = EssenceValue.Length;
                 for (int reckon = 0; reckon < variablelength; reckon++)
@@ -41,19 +41,20 @@ namespace Library.Controller
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("잘못된 형식을 입력했습니다.");
                 Console.ForegroundColor = ConsoleColor.White;
-                
+
                 string randomExpression = "";
                 int Entercase = 0;
                 Console.SetCursorPosition(5, 13);
-                KeyValuePair<string, int> result1 = checkInputIsEnter.SaveIDIfNotEnter(randomExpression, Entercase);
+                checkInputIsEnter.SaveIDIfNotEnter(randomExpression, Entercase, booklistnumber);
 
             }
-
-            
-           
+            else
+            {
+                bookData.BookList[booklistnumber].id = Int32.Parse(EssenceValue);
+            }
         }
         
-        public void JudgeBookName(string BookNameValue, int TypeCheck)
+        public void JudgeBookName(string BookNameValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
             Regex reg = new Regex(@"^[\p{L}\p{N}]+$");//영어,한글,숫자 1글자 이상으로 이루어져 있는가?
@@ -72,13 +73,16 @@ namespace Library.Controller
                 Console.SetCursorPosition(8, 14);
                 string randomExpression = "";
                 int Entercase = 0;
-                KeyValuePair<string, int> result1 = checkInputIsEnter.SaveTitleIfNotEnter(randomExpression, Entercase);
+                checkInputIsEnter.SaveTitleIfNotEnter(randomExpression, Entercase, booklistnumber);
                
             }
-            
+            else
+            {
+                bookData.BookList[booklistnumber].bookName = BookNameValue;
+            }
         }
         
-        public void Judgeauthor(string authorValue, int TypeCheck)
+        public void Judgeauthor(string authorValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
             Regex reg = new Regex(@"^[\p{L}]+$");//영어, 한글 1글자 이상으로 이루어져 있는가?
@@ -97,13 +101,16 @@ namespace Library.Controller
                 Console.SetCursorPosition(9, 15);
                 string randomExpression = "";
                 int Entercase = 0;
-                KeyValuePair<string, int> result1 = checkInputIsEnter.SaveAuthorIfNotEnter(randomExpression, Entercase);
+                checkInputIsEnter.SaveAuthorIfNotEnter(randomExpression, Entercase, booklistnumber);
                
             }
-            
+            else
+            {
+                bookData.BookList[booklistnumber].author = authorValue;
+            }
         }
         
-        public void JudgePublisher(string PublisherValue, int TypeCheck)
+        public void JudgePublisher(string PublisherValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
             Regex reg = new Regex(@"^[\p{L}\p{N}]+$");//영어,한글,숫자 1글자 이상으로 이루어져 있는가?
@@ -122,13 +129,16 @@ namespace Library.Controller
                 Console.SetCursorPosition(12, 16);
                 string randomExpression = "";
                 int Entercase = 0;
-                KeyValuePair<string, int> result1 = checkInputIsEnter.SavePublisherIfNotEnter(randomExpression, Entercase);
+                checkInputIsEnter.SavePublisherIfNotEnter(randomExpression, Entercase, booklistnumber);
                 
             }
-            
+            else
+            {
+                bookData.BookList[booklistnumber].publisher = PublisherValue;
+            }
         }
         
-        public void Judgeprice(string priceValue, int TypeCheck)
+        public void Judgeprice(string priceValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
             ManagerMode managerMode = new ManagerMode(bookData, userData);    
@@ -148,14 +158,17 @@ namespace Library.Controller
                 Console.SetCursorPosition(8, 17);
                 string randomExpression = "";
                 int Entercase = 0;
-                KeyValuePair<string, int> result1 = checkInputIsEnter.SavePriceIfNotEnter(randomExpression, Entercase);
+                checkInputIsEnter.SavePriceIfNotEnter(randomExpression, Entercase, booklistnumber);
                 
             }
-            
+            else
+            {
+                bookData.BookList[booklistnumber].price = Int32.Parse(priceValue);
+            }
 
         }
         
-        public void Judgequantity(string quantityValue, int TypeCheck)
+        public void Judgequantity(string quantityValue, int TypeChec, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
 
@@ -174,13 +187,16 @@ namespace Library.Controller
                 Console.SetCursorPosition(11, 18);
                 string randomExpression = "";
                 int Entercase = 0;
-                KeyValuePair<string, int> result1 = checkInputIsEnter.SaveQuantityIfNotEnter(randomExpression, Entercase);
+                checkInputIsEnter.SaveQuantityIfNotEnter(randomExpression, Entercase, booklistnumber);
                 
             }
-           
+            else
+            {
+                bookData.BookList[booklistnumber].quantity = Int32.Parse(quantityValue);
+            }
         }
         
-        public void JudgepublicationDate(string publicationDateValue, int TypeCheck)
+        public void JudgepublicationDate(string publicationDateValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
             Regex reg = new Regex(@"^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])");//출판일자로 이루어져 있는가?
@@ -199,13 +215,16 @@ namespace Library.Controller
                 Console.SetCursorPosition(18, 19);
                 string randomExpression = "";
                 int Entercase = 0;
-                KeyValuePair<string, int> result1 = checkInputIsEnter.SavePublicationIfNotEnter(randomExpression, Entercase);
+                checkInputIsEnter.SavePublicationIfNotEnter(randomExpression, Entercase, booklistnumber);
                 
             }
-            
+            else
+            {
+                bookData.BookList[booklistnumber].publicationDate = publicationDateValue;
+            }
         }
         
-        public void Judgeisbn(string isbnValue, int TypeCheck)
+        public void Judgeisbn(string isbnValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
             Regex reg = new Regex(@"^\d{9}$");//정수 9개로 이루어져 있는가?
@@ -225,14 +244,17 @@ namespace Library.Controller
                 Console.SetCursorPosition(7, 20);
                 string randomExpression = "";
                 int Entercase = 0;
-                KeyValuePair<string, int> result1 = checkInputIsEnter.SaveIsbnIfNotEnter(randomExpression, Entercase);
+                 checkInputIsEnter.SaveIsbnIfNotEnter(randomExpression, Entercase, booklistnumber);
                 
             }
-            
+            else
+            {
+                bookData.BookList[booklistnumber].isbn = isbnValue;
+            }
         }
         
 
-        public void Judgeinfo(string infoValue, int TypeCheck)
+        public void Judgeinfo(string infoValue, int TypeCheck, int booklistnumber)
         {
             CheckInputIsEnter checkInputIsEnter = new CheckInputIsEnter(bookData, userData);
             Regex reg = new Regex(@"^[\p{L}\p{N}]+$");//영어,한글,숫자 1글자 이상으로 이루어져 있는가?
@@ -251,10 +273,13 @@ namespace Library.Controller
                 Console.SetCursorPosition(7, 21);
                 string randomExpression = "";
                 int Entercase = 0;
-                KeyValuePair<string, int> result1 = checkInputIsEnter.SaveInfoIfNotEnter(randomExpression, Entercase);
+                checkInputIsEnter.SaveInfoIfNotEnter(randomExpression, Entercase, booklistnumber);
                 
             }
-            
+            else
+            {
+                bookData.BookList[booklistnumber].info = infoValue;
+            }
         }
 
     }

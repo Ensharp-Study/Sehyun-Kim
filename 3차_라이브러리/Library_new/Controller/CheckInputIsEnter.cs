@@ -20,7 +20,7 @@ namespace Library.Controller
             this.bookData = bookData;
             this.userData = userData;
         }
-        public KeyValuePair<string, int> SaveIDIfNotEnter(string randomExpression, int entercase)
+        public void SaveIDIfNotEnter(string randomExpression, int entercase, int booklistnumber)
 
         {
             DetermineWithRegularExpression determineWithRegularExpression = new DetermineWithRegularExpression(bookData, userData);
@@ -41,13 +41,12 @@ namespace Library.Controller
             {
                 int TypeCheck = 0;
                 entercase = 0;
-                determineWithRegularExpression.JudgeID(randomExpression, TypeCheck);
+                determineWithRegularExpression.JudgeID(randomExpression, TypeCheck, booklistnumber);
             }
 
-            return new KeyValuePair<string, int>(randomExpression, entercase);
         }
         //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        public KeyValuePair<string, int> SaveTitleIfNotEnter(string randomExpression, int entercase)
+        public void SaveTitleIfNotEnter(string randomExpression, int entercase, int booklistnumber)
 
         {
             DetermineWithRegularExpression determineWithRegularExpression = new DetermineWithRegularExpression(bookData, userData);
@@ -67,13 +66,12 @@ namespace Library.Controller
             if (entercase >= 1)
             {
                 int TypeCheck = 0; entercase = 0;
-                determineWithRegularExpression.JudgeBookName(randomExpression, TypeCheck);
+                determineWithRegularExpression.JudgeBookName(randomExpression, TypeCheck,booklistnumber);
             }
-
-            return new KeyValuePair<string, int>(randomExpression, entercase);
+             
         }
         //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        public KeyValuePair<string, int> SaveAuthorIfNotEnter(string randomExpression, int entercase)
+        public void SaveAuthorIfNotEnter(string randomExpression, int entercase, int booklistnumber)
 
         {
             DetermineWithRegularExpression determineWithRegularExpression = new DetermineWithRegularExpression(bookData, userData);
@@ -93,13 +91,12 @@ namespace Library.Controller
             if (entercase >= 1)
             {
                 int TypeCheck = 0; entercase = 0;
-                determineWithRegularExpression.Judgeauthor(randomExpression, TypeCheck);
+                determineWithRegularExpression.Judgeauthor(randomExpression, TypeCheck, booklistnumber);
             }
-
-            return new KeyValuePair<string, int>(randomExpression, entercase);
+             
         }
         //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        public KeyValuePair<string, int> SavePublisherIfNotEnter(string randomExpression, int entercase)
+        public void SavePublisherIfNotEnter(string randomExpression, int entercase, int booklistnumber)
 
         {
             DetermineWithRegularExpression determineWithRegularExpression = new DetermineWithRegularExpression(bookData, userData);
@@ -119,13 +116,12 @@ namespace Library.Controller
             if (entercase >= 1)
             {
                 int TypeCheck = 0; entercase = 0;
-                determineWithRegularExpression.JudgePublisher(randomExpression, TypeCheck);
+                determineWithRegularExpression.JudgePublisher(randomExpression, TypeCheck, booklistnumber);
             }
-
-            return new KeyValuePair<string, int>(randomExpression, entercase);
+             
         }
         //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        public KeyValuePair<string, int> SavePriceIfNotEnter(string randomExpression, int entercase)
+        public void SavePriceIfNotEnter(string randomExpression, int entercase, int booklistnumber)
 
         {
             DetermineWithRegularExpression determineWithRegularExpression = new DetermineWithRegularExpression(bookData, userData);
@@ -145,13 +141,12 @@ namespace Library.Controller
             if (entercase >= 1)
             {
                 int TypeCheck = 0; entercase = 0;
-                determineWithRegularExpression.Judgeprice(randomExpression, TypeCheck);
+                determineWithRegularExpression.Judgeprice(randomExpression, TypeCheck, booklistnumber);
             }
-
-            return new KeyValuePair<string, int>(randomExpression, entercase);
+             
         }
         //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        public KeyValuePair<string, int> SaveQuantityIfNotEnter(string randomExpression, int entercase)
+        public void SaveQuantityIfNotEnter(string randomExpression, int entercase, int booklistnumber)
 
         {
             DetermineWithRegularExpression determineWithRegularExpression = new DetermineWithRegularExpression(bookData, userData);
@@ -171,13 +166,12 @@ namespace Library.Controller
             if (entercase >= 1)
             {
                 int TypeCheck = 0; entercase = 0;
-                determineWithRegularExpression.Judgequantity(randomExpression, TypeCheck);
+                determineWithRegularExpression.Judgequantity(randomExpression, TypeCheck, booklistnumber);
             }
-
-            return new KeyValuePair<string, int>(randomExpression, entercase);
+             
         }
         //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        public KeyValuePair<string, int> SavePublicationIfNotEnter(string randomExpression, int entercase)
+        public void SavePublicationIfNotEnter(string randomExpression, int entercase, int booklistnumber)
 
         {
             DetermineWithRegularExpression determineWithRegularExpression = new DetermineWithRegularExpression(bookData, userData);
@@ -197,13 +191,12 @@ namespace Library.Controller
             if (entercase >= 1)
             {
                 int TypeCheck = 0; entercase = 0;
-                determineWithRegularExpression.JudgepublicationDate(randomExpression, TypeCheck);
+                determineWithRegularExpression.JudgepublicationDate(randomExpression, TypeCheck, booklistnumber);
             }
-
-            return new KeyValuePair<string, int>(randomExpression, entercase);
+             
         }
         //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        public KeyValuePair<string, int> SaveIsbnIfNotEnter(string randomExpression, int entercase)
+        public void SaveIsbnIfNotEnter(string randomExpression, int entercase, int booklistnumber)
 
         {
             DetermineWithRegularExpression determineWithRegularExpression = new DetermineWithRegularExpression(bookData, userData);
@@ -223,13 +216,12 @@ namespace Library.Controller
             if (entercase >= 1)
             {
                 int TypeCheck = 0; entercase = 0;
-                determineWithRegularExpression.Judgeisbn(randomExpression, TypeCheck);
+                determineWithRegularExpression.Judgeisbn(randomExpression, TypeCheck, booklistnumber);
             }
 
-            return new KeyValuePair<string, int>(randomExpression, entercase);
         }
         //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
-        public KeyValuePair<string, int> SaveInfoIfNotEnter(string randomExpression, int entercase)
+        public void SaveInfoIfNotEnter(string randomExpression, int entercase, int booklistnumber)
 
         {
             DetermineWithRegularExpression determineWithRegularExpression = new DetermineWithRegularExpression(bookData, userData);
@@ -249,10 +241,9 @@ namespace Library.Controller
             if (entercase >= 1)
             {
                 int TypeCheck = 0; entercase = 0;
-                determineWithRegularExpression.Judgeinfo(randomExpression, TypeCheck);
+                determineWithRegularExpression.Judgeinfo(randomExpression, TypeCheck, booklistnumber);
             }
 
-            return new KeyValuePair<string, int>(randomExpression, entercase);
         }
     }
 }
