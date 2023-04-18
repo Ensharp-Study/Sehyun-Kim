@@ -24,7 +24,7 @@ namespace Library.View
            
 
 
-        Console.WriteLine("                                                                     ");
+            Console.WriteLine("                                                                     ");
             Console.WriteLine("       ■       ■■■    ■■■     ■■■         ■       ■■■     ■    ■                             ");
             Console.WriteLine("       ■         ■      ■    ■   ■    ■      ■■      ■    ■   ■    ■                          ");
             Console.WriteLine("       ■         ■      ■■■     ■■■       ■  ■     ■■■      ■  ■                                ");

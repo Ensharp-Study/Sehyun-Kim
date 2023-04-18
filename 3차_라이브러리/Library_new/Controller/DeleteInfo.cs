@@ -13,12 +13,12 @@ using static Library.Controller.LoginOrNewmember;
 
 namespace Library.Controller
 {
-    internal class DeleteBookInfo
+    internal class DeleteInfo
     {
         private BookData bookData;
         private UserData userData;
 
-        public DeleteBookInfo(BookData bookData, UserData userData)
+        public DeleteInfo(BookData bookData, UserData userData)
         {
             this.bookData = bookData;
             this.userData = userData;
@@ -49,6 +49,26 @@ namespace Library.Controller
 
                     break;
                 }
+            }
+        }
+        public void deleteuserinfo()
+        {
+            Console.Clear();
+            HomeDisplay display = new HomeDisplay();
+            List<UserConstructor> userList = new List<UserConstructor>();
+            // 사용자가 대여한 도서가 있는지 확인
+            bool hasRentedBooks = userData.UserList[userlistnumber].rentedbooklist.Any(book => book.id > 0);
+
+            if (hasRentedBooks)
+            {
+                Console.WriteLine("대여중인 도서가 있어 탈퇴할 수 없습니다.");
+            }
+            else
+            {
+                userData.UserList.RemoveAt(userlistnumber);
+                Console.WriteLine("회원 탈퇴되었습니다.");
+                display.InitialDisplay();
+
             }
         }
     }

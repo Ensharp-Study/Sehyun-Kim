@@ -1,8 +1,16 @@
-﻿using System.Text.RegularExpressions;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using static System.Console;
+using System.Threading.Tasks;
+using Library;
+using System.Text.RegularExpressions;
 using Library.Model;
 using Library.View;
 using Library.Controller;
 using Library.Constant;
+using static Library.Controller.LoginOrNewmember;
 namespace Library.Controller
 {
     internal class ManagerMode
@@ -18,8 +26,8 @@ namespace Library.Controller
         }
         public void modOfManager()
         {
-            ManagerMenu managerMenu = new ManagerMenu();
-            ManagerMenuConstant managerMenuConstant = new ManagerMenuConstant(bookData, userData);
+            ViewMenu managerMenu = new ViewMenu();
+            MenuConstant managerMenuConstant = new MenuConstant(bookData, userData);
             managerMenu.viewManagermenu();
 
             Regex regex = new Regex("^[0-4]$"); // 정규식 패턴
@@ -39,22 +47,8 @@ namespace Library.Controller
                 }
             }
 
-
-           
-
         }
       
-
-
-
-       
-       
-
-        
-
-
-
-
     }
     }
 

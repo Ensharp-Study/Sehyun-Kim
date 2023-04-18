@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Library.Model;
 using Library.View;
 using Library.Controller;
+using Library.Constant;
 
 
 namespace Library.Controller
@@ -35,7 +36,8 @@ namespace Library.Controller
         
         public void LoginProcess() //로그인
         {
-            
+            ViewMenu viewMenu = new ViewMenu();
+            MenuConstant menuConstant = new MenuConstant(bookData, userData);
             Console.WriteLine("아이디를 입력하세요.");
             string inputId = Console.ReadLine();
 
@@ -58,9 +60,10 @@ namespace Library.Controller
                     isLogin = true;
                     userlistnumber = i-1;
                     i = 0;
-                    UserMode userMode = new UserMode(this.bookData, this.userData);
-                    userMode.usermenu();
-
+                    
+                    viewMenu.ViewUserMenu();
+                    int num = int.Parse(Console.ReadLine());
+                    menuConstant.ConstantOfUserMenu(num);
                     break;
                 }
             }
@@ -114,7 +117,9 @@ namespace Library.Controller
         }
         public void NewMemberProcess() //회원가입 
         {
-            
+            ViewMenu viewMenu = new ViewMenu();
+            MenuConstant menuConstant = new MenuConstant(bookData, userData);
+
             flag++;
             Console.Write(" id : ");
             string userid = Console.ReadLine();
@@ -132,7 +137,9 @@ namespace Library.Controller
             userData.UserList.Add(new UserConstructor(userid, password, Name, Age, PhoneNumber, Address));
             Console.Clear();
             Console.WriteLine("회원가입 성공!");
-            userSignUpDisplay.inputInfo();
+            viewMenu.ViewUserMenu();
+            int num = int.Parse(Console.ReadLine());
+            menuConstant.ConstantOfUserMenu(num);
         }
 
         
