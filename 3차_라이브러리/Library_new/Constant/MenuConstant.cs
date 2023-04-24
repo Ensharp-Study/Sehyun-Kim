@@ -41,19 +41,22 @@ namespace Library.Constant
                     display.InitialDisplay();
                     break;
                 case 1:
-
+                    Console.Clear();
                     searchBookInfo.searchBookManagerMode();
                     managerMode.modOfManager();
                     break;
                 case 2:
+                    Console.Clear();
                     appendBookInfo.appendbook();
                     managerMode.modOfManager();
                     break;
                 case 3:
+                    Console.Clear();
                     deleteBookinfo.deletebookinfo();
                     managerMode.modOfManager();
                     break;
                 case 4:
+                    Console.Clear();
                     modifyBookInfo.modifyBookInfo();
                     managerMode.modOfManager();
                     break;
