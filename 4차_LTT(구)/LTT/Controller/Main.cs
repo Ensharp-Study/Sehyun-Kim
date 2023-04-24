@@ -15,13 +15,7 @@ namespace LTT.Controller
         public static void Main(String[] args)
         {
             DisplayLogin displayLogin = new DisplayLogin();
-            MenuDisplay menuDisplay = new MenuDisplay();
-            SearchTimeTable searchTimeTable = new SearchTimeTable();
-            //DataInExcel dataInExcel = new DataInExcel();
-            //dataInExcel.OpenExcel();
-            searchTimeTable.SearchingTimeTable();
-            //menuDisplay.DisplayMenu();
-            //displayLogin.InitialDisplay();
+            displayLogin.InitialDisplay();
 
         }
     }

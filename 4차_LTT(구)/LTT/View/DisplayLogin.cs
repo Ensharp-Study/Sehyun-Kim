@@ -6,14 +6,21 @@ using System.Threading.Tasks;
 using LTT.Controller;
 using LTT.View;
 using LTT.Model;
+using LTT.Controller;
 namespace LTT.View
 {
     internal class DisplayLogin
     {
-        public void InitialDisplay()
+        private StudentData studentData;
+
+        public void InitialDisplay() //첫 화면 출력하는 메소드 
         {
             SaveInputUnlessEnter saveInputUnlessEnter = new SaveInputUnlessEnter();
+            this.studentData = new StudentData();
+            studentData.InsertStudentData();
+            LoginProcess loginProcess = new LoginProcess(studentData); 
             MenuDisplay menuDisplay = new MenuDisplay();
+
             Console.SetWindowSize(103, 30);
             Console.WriteLine("");
             Console.WriteLine("               __        _____     _____  ._________. __    __   .______     ______ ");
@@ -45,22 +52,9 @@ namespace LTT.View
             Console.WriteLine("                                | PASSWORD) |                    |");
             Console.WriteLine("                                *-.-*-.-*-.-*-.-*-.-*-.-*-.-*-.-.*");
 
-            Console.SetCursorPosition(50, 25);
-            string randomExpression = "";
-            int Entercase = 0;
-            int TypeCheck = 0;
-            saveInputUnlessEnter.SaveIDIfNotEnter(randomExpression, Entercase);
-            randomExpression = "";
-            Entercase = 0;
-            TypeCheck = 0;
-            Console.SetCursorPosition(50, 27);
-            GetHiddenConsoleInput getHiddenConsoleInput = new GetHiddenConsoleInput();
-            string inputPw = getHiddenConsoleInput.HideConsoleInput();
 
-            bool isLogin = false;
-            saveInputUnlessEnter.SavePWIfNotEnter(randomExpression, Entercase);
-
-            menuDisplay.DisplayMenu();
+            loginProcess.SetCursorAndLogin(); //로그인 프로세스
+            menuDisplay.DisplayMenu(); //다음 메뉴 표시
         }
 
     }

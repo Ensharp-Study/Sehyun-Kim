@@ -42,7 +42,7 @@ namespace LTT.Model
                 bool professorbool = false;
                 bool gradebool = false;
                 bool classnumberbool = false;
-                Console.SetWindowSize(145, 30);
+                Console.SetWindowSize(213, 50);
                 //함수 string input 매개변수
                 for (int i = 1; i <= rowCount; i++)
                 {
@@ -87,47 +87,47 @@ namespace LTT.Model
                     {
                         Excel.Range dataCell = worksheet.Cells[i, 1];
                         string dataValue = GetStringFromNullValue(dataCell.Value2);
-                        Console.Write(dataValue.PadRight(sortList(dataValue, 10)));
+                        Console.Write(dataValue.PadRight(sortList(dataValue, 5)));
                         
                         dataCell = worksheet.Cells[i, 2];
                         dataValue = GetStringFromNullValue(dataCell.Value2);
-                        Console.Write(dataValue.PadRight(sortList(dataValue, 32)));
+                        Console.Write(dataValue.PadRight(sortList(dataValue, 22)));
 
                         dataCell = worksheet.Cells[i, 3];
                         dataValue = GetStringFromNullValue(dataCell.Value2);
-                        Console.Write(dataValue.PadRight(sortList(dataValue, 20)));
+                        Console.Write(dataValue.PadRight(sortList(dataValue, 15)));
 
                         dataCell = worksheet.Cells[i,4];
                         dataValue = GetStringFromNullValue(dataCell.Value2);
-                        Console.Write(dataValue.PadRight(sortList(dataValue, 12)));
+                        Console.Write(dataValue.PadRight(sortList(dataValue, 8)));
 
                         dataCell = worksheet.Cells[i, 5];
                         dataValue = GetStringFromNullValue(dataCell.Value2);
-                        Console.Write(dataValue.PadRight(sortList(dataValue, 40)));
+                        Console.Write(dataValue.PadRight(sortList(dataValue, 33)));
 
                         dataCell = worksheet.Cells[i, 6];
                         dataValue = GetStringFromNullValue(dataCell.Value2);
-                        Console.Write(dataValue.PadRight(sortList(dataValue, 30)));
+                        Console.Write(dataValue.PadRight(sortList(dataValue, 17)));
 
                         dataCell = worksheet.Cells[i, 7];
                         dataValue = GetStringFromNullValue(dataCell.Value2);
-                        Console.Write(dataValue.PadRight(sortList(dataValue, 10)));
+                        Console.Write(dataValue.PadRight(sortList(dataValue, 5)));
 
                         dataCell = worksheet.Cells[i, 8];
                         dataValue = GetStringFromNullValue(dataCell.Value2);
-                        Console.Write(dataValue.PadRight(sortList(dataValue, 10)));
+                        Console.Write(dataValue.PadRight(sortList(dataValue, 5)));
 
                         dataCell = worksheet.Cells[i, 9];
                         dataValue = GetStringFromNullValue(dataCell.Value2);
-                        Console.Write(dataValue.PadRight(sortList(dataValue, 50)));
+                        Console.Write(dataValue.PadRight(sortList(dataValue, 37)));
 
                         dataCell = worksheet.Cells[i, 10];
                         dataValue = GetStringFromNullValue(dataCell.Value2);
-                        Console.Write(dataValue.PadRight(sortList(dataValue, 30)));
+                        Console.Write(dataValue.PadRight(sortList(dataValue, 20)));
 
                         dataCell = worksheet.Cells[i, 11];
                         dataValue = GetStringFromNullValue(dataCell.Value2);
-                        Console.Write(dataValue.PadRight(sortList(dataValue, 40)));
+                        Console.Write(dataValue.PadRight(sortList(dataValue, 27)));
 
                         dataCell = worksheet.Cells[i, 12];
                         dataValue = GetStringFromNullValue(dataCell.Value2);
@@ -186,8 +186,8 @@ namespace LTT.Model
 
         public int sortList(string str, int length)
         {
-            int byteLength = Encoding.Default.GetByteCount(str.PadRight(length));
-             return length - (byteLength - length);
+            int objLength = Encoding.Default.GetByteCount(str.PadRight(length));
+             return length - (objLength - length)/2;
         }
     }
 }

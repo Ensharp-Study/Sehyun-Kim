@@ -11,7 +11,7 @@ namespace LTT.Controller
 {
     internal class SaveInputUnlessEnter
     {
-        public void SaveIDIfNotEnter(string randomExpression, int entercase)
+        public string SaveIDIfNotEnter(string randomExpression, int entercase)
 
         { //ID는 숫자로 된 8자리 학번이다.
             DetermineWithRegularExpression determineWithRegularExpression = new DetermineWithRegularExpression();
@@ -21,6 +21,7 @@ namespace LTT.Controller
                 ConsoleKeyInfo IDinput = Console.ReadKey();
                 if (IDinput.Key == ConsoleKey.Enter) //입력한 값이 엔터면
                 {
+                    return randomExpression;
                     break;
                 }
                 else //입력한 값이 엔터가 아니면 
