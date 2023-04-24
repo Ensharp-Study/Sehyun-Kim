@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LTT", "LTT.csproj", "{AAE09687-A1AD-481E-8322-617DA210F275}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AAE09687-A1AD-481E-8322-617DA210F275}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAE09687-A1AD-481E-8322-617DA210F275}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAE09687-A1AD-481E-8322-617DA210F275}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAE09687-A1AD-481E-8322-617DA210F275}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {850E8B9E-0C07-492A-8529-212270FD2A63}
+	EndGlobalSection
+EndGlobal
