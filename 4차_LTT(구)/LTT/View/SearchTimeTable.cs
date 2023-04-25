@@ -16,13 +16,13 @@ namespace LTT.View
             Console.SetCursorPosition(0, 0);
             Console.WriteLine("\n");
             Console.WriteLine("            ┌-:*=.-.*:*-=*-.-:*-.-:*=.-.*:*-=*-.-:*=.-.*:*-=*-.-:*=.-**-.-:*=.-.-=*-.-:*:┐   ");
-            Console.WriteLine("            ┃  ○ 개설학과전공 │                                                         ┃                        ");
-            Console.WriteLine("            ┃                  ┃                                                         ┃        ");
+            Console.WriteLine("            ┃  ○ 개설학과전공 │                                                         ┃  ");
+            Console.WriteLine("            ┃                  ┃                                                         ┃  ");
             Console.WriteLine("            ├────────────────────────────────────────────────────────────────────────────┤                                                                               ");
-            Console.WriteLine("            ┃  ○ 이수구분     ┃                                                         ┃               ");
+            Console.WriteLine("            ┃  ○ 이수구분     ┃                                                         ┃   ");
             Console.WriteLine("            ┃                  ┃                                                         ┃   ");
             Console.WriteLine("            ├────────────────────────────────────────────────────────────────────────────┤                                                                                 ");
-            Console.WriteLine("            ┃  ○ 교과목명     ┃                                                         ┃                 ");
+            Console.WriteLine("            ┃  ○ 교과목명     ┃                                                         ┃   ");
             Console.WriteLine("            ├────────────────────────────────────────────────────────────────────────────┤                                                                                  ");
             Console.WriteLine("            ┃  ○ 교수명       ┃                                                         ┃              ");
             Console.WriteLine("            ├────────────────────────────────────────────────────────────────────────────┤                                                                                  ");
