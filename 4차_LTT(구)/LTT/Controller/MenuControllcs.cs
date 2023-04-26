@@ -381,7 +381,7 @@ namespace LTT.Controller
                             ConsoleKeyInfo search = Console.ReadKey();
                             if (search.Key == ConsoleKey.Enter)
                             {
-                                dataInExcel.OpenExcel(majorinput, divideinput, randomExpression, ProfessorExpression, GradeExpression, numberExpression);
+                                //dataInExcel.OpenExcel();
                                 check = false;
                             }
 

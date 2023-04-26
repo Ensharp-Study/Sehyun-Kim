@@ -418,7 +418,7 @@ namespace LTT.View
                             ConsoleKeyInfo search = Console.ReadKey();
                             if (search.Key == ConsoleKey.Enter)
                             {
-                                dataInExcel.OpenExcel(majorinput, divideinput, randomExpression, ProfessorExpression, GradeExpression, numberExpression);
+                                //dataInExcel.OpenExcel(majorinput, divideinput, randomExpression, ProfessorExpression, GradeExpression, numberExpression);
                                 check = false;
                             }
                             
