@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
 
-namespace LTT.Model
+namespace LTT.Constant
 {
     internal class DataInExcel
     {
@@ -36,7 +36,7 @@ namespace LTT.Model
                 int cols = data.GetLength(1);
                 string[,] result = new string[rows, cols];
 
-                // 데이터를 string 형태로 변환하여 새로운 배열에 저장
+                // 데이터를 새로운 배열에 저장
                 for (int row = 1; row <= rows; row++)
                 {
                     for (int col = 1; col <= cols; col++)
@@ -78,24 +78,4 @@ namespace LTT.Model
         }
     }
 
-    class ExcelData
-    {
-        public void useDataInExcel()
-        {
-            DataInExcel dataInExcel = new DataInExcel();
-            string[,] excelData = dataInExcel.GetAllExcelData(Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "\\2023년도 1학기 강의시간표.xlsx", "Sheet1");
-            int rows = excelData.GetLength(0);
-            int cols = excelData.GetLength(1);
-
-            for (int row = 0; row < rows; row++)
-            {
-                for (int col = 0; col < cols; col++)
-                {
-                    Console.Write(excelData[row, col] + "\t");
-                }
-                Console.WriteLine();
-            }
-        }
-
-    }
 }
