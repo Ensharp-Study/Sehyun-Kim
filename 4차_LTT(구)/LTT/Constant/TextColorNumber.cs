@@ -4,215 +4,171 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LTT.View;
-using LTT.Model;
+using LTT.Controller;
 
-namespace LTT.Controller
+namespace LTT.Constant
 {
-    internal class MenuControllcs
+    internal class TextColorNumber
     {
-        public string numberExpression = "NULL";
-        public string majorinput = "NULL";
-        public string randomExpression = "NULL";
-        public string ProfessorExpression = "NULL";
-        public string GradeExpression = "NULL";
-        public string divideinput = "NULL";
-        public bool check = true;
-
-        public void controllMenu()
+        public void CallNumberAndColorMenu()
         {
+            int number = 0;
             Console.CursorVisible = false;
-            int i = 0;
+            bool check = true;
+            bool checkMajor = true;
+            string majorinput = "";
+            string divideinput = "";
+            string randomExpression = "";
+            string ProfessorExpression = "";
+            string GradeExpression = "";
+            string numberExpression = "";
+            TextColorWhite textColorWhite = new TextColorWhite();
             SearchTimeTable searchTimeTable = new SearchTimeTable();
-            
+            TextColorNumber textColorNumber = new TextColorNumber();
+
             while (check == true)
             {
-                switch (i)
+                //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ넘버 ㅡㅡㅡㅡㅡㅡㅡㅡ
+                switch (number)
                 {
                     case 0:
-                        Console.SetCursorPosition(15, 3);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("● 개설학과전공");
-                        searchTimeTable.setwhite(i);
-                        Console.SetCursorPosition(15, 3);
+                        searchTimeTable.SetTextColorGreen(15, 3, "● 개설학과전공");
+                        textColorWhite.setTextColorWhite(number);
                         break;
                     case 1:
-                        Console.SetCursorPosition(15, 7);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("● 이수구분");
-                        searchTimeTable.setwhite(i);
-                        Console.SetCursorPosition(15, 7);
+                        searchTimeTable.SetTextColorGreen(15, 7, "● 이수구분");
+                        textColorWhite.setTextColorWhite(number);
                         break;
                     case 2:
-                        Console.SetCursorPosition(15, 11);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("● 교과목명");
-                        searchTimeTable.setwhite(i);
-                        Console.SetCursorPosition(15, 11);
+                        searchTimeTable.SetTextColorGreen(15, 11, "● 교과목명");
+                        textColorWhite.setTextColorWhite(number);
                         break;
                     case 3:
-                        Console.SetCursorPosition(15, 14);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("● 교수명");
-                        searchTimeTable.setwhite(i);
-                        Console.SetCursorPosition(15, 14);
+                        searchTimeTable.SetTextColorGreen(15, 14, "● 교수명");
+                        textColorWhite.setTextColorWhite(number);
                         break;
                     case 4:
-                        Console.SetCursorPosition(15, 17);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("● 학년");
-                        searchTimeTable.setwhite(i);
-                        Console.SetCursorPosition(15, 17);
+                        searchTimeTable.SetTextColorGreen(15, 17, "● 학년");
+                        textColorWhite.setTextColorWhite(number);
                         break;
                     case 5:
-                        Console.SetCursorPosition(15, 20);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("● 학수번호");
-                        searchTimeTable.setwhite(i);
-                        Console.SetCursorPosition(15, 20);
+                        searchTimeTable.SetTextColorGreen(15, 20, "● 학수번호");
+                        textColorWhite.setTextColorWhite(number);
                         break;
                     case 6:
-                        Console.SetCursorPosition(0, 23);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.Write("                                             *-_.검색하기._-* ");
-
-                        searchTimeTable.setwhite(i);
-                        Console.SetCursorPosition(0, 23);
+                        searchTimeTable.SetTextColorGreen(0, 23, "                                             *-_.검색하기._-* ");
+                        textColorWhite.setTextColorWhite(number);
                         break;
-                }
-                countCursor(i);
-            }
-        }
 
-        public void countCursor(int i)
-            {
+                }
+
                 ConsoleKeyInfo keyinput = Console.ReadKey();
-                if (i >= 0 && i <= 5 && keyinput.Key == ConsoleKey.DownArrow)
+                
+                if (number >= 0 && number <= 5 && keyinput.Key == ConsoleKey.DownArrow)
                 {
-                    i++;
+                    number++;
                 }
 
-                else if (i >= 1 && i <= 6 && keyinput.Key == ConsoleKey.UpArrow)
+                else if (number >= 1 && number <= 6 && keyinput.Key == ConsoleKey.UpArrow)
                 {
-                    i--;
+                    number--;
                 }
 
                 else if (keyinput.Key == ConsoleKey.Enter)
                 {
-                    switch (i)
+                    //ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ넘버 ㅡㅡㅡㅡㅡㅡㅡㅡ
+                    switch (number)
                     {
                         case 0:
                             bool checkmajor = true;
-                            int j = 1;
-                            while (checkmajor == true)
+                            int countCursor = 1;
+                            while (checkMajor == true)
                             {
-
-                                if (j == 1)
+                                switch (countCursor)
                                 {
-                                    Console.SetCursorPosition(38, 3);
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.Write("● 컴퓨터공학과");
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                    Console.Write("      ○ 소프트웨어학과 ");
-                                    Console.SetCursorPosition(38, 4);
-                                    Console.WriteLine("○ 지능기전공학부    ○ 기계항공우주공학부 ");
-                                }
-                                else if (j == 2)
-                                {
-                                    Console.SetCursorPosition(38, 3);
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                    Console.Write("○ 컴퓨터공학과");
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.Write("      ● 소프트웨어학과 ");
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                    Console.SetCursorPosition(38, 4);
-                                    Console.WriteLine("○ 지능기전공학부    ○ 기계항공우주공학부 ");
-
-                                }
-                                else if (j == 3)
-                                {
-                                    Console.SetCursorPosition(38, 3);
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                    Console.WriteLine("○ 컴퓨터공학과      ○ 소프트웨어학과 ");
-                                    Console.SetCursorPosition(38, 4);
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("● 지능기전공학부");
-                                    Console.SetCursorPosition(59, 4);
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                    Console.WriteLine("○ 기계항공우주공학부 ");
-                                }
-                                else if (j == 4)
-                                {
-                                    Console.SetCursorPosition(38, 3);
-                                    Console.ForegroundColor = ConsoleColor.White;
-                                    Console.WriteLine("○ 컴퓨터공학과      ○ 소프트웨어학과 ");
-                                    Console.SetCursorPosition(38, 4);
-                                    Console.WriteLine("○ 지능기전공학부");
-                                    Console.SetCursorPosition(59, 4);
-                                    Console.ForegroundColor = ConsoleColor.Green;
-                                    Console.WriteLine("● 기계항공우주공학부 ");
-                                    Console.ForegroundColor = ConsoleColor.White;
+                                    case 1:
+                                        searchTimeTable.SetTextColorGreen(38, 3, "● 컴퓨터공학과");
+                                        searchTimeTable.SetTextColorWhite(59, 3, "○ 소프트웨어학과");
+                                        searchTimeTable.SetTextColorWhite(38, 4, "○ 지능기전공학부    ○ 기계항공우주공학부 ");
+                                        break;
+                                    case 2:
+                                        searchTimeTable.SetTextColorWhite(38, 3, "○ 컴퓨터공학과");
+                                        searchTimeTable.SetTextColorGreen(59, 3, "● 소프트웨어학과");
+                                        searchTimeTable.SetTextColorWhite(38, 4, "○ 지능기전공학부    ○ 기계항공우주공학부 ");
+                                        break;
+                                    case 3:
+                                        searchTimeTable.SetTextColorWhite(38, 3, "○ 컴퓨터공학과      ○ 소프트웨어학과 ");
+                                        searchTimeTable.SetTextColorGreen(38, 4, "● 지능기전공학부");
+                                        searchTimeTable.SetTextColorWhite(59, 4, "○ 기계항공우주공학부 ");
+                                        break;
+                                    case 4:
+                                        searchTimeTable.SetTextColorWhite(38, 3, "○ 컴퓨터공학과      ○ 소프트웨어학과 ");
+                                        searchTimeTable.SetTextColorWhite(38, 4, "○ 지능기전공학부");
+                                        searchTimeTable.SetTextColorGreen(59, 4, "● 기계항공우주공학부 ");
+                                        Console.ForegroundColor = ConsoleColor.White;
+                                        break;
 
                                 }
                                 ConsoleKeyInfo inputkey = Console.ReadKey();
 
-                                if (j == 1)
+
+                                if (countCursor == 1)
                                 {
                                     if (inputkey.Key == ConsoleKey.RightArrow)
-                                        j++;
+                                        countCursor++;
 
                                     else if (inputkey.Key == ConsoleKey.DownArrow)
-                                        j += 2;
+                                        countCursor += 2;
                                 }
-                                if (j == 2)
+                                if (countCursor == 2)
                                 {
                                     if (inputkey.Key == ConsoleKey.LeftArrow)
-                                        j--;
+                                        countCursor--;
                                     else if (inputkey.Key == ConsoleKey.DownArrow)
-                                        j += 2;
+                                        countCursor += 2;
                                 }
-                                if (j == 3)
+                                if (countCursor == 3)
                                 {
                                     if (inputkey.Key == ConsoleKey.RightArrow)
-                                        j++;
+                                        countCursor++;
                                     else if (inputkey.Key == ConsoleKey.UpArrow)
-                                        j -= 2;
+                                        countCursor -= 2;
                                 }
-                                if (j == 4)
+                                if (countCursor == 4)
                                 {
                                     if (inputkey.Key == ConsoleKey.LeftArrow)
-                                        j--;
+                                        countCursor--;
                                     else if (inputkey.Key == ConsoleKey.UpArrow)
-                                        j -= 2;
+                                        countCursor -= 2;
                                 }
 
                                 if (inputkey.Key == ConsoleKey.Enter)
                                 {
-
                                     checkmajor = false;
-                                    if (j == 0)
+                                    if (countCursor == 0)
                                     {
                                         majorinput = "NULL";
                                     }
-                                    else if (j == 1)
+                                    else if (countCursor == 1)
                                     {
                                         majorinput = "컴퓨터공학과";
                                     }
-                                    else if (j == 2)
+                                    else if (countCursor == 2)
                                     {
                                         majorinput = "소프트웨어학과";
                                     }
-                                    else if (j == 3)
+                                    else if (countCursor == 3)
                                     {
                                         majorinput = "지능기전공학부";
                                     }
-                                    else if (j == 4)
+                                    else if (countCursor == 4)
                                     {
                                         majorinput = "기계항공우주공학부";
                                     }
+                                    break;
+
                                 }
-
                             }
-
                             break;
                         case 1:
                             bool checkdivide = true;
@@ -281,10 +237,6 @@ namespace LTT.Controller
 
                                 if (inputkey.Key == ConsoleKey.Enter)
                                 {
-
-
-
-
                                     if (z == 1)
                                     {
                                         divideinput = "공통교양필수";
@@ -304,7 +256,7 @@ namespace LTT.Controller
                             break;
                         case 2:
                             //교과목명
-
+                            Console.SetCursorPosition(38, 11);
                             while (true)
                             {
 
@@ -323,7 +275,7 @@ namespace LTT.Controller
                             break;
                         case 3:
                             //교수명
-
+                            Console.SetCursorPosition(38, 14);
                             while (true)
                             {
 
@@ -341,7 +293,7 @@ namespace LTT.Controller
                             break;
                         case 4:
                             //학년
-
+                            Console.SetCursorPosition(38, 17);
                             while (true)
                             {
 
@@ -358,7 +310,7 @@ namespace LTT.Controller
                             }
                             break;
                         case 5:
-
+                            Console.SetCursorPosition(38, 20);
                             while (true)
                             {
 
@@ -377,12 +329,20 @@ namespace LTT.Controller
                             break;
                         case 6:
                             //검색하기
-                            DataInExcel dataInExcel = new DataInExcel();
+                            //DataInExcel dataInExcel = new DataInExcel();
                             ConsoleKeyInfo search = Console.ReadKey();
                             if (search.Key == ConsoleKey.Enter)
                             {
-                                //dataInExcel.OpenExcel();
-                                check = false;
+                                NewArrayFromExcelcs newArrayFromExcelcs = new NewArrayFromExcelcs();
+                                Console.Clear();
+                                newArrayFromExcelcs.FindDataInExcel(majorinput, divideinput, randomExpression, ProfessorExpression, GradeExpression, numberExpression);
+                                Console.ReadKey();
+                                //dataInExcel.OpenExcel(majorinput, divideinput, randomExpression, ProfessorExpression, GradeExpression, numberExpression);
+                                randomExpression = "";
+                                ProfessorExpression = "";
+                                GradeExpression = "";
+                                numberExpression = "";
+
                             }
 
                             break;
@@ -390,16 +350,76 @@ namespace LTT.Controller
                 }
 
             }
-                
-                
-
-                
-               
-                
-                
-
-            }
         }
-    
-    
+        
+        
+        public string CountArrowKey(int countCursor, string majorinput)
+        {
+            bool check = true;
 
+            while (check==true)
+            {
+                ConsoleKeyInfo inputkey = Console.ReadKey();
+
+                if (countCursor == 1)
+                {
+                    if (inputkey.Key == ConsoleKey.RightArrow)
+                        countCursor++;
+
+                    else if (inputkey.Key == ConsoleKey.DownArrow)
+                        countCursor += 2;
+                }
+                if (countCursor == 2)
+                {
+                    if (inputkey.Key == ConsoleKey.LeftArrow)
+                        countCursor--;
+                    else if (inputkey.Key == ConsoleKey.DownArrow)
+                        countCursor += 2;
+                }
+                if (countCursor == 3)
+                {
+                    if (inputkey.Key == ConsoleKey.RightArrow)
+                        countCursor++;
+                    else if (inputkey.Key == ConsoleKey.UpArrow)
+                        countCursor -= 2;
+                }
+                if (countCursor == 4)
+                {
+                    if (inputkey.Key == ConsoleKey.LeftArrow)
+                        countCursor--;
+                    else if (inputkey.Key == ConsoleKey.UpArrow)
+                        countCursor -= 2;
+                }
+
+                if (inputkey.Key == ConsoleKey.Enter)
+                {
+                    if (countCursor == 0)
+                    {
+                        majorinput = "NULL";
+                    }
+                    else if (countCursor == 1)
+                    {
+                        majorinput = "컴퓨터공학과";
+                    }
+                    else if (countCursor == 2)
+                    {
+                        majorinput = "소프트웨어학과";
+                    }
+                    else if (countCursor == 3)
+                    {
+                        majorinput = "지능기전공학부";
+                    }
+                    else if (countCursor == 4)
+                    {
+                        majorinput = "기계항공우주공학부";
+                    }
+                    check = false;
+                }
+            }
+
+            return majorinput;
+        }
+
+
+    }
+}

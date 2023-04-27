@@ -12,6 +12,8 @@ namespace LTT.View
     {
         public void DisplayMenu()
         {
+            MenuOfInterestedSubject menuOfInterestedSubject = new MenuOfInterestedSubject();
+
             Console.CursorVisible = false;
             Console.Clear();
             Console.SetWindowSize(103, 23);
@@ -79,13 +81,14 @@ namespace LTT.View
                 SearchTimeTable searchTimeTable = new SearchTimeTable();    
                 if (keyinput.Key == ConsoleKey.Enter)
                 {
+                    bool interest = true;
                     switch (i)
                     {
                         case 0:
                             searchTimeTable.SearchingTimeTable();
                             break;
                         case 1:
-                            //관심과목담기
+                            menuOfInterestedSubject.ViewMenuOfInterestedSubject();
                             break;
                         case 2:
                             //수강신청

@@ -14,10 +14,12 @@ namespace LTT.Controller
     {
         public static void Main(String[] args)
         {
-            //DisplayLogin displayLogin = new DisplayLogin();
-            //displayLogin.InitialDisplay();
-            ExcelData excelData = new ExcelData();
-            excelData.useDataInExcel();
+            DisplayLogin displayLogin = new DisplayLogin();
+            displayLogin.InitialDisplay();
+            //NewArrayFromExcelcs newArrayFromExcelcs = new NewArrayFromExcelcs();
+            //.MakeNewArrayFromExcel();
+            //SearchTimeTable searchTimeTable = new SearchTimeTable();
+            //searchTimeTable.SearchingTimeTable();
 
         }
     }
