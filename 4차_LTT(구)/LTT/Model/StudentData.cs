@@ -19,8 +19,8 @@ namespace LTT.Model
         {
             StudentList.Add(new StudentConstructor()
             {
-                UserId = "1",
-                password = "1"
+                UserId = "22011658",
+                password = "pw12345"
 
             });
         }
