@@ -21,7 +21,7 @@ namespace LTT.View
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(text);
         }
-        public void SearchingTimeTable()
+        public void SearchingTimeTable(StudentData studentData)
         {
             Console.Clear();
             Console.SetWindowSize(103, 25);
@@ -47,9 +47,9 @@ namespace LTT.View
             Console.Write("                                             *-_.검색하기._-* ");
 
             Console.CursorVisible = false;
-            CallMenu();
+            CallMenu(studentData);
         }
-        public void CallMenu()
+        public void CallMenu(StudentData studentData)
         {
             string numberExpression = "NULL";
             string majorinput = "NULL";
@@ -63,7 +63,7 @@ namespace LTT.View
             TextColorNumber textColorNumber = new TextColorNumber();
             TextColorWhite textColorWhite = new TextColorWhite();
 
-            textColorNumber.CallNumberAndColorMenu();
+            textColorNumber.CallNumberAndColorMenu(studentData);
         }
 
     }
