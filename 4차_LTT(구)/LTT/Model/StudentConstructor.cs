@@ -17,14 +17,21 @@ namespace LTT.Model
         }
 
         public string password { get; set; }
+        public List<string[]> interestedLecture { get; set; }
+        public List<string[]> registeredLecture { get; set; }
 
         public StudentConstructor()
         { 
+            interestedLecture = new List<string[]>();
+            registeredLecture = new List<string[]>(); 
+            
         }
-            public StudentConstructor(string userid, string password)
+        public StudentConstructor(string userid, string password)
         {
             this.userid = userid;
             this.password = password;
+            interestedLecture = new List<string[]>();
+            registeredLecture = new List<string[]>();
         }
     }
 }
