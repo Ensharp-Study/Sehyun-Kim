@@ -5,12 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
+using LTT.Model;
 
 namespace LTT.View
 {
     internal class MenuDisplay
     {
-        public void DisplayMenu()
+        public void DisplayMenu(StudentData studentData)
         {
             MenuOfInterestedSubject menuOfInterestedSubject = new MenuOfInterestedSubject();
 
@@ -85,10 +86,10 @@ namespace LTT.View
                     switch (i)
                     {
                         case 0:
-                            searchTimeTable.SearchingTimeTable();
+                            searchTimeTable.SearchingTimeTable(studentData);
                             break;
                         case 1:
-                            menuOfInterestedSubject.ViewMenuOfInterestedSubject();
+                            menuOfInterestedSubject.ViewMenuOfInterestedSubject(studentData);
                             break;
                         case 2:
                             //수강신청
