@@ -40,7 +40,7 @@ namespace LTT.Controller
                     userlistnumber = i - 1;
                     i = 0;
 
-                    menu.DisplayMenu();
+                    menu.DisplayMenu(studentData);
                     break;
                 }
             }

@@ -5,12 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using LTT.View;
 using LTT.Controller;
+using LTT.Model;
 
 namespace LTT.Constant
 {
     internal class TextColorNumber
     {
-        public void CallNumberAndColorMenu()
+        public void CallNumberAndColorMenu(StudentData studentData)
         {
             int number = 0;
             Console.CursorVisible = false;
@@ -333,9 +334,17 @@ namespace LTT.Constant
                             ConsoleKeyInfo search = Console.ReadKey();
                             if (search.Key == ConsoleKey.Enter)
                             {
-                                NewArrayFromExcelcs newArrayFromExcelcs = new NewArrayFromExcelcs();
+                                NewArrayFromExcelcs newArrayFromExcelcs = new NewArrayFromExcelcs(studentData);
                                 Console.Clear();
-                                newArrayFromExcelcs.FindDataInExcel(majorinput, divideinput, randomExpression, ProfessorExpression, GradeExpression, numberExpression);
+                                if (check == true/*관심과목이면*/)
+                                {
+
+                                    newArrayFromExcelcs.FindDataInExcel(majorinput, divideinput, randomExpression, ProfessorExpression, GradeExpression, numberExpression);
+                                }
+                                else if (check == false)
+                                {
+
+                                }
                                 Console.ReadKey();
                                 //dataInExcel.OpenExcel(majorinput, divideinput, randomExpression, ProfessorExpression, GradeExpression, numberExpression);
                                 randomExpression = "";
