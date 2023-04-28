@@ -18,36 +18,43 @@ namespace LTT.Constant
             SearchTimeTable searchTimeTable = new SearchTimeTable();
             InterestSubjectConstant interestSubjectInstant = new InterestSubjectConstant();
             MenuDisplay menuDisplay = new MenuDisplay();
-
+            IntervalCol intervalCol = new IntervalCol();    
 
             switch (inputnumber)
             {
                 case 0: //메뉴로 돌아가기 
+                    Console.Clear();
                     menuDisplay.DisplayMenu(studentData);
                     break;
 
                 case 1: //관심과목 담기 
+                    Console.Clear();
                     bool judge = false;
                     searchTimeTable.SearchingTimeTable(studentData, judge);
                     break;
 
                 case 2: //관심과목 삭제 
+                    Console.Clear();
                     bool check = true; //check가 true일 동안 진행된다.
-                    
+
                     foreach (string[] row in studentData.StudentList[0].interestedLecture)
                     {
-                        foreach (string col in row)
+                        string tempString = "";
+
+                        for (int i = 0; i < 12; i++)
                         {
-                            Console.Write(col + " ");
+                            tempString += row[i].PadRight(intervalCol.SetIntervalCol(i) - (Encoding.Default.GetByteCount(row[i].PadRight(intervalCol.SetIntervalCol(i))) - intervalCol.SetIntervalCol(i)) / 2);
                         }
-                        Console.WriteLine();
-                    } //저장된 관심과목 리스트 모두 출력 
+
+
+                        Console.WriteLine(tempString);
+                    }
 
                     while (check == true)
                     {
                         Console.WriteLine("삭제할 강의 번호를 입력해 주세요. 0을 눌러 종료");
                         string inputExpression = Console.ReadLine();
-
+                        Console.Clear();
                         if (inputExpression == "0") // 입력값이 "0"이면 메서드를 빠져나간다.
                         {
                             menuOfInterestedSubject.ViewMenuOfInterestedSubject(studentData); //메뉴로 돌아가기
@@ -65,23 +72,32 @@ namespace LTT.Constant
                         //결과 출력
                         foreach (string[] row in studentData.StudentList[0].interestedLecture)
                         {
-                            foreach (string col in row)
+                            string tempString = "";
+
+                            for (int i = 0; i < 12; i++)
                             {
-                                Console.Write(col + " ");
+                                tempString += row[i].PadRight(intervalCol.SetIntervalCol(i) - (Encoding.Default.GetByteCount(row[i].PadRight(intervalCol.SetIntervalCol(i))) - intervalCol.SetIntervalCol(i)) / 2);
                             }
-                            Console.WriteLine();
+
+
+                            Console.WriteLine(tempString);
                         }
                     }
                     break;
 
                 case 3: //관심과목 조회
+                    Console.Clear();
                     foreach (string[] row in studentData.StudentList[0].interestedLecture)
                     {
-                        foreach (string col in row)
+                        string tempString = "";
+
+                        for (int i = 0; i < 12; i++)
                         {
-                            Console.Write(col + " ");
+                            tempString += row[i].PadRight(intervalCol.SetIntervalCol(i) - (Encoding.Default.GetByteCount(row[i].PadRight(intervalCol.SetIntervalCol(i))) - intervalCol.SetIntervalCol(i)) / 2);
                         }
-                        Console.WriteLine();
+
+
+                        Console.WriteLine(tempString);
                     }
 
                     Console.WriteLine("0을 눌러 돌아가기");

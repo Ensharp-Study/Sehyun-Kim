@@ -38,11 +38,14 @@ namespace LTT.View
             switch (inputnumber)
             { 
                 case 1:
+                    Console.Clear();
                     bool judge = true;
                     searchTimeTable.SearchingTimeTable(studentData, judge);
                     break;
                 case 2:
+                    Console.Clear();
                     bool judgement = true;
+                    bool equalJudge = false;
                     //수강신청 강의 추가 -> 관심과목 담기에서 담은 리스트에서 수강신청 하기 -> interestLecture, registeredlecture
                     foreach (string[] row in studentData.StudentList[0].interestedLecture)
                     {
@@ -57,7 +60,7 @@ namespace LTT.View
                         Console.WriteLine("수강 신청할 강의 번호를 입력해 주세요. 0을 눌러 종료") ;
                         string numberExpression=Console.ReadLine();
 
-                        foreach (string[] row in studentData.StudentList[1].interestedLecture)
+                        foreach (string[] row in studentData.StudentList[0].interestedLecture)
                         {
                             if (numberExpression == "0")
                             {
@@ -68,13 +71,14 @@ namespace LTT.View
                             else if (row[0].Equals(numberExpression))
                             {
                                 studentData.StudentList[0].registeredLecture.Add(row);
+                                equalJudge = true;
+                                break;
                             }
+                        }
+                        if (!equalJudge)
 
-                            else
-                            {
-                                Console.WriteLine("일치하는 강의 번호가 없습니다.");
-                            }
-                            
+                        {
+                            Console.WriteLine("일치하는 강의 번호가 없습니다.");
                         }
                     }
                     foreach (string[] row in studentData.StudentList[0].registeredLecture)
@@ -87,6 +91,7 @@ namespace LTT.View
                     }
                     break;
                 case 3: //강의 삭제 
+                    Console.Clear();
                     bool check = true;
                     foreach (string[] row in studentData.StudentList[0].registeredLecture)
                     {
@@ -124,6 +129,7 @@ namespace LTT.View
                     }
                     break;
                 case 4:
+                    Console.Clear();
                     bool check1 = true;
                     
                     foreach (string[] row in studentData.StudentList[0].registeredLecture)

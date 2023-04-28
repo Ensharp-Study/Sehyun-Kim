@@ -113,14 +113,15 @@ namespace LTT.Controller
                     searchResult.Add(row);
                 }
             }
-            
+            int totalScore = 0;
             bool check = true;
             while (check == true)
-            {
-                
+            {//Console.Write(excelData[row, col].PadRight(intervalCol.SetIntervalCol(col) -
+             ////(Encoding.Default.GetByteCount(excelData[row, col].PadRight(intervalCol.SetIntervalCol(col))) - intervalCol.SetIntervalCol(col)) / 2));
+                Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────");
                 Console.WriteLine("담을 강의 번호를 입력해 주세요. 0을 눌러 종료");
+               
                 string inputExpression = Console.ReadLine();
-
                 foreach (string[] row in searchResult)
                 {
                     if (inputExpression == "0") // 입력값이 "0"이면 while문 종료
@@ -132,25 +133,42 @@ namespace LTT.Controller
 
                     else if (row[0].Equals(inputExpression))
                     {
-                        studentData.StudentList[0].interestedLecture.Add(row);
+
+                        totalScore +=int.Parse( row[6]);
+                        if (totalScore <= 24)
+                        {
+                            studentData.StudentList[0].interestedLecture.Add(row);
+                        }
+                        else if (totalScore > 24)
+                        {
+                            totalScore -= int.Parse(row[6]);
+                        }
 
                     }
 
                 }
 
-                foreach(string[] row in studentData.StudentList[0].interestedLecture)
+                Console.WriteLine("──────────────────────────────────────────────────────────────────────────────────────────────────────");
+                Console.Write("담은 학점 :");
+                Console.WriteLine(totalScore);
+                
+                foreach (string[] row in studentData.StudentList[0].interestedLecture)
                 {
-                    foreach ( string col in row)
+                    string tempString = "";
+
+                    for (int i = 0; i < 12; i++)
                     {
-                        Console.Write(col + " ");
+                        tempString += row[i].PadRight(intervalCol.SetIntervalCol(i) - (Encoding.Default.GetByteCount(row[i].PadRight(intervalCol.SetIntervalCol(i))) - intervalCol.SetIntervalCol(i)) / 2);
                     }
-                    Console.WriteLine();
+
+
+                    Console.WriteLine(tempString);
                 }
+
+                Console.SetCursorPosition(0, Console.CursorTop - studentData.StudentList[0].interestedLecture.Count - 5);
+                
             }
             
-
-
-
 
             return interest;
         }
