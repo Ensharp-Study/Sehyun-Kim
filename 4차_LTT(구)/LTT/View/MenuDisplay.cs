@@ -14,7 +14,7 @@ namespace LTT.View
         public void DisplayMenu(StudentData studentData)
         {
             MenuOfInterestedSubject menuOfInterestedSubject = new MenuOfInterestedSubject();
-
+            MenuOfRegisterLecture menuOfRegisterLecture = new MenuOfRegisterLecture();
             Console.CursorVisible = false;
             Console.Clear();
             Console.SetWindowSize(103, 23);
@@ -32,7 +32,7 @@ namespace LTT.View
             Console.WriteLine("                                      ○   수강 내역 조회 \n\n\n");
 
 
-
+            Console.WriteLine("                                         ");
             Console.WriteLine("                            *-.-:*=.-.*:*-=*-.-:*=.-.*:*-=*-.-::*-=*");
 
             Console.SetCursorPosition(0, 7); //강의 시간표 조회
@@ -86,13 +86,15 @@ namespace LTT.View
                     switch (i)
                     {
                         case 0:
-                            searchTimeTable.SearchingTimeTable(studentData);
+                            bool judge = false;
+                            searchTimeTable.SearchingTimeTable(studentData, judge);
                             break;
                         case 1:
                             menuOfInterestedSubject.ViewMenuOfInterestedSubject(studentData);
                             break;
                         case 2:
                             //수강신청
+                            menuOfRegisterLecture.ViewMenuOfRegisterLecture(studentData);
                             break;
                         case 3:
                             //수강내역조회

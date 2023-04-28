@@ -26,13 +26,14 @@ namespace LTT.View
             Console.WriteLine("                                               ");
             Console.WriteLine("                                           3.  관심과목 조회                      ");
             Console.WriteLine("                                          ");
-            Console.WriteLine("");
+            Console.WriteLine("                                           0을 눌러 돌아가기");
             Console.WriteLine("            ┗*-.-:*=.-.*:*-=*-.-:*-.-:*=.-.*:*-=*-.-:*=.-.*:*-=*-.-:*=.-**-.-:*=.-.-=*-.:┛    \n     ");
             int inputnumber = 0;
             string inputNumberString = Console.ReadLine();
             SearchTimeTable searchTimeTable = new SearchTimeTable();
+            MenuDisplay menuDisplay = new MenuDisplay();    
             bool interest = false;
-            Regex regex = new Regex("^[1-3]$");
+            Regex regex = new Regex("^[0-3]$");
 
             if (!regex.IsMatch(inputNumberString))
             {
@@ -46,8 +47,12 @@ namespace LTT.View
 
             switch (inputnumber)
             {
+                case 0:
+                    menuDisplay.DisplayMenu(studentData);
+                    break;
                 case 1:
-                    searchTimeTable.SearchingTimeTable(studentData);
+                    bool judge = false;
+                    searchTimeTable.SearchingTimeTable(studentData, judge);
                     break;
                 case 2: //관심과목 삭제 
                     bool check = true;
