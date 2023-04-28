@@ -42,11 +42,13 @@ namespace LTT.Constant
                     for (int col = 1; col <= cols; col++)
                     {
                         result[row - 1, col - 1] = GetStringFromNullValue(data[row, col]);
+                       
                     }
                 }
-
+              
                 return result;
             }
+           
             catch (SystemException e)
             {
                 Console.WriteLine(e.Message);

@@ -54,7 +54,7 @@ namespace LTT.View
 
 
             loginProcess.SetCursorAndLogin(); //로그인 프로세스
-            menuDisplay.DisplayMenu(); //다음 메뉴 표시
+            menuDisplay.DisplayMenu(studentData); //다음 메뉴 표시
         }
 
     }

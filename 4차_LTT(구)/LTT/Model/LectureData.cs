@@ -3,26 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using LTT.Controller;
 namespace LTT.Model
 {
     internal class LectureData
     {
-        private List<LectureConstructor> lectureList;
+        private List<LectureConstructor> interestedLectureList;
         public List<LectureConstructor> LectureList
         {
-            get { return lectureList; }
-            set { lectureList = value; }    
+            get { return interestedLectureList; }
+            set { interestedLectureList = value; }    
         }
         
         public LectureData()
         {
-            lectureList = new List<LectureConstructor>();
+            interestedLectureList = new List<LectureConstructor>();
         }
 
-        public void AddInterest()
-        {
-            lectureList.Add(new LectureConstructor());
-        }
+        
     }
 }
