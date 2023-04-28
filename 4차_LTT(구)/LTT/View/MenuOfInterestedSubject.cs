@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using LTT.Controller;
+using LTT.Model;
+
 namespace LTT.View
 {
     internal class MenuOfInterestedSubject
     {
-        public void ViewMenuOfInterestedSubject()
+        public void ViewMenuOfInterestedSubject(StudentData studentData)
         {
             Console.Clear();
             Console.WriteLine("            ┌-:*=.-.*:*-=*-.-:*-.-:*=.-.*:*-=*-.-:*=.-.*:*-=*-.-:*=.-**-.-:*=.-.-=*-.-:*:┐   ");
@@ -26,26 +29,95 @@ namespace LTT.View
             Console.WriteLine("");
             Console.WriteLine("            ┗*-.-:*=.-.*:*-=*-.-:*-.-:*=.-.*:*-=*-.-:*=.-.*:*-=*-.-:*=.-**-.-:*=.-.-=*-.:┛    \n     ");
             int inputnumber = 0;
-            inputnumber=int.Parse(Console.ReadLine());
+            string inputNumberString = Console.ReadLine();
             SearchTimeTable searchTimeTable = new SearchTimeTable();
-            NewArrayFromExcelcs newArrayFromExcelcs = new NewArrayFromExcelcs();
             bool interest = false;
+            Regex regex = new Regex("^[1-3]$");
+
+            if (!regex.IsMatch(inputNumberString))
+            {
+                Console.WriteLine("1-3 사이의 값을 입력해주세요");
+            }
+
+            else
+            {
+                inputnumber = int.Parse(inputNumberString);
+            }
+
             switch (inputnumber)
             {
                 case 1:
-                    searchTimeTable.SearchingTimeTable();
+                    searchTimeTable.SearchingTimeTable(studentData);
                     break;
-                case 2:
-                    //추가한 리스트를 모두 호출
+                case 2: //관심과목 삭제 
+                    bool check = true;
+                    NewArrayFromExcelcs newArrayFromExcelcs = new NewArrayFromExcelcs(studentData);
+                    foreach(string[] row in studentData.StudentList[0].interestedLecture)
+                    {
+                        foreach (string col in row)
+                        {
+                            Console.Write(col + " ");
+                        }
+                        Console.WriteLine();
+                    }
+                    while (check == true)
+                    {
+
+                        Console.WriteLine("삭제할 강의 번호를 입력해 주세요. 0을 눌러 종료");
+                        string inputExpression = Console.ReadLine();
+
+                        if (inputExpression == "0") // 입력값이 "0"이면 메서드를 빠져나갑니다.
+                        {
+                            ViewMenuOfInterestedSubject(studentData);
+                            break;
+                        }
+
+                        for (int i = 0; i < studentData.StudentList[0].interestedLecture.Count; i++)
+                        {
+                            if (studentData.StudentList[0].interestedLecture[i][0] == inputExpression)
+                            {
+                                studentData.StudentList[0].interestedLecture.RemoveAt(i);
+                                break;
+                            }
+                        }
+                        
+                       
+
+
+
+
+
+
+
+                        foreach (string[] row in studentData.StudentList[0].interestedLecture)
+                        {
+                            foreach (string col in row)
+                            {
+                                Console.Write(col + " ");
+                            }
+                            Console.WriteLine();
+                        }
+                    }
                     break;
                     
                 case 3:
-                    //추가한 리스트에서 학수번호 입력하라는 안내 메세지 출력하고 
-                    // if 학수번호가 같으면 리스트에서 해당 삭제
+                    foreach (string[] row in studentData.StudentList[0].interestedLecture)
+                    {
+                        foreach (string col in row)
+                        {
+                            Console.Write(col + " ");
+                        }
+                        Console.WriteLine();
+                    }
+                    Console.WriteLine("0을 눌러 돌아가기");
+                    int Expression = int.Parse(Console.ReadLine());
+                    if (Expression == 0)
+                    {
+                        ViewMenuOfInterestedSubject(studentData);
+                    }
+                    
                     break;
-                case 4:
-                    //리스트 모두 출력
-                    break;
+               
 
             }
         }
