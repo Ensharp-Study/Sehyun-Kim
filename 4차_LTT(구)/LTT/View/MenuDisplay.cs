@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using LTT.Model;
+using LTT.Constant;
 
 namespace LTT.View
 {
@@ -15,9 +16,12 @@ namespace LTT.View
         {
             MenuOfInterestedSubject menuOfInterestedSubject = new MenuOfInterestedSubject();
             MenuOfRegisterLecture menuOfRegisterLecture = new MenuOfRegisterLecture();
+            MenuInstantcs menuInstantcs = new MenuInstantcs();
+
             Console.CursorVisible = false;
             Console.Clear();
             Console.SetWindowSize(103, 23);
+
             Console.WriteLine("\n\n");
             Console.WriteLine("                            *-.-:*=.-.*:*-=*-.-:*=.-.*:*-=*-.-:*=.-*   \n\n\n");
 
@@ -36,137 +40,47 @@ namespace LTT.View
             Console.WriteLine("                            *-.-:*=.-.*:*-=*-.-:*=.-.*:*-=*-.-::*-=*");
 
             Console.SetCursorPosition(0, 7); //강의 시간표 조회
+            menuInstantcs.CheckMenuInstant(studentData);
+           
 
-            
-            bool check = true;
-            int i = 0;
-            while (check==true)
-            {
-                
-                
-                if (i == 0)
-                {
-                    Console.SetCursorPosition(0, 7);
-                    
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("                                      ●   강의 시간표 조회");
-                    setwhite(i);
-                    Console.SetCursorPosition(38, 7);
-                }
-                else if (i == 1)
-                {
-                    Console.SetCursorPosition(0, 9);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("                                      ●   관심과목 담기");
-                    setwhite(i);
-                    Console.SetCursorPosition(38, 9);
-                }
-                else if (i == 2)
-                {
-                    Console.SetCursorPosition(0, 11);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("                                      ●   수강 신청");
-                    setwhite(i);
-                    Console.SetCursorPosition(38, 11);
-                }
-
-                else if (i == 3)
-                {
-                    Console.SetCursorPosition(0, 13);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.Write("                                      ●   수강 내역 조회");
-                    setwhite(i);
-                    Console.SetCursorPosition(38, 13);
-                }
-                ConsoleKeyInfo keyinput = Console.ReadKey();
-                SearchTimeTable searchTimeTable = new SearchTimeTable();    
-                if (keyinput.Key == ConsoleKey.Enter)
-                {
-                    bool interest = true;
-                    switch (i)
-                    {
-                        case 0:
-                            bool judge = false;
-                            searchTimeTable.SearchingTimeTable(studentData, judge);
-                            break;
-                        case 1:
-                            menuOfInterestedSubject.ViewMenuOfInterestedSubject(studentData);
-                            break;
-                        case 2:
-                            //수강신청
-                            menuOfRegisterLecture.ViewMenuOfRegisterLecture(studentData);
-                            break;
-                        case 3:
-                            //수강내역조회
-                            break;
-                    }
-                    check = false;
-                }
-                if (i >= 0 && i <= 2 && keyinput.Key == ConsoleKey.DownArrow)
-                {
-                    i++;
-                }
-                else if (i >= 1 && i <= 3 && keyinput.Key == ConsoleKey.UpArrow)
-                {
-                    i--;
-                }
-
-                
-            }
-            Console.CursorVisible = true;
+        }
+        public void SetTextColorWhite(int xcooperation, int ycooperation, string text)
+        {
+            Console.SetCursorPosition(xcooperation, ycooperation);
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write(text);
 
         }
 
-        public void setwhite(int i)
+        public void PrintTextColorWhite(int number)
         {
-            if (i == 0)
+            switch (number)
             {
-                Console.SetCursorPosition(0, 9);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   관심과목 담기");
-                Console.SetCursorPosition(0, 11);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   수강 신청");
-                Console.SetCursorPosition(0, 13);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   수강 내역 조회");
+                case 0:
+                    SetTextColorWhite(0, 9,  "                                      ○   관심과목 담기");
+                    SetTextColorWhite(0, 11, "                                      ○   수강 신청");
+                    SetTextColorWhite(0, 13, "                                      ○   수강 내역 조회");
+                    break;
+
+                case 1:
+                    SetTextColorWhite(0,7,   "                                      ○   강의 시간표 조회");
+                    SetTextColorWhite(0, 11, "                                      ○   수강 신청");
+                    SetTextColorWhite(0, 13, "                                      ○   수강 내역 조회");
+                    
+                    break;
+                case 2:
+                    SetTextColorWhite(0, 7,  "                                      ○   강의 시간표 조회");
+                    SetTextColorWhite(0, 9,  "                                      ○   관심과목 담기");
+                    SetTextColorWhite(0, 13, "                                      ○   수강 내역 조회");
+                    break;
+                case 3:
+                    SetTextColorWhite(0, 7,  "                                      ○   강의 시간표 조회");
+                    SetTextColorWhite(0, 11, "                                      ○   수강 신청");
+                    SetTextColorWhite(0, 9,  "                                      ○   관심과목 담기");
+                    break;
+
             }
-            else if (i== 1)
-            {
-                Console.SetCursorPosition(0, 7);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   강의 시간표 조회");
-                Console.SetCursorPosition(0, 11);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   수강 신청");
-                Console.SetCursorPosition(0, 13);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   수강 내역 조회");
-            }
-            else if (i == 2)
-            {
-                Console.SetCursorPosition(0, 7);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   강의 시간표 조회");
-                Console.SetCursorPosition(0, 9);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   관심과목 담기");
-                Console.SetCursorPosition(0, 13);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   수강 내역 조회");
-            }
-            else if (i == 3)
-            {
-                Console.SetCursorPosition(0, 7);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   강의 시간표 조회");
-                Console.SetCursorPosition(0, 9);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   관심과목 담기");
-                Console.SetCursorPosition(0, 11);
-                Console.ForegroundColor = ConsoleColor.White;
-                Console.Write("                                      ○   수강 신청");
-            }
+            
             
         }
     }

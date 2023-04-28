@@ -23,6 +23,7 @@ namespace LTT.View
         }
         public void SearchingTimeTable(StudentData studentData, bool judge)
         {
+            TextColorNumber textColorNumber = new TextColorNumber();
             Console.Clear();
             Console.SetWindowSize(103, 25);
             Console.SetCursorPosition(0, 0);
@@ -47,32 +48,9 @@ namespace LTT.View
             Console.Write("                                             *-_.검색하기._-* ");
 
             Console.CursorVisible = false;
-            CallMenu(studentData, judge);
+            textColorNumber.CallMenu(studentData, judge);
         }
-        public void CallMenu(StudentData studentData, bool judge)
-        {
-            string numberExpression = "NULL";
-            string majorinput = "NULL";
-            string randomExpression = "NULL";
-            string ProfessorExpression = "NULL";
-            string GradeExpression = "NULL";
-            string divideinput = "NULL";
-
-            
-            int number = 0;
-            TextColorNumber textColorNumber = new TextColorNumber();
-            TextColorWhite textColorWhite = new TextColorWhite();
-            if (judge == false)
-            {
-                textColorNumber.CallNumberAndColorMenu(studentData);
-            }
-            
-            if (judge == true)
-            {
-                textColorNumber.CallNumberAndColorMenuForRegister(studentData);
-            }
-           
-        }
+        
 
     }
     

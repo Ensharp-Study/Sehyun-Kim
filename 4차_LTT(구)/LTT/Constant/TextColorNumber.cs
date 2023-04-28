@@ -11,6 +11,30 @@ namespace LTT.Constant
 {
     internal class TextColorNumber
     {
+        public void CallMenu(StudentData studentData, bool judge)
+        {
+            string numberExpression = "NULL";
+            string majorinput = "NULL";
+            string randomExpression = "NULL";
+            string ProfessorExpression = "NULL";
+            string GradeExpression = "NULL";
+            string divideinput = "NULL";
+
+
+            int number = 0;
+            TextColorNumber textColorNumber = new TextColorNumber();
+            TextColorWhite textColorWhite = new TextColorWhite();
+            if (judge == false)
+            {
+                textColorNumber.CallNumberAndColorMenu(studentData);
+            }
+
+            if (judge == true)
+            {
+                textColorNumber.CallNumberAndColorMenuForRegister(studentData);
+            }
+
+        }
         public void CallNumberAndColorMenu(StudentData studentData)
         {
             int number = 0;
