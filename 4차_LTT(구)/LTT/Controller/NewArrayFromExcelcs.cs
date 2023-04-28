@@ -4,11 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LTT.Constant;
+using LTT.Model;
+using LTT.View;
 
 namespace LTT.Controller
 {
     internal class NewArrayFromExcelcs
     {
+        private StudentData studentData;
+
+        public NewArrayFromExcelcs(StudentData studentData)
+        {
+            this.studentData = studentData;
+        }
         public string[,] MakeNewArrayFromExcel() //엑셀을 열어서 새로운 배열에 엑셀 데이터를 저장하는 메소드
         {
             DataInExcel dataInExcel = new DataInExcel();
@@ -34,7 +42,7 @@ namespace LTT.Controller
                 int interval = 0; // 열 사이 간격
                 for (int col = 0; col <cols; col++)
                 {
-                    
+                    //Console.WriteLine(excelData[row, col]);
                     Console.Write(excelData[row, col].PadRight(intervalCol.SetIntervalCol(col) - (Encoding.Default.GetByteCount(excelData[row, col].PadRight(intervalCol.SetIntervalCol(col))) - intervalCol.SetIntervalCol(col)) / 2));
 
                 }
@@ -43,12 +51,14 @@ namespace LTT.Controller
 
             return excelData;
         }
-        
+
 
         public List<string[]> FindDataInExcel(string majorinput, string divideinput, string NameOfClass, string professor, string grade, string classnumber) //MakeNewArrayFromExcel을 통해서 만든 배열을 검사 
         {
-            Console.Clear();
+            
+            List<string[]> searchResult = new List<string[]>();
             List<string[]> interest = new List<string[]>();
+            MenuOfInterestedSubject menuOfInterestedSubject = new MenuOfInterestedSubject();
             string[,] excelData = MakeNewArrayFromExcel();
             IntervalCol intervalCol = new IntervalCol();
             int rowCount = 184;//행
@@ -60,8 +70,7 @@ namespace LTT.Controller
             bool gradebool = false;
             bool classnumberbool = false;
             Console.SetWindowSize(213, 50);
-            Console.Clear();
-            for (int i = 0; i <= rowCount; i++)
+            for (int i = 1; i <= rowCount; i++)
             {
                 majorbool = false;
                 classificationbool = false;
@@ -96,75 +105,58 @@ namespace LTT.Controller
                 }
                 if (majorbool && classificationbool && classbool && professorbool && gradebool && classnumberbool)
                 {
-                    string[] row = new string[colCount]; 
+                    string[] row = new string[colCount];
                     for (int j = 1; j <= colCount; j++)
                     {
-                        row[j - 1] = excelData[i, j]; 
+                        row[j - 1] = excelData[i, j - 1];
                     }
-                    interest.Add(row);
+                    searchResult.Add(row);
                 }
             }
-
-            foreach (string[] row in interest) //이렇게 interest 리스트에 해당하는 데이터를 옮겨 놓았음.그렇다면 -> 그 리스트를 기반으로 데이터를 관리하면 된다.
+            
+            bool check = true;
+            while (check == true)
             {
-                for (int j = 0; j < colCount; j++)
-                {
-                    Console.Write(row[j].PadRight(intervalCol.SetIntervalCol(j + 1) - (Encoding.Default.GetByteCount(row[j].PadRight(intervalCol.SetIntervalCol(j + 1))) - intervalCol.SetIntervalCol(j + 1)) / 2));
-                }
-                Console.WriteLine();
-                //여기까지 interest 리스트에 있다 그러면 interest 리스트를 돌려서 여기서 번호가 일치하는거를 골라서 lecturedata에 넣는다.
-               
+                
+                Console.WriteLine("담을 강의 번호를 입력해 주세요. 0을 눌러 종료");
+                string inputExpression = Console.ReadLine();
 
+                foreach (string[] row in searchResult)
+                {
+                    if (inputExpression == "0") // 입력값이 "0"이면 while문 종료
+                    {
+                        check = false;
+                        menuOfInterestedSubject.ViewMenuOfInterestedSubject(studentData);
+                        break;
+                    }
+
+                    else if (row[0].Equals(inputExpression))
+                    {
+                        studentData.StudentList[0].interestedLecture.Add(row);
+
+                    }
+
+                }
+
+                foreach(string[] row in studentData.StudentList[0].interestedLecture)
+                {
+                    foreach ( string col in row)
+                    {
+                        Console.Write(col + " ");
+                    }
+                    Console.WriteLine();
+                }
             }
-            bool inputValid = false; 
-            while (!inputValid) // 입력이 유효하지 않은 경우 반복
-            {
-                Console.Write(" 담을 강의의 번호를 입력하세요: ");
-                string creditinput = Console.ReadLine();
-
-                // 입력이 유효한 경우 검색 결과를 출력하고 반복을 종료
-                if (interest.Any(row => row[3] == creditinput))
-                {
-                    Console.WriteLine("검색 결과:");
-                    GetLectureDataByNumber(interest, creditinput);
-                    inputValid = true;
+            
 
 
-                }
-                // 입력이 유효하지 않은 경우 에러 메시지 출력 후 반복
-                else
-                {
-                    Console.WriteLine("입력한 학수번호에 해당하는 강의가 없습니다. 다시 입력해주세요.");
-                }
-            }
+
 
             return interest;
         }
 
 
-        public List<string[]> GetLectureDataByNumber(List<string[]> interest, string number)
-        {
-            List<string[]> lecturedData = new List<string[]>();
-
-            foreach (string[] row in interest)
-            {
-                if (row[0] == number.ToString())
-                {
-                    lecturedData.Add(row);
-                }
-            }
-
-            // do something with the `lecturedData` list, e.g. print the rows
-            foreach (string[] row in lecturedData)
-            {
-                Console.WriteLine(string.Join(", ", row));
-            }
-
-            return lecturedData;
-            
-        }
-
-        
+       
     }
-    
+
 }
