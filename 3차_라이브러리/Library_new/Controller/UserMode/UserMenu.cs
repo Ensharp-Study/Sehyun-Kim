@@ -50,7 +50,7 @@ namespace Library.Constant
 
                 case 0:
                     Console.Clear();
-                    modeSelector.SelectMode(); //유저모드, 관리자모드 中1 선택하기로 돌아가기 
+                    modeSelector.SelectMode(); //유저모드, 관리자모드 中1 선택하기로 돌아가기 이게 아니라 로그인모드로가야대
                     break;
 
                 case 1: //도서 찾기 

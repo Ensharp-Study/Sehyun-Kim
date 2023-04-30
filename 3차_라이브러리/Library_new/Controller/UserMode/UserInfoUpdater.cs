@@ -33,7 +33,7 @@ namespace Library.Controller
             //현재 회원 정보를 표시함
             Console.WriteLine("현재 회원님의 정보를 표시합니다.");
             Console.WriteLine("=================================================");
-            Console.WriteLine("  userid: " + userData.UserList[userlistnumber].UserId);
+            Console.WriteLine("  userid: " + userData.UserList[userlistnumber].userid);
             Console.WriteLine("  Name: " + userData.UserList[userlistnumber].Name);
             Console.WriteLine("  Age: " + userData.UserList[userlistnumber].Age);
             Console.WriteLine("  PhoneNumber: " + userData.UserList[userlistnumber].PhoneNumber);
@@ -83,7 +83,7 @@ namespace Library.Controller
             Console.WriteLine("정보가 수정되었습니다.");
             Console.WriteLine("수정된 회원님의 정보를 표시합니다.");
             Console.WriteLine("=================================================");
-            Console.WriteLine("  userid: " + userData.UserList[userlistnumber].UserId);
+            Console.WriteLine("  userid: " + userData.UserList[userlistnumber].userid);
             Console.WriteLine("  Name: " + userData.UserList[userlistnumber].Name);
             Console.WriteLine("  Age: " + userData.UserList[userlistnumber].Age);
             Console.WriteLine("  PhoneNumber: " + userData.UserList[userlistnumber].PhoneNumber);

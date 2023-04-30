@@ -8,8 +8,6 @@ using Library.Model;
 using Library.View;
 using Library.Controller;
 
-
-
 namespace Library.Controller
 {
    public class Library
@@ -17,8 +15,8 @@ namespace Library.Controller
         public static void Main(String[] args) //메인함수
         {
 
-            HomeDisplay display = new HomeDisplay();
-            display.InitialDisplay();
+            ModeSelector modeSelector = new ModeSelector();
+            modeSelector.SelectMode();
             
             
         }

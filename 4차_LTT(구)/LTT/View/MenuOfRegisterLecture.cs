@@ -13,6 +13,7 @@ namespace LTT.View
     {
         public void ViewMenuOfRegisterLecture(StudentData studentData)
         {
+            IntervalCol intervalCol = new IntervalCol();
             SearchTimeTable searchTimeTable = new SearchTimeTable();
             NewArrayFromExcelcs newArrayFromExcelcs = new NewArrayFromExcelcs( studentData);
             TextColorNumber textColorNumber = new TextColorNumber();
@@ -49,12 +50,17 @@ namespace LTT.View
                     //수강신청 강의 추가 -> 관심과목 담기에서 담은 리스트에서 수강신청 하기 -> interestLecture, registeredlecture
                     foreach (string[] row in studentData.StudentList[0].interestedLecture)
                     {
-                        foreach (string col in row)
+                        string tempString = "";
+
+                        for (int i = 0; i < 12; i++)
                         {
-                            Console.Write(col + " ");
+                            tempString += row[i].PadRight(intervalCol.SetIntervalCol(i) - (Encoding.Default.GetByteCount(row[i].PadRight(intervalCol.SetIntervalCol(i))) - intervalCol.SetIntervalCol(i)) / 2);
                         }
-                        Console.WriteLine();
+
+
+                        Console.WriteLine(tempString);
                     }
+                    
                     while (judgement == true)
                     {
                         Console.WriteLine("수강 신청할 강의 번호를 입력해 주세요. 0을 눌러 종료") ;
@@ -83,23 +89,32 @@ namespace LTT.View
                     }
                     foreach (string[] row in studentData.StudentList[0].registeredLecture)
                     {
-                        foreach (string col in row)
+                        string tempString = "";
+
+                        for (int i = 0; i < 12; i++)
                         {
-                            Console.Write(col + " ");
+                            tempString += row[i].PadRight(intervalCol.SetIntervalCol(i) - (Encoding.Default.GetByteCount(row[i].PadRight(intervalCol.SetIntervalCol(i))) - intervalCol.SetIntervalCol(i)) / 2);
                         }
-                        Console.WriteLine();
+
+
+                        Console.WriteLine(tempString);
                     }
+                    
                     break;
                 case 3: //강의 삭제 
                     Console.Clear();
                     bool check = true;
                     foreach (string[] row in studentData.StudentList[0].registeredLecture)
                     {
-                        foreach (string col in row)
+                        string tempString = "";
+
+                        for (int i = 0; i < 12; i++)
                         {
-                            Console.Write(col + " ");
+                            tempString += row[i].PadRight(intervalCol.SetIntervalCol(i) - (Encoding.Default.GetByteCount(row[i].PadRight(intervalCol.SetIntervalCol(i))) - intervalCol.SetIntervalCol(i)) / 2);
                         }
-                        Console.WriteLine();
+
+
+                        Console.WriteLine(tempString);
                     }
                     
                     while (check == true)
@@ -134,11 +149,15 @@ namespace LTT.View
                     
                     foreach (string[] row in studentData.StudentList[0].registeredLecture)
                     {
-                        foreach (string col in row)
+                        string tempString = "";
+
+                        for (int i = 0; i < 12; i++)
                         {
-                            Console.Write(col + " ");
+                            tempString += row[i].PadRight(intervalCol.SetIntervalCol(i) - (Encoding.Default.GetByteCount(row[i].PadRight(intervalCol.SetIntervalCol(i))) - intervalCol.SetIntervalCol(i)) / 2);
                         }
-                        Console.WriteLine();
+
+
+                        Console.WriteLine(tempString);
                     }
                     while (check1 == true)
                     {
@@ -163,11 +182,15 @@ namespace LTT.View
 
                         foreach (string[] row in studentData.StudentList[0].registeredLecture)
                         {
-                            foreach (string col in row)
+                            string tempString = "";
+
+                            for (int i = 0; i < 12; i++)
                             {
-                                Console.Write(col + " ");
+                                tempString += row[i].PadRight(intervalCol.SetIntervalCol(i) - (Encoding.Default.GetByteCount(row[i].PadRight(intervalCol.SetIntervalCol(i))) - intervalCol.SetIntervalCol(i)) / 2);
                             }
-                            Console.WriteLine();
+
+
+                            Console.WriteLine(tempString);
                         }
                     }
                     break;

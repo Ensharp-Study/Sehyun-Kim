@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\user\\OneDrive\\바탕 화면\\엔샵 스터디\\2차_틱택토\\src\\TicTacToe\\TicTacToe.csproj": {}
+    "C:\\Users\\user\\OneDrive\\바탕 화면\\Sehyun-Kim\\2차_틱택토\\src\\TicTacToe\\TicTacToe.csproj": {}
   },
   "projects": {
-    "C:\\Users\\user\\OneDrive\\바탕 화면\\엔샵 스터디\\2차_틱택토\\src\\TicTacToe\\TicTacToe.csproj": {
+    "C:\\Users\\user\\OneDrive\\바탕 화면\\Sehyun-Kim\\2차_틱택토\\src\\TicTacToe\\TicTacToe.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\user\\OneDrive\\바탕 화면\\엔샵 스터디\\2차_틱택토\\src\\TicTacToe\\TicTacToe.csproj",
+        "projectUniqueName": "C:\\Users\\user\\OneDrive\\바탕 화면\\Sehyun-Kim\\2차_틱택토\\src\\TicTacToe\\TicTacToe.csproj",
         "projectName": "TicTacToe",
-        "projectPath": "C:\\Users\\user\\OneDrive\\바탕 화면\\엔샵 스터디\\2차_틱택토\\src\\TicTacToe\\TicTacToe.csproj",
+        "projectPath": "C:\\Users\\user\\OneDrive\\바탕 화면\\Sehyun-Kim\\2차_틱택토\\src\\TicTacToe\\TicTacToe.csproj",
         "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\user\\OneDrive\\바탕 화면\\엔샵 스터디\\2차_틱택토\\src\\TicTacToe\\obj\\",
+        "outputPath": "C:\\Users\\user\\OneDrive\\바탕 화면\\Sehyun-Kim\\2차_틱택토\\src\\TicTacToe\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

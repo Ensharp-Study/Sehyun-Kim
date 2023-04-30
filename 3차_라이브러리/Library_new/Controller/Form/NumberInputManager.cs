@@ -10,7 +10,6 @@ using Library.Model;
 using Library.View;
 using Library.Controller;
 using Library.Constant;
-using static Library.Controller.Account;
 namespace Library.Controller
 {
     internal class NumberInputManager
@@ -24,26 +23,25 @@ namespace Library.Controller
             this.bookData = bookData;
             this.userData = userData;
         }
-        public void modOfManager()
+        public int modOfManager()
         {
-            
-            ManagerMenu managerMenu = new ManagerMenu(bookData, userData);
+           
+            View.ManagerMenuView managerMenu = new View.ManagerMenuView();
             managerMenu.viewManagermenu();
 
             Regex regex = new Regex("^[0-4]$"); // 정규식 패턴
-            int num;
+            int number;
             while (true)
             {
-                num = int.Parse(Console.ReadLine());
-                string str = Convert.ToString(num);
+                number = int.Parse(Console.ReadLine());
+                string str = Convert.ToString(number);
                 if (!regex.IsMatch(str))
                 {
                     Console.WriteLine("0-4 사이의 값을 입력해주세요.");
                 }
                 else if (regex.IsMatch(str))
                 {
-                    managerMenuConstant.ConstantOfManagerMenu(num);
-                    break;
+                    return number;
                 }
             }
 

@@ -51,7 +51,7 @@ namespace Library.Controller
             foreach (var user in this.userData.UserList)
             {
                 count++;
-                if (user.UserId == inputId && user.password == inputPw)
+                if (user.userid == inputId && user.password == inputPw)
                 {
                     Console.Clear();
                     Console.WriteLine("로그인 성공!");

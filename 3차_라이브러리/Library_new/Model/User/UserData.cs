@@ -19,26 +19,9 @@ namespace Library.Model
 
         public void SetUserData()
         {
-            UserList.Add(new UserConstructor()
-            {
-                UserId = "sehyun",
-                password = "1234",
-                Name = "김세현",
-                Age = 21,
-                PhoneNumber = 01040244794,
-                Address = "서울시 광진구 화양동",
-                
-            });
+            UserList.Add(new UserConstructor("sehyun", "1234", "김세현", 21, 01040244794, "서울시 광진구 화양동"));
 
-            UserList.Add(new UserConstructor()
-            {
-                UserId = "id",
-                password = "0000",
-                Name = "정재현",
-                Age = 21,
-                PhoneNumber = 01020032003,
-                Address = "서울시 광진구 군자동"
-            });
+            UserList.Add(new UserConstructor("id", "0000", "정재현", 21, 01020032003, "서울시 광진구 군자동"));
         }
     }
 }

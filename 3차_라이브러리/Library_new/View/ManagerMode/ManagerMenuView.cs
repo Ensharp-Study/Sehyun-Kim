@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Library.View
 {
-    internal class ManagerMenu
+    internal class ManagerMenuView
     {
         public void viewManagermenu()
         {

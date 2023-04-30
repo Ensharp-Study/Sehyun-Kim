@@ -17,17 +17,18 @@ namespace Library.Controller
     {
         private BookData bookData;
         private UserData userData;
+        private AllBookDisplay showAllBook;
 
         public BookUpdater(BookData bookData, UserData userData)
         {
             this.bookData = bookData;
             this.userData = userData;
+            showAllBook = new AllBookDisplay(bookData, userData);
         }
         
         public void modifyBookInfo()
         {
             Console.Clear();
-            AllBookDisplay showAllBook = new AllBookDisplay(bookData, userData);
             showAllBook.DisplayAllBook();
             RulesForBookData viewRulesForBookData = new RulesForBookData();
             RegexValidator determineWithRegularExpression = new RegexValidator(bookData, userData);
