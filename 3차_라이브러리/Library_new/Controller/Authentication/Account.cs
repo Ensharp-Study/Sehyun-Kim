@@ -79,23 +79,9 @@ namespace Library.Controller
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();
             UserMenu userMenu = new UserMenu(bookData, userData);
             NumberInputUser numberInputUser = new NumberInputUser();
+            MysqlConnecter mysqlConnecter = new MysqlConnecter();
 
-            int number = 0;
-            flag++;
-            Console.Write(" id : ");
-            string userid = Console.ReadLine();
-            Console.Write("Password : ");
-            string password = getHiddenConsoleInput.HideConsoleInput();
-            Console.Write("Name : ");
-            string Name = Console.ReadLine();
-            Console.Write("Age : ");
-            int Age = int.Parse(Console.ReadLine());
-            Console.Write("PhoneNumber : ");
-            int PhoneNumber = int.Parse(Console.ReadLine());
-            Console.Write(" Address : ");
-            string Address = Console.ReadLine();
-
-            userData.UserList.Add(new UserConstructor(userid, password, Name, Age, PhoneNumber, Address));
+            mysqlConnecter.InsertMysql();
             Console.Clear();
             Console.WriteLine("회원가입 성공!");
             userMenu.SelectNumberInUserMenu();

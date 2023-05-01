@@ -17,19 +17,20 @@ namespace Library.Controller
     {
         private BookData bookData;
         private UserData userData;
-
+        private AllBookDisplay allBookDisplay;
         public BookDataDeleter(BookData bookData, UserData userData)
         {
             this.bookData = bookData;
             this.userData = userData;
+            allBookDisplay = new AllBookDisplay(bookData, userData);
         }
         public void DeleteBookInfo()
         {
-            AllBookDisplay showAllBook = new AllBookDisplay(bookData, userData);
+           
             Console.Clear();
             int i = 0;
             int booklistnumber = 0;
-            showAllBook.DisplayAllBook();
+            allBookDisplay.DisplayAllBook();
             Console.WriteLine("삭제할 책 id를 입력하세요.");
             int inputBookId = int.Parse(Console.ReadLine());
 

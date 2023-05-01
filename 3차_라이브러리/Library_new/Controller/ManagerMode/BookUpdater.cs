@@ -18,12 +18,17 @@ namespace Library.Controller
         private BookData bookData;
         private UserData userData;
         private AllBookDisplay showAllBook;
-
+        private RegexValidator regexValidator;
+        private InputTaker inputTaker;
+        private BookUpdateView bookUpdateView;
         public BookUpdater(BookData bookData, UserData userData)
         {
             this.bookData = bookData;
             this.userData = userData;
             showAllBook = new AllBookDisplay(bookData, userData);
+            regexValidator = new RegexValidator(bookData, userData);
+            inputTaker = new InputTaker(bookData, userData);
+            bookUpdateView = new BookUpdateView(bookData, userData);
         }
         
         public void modifyBookInfo()
@@ -31,9 +36,6 @@ namespace Library.Controller
             Console.Clear();
             showAllBook.DisplayAllBook();
             RulesForBookData viewRulesForBookData = new RulesForBookData();
-            RegexValidator determineWithRegularExpression = new RegexValidator(bookData, userData);
-            InputTaker checkInputIsEnter = new InputTaker(bookData, userData);
-            BookUpdateView showForUpdateBookInfo = new BookUpdateView(bookData, userData);
 
             Console.WriteLine("수정할 책 id를 입력하세요.");
             int inputBookId = int.Parse(Console.ReadLine());
@@ -47,7 +49,7 @@ namespace Library.Controller
                 {
                     Console.Clear();
                     booklistnumber = count - 1;
-                    showForUpdateBookInfo.ViewForUpdateBookInfo(booklistnumber);
+                    bookUpdateView.ViewForUpdateBookInfo(booklistnumber);
                     viewRulesForBookData.ViewRulesForBookData();
 
                     //ㅡㅡㅡㅡㅡㅡㅡIDㅡㅡㅡㅡㅡㅡㅡㅡㅡ 
@@ -55,56 +57,56 @@ namespace Library.Controller
                     string randomExpression = "";
                     int Entercase = 0;
                     int TypeCheck = 0;
-                    checkInputIsEnter.SaveIDIfNotEnter(randomExpression, Entercase, booklistnumber);
+                    inputTaker.SaveIDIfNotEnter(randomExpression, Entercase, booklistnumber);
 
                     //ㅡㅡㅡㅡㅡㅡㅡTitleㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(8, 14);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    checkInputIsEnter.SaveTitleIfNotEnter(randomExpression, Entercase, booklistnumber);
+                    inputTaker.SaveTitleIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡauthorㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(9, 15);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    checkInputIsEnter.SaveAuthorIfNotEnter(randomExpression, Entercase, booklistnumber);
+                    inputTaker.SaveAuthorIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡpublisherㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(12, 16);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    checkInputIsEnter.SavePublisherIfNotEnter(randomExpression, Entercase, booklistnumber);
+                    inputTaker.SavePublisherIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡpriceㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(8, 17);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    checkInputIsEnter.SavePriceIfNotEnter(randomExpression, Entercase, booklistnumber);
+                    inputTaker.SavePriceIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡquantityㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(11, 18);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    checkInputIsEnter.SaveQuantityIfNotEnter(randomExpression, Entercase, booklistnumber);
+                    inputTaker.SaveQuantityIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡpublcationㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(18, 19);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    checkInputIsEnter.SavePublicationIfNotEnter(randomExpression, Entercase, booklistnumber);
+                    inputTaker.SavePublicationIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡisbnㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(7, 20);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    checkInputIsEnter.SaveIsbnIfNotEnter(randomExpression, Entercase, booklistnumber);
+                    inputTaker.SaveIsbnIfNotEnter(randomExpression, Entercase, booklistnumber);
                     //ㅡㅡㅡㅡㅡㅡㅡㅡinfoㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ
                     Console.SetCursorPosition(7, 21);
                     randomExpression = "";
                     Entercase = 0;
                     TypeCheck = 0;
-                    checkInputIsEnter.SaveInfoIfNotEnter(randomExpression, Entercase, booklistnumber);
+                    inputTaker.SaveInfoIfNotEnter(randomExpression, Entercase, booklistnumber);
                     flag = 1;
                 }
 
