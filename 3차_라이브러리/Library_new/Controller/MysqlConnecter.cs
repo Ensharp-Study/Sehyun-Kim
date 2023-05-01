@@ -11,22 +11,11 @@ namespace Library.Model
     internal class MysqlConnecter // 글자 print랑 분리하기 
     {//insertdeleteupdate
      //"INSERT INTO userconstructor(userid,password,name,age,phonenumber,address) VALUES('sehyun','1234','김세현', 21, '01040244794', '서울시 광진구')"
-        public void InsertMysql() //회원 정보 추가
-        {
+        public void InsertMysql(string userid, string password, string name, int age, string phonenumber, string address) //회원 정보 추가
+        {//회원가입
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
 
-            Console.Write("아이디를 입력하세요: ");
-            string userid = Console.ReadLine();
-            Console.Write("비밀번호를 입력하세요: ");
-            string password = Console.ReadLine();
-            Console.Write("이름을 입력하세요: ");
-            string name = Console.ReadLine();
-            Console.Write("나이를 입력하세요: ");
-            int age = int.Parse(Console.ReadLine());
-            Console.Write("전화번호를 입력하세요: ");
-            string phonenumber = Console.ReadLine();
-            Console.Write("주소를 입력하세요: ");
-            string address = Console.ReadLine();
+            
 
             string insertQuery = $"INSERT INTO userconstructor(userid, password, name, age, phonenumber, address) VALUES('{userid}', '{password}', '{name}', {age}, '{phonenumber}', '{address}')";
 
@@ -36,14 +25,11 @@ namespace Library.Model
             connection.Close();
         }
         
-        public bool  SelectMysql() //회원 정보 검색
-        {
+        public bool  SelectMysql(string userid, string inputPw) //회원 정보 검색
+        {//로그인
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();
-            Console.Write("아이디를 입력하세요.");
-            string userid = Console.ReadLine();
-            Console.WriteLine("비밀번호를 입력하세요.");
-            string inputPw = getHiddenConsoleInput.HideConsoleInput();
+            
             string selectQuery = $"SELECT * FROM userconstructor WHERE userid = '{userid}' AND password = '{inputPw}'";
 
             connection.Open();

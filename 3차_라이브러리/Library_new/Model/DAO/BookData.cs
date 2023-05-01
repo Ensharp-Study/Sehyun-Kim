@@ -27,7 +27,7 @@ namespace Library.Model
         }
 
         public void InsertBookData()
-        {
+        {/*
             BookList.Add(new BookConstructor()
             {
                 id = 1,
@@ -112,6 +112,6 @@ namespace Library.Model
                 rentpossible = 2
             });
 
-        }
+*/        }
     }
 }

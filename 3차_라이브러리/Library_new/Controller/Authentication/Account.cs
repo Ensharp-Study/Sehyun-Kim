@@ -39,8 +39,11 @@ namespace Library.Controller
             MysqlConnecter mysqlConnecter = new MysqlConnecter();
             LoginSignupSelector loginSignupSelector = new LoginSignupSelector(bookData, userData);
             bool fine;
-            /*
-            fine = mysqlConnecter.SelectMysql();
+            Console.Write("아이디를 입력하세요.");
+            string userid = Console.ReadLine();
+            Console.WriteLine("비밀번호를 입력하세요.");
+            string inputPw = getHiddenConsoleInput.HideConsoleInput();
+            fine = mysqlConnecter.SelectMysql(userid, inputPw);
             Console.Clear();
 
             if (fine)
@@ -57,7 +60,7 @@ namespace Library.Controller
                 userMenu.SelectNumberInUserMenu();
             }
 
-            */
+            
         }
         public void Register() //회원가입 
         {
@@ -69,7 +72,20 @@ namespace Library.Controller
             NumberInputUser numberInputUser = new NumberInputUser();
             MysqlConnecter mysqlConnecter = new MysqlConnecter();
 
-            mysqlConnecter.InsertMysql();
+            Console.Write("아이디를 입력하세요: ");
+            string userid = Console.ReadLine();
+            Console.Write("비밀번호를 입력하세요: ");
+            string password = Console.ReadLine();
+            Console.Write("이름을 입력하세요: ");
+            string name = Console.ReadLine();
+            Console.Write("나이를 입력하세요: ");
+            int age = int.Parse(Console.ReadLine());
+            Console.Write("전화번호를 입력하세요: ");
+            string phonenumber = Console.ReadLine();
+            Console.Write("주소를 입력하세요: ");
+            string address = Console.ReadLine();
+
+            mysqlConnecter.InsertMysql(userid,  password,  name,  age,  phonenumber,  address);
             Console.Clear();
             Console.WriteLine("회원가입 성공!");
             loginSignupSelector.SelectLoginSignup();
