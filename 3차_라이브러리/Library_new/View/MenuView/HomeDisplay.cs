@@ -11,6 +11,7 @@ namespace Library.View
 {
     internal class HomeDisplay
     {
+        
         public void InitialDisplay() { //처음 메뉴 디스플레이
 
             Console.WriteLine("                                                                     ");

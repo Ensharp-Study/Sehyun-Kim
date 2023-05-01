@@ -36,45 +36,33 @@ namespace Library.Controller
             NumberInputUser numberInputUser = new NumberInputUser();
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();
             UserMenu userMenu = new UserMenu(bookData, userData);
+            MysqlConnecter mysqlConnecter = new MysqlConnecter();
+            LoginSignupSelector loginSignupSelector = new LoginSignupSelector(bookData, userData);
+            bool fine;
+            /*
+            fine = mysqlConnecter.SelectMysql();
+            Console.Clear();
 
-            Console.WriteLine("아이디를 입력하세요.");
-            string inputId = Console.ReadLine();
-
-            Console.WriteLine("비밀번호를 입력하세요.");
-            string inputPw = getHiddenConsoleInput.HideConsoleInput();
-
-            bool isLogin = false;
-            
-
-            int count = 0;
-            int number=0;
-            foreach (var user in this.userData.UserList)
+            if (fine)
             {
-                count++;
-                if (user.userid == inputId && user.password == inputPw)
-                {
-                    Console.Clear();
-                    Console.WriteLine("로그인 성공!");
-                    
-                    isLogin = true;
-                    userlistnumber = count-1;
-                    count = 0;
-                    userMenu.SelectNumberInUserMenu();
-                    break;
-                }
-            }
-
-            if (!isLogin)
-            {
+                //로그인 실패
                 Console.Clear();
-                Console.WriteLine("로그인 실패. 아이디 또는 비밀번호가 일치하지 않습니다.");
-                userSignUpDisplay.ViewAccountMenu();
+                loginSignupSelector.SelectLoginSignup();
+
+            }
+            else
+            {
+                //로그인 성공
+                Console.Clear();
+                userMenu.SelectNumberInUserMenu();
             }
 
+            */
         }
         public void Register() //회원가입 
         {
             UserMenuDisplay viewMenu = new UserMenuDisplay();
+            LoginSignupSelector loginSignupSelector = new LoginSignupSelector(bookData, userData);
             Constant.ManagerMenu menuConstant = new Constant.ManagerMenu(bookData, userData);
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();
             UserMenu userMenu = new UserMenu(bookData, userData);
@@ -84,7 +72,7 @@ namespace Library.Controller
             mysqlConnecter.InsertMysql();
             Console.Clear();
             Console.WriteLine("회원가입 성공!");
-            userMenu.SelectNumberInUserMenu();
+            loginSignupSelector.SelectLoginSignup();
         }
 
         
