@@ -8,7 +8,7 @@ using Library.Model;
 using Library.View;
 using Library.Controller;
 using Library.Constant;
-
+using Library.Controller.Form;
 namespace Library.Controller
 {
     
@@ -38,11 +38,17 @@ namespace Library.Controller
             UserMenu userMenu = new UserMenu(bookData, userData);
             MysqlConnecter mysqlConnecter = new MysqlConnecter();
             LoginSignupSelector loginSignupSelector = new LoginSignupSelector(bookData, userData);
+            InputSaverUnlessEnter inputSaverUnlessEnter = new InputSaverUnlessEnter();
+            
             bool fine;
-            Console.Write("아이디를 입력하세요.");
-            string userid = Console.ReadLine();
+            //아이디 정규식 : 
+            Console.WriteLine("아이디를 입력하세요.");
+            string userid = inputSaverUnlessEnter.SaveInputUnlessEnter(@"^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{3,16}$", 0,27);
+            Console.SetCursorPosition(0, 28);
             Console.WriteLine("비밀번호를 입력하세요.");
-            string inputPw = getHiddenConsoleInput.HideConsoleInput();
+            string inputPw = getHiddenConsoleInput.HideConsoleInput(0,29);
+            inputSaverUnlessEnter.CheckPwRegex(inputPw, @"^[\p{L}\p{N}]+$", 0, 29);
+            
             fine = mysqlConnecter.SelectMysql(userid, inputPw);
             Console.Clear();
 

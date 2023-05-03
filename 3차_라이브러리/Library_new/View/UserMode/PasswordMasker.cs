@@ -8,8 +8,9 @@ namespace Library.View
 {
     internal class PasswordMasker
     {
-        public string HideConsoleInput()
+        public string HideConsoleInput(int xcooperation, int ycooperation)
         {
+            Console.SetCursorPosition(xcooperation, ycooperation);  
             string input = "";
             ConsoleKeyInfo key;
             do

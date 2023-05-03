@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Library.View;
 using MySql.Data.MySqlClient;
 
-namespace Library.Model
+namespace Library.Controller
 {
     internal class MysqlConnecter // 글자 print랑 분리하기 
     {//insertdeleteupdate

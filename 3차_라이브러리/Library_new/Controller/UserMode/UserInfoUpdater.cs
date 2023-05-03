@@ -54,7 +54,8 @@ namespace Library.Controller
             {
                 case 1:
                     Console.WriteLine("새로운 패스워드를 입력하세요.");
-                    string pwinput = passwordMasker.HideConsoleInput();
+                    
+                    string pwinput = passwordMasker.HideConsoleInput(0, 15);
                     userData.UserList[userlistnumber].password = pwinput;
 
                     break;
