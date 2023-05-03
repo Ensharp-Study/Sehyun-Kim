@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.Model;
 using Library.View;
 using MySql.Data.MySqlClient;
 
@@ -10,7 +11,9 @@ namespace Library.Controller
 {
     internal class MysqlConnecter // 글자 print랑 분리하기 
     {//insertdeleteupdate
-     //"INSERT INTO userconstructor(userid,password,name,age,phonenumber,address) VALUES('sehyun','1234','김세현', 21, '01040244794', '서울시 광진구')"
+        
+
+        //"INSERT INTO userconstructor(userid,password,name,age,phonenumber,address) VALUES('sehyun','1234','김세현', 21, '01040244794', '서울시 광진구')"
         public void InsertMysql(string userid, string password, string name, int age, string phonenumber, string address) //회원 정보 추가
         {//회원가입
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
@@ -47,7 +50,21 @@ namespace Library.Controller
             connection.Close();
             return check;
         }
-        
+
+        public bool DeleteMysql(string userid)
+        {
+           
+            MySqlConnection connection = DatabaseConnection.Instance.Connection;
+            string deleteQuery = $"DELETE FROM userconstructor WHERE userid = '{userid}'";
+            MySqlCommand command = new MySqlCommand(deleteQuery, connection);
+
+            connection.Open();
+            int rowsAffected = command.ExecuteNonQuery();
+            connection.Close();
+
+            return rowsAffected > 0;
+        }
+
         /*
         public void DeleteMysql() //회원 정보 삭제 
         {

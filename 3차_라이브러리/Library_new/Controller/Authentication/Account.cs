@@ -29,7 +29,14 @@ namespace Library.Controller
             this.userData = userData;
             userSignUpDisplay = new AccountView();
         }
-        
+        private string idVariable;
+
+        public string IdVariable
+        {
+            get { return idVariable; }
+            set { idVariable = value; }
+             
+        }
         public void Login() //로그인
         {
             UserMenuDisplay userMenuDisplay = new UserMenuDisplay();
@@ -62,12 +69,16 @@ namespace Library.Controller
             else
             {
                 //로그인 성공
+                
                 Console.Clear();
+                idVariable = userid;
                 userMenu.SelectNumberInUserMenu();
             }
 
             
         }
+        
+
         public void Register() //회원가입 
         {
             UserMenuDisplay viewMenu = new UserMenuDisplay();

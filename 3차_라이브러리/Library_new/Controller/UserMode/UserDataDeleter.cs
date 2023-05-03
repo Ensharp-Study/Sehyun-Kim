@@ -24,24 +24,38 @@ namespace Library.Controller
             this.userData = userData;
         }
         
+
+        /*
+            * string userid = "testuser";
+bool result = DeleteMysql(userid);
+
+if (result)
+{
+   Console.WriteLine("삭제 성공");
+}
+else
+{
+   Console.WriteLine("삭제 실패");
+}
+          */
+
+        
         public void deleteuserinfo()
         {
-            Console.Clear();
-            HomeDisplay display = new HomeDisplay();
-            List<UserConstructor> userList = new List<UserConstructor>();
-            // 사용자가 대여한 도서가 있는지 확인
-            bool hasRentedBooks = userData.UserList[userlistnumber].rentedbooklist.Any(book => book.id > 0);
+            Account account = new Account(bookData, userData);
+            MysqlConnecter mysqlConnecter = new MysqlConnecter();
+            string value = account.IdVariable;
+            bool result = mysqlConnecter.DeleteMysql("sehyun");
 
-            if (hasRentedBooks)
+            if (result)
             {
-                Console.WriteLine("대여중인 도서가 있어 탈퇴할 수 없습니다.");
+                Console.WriteLine("삭제 성공");
             }
             else
             {
-                userData.UserList.RemoveAt(userlistnumber);
-                Console.WriteLine("회원 탈퇴되었습니다.");
-
+                Console.WriteLine("삭제 실패");
             }
+
         }
     }
 }

@@ -25,7 +25,6 @@ namespace Library.View
         }
         public void DisplayAllBook()
         {
-
             foreach (BookConstructor book in bookData.BookList)  //전체 도서 표시
             {
                 Console.WriteLine("=================================================");
