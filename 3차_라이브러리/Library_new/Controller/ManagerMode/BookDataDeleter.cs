@@ -26,19 +26,6 @@ namespace Library.Controller
         }
         public void DeleteBookInfo()
         {
-            /*
-             * string userid = "testuser";
-bool result = DeleteMysql(userid);
-
-if (result)
-{
-    Console.WriteLine("삭제 성공");
-}
-else
-{
-    Console.WriteLine("삭제 실패");
-}
-           */
             Console.Clear();
             int i = 0;
             int booklistnumber = 0;

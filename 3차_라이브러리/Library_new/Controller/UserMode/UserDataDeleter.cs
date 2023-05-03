@@ -44,15 +44,21 @@ else
         {
             Account account = new Account(bookData, userData);
             MysqlConnecter mysqlConnecter = new MysqlConnecter();
-            string value = account.IdVariable;
-            bool result = mysqlConnecter.DeleteMysql("sehyun");
+            if (account.Userid == null) // null 체크
+            {
+                Console.WriteLine("삭제할 사용자 정보가 없습니다.");
+                return;
+            }
 
+            bool result = mysqlConnecter.DeleteMysql(account.Userid);
+            
             if (result)
             {
                 Console.WriteLine("삭제 성공");
             }
             else
             {
+                
                 Console.WriteLine("삭제 실패");
             }
 
