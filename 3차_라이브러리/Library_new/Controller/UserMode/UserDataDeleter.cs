@@ -40,17 +40,18 @@ else
           */
 
         
-        public void deleteuserinfo()
+        public void deleteuserinfo(string Userid)
         {
-            Account account = new Account(bookData, userData);
+            Account account = new Account(bookData, userData, Userid);
             MysqlConnecter mysqlConnecter = new MysqlConnecter();
-            if (account.Userid == null) // null 체크
+           
+            if (Userid == null) // null 체크
             {
                 Console.WriteLine("삭제할 사용자 정보가 없습니다.");
                 return;
             }
 
-            bool result = mysqlConnecter.DeleteMysql(account.Userid);
+            bool result = mysqlConnecter.DeleteMysql(Userid);
             
             if (result)
             {

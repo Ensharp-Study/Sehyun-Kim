@@ -23,12 +23,14 @@ namespace Library.Controller
 
         AccountView userSignUpDisplay;
 
-        public Account(BookData bookData, UserData userData)
+        
+        public Account(BookData bookData, UserData userData, string userid)
         {
             this.bookData = bookData;
             this.userData = userData;
-            userSignUpDisplay = new AccountView();
+            this.userid = userid;
         }
+
         private string userid;
 
         public string Userid
@@ -49,29 +51,26 @@ namespace Library.Controller
             bool fine;
             //아이디 정규식 : 
             Console.WriteLine("아이디를 입력하세요.");
-            string userid = inputSaverUnlessEnter.SaveInputUnlessEnter(@"^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{3,16}$", 0,27);
+            Userid = inputSaverUnlessEnter.SaveInputUnlessEnter(@"^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{3,16}$", 0,27);
+            
             Console.SetCursorPosition(0, 28);
             Console.WriteLine("비밀번호를 입력하세요.");
             string inputPw = getHiddenConsoleInput.HideConsoleInput(0,29);
             inputSaverUnlessEnter.CheckPwRegex(inputPw, @"^[\p{L}\p{N}]+$", 0, 29);
             
-            fine = mysqlConnecter.SelectMysql(userid, inputPw);
+            fine = mysqlConnecter.SelectMysql(Userid, inputPw);
             Console.Clear();
 
-            if (fine)
+            if (fine) //로그인 실패
             {
-                //로그인 실패
                 Console.Clear();
                 loginSignupSelector.SelectLoginSignup();
 
             }
-            else
+            else //로그인 성공 
             {
-                //로그인 성공
-                
                 Console.Clear();
-               
-                userMenu.SelectNumberInUserMenu();
+                userMenu.SelectNumberInUserMenu(Userid);
             }
 
             

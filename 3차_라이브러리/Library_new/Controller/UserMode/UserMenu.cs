@@ -21,7 +21,7 @@ namespace Library.Constant
             this.userData = userData;
         }
 
-        public void SelectNumberInUserMenu()
+        public void SelectNumberInUserMenu(string Userid)
         {
             UserMenu userMenu = new UserMenu(bookData, userData);
             UserMenuDisplay userMenuDisplay = new UserMenuDisplay();
@@ -29,9 +29,9 @@ namespace Library.Constant
 
             userMenuDisplay.ViewUserMenu(); //1번부터 7번까지 표시하는 유저메뉴 view
             int number = numberInputUser.CheckRegex(); //정규식 만족하는 number 받아오기
-            ConstantOfUserMenu(number); //받아온 number를 constantofusermenu에 넣어서 기능 실행
+            ConstantOfUserMenu(number, Userid); //받아온 number를 constantofusermenu에 넣어서 기능 실행
         }
-        public void ConstantOfUserMenu(int number)
+        public void ConstantOfUserMenu(int number, string Userid)
         {
             AllBookDisplay allBookDisplay = new AllBookDisplay(bookData,userData);
             ModeSelector modeSelector = new ModeSelector();
@@ -58,40 +58,40 @@ namespace Library.Constant
                     allBookDisplay.DisplayAllBook();  //모든 책 표시하기 
                     bookSearcher.SearchBook(check); //책 검색하기. process : searchbook 도서 찾기 메뉴 (1-3 입력)
                                                     // -> searchebookwithnumber(입력한 숫자 바탕으로 책 정보 출력) -> viewusermenu(0 눌렀으면 유저메뉴로 복귀)
-                    SelectNumberInUserMenu();
+                    SelectNumberInUserMenu(Userid);
                     break;
 
                 case 2: //도서 대여 
                     Console.Clear();
                     allBookDisplay.DisplayAllBook();//모든 책 표시하기 
                     bookLender.RentOutBook();// 책 대여하기
-                    SelectNumberInUserMenu();
+                    SelectNumberInUserMenu(Userid);
                     break;
 
                 case 3: //도서 반납
                     Console.Clear();
                     bookReturner.returnBook();
-                    SelectNumberInUserMenu();
+                    SelectNumberInUserMenu(Userid);
                     break;
 
                 case 4: //도서 대여 확인
                     Console.Clear();
                     bookLender.borrowhistory();
-                    SelectNumberInUserMenu();
+                    SelectNumberInUserMenu(Userid);
                     break;
                 case 5: //도서 반납 내역
                     Console.Clear();
                     bookReturner.returnhistory();
-                    SelectNumberInUserMenu();
+                    SelectNumberInUserMenu(Userid);
                     break;
                 case 6://회원 정보 수정
                     Console.Clear();
                     userInfoUpdater.modifyuserinfo();
-                    SelectNumberInUserMenu();
+                    SelectNumberInUserMenu(Userid);
                     break;
                 case 7://회원 탈퇴 
                     Console.Clear();
-                    userDataDeleter.deleteuserinfo();
+                    userDataDeleter.deleteuserinfo(Userid);
                     modeSelector.SelectMode();
 
                     break;

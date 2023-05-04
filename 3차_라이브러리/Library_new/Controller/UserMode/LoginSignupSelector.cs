@@ -11,6 +11,7 @@ namespace Library.Controller
     {
         private BookData bookData;
         private UserData userData;
+        private string userid;
 
         public LoginSignupSelector(BookData bookData, UserData userData)
         {
@@ -22,7 +23,7 @@ namespace Library.Controller
         public void SelectLoginSignup()
         {
             HomeDisplay homeDisplay = new HomeDisplay();
-            Account loginOrNewmember = new Account(bookData, userData);
+            Account account = new Account(bookData, userData, userid);
             AccountView accountView = new AccountView();
             ModeSelector modeSelector = new ModeSelector(); 
 
@@ -35,11 +36,11 @@ namespace Library.Controller
                 case 0:
                     modeSelector.SelectMode(); //0을 눌러 관리자모드, 유저모드 선택으로 돌아가기 
                     break;
-                case 1: 
-                    loginOrNewmember.Login(); //로그인
+                case 1:
+                    account.Login(); //로그인
                     break;
-                case 2: 
-                    loginOrNewmember.Register(); //회원가입
+                case 2:
+                    account.Register(); //회원가입
                     break;
 
             }

@@ -25,15 +25,15 @@ namespace Library.Constant
             this.userData = userData;
         }
 
-        public void SelectNumberInManagerMenu()
+        public void SelectNumberInManagerMenu(string Userid)
         {
             ManagerMenuView managerMenuView = new ManagerMenuView();
             NumberInputManager numberInputManager = new NumberInputManager(bookData, userData);
             managerMenuView.viewManagermenu();
             int number=numberInputManager.modOfManager();
-            ConstantOfManagerMenu(number);
+            ConstantOfManagerMenu(number, Userid);
         }
-        public void ConstantOfManagerMenu(int num)
+        public void ConstantOfManagerMenu(int num, string Userid)
         {
             HomeDisplay display = new HomeDisplay();
             NumberInputManager managerMode = new NumberInputManager(bookData, userData);
@@ -56,22 +56,22 @@ namespace Library.Constant
                     allBookDisplay.DisplayAllBook();  //모든 책 표시하기 
                     bookSearcher.SearchBook(check); //책 검색하기. process : searchbook 도서 찾기 메뉴 (1-3 입력)
                                                     // -> searchebookwithnumber(입력한 숫자 바탕으로 책 정보 출력) -> viewusermenu(0 눌렀으면 유저메뉴로 복귀)
-                    SelectNumberInManagerMenu();
+                    SelectNumberInManagerMenu(Userid);
                     break;
                 case 2:
                     Console.Clear();
                     bookDataAdder.appendbook();
-                    SelectNumberInManagerMenu();
+                    SelectNumberInManagerMenu(Userid);
                     break;
                 case 3:
                     Console.Clear();
                     bookDataDeleter.DeleteBookInfo();
-                    SelectNumberInManagerMenu();
+                    SelectNumberInManagerMenu(Userid);
                     break;
                 case 4:
                     Console.Clear();
                     bookUpdater.modifyBookInfo();
-                    SelectNumberInManagerMenu();
+                    SelectNumberInManagerMenu(Userid);
                     break;
 
 

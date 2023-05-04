@@ -28,7 +28,6 @@ namespace Library.Controller
         public void modifyuserinfo()
         {
             PasswordMasker passwordMasker = new PasswordMasker();   
-            Account loginOrNewmember = new Account(bookData, userData);
             Console.Clear();
             //현재 회원 정보를 표시함
             Console.WriteLine("현재 회원님의 정보를 표시합니다.");
