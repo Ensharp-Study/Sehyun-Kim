@@ -85,23 +85,30 @@ namespace Library.Controller
 
             Console.Clear();
             Console.Write("아이디를 입력하세요: ");
-            
-            string userid = inputSaverUnlessEnter.SaveInputUnlessEnter("^[a-zA-Z0-9]{4,16}$", 30, 0);
+            string userid = inputSaverUnlessEnter.SaveInputUnlessEnter("^[a-zA-Z0-9]{4,16}$", 25, 0);
 
             Console.SetCursorPosition(0, 1);
             Console.Write("비밀번호를 입력하세요: ");
             string password = inputSaverUnlessEnter.SaveInputUnlessEnter(@"^[\p{L}\p{N}]+$", 25, 1);
 
-            Console.SetCursorPosition(0, 4);
+            Console.SetCursorPosition(0, 2);
             Console.Write("이름을 입력하세요: ");
-            string name = inputSaverUnlessEnter.SaveInputUnlessEnter(@"^[가-힣]{2,4}$", 0, 5);
+            string name = inputSaverUnlessEnter.SaveInputUnlessEnter(@"^[가-힣]{2,4}$", 25, 2);
 
+            Console.SetCursorPosition(0, 3);
             Console.Write("나이를 입력하세요: ");
+            Console.SetCursorPosition(25, 3);
             int age = int.Parse(Console.ReadLine());
+
+            Console.SetCursorPosition(0, 4);
             Console.Write("전화번호를 입력하세요: ");
-            string phonenumber = Console.ReadLine();
+            string phonenumber = inputSaverUnlessEnter.SaveInputUnlessEnter(@"^\d{3}-\d{3,4}-\d{4}$", 25,4);
+
+            Console.SetCursorPosition(0, 5);
             Console.Write("주소를 입력하세요: ");
-            string address = Console.ReadLine();
+            string address = inputSaverUnlessEnter.SaveInputUnlessEnter(@"^[가-힣0-9a-zA-Z\\s]*$", 25, 4);
+
+
             bool fine = true;
 
             fine = mysqlConnecter.InsertUpdateDelete($"INSERT INTO userconstructor(userid, password, name, age, phonenumber, address) VALUES('{userid}', '{password}', '{name}', {age}, '{phonenumber}', '{address}')");
