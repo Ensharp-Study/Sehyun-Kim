@@ -35,7 +35,7 @@ namespace Library.Controller
                 return;
             }
 
-            bool result = mysqlConnecter.DeleteMysql(Userid);
+            bool result = mysqlConnecter.DeleteData($"DELETE FROM userconstructor WHERE userid = '{Userid}'");
             
             if (result)
             {

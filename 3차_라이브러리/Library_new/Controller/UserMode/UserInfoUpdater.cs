@@ -79,6 +79,9 @@ namespace Library.Controller
                     userData.UserList[userlistnumber].Address = addressinput;
                     break;
             }
+
+
+
             Console.Clear();
             Console.WriteLine("정보가 수정되었습니다.");
             Console.WriteLine("수정된 회원님의 정보를 표시합니다.");
