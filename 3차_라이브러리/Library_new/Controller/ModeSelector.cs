@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Library.Constant;
 using Library.Controller;
 using Library.Model;
 using Library.View;
@@ -20,7 +21,8 @@ namespace Library.Controller
             NumberInputManager managerMode = new NumberInputManager(bookData, userData);
             ModeSelector modeSelector = new ModeSelector();
             LoginSignupSelector loginSignupSelector = new LoginSignupSelector(bookData, userData); 
-
+            NumberInputManager numberInputManager = new NumberInputManager(bookData, userData);
+            ManagerMenu managerMenu = new ManagerMenu(bookData, userData);
             userData.SetUserData();
             bookData.InsertBookData(); //데이터 처음 생성
 
@@ -39,7 +41,7 @@ namespace Library.Controller
                     break;
                 case 2: //관리자모드
                     Console.Clear();
-                    managerMode.modOfManager(); //관리자 모드로 이동
+                    managerMenu.SelectNumberInManagerMenu(); //관리자 모드로 이동
                     break;
             }
         }

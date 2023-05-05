@@ -99,8 +99,9 @@ namespace Library.Controller
             string phonenumber = Console.ReadLine();
             Console.Write("주소를 입력하세요: ");
             string address = Console.ReadLine();
-
+            bool fine = true;
             mysqlConnecter.InsertMysql(userid,  password,  name,  age,  phonenumber,  address);
+            
             Console.Clear();
             Console.WriteLine("회원가입 성공!");
             loginSignupSelector.SelectLoginSignup();

@@ -25,15 +25,16 @@ namespace Library.Constant
             this.userData = userData;
         }
 
-        public void SelectNumberInManagerMenu(string Userid)
+        public void SelectNumberInManagerMenu()
         {
             ManagerMenuView managerMenuView = new ManagerMenuView();
             NumberInputManager numberInputManager = new NumberInputManager(bookData, userData);
+
             managerMenuView.viewManagermenu();
             int number=numberInputManager.modOfManager();
-            ConstantOfManagerMenu(number, Userid);
+            ConstantOfManagerMenu(number);
         }
-        public void ConstantOfManagerMenu(int num, string Userid)
+        public void ConstantOfManagerMenu(int number)
         {
             HomeDisplay display = new HomeDisplay();
             NumberInputManager managerMode = new NumberInputManager(bookData, userData);
@@ -45,7 +46,7 @@ namespace Library.Constant
             BookDataDeleter bookDataDeleter = new BookDataDeleter(bookData, userData);  
             AllBookDisplay allBookDisplay = new AllBookDisplay(bookData, userData);
             bool check = false; //관리자모드니까 false로 설정
-            switch (num)
+            switch (number)
             {
                 case 0:
                     Console.Clear();
@@ -56,22 +57,22 @@ namespace Library.Constant
                     allBookDisplay.DisplayAllBook();  //모든 책 표시하기 
                     bookSearcher.SearchBook(check); //책 검색하기. process : searchbook 도서 찾기 메뉴 (1-3 입력)
                                                     // -> searchebookwithnumber(입력한 숫자 바탕으로 책 정보 출력) -> viewusermenu(0 눌렀으면 유저메뉴로 복귀)
-                    SelectNumberInManagerMenu(Userid);
+                    SelectNumberInManagerMenu();
                     break;
                 case 2:
                     Console.Clear();
                     bookDataAdder.appendbook();
-                    SelectNumberInManagerMenu(Userid);
+                    SelectNumberInManagerMenu();
                     break;
                 case 3:
                     Console.Clear();
                     bookDataDeleter.DeleteBookInfo();
-                    SelectNumberInManagerMenu(Userid);
+                    SelectNumberInManagerMenu();
                     break;
                 case 4:
                     Console.Clear();
                     bookUpdater.modifyBookInfo();
-                    SelectNumberInManagerMenu(Userid);
+                    SelectNumberInManagerMenu();
                     break;
 
 

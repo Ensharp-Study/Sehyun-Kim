@@ -12,8 +12,21 @@ namespace Library.Controller
     internal class MysqlConnecter // 글자 print랑 분리하기 
     {//insertdeleteupdate
         
+        //쿼리문만 빼서 메소드 정리해야 한다 
+        public void InsertBookData(int id, string bookName, string author, string publisher, int quantity, int price, string publicationDate, string isbn, string info)
+        {
+            MySqlConnection connection = DatabaseConnection.Instance.Connection;
 
-        //"INSERT INTO userconstructor(userid,password,name,age,phonenumber,address) VALUES('sehyun','1234','김세현', 21, '01040244794', '서울시 광진구')"
+
+
+            string insertQuery = $"INSERT INTO bookconstructor(id, bookName, author, publisher, quantity, price,publicationDate,isbn,info) VALUES('{id}', '{bookName}', '{author}', '{publisher}', '{quantity}', '{price}','{publicationDate}','{isbn}','{info}')";
+
+            connection.Open();
+            MySqlCommand command = new MySqlCommand(insertQuery, connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+        
         public void InsertMysql(string userid, string password, string name, int age, string phonenumber, string address) //회원 정보 추가
         {//회원가입
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
@@ -28,6 +41,17 @@ namespace Library.Controller
             connection.Close();
         }
         
+
+        public void SetQuery(string queryExpression)
+        {
+            MySqlConnection connection = DatabaseConnection.Instance.Connection;
+            string selectQuery = queryExpression;
+            connection.Open();
+            MySqlCommand command = new MySqlCommand(selectQuery, connection);
+            MySqlDataReader reader = command.ExecuteReader(); 
+            reader.Close();
+            connection.Close();
+        }
         public bool  SelectMysql(string userid, string inputPw) //회원 정보 검색
         {//로그인
             MySqlConnection connection = DatabaseConnection.Instance.Connection;

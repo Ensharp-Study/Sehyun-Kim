@@ -25,9 +25,8 @@ namespace Library.Controller
         }
         public int modOfManager()
         {
-           
-            View.ManagerMenuView managerMenu = new View.ManagerMenuView();
-            managerMenu.viewManagermenu();
+            ManagerMenu managerMenu = new ManagerMenu(bookData,userData);
+            View.ManagerMenuView managerMenuView = new View.ManagerMenuView();
 
             Regex regex = new Regex("^[0-4]$"); // 정규식 패턴
             int number;
@@ -41,7 +40,7 @@ namespace Library.Controller
                 }
                 else if (regex.IsMatch(str))
                 {
-                    return number;
+                    managerMenu.ConstantOfManagerMenu(number);
                 }
             }
 

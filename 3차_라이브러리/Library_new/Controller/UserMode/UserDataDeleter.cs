@@ -24,22 +24,6 @@ namespace Library.Controller
             this.userData = userData;
         }
         
-
-        /*
-            * string userid = "testuser";
-bool result = DeleteMysql(userid);
-
-if (result)
-{
-   Console.WriteLine("삭제 성공");
-}
-else
-{
-   Console.WriteLine("삭제 실패");
-}
-          */
-
-        
         public void deleteuserinfo(string Userid)
         {
             Account account = new Account(bookData, userData, Userid);

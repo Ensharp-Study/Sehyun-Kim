@@ -25,6 +25,7 @@ namespace Library.Controller
         }
         public void appendbook()
         {
+            MysqlConnecter mysqlConnecter = new MysqlConnecter();
             Console.Clear();
             Console.WriteLine("추가할 도서의 정보를 입력하세요.");
 
@@ -49,7 +50,7 @@ namespace Library.Controller
 
             int rentpossible = quantity;
 
-            bookData.BookList.Add(new BookConstructor(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible));
+            mysqlConnecter.InsertBookData(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info);
 
         }
     }
