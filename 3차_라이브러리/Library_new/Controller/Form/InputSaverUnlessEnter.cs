@@ -75,7 +75,7 @@ namespace Library.Controller.Form
             // expression = 임의의 문자열 매개변수
             Regex regex = new Regex(regexExpression);
 
-            if (!regex.IsMatch(expression)) //정규식 안만족하면
+            if (regex.IsMatch(expression)) //정규식 안만족하면
             {
                 Console.SetCursorPosition(xcooperation, ycooperation);
                 Console.Write("                                        ");

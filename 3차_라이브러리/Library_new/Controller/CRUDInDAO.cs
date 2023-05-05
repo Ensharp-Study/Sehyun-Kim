@@ -47,6 +47,26 @@ namespace Library.Controller
             connection.Close();
             return check;
         }
+
+        public int ReadData(string columnName, string readQuery)
+        {
+            MySqlConnection connection = DatabaseConnection.Instance.Connection;
+            MySqlCommand command = new MySqlCommand(readQuery, connection);
+            connection.Open();
+            MySqlDataReader reader = command.ExecuteReader();
+
+            int columnValue = 0; // 변수를 루프 밖에서 초기화
+
+            while (reader.Read())
+            {
+                columnValue = (int)reader[columnName]; // 변수에 값을 저장
+            }
+
+            reader.Close();
+            connection.Close();
+
+            return columnValue; // 변수를 반환
+        }
     }
         
     }

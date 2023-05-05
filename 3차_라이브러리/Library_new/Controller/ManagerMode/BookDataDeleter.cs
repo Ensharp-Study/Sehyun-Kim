@@ -30,7 +30,7 @@ namespace Library.Controller
 
             CRUDInDAO mysqlConnecter = new CRUDInDAO();
             bool result = mysqlConnecter.InsertUpdateDelete($"DELETE FROM bookconstructor WHERE id = '{inputBookId}'");
-
+            Console.Clear();
             if (result)
             {
                 Console.WriteLine("삭제 성공");

@@ -10,72 +10,88 @@ using Library.Model;
 using Library.View;
 using Library.Controller;
 using static Library.Controller.Account;
+using MySql.Data.MySqlClient;
 
 namespace Library.Controller
 {
     internal class BookReturner
     {
-        
-        public void returnBook()
+
+        public void returnBook(string Userid)
         {
             HomeDisplay display = new HomeDisplay();
             BookSearcher searchBookInfo = new BookSearcher();
             UserMenuDisplay viewMenu = new UserMenuDisplay();
             BookLender borrowBook = new BookLender();
+            CRUDInDAO mysqlConnecter = new CRUDInDAO();
 
-            borrowBook.borrowhistory();
+            borrowBook.borrowhistory(Userid);
             Console.WriteLine("반납할 책 id를 입력하세요.");
             Console.WriteLine("(뒤로 가려면 0을 누르세요.)");
             int inputBookId2 = int.Parse(Console.ReadLine());
-            /*
-            if (inputBookId2 == 0)
+            if (inputBookId2 == 0) //0이면 뒤로가기
             {
                 Console.Clear();
                 viewMenu.ViewUserMenu();
-
             }
-            int i = 0;
-            int booklistnumber = 0;
-            foreach (var book in bookData.BookList)
+            //0이 아니면
+            //DELETE
+
+            DateTime returnTime = DateTime.Now;
+            string returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+
+            
+            bool check = mysqlConnecter.InsertUpdateDelete($"INSERT INTO returnlist(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible, borrowtime,returntime, userid) SELECT id, bookName, author, publisher, quantity, 0, publicationDate, isbn, info, rentpossible, borrowtime,'{returnTimeString}',userid FROM borrowlist WHERE id = '{inputBookId2}'");
+
+            
+            check = mysqlConnecter.InsertUpdateDelete($"DELETE FROM borrowlist WHERE id = {inputBookId2}");
+            if (check)
             {
-                i++;
-                if (book.id == inputBookId2)
-                {
-                    booklistnumber = i - 1;
-
-                    bookData.BookList[booklistnumber].rentpossible++;
-                    userData.UserList[userlistnumber].rentedbooklist.Remove(book);
-                    userData.UserList[userlistnumber].returnedbooklist.Add(book);
-                    //BookData.rentimpossibleBook.Add(book);
-                    //BookData.rentpossibleBook.Remove(book);
-                    Console.WriteLine("반납 완료했습니다.");
-                    break;
-                }
+                Console.Clear();
+                Console.WriteLine("반납 완료하였습니다.");
             }
-            */
-        }//userlistnumber로 해당회원리스트접근가능 
-        //패키징하면데이터x const
-
-        public void returnhistory()
-        {/*
+        }
+        public void returnhistory(string Userid)
+        {
+            BookUpdater bookUpdater = new BookUpdater();
             Console.Clear();
-            foreach (BookConstructor book in userData.UserList[userlistnumber].returnedbooklist)
-            {
 
-                Console.WriteLine("회원님의 반납 이력을 표시합니다.");
-                Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
-                Console.WriteLine("  ID: " + book.id);
-                Console.WriteLine("  Title: " + book.bookName);
-                Console.WriteLine("  Author: " + book.author);
-                Console.WriteLine("  Publisher: " + book.publisher);
-                Console.WriteLine("  price: " + book.price);
-                Console.WriteLine("  quantity: " + book.quantity);
-                Console.WriteLine("  publicationDate: " + book.publicationDate);
-                Console.WriteLine("  isbn: " + book.isbn);
-                Console.WriteLine("  info: " + book.info);
-                Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
+            MySqlConnection connection = DatabaseConnection.Instance.Connection;
+            MySqlCommand command = new MySqlCommand($"SELECT * FROM returnlist WHERE userid = '{Userid}'", connection);
+
+            connection.Open();
+            MySqlDataReader reader = command.ExecuteReader();
+
+            if (reader.Read())
+            {
+                Console.WriteLine("=================================================");
+                Console.WriteLine("  id: " + reader["id"]);
+                Console.WriteLine("  bookName: " + reader["bookName"]);
+                Console.WriteLine("  author: " + reader["author"]);
+                Console.WriteLine("  publisher: " + reader["publisher"]);
+                Console.WriteLine("  quantity: " + reader["quantity"]);
+                Console.WriteLine("  price: " + reader["price"]);
+                Console.WriteLine("  publicationDate: " + reader["publicationDate"]);
+                Console.WriteLine("  isbn: " + reader["isbn"]);
+                Console.WriteLine("  info: " + reader["info"]);
+                Console.WriteLine("  rentpossible: " + reader["rentpossible"]);
+                Console.WriteLine("  borrowtime: " + reader["borrowtime"]);
+                Console.WriteLine("  returntime: " + reader["returntime"]);
+                Console.WriteLine("==================================================");
             }
-            */
+            else
+            {
+                Console.WriteLine("책 정보가 없습니다.");
+            }
+
+            reader.Close();
+            connection.Close();
         }
     }
+    
 }
+
+
+
+
+

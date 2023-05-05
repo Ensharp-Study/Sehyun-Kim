@@ -57,24 +57,24 @@ namespace Library.Constant
                     Console.Clear();
 
                     bookUpdater.DisplayAllBook(); //모든 책 표시
-                    bookLender.RentOutBook();// 책 대여하기
+                    bookLender.RentOutBook(Userid);// 책 대여하기
                     SelectNumberInUserMenu(Userid);
                     break;
 
                 case 3: //도서 반납
                     Console.Clear();
-                    bookReturner.returnBook();
+                    bookReturner.returnBook(Userid);
                     SelectNumberInUserMenu(Userid);
                     break;
 
                 case 4: //도서 대여 확인
                     Console.Clear();
-                    bookLender.borrowhistory();
+                    bookLender.borrowhistory(Userid);
                     SelectNumberInUserMenu(Userid);
                     break;
                 case 5: //도서 반납 내역
                     Console.Clear();
-                    bookReturner.returnhistory();
+                    bookReturner.returnhistory(Userid);
                     SelectNumberInUserMenu(Userid);
                     break;
                 case 6://회원 정보 수정
