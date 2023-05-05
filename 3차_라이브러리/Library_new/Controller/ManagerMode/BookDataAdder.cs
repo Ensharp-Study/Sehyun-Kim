@@ -16,14 +16,7 @@ namespace Library.Controller
 {
     internal class BookDataAdder
     {
-        private BookData bookData;
-        private UserData userData;
-
-        public BookDataAdder(BookData bookData, UserData userData)
-        {
-            this.bookData = bookData;
-            this.userData = userData;
-        }
+        
         public void appendbook()
         {
             InputSaverUnlessEnter inputSaverUnlessEnter = new InputSaverUnlessEnter();

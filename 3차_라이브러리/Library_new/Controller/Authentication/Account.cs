@@ -18,16 +18,11 @@ namespace Library.Controller
         public static int flag;
         
 
-        private BookData bookData;
-        private UserData userData;
-
         AccountView userSignUpDisplay;
 
         
-        public Account(BookData bookData, UserData userData, string userid)
+        public Account(string userid)
         {
-            this.bookData = bookData;
-            this.userData = userData;
             this.userid = userid;
         }
 
@@ -43,9 +38,9 @@ namespace Library.Controller
             UserMenuDisplay userMenuDisplay = new UserMenuDisplay();
             NumberInputUser numberInputUser = new NumberInputUser();
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();
-            UserMenu userMenu = new UserMenu(bookData, userData);
+            UserMenu userMenu = new UserMenu();
             CRUDInDAO mysqlConnecter = new CRUDInDAO();
-            LoginSignupSelector loginSignupSelector = new LoginSignupSelector(bookData, userData);
+            LoginSignupSelector loginSignupSelector = new LoginSignupSelector();
             InputSaverUnlessEnter inputSaverUnlessEnter = new InputSaverUnlessEnter();
             
             bool fine;
@@ -80,10 +75,10 @@ namespace Library.Controller
         public void Register() //회원가입 
         {
             UserMenuDisplay viewMenu = new UserMenuDisplay();
-            LoginSignupSelector loginSignupSelector = new LoginSignupSelector(bookData, userData);
-            Constant.ManagerMenu menuConstant = new Constant.ManagerMenu(bookData, userData);
+            LoginSignupSelector loginSignupSelector = new LoginSignupSelector();
+            Constant.ManagerMenu menuConstant = new Constant.ManagerMenu();
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();
-            UserMenu userMenu = new UserMenu(bookData, userData);
+            UserMenu userMenu = new UserMenu();
             NumberInputUser numberInputUser = new NumberInputUser();
             CRUDInDAO mysqlConnecter = new CRUDInDAO();
 

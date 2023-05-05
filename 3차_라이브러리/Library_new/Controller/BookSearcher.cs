@@ -15,21 +15,15 @@ namespace Library.Controller
 {
     internal class BookSearcher
     {
-        private BookData bookData;
-        private UserData userData;
-
-        public BookSearcher(BookData bookData, UserData userData)
-        {
-            this.bookData = bookData;
-            this.userData = userData;
-        }
+        
         public void SearchBook(bool check) //check -> 유저모드면 true, 관리자모드면 false
         {
-            NumberInputManager managerMode = new NumberInputManager(bookData, userData);
             RegexChecker regexChecker = new RegexChecker();
-            AllBookDisplay showAllBook = new AllBookDisplay(bookData, userData);
             Console.Clear();
-            showAllBook.DisplayAllBook();
+            BookUpdater bookUpdater = new BookUpdater();
+
+            bookUpdater.DisplayAllBook(); //모든 책 표시
+
             Console.WriteLine(" < 도서 찾기 >  \n");
 
             Console.WriteLine(" ⓛ 제목으로 찾기 ");
@@ -44,12 +38,15 @@ namespace Library.Controller
         }
         public void SearchBookWithNumber(int number, bool modeChecker)
         {
+            ManagerMenu managerMenu = new ManagerMenu();
             UserMenuDisplay userMenuDisplay = new UserMenuDisplay();
+            BookUpdater bookUpdater = new BookUpdater();
+
             int flag = 0;
 
             switch (number)
             {
-                case 0:
+                case 0: //돌아가기
                     Console.Clear();
                     if (modeChecker) {
                         //유저모드면 유저메뉴로 돌아가기
@@ -57,104 +54,28 @@ namespace Library.Controller
                     } 
                     else
                     { //관리자모드면 관리자메뉴로 돌아가기
-
+                        managerMenu.SelectNumberInManagerMenu();
                     }
                     break;
                 case 1:
                     Console.Write("제목을 입력하세요 : ");
                     string title = Console.ReadLine();
                     Console.Clear();
-                    foreach (BookConstructor book in bookData.BookList)
-                    {
-                        if (book.bookName.IndexOf(title, StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
-                            Console.WriteLine("  ID: " + book.id);
-                            Console.WriteLine("  Title: " + book.bookName);
-                            Console.WriteLine("  Author: " + book.author);
-                            Console.WriteLine("  Publisher: " + book.publisher);
-                            Console.WriteLine("  price: " + book.price);
-                            Console.WriteLine("  quantity: " + book.quantity);
-                            Console.WriteLine("  publicationDate: " + book.publicationDate);
-                            Console.WriteLine("  isbn: " + book.isbn);
-                            Console.WriteLine("  info: " + book.info);
-                            Console.WriteLine("  대여 가능한 책: " + book.rentpossible + "권");
-                            Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
-                            flag = 1;
-                        }
-
-                    }
-                    if (flag == 0)
-                    {
-                        Console.WriteLine("해당하는 도서가 없습니다.");
-
-                    }
-                    flag = 0;
+                    bookUpdater.DisplayBookInformation($"SELECT * FROM bookconstructor WHERE bookName = '{title}'");
+                    
                     break;
                 case 2:
                     Console.Write("작가명을 입력하세요 : ");
                     string authorname = Console.ReadLine();
                     Console.Clear();
-                    foreach (var book in bookData.BookList)
-                    {
-                        if (book.author.IndexOf(authorname, StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
-                            Console.WriteLine("  ID: " + book.id);
-                            Console.WriteLine("  Title: " + book.bookName);
-                            Console.WriteLine("  Author: " + book.author);
-                            Console.WriteLine("  Publisher: " + book.publisher);
-                            Console.WriteLine("  price: " + book.price);
-                            Console.WriteLine("  quantity: " + book.quantity);
-                            Console.WriteLine("  publicationDate: " + book.publicationDate);
-                            Console.WriteLine("  isbn: " + book.isbn);
-                            Console.WriteLine("  info: " + book.info);
-                            Console.WriteLine("  대여 가능한 책: " + book.rentpossible + "권");
-                            Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
-                            flag = 1;
-                        }
-                    }
-                    if (flag == 0)
-                    {
-                        Console.WriteLine("해당하는 도서가 없습니다.");
-
-                    }
-                    flag = 0;
+                    bookUpdater.DisplayBookInformation($"SELECT * FROM bookconstructor WHERE author = '{authorname}'");
 
                     break;
                 case 3:
                     Console.Write("출판사명을 입력하세요 : ");
                     string publishername = Console.ReadLine();
                     Console.Clear();
-                    foreach (var book in bookData.BookList)
-                    {
-                        if (book.publisher.IndexOf(publishername, StringComparison.OrdinalIgnoreCase) >= 0)
-                        {
-                            Console.Clear();
-                            Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
-                            Console.WriteLine("  ID: " + book.id);
-                            Console.WriteLine("  Title: " + book.bookName);
-                            Console.WriteLine("  Author: " + book.author);
-                            Console.WriteLine("  Publisher: " + book.publisher);
-                            Console.WriteLine("  price: " + book.price);
-                            Console.WriteLine("  quantity: " + book.quantity);
-                            Console.WriteLine("  publicationDate: " + book.publicationDate);
-                            Console.WriteLine("  isbn: " + book.isbn);
-                            Console.WriteLine("  info: " + book.info);
-                            Console.WriteLine("  대여 가능한 책: " + book.rentpossible + "권");
-                            Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
-                            flag = 1;
-                        }
-                    }
-                    if (flag == 0)
-                    {
-                        Console.WriteLine("해당하는 도서가 없습니다.");
-
-                    }
-                    flag = 0;
-
+                    bookUpdater.DisplayBookInformation($"SELECT * FROM bookconstructor WHERE publisher = '{publishername}'");
                     break;
 
 

@@ -12,18 +12,10 @@ namespace Library.Constant
 {
     internal class UserMenu
     {
-        private BookData bookData;
-        private UserData userData;
-
-        public UserMenu(BookData bookData, UserData userData)
-        {
-            this.bookData = bookData;
-            this.userData = userData;
-        }
-
+        
         public void SelectNumberInUserMenu(string Userid)
         {
-            UserMenu userMenu = new UserMenu(bookData, userData);
+            UserMenu userMenu = new UserMenu();
             UserMenuDisplay userMenuDisplay = new UserMenuDisplay();
             NumberInputUser numberInputUser = new NumberInputUser();
 
@@ -33,16 +25,16 @@ namespace Library.Constant
         }
         public void ConstantOfUserMenu(int number, string Userid)
         {
-            AllBookDisplay allBookDisplay = new AllBookDisplay(bookData,userData);
+            BookUpdater bookUpdater = new BookUpdater();    
             ModeSelector modeSelector = new ModeSelector();
-            BookSearcher bookSearcher = new BookSearcher(bookData, userData);
+            BookSearcher bookSearcher = new BookSearcher();
             UserMenuDisplay userMenuDisplay = new UserMenuDisplay();
-            UserMenu userMenu = new UserMenu(bookData, userData);
+            UserMenu userMenu = new UserMenu();
             NumberInputUser numberInputUser = new NumberInputUser();
-            BookLender bookLender = new BookLender(bookData, userData);
-            BookReturner bookReturner = new BookReturner(bookData, userData);
+            BookLender bookLender = new BookLender();
+            BookReturner bookReturner = new BookReturner();
             UserInfoUpdater userInfoUpdater = new UserInfoUpdater();
-            UserDataDeleter userDataDeleter = new UserDataDeleter(bookData, userData);  
+            UserDataDeleter userDataDeleter = new UserDataDeleter();  
             bool check = true; //유저모드인지 관리자모드인지 판단하는 bool, 유저모드니까 true
             
             switch (number)
@@ -55,7 +47,7 @@ namespace Library.Constant
 
                 case 1: //도서 찾기 
                     Console.Clear();
-                    allBookDisplay.DisplayAllBook();  //모든 책 표시하기 
+                    bookUpdater.DisplayAllBook();  //모든 책 표시하기 
                     bookSearcher.SearchBook(check); //책 검색하기. process : searchbook 도서 찾기 메뉴 (1-3 입력)
                                                     // -> searchebookwithnumber(입력한 숫자 바탕으로 책 정보 출력) -> viewusermenu(0 눌렀으면 유저메뉴로 복귀)
                     SelectNumberInUserMenu(Userid);
@@ -63,7 +55,8 @@ namespace Library.Constant
 
                 case 2: //도서 대여 
                     Console.Clear();
-                    allBookDisplay.DisplayAllBook();//모든 책 표시하기 
+
+                    bookUpdater.DisplayAllBook(); //모든 책 표시
                     bookLender.RentOutBook();// 책 대여하기
                     SelectNumberInUserMenu(Userid);
                     break;

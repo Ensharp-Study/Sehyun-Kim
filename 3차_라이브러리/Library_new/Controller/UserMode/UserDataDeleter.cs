@@ -15,18 +15,11 @@ namespace Library.Controller
 {
     internal class UserDataDeleter
     {
-        private BookData bookData;
-        private UserData userData;
-
-        public UserDataDeleter(BookData bookData, UserData userData)
-        {
-            this.bookData = bookData;
-            this.userData = userData;
-        }
+        
         
         public void deleteuserinfo(string Userid)
         {
-            Account account = new Account(bookData, userData, Userid);
+            Account account = new Account(Userid);
             CRUDInDAO mysqlConnecter = new CRUDInDAO();
            
             if (Userid == null) // null 체크

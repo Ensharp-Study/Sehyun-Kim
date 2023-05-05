@@ -16,11 +16,11 @@ namespace Library.Controller
     internal class BookUpdater
     {
 
-        public void DisplayBookInformation(int number)
+        public void DisplayBookInformation(string selectQuery)
         {
             
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
-            string selectQuery = $"SELECT * FROM bookconstructor WHERE id = '{number}'"; //number 입력받아서 id=number인 행 찾기 
+            //string selectQuery = $"SELECT * FROM bookconstructor WHERE id = '{number}'"; //number 입력받아서 id=number인 행 찾기 
             MySqlCommand command = new MySqlCommand(selectQuery, connection);
 
             connection.Open();
@@ -28,7 +28,6 @@ namespace Library.Controller
 
             if (reader.Read())
             {
-                Console.WriteLine("현재 책 정보를 표시합니다.");
                 Console.WriteLine("=================================================");
                 Console.WriteLine("  id: " + reader["id"]);
                 Console.WriteLine("  bookName: " + reader["bookName"]);
@@ -82,7 +81,7 @@ namespace Library.Controller
             int number = int.Parse(Console.ReadLine());
             Console.Clear();
 
-            DisplayBookInformation(number); //id 받아서 modifybookinfo로 넘겨서 현재 정보 출력
+            DisplayBookInformation($"SELECT * FROM bookconstructor WHERE id = '{number}'"); //id 받아서 modifybookinfo로 넘겨서 현재 정보 출력
 
             Console.WriteLine("어떤 정보를 수정하시겠습니까?");
 

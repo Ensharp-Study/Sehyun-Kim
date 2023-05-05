@@ -14,18 +14,10 @@ namespace Library.Controller
 {
     internal class NumberInputManager
     {
-        static int booklistnumber;
-        private BookData bookData;
-        private UserData userData;
-
-        public NumberInputManager(BookData bookData, UserData userData)
-        {
-            this.bookData = bookData;
-            this.userData = userData;
-        }
+        
         public int modOfManager()
         {
-            ManagerMenu managerMenu = new ManagerMenu(bookData,userData);
+            ManagerMenu managerMenu = new ManagerMenu();
             View.ManagerMenuView managerMenuView = new View.ManagerMenuView();
 
             Regex regex = new Regex("^[0-4]$"); // 정규식 패턴

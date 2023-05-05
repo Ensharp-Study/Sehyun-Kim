@@ -18,11 +18,13 @@ namespace Library.Controller
             BookData bookData = new BookData();
             AccountView accountView = new AccountView();
             HomeDisplay homeDisplay = new HomeDisplay();
-            NumberInputManager managerMode = new NumberInputManager(bookData, userData);
+            NumberInputManager managerMode = new NumberInputManager();
             ModeSelector modeSelector = new ModeSelector();
-            LoginSignupSelector loginSignupSelector = new LoginSignupSelector(bookData, userData); 
-            NumberInputManager numberInputManager = new NumberInputManager(bookData, userData);
-            ManagerMenu managerMenu = new ManagerMenu(bookData, userData);
+            LoginSignupSelector loginSignupSelector = new LoginSignupSelector(); 
+            NumberInputManager numberInputManager = new NumberInputManager();
+            ManagerMenu managerMenu = new ManagerMenu();
+
+
             userData.SetUserData();
             bookData.InsertBookData(); //데이터 처음 생성
 

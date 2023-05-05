@@ -15,40 +15,30 @@ namespace Library.Controller
 {
     internal class BookDataDeleter
     {
-        private BookData bookData;
-        private UserData userData;
-        private AllBookDisplay allBookDisplay;
-        public BookDataDeleter(BookData bookData, UserData userData)
-        {
-            this.bookData = bookData;
-            this.userData = userData;
-            allBookDisplay = new AllBookDisplay(bookData, userData);
-        }
+        
         public void DeleteBookInfo()
         {
             Console.Clear();
             int i = 0;
             int booklistnumber = 0;
-            allBookDisplay.DisplayAllBook();
+            BookUpdater bookUpdater = new BookUpdater();
+
+            bookUpdater.DisplayAllBook(); //모든 책 표시
+
             Console.WriteLine("삭제할 책 id를 입력하세요.");
             int inputBookId = int.Parse(Console.ReadLine());
 
-            foreach (BookConstructor book in bookData.BookList)
+            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            bool result = mysqlConnecter.InsertUpdateDelete($"DELETE FROM bookconstructor WHERE id = '{inputBookId}'");
+
+            if (result)
             {
-                i++;
-                if (book.id == inputBookId)
-                {
-                    booklistnumber = i - 1;
+                Console.WriteLine("삭제 성공");
+            }
+            else
+            {
 
-                    bookData.BookList.RemoveAt(booklistnumber);
-                    i = 0;
-                    Console.Clear();
-                    Console.WriteLine("도서가 삭제되었습니다.");
-
-
-
-                    break;
-                }
+                Console.WriteLine("삭제 실패");
             }
         }
     }

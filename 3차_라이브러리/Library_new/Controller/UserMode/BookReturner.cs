@@ -15,27 +15,19 @@ namespace Library.Controller
 {
     internal class BookReturner
     {
-        private BookData bookData;
-        private UserData userData;
-
-        public BookReturner(BookData bookData, UserData userData)
-        {
-            this.bookData = bookData;
-            this.userData = userData;
-        }
+        
         public void returnBook()
         {
             HomeDisplay display = new HomeDisplay();
-            AllBookDisplay showAllBook = new AllBookDisplay(bookData, userData);
-            BookSearcher searchBookInfo = new BookSearcher(bookData, userData);
+            BookSearcher searchBookInfo = new BookSearcher();
             UserMenuDisplay viewMenu = new UserMenuDisplay();
-            BookLender borrowBook = new BookLender(bookData, userData);
+            BookLender borrowBook = new BookLender();
 
             borrowBook.borrowhistory();
             Console.WriteLine("반납할 책 id를 입력하세요.");
             Console.WriteLine("(뒤로 가려면 0을 누르세요.)");
             int inputBookId2 = int.Parse(Console.ReadLine());
-
+            /*
             if (inputBookId2 == 0)
             {
                 Console.Clear();
@@ -60,11 +52,12 @@ namespace Library.Controller
                     break;
                 }
             }
+            */
         }//userlistnumber로 해당회원리스트접근가능 
         //패키징하면데이터x const
 
         public void returnhistory()
-        {
+        {/*
             Console.Clear();
             foreach (BookConstructor book in userData.UserList[userlistnumber].returnedbooklist)
             {
@@ -82,6 +75,7 @@ namespace Library.Controller
                 Console.WriteLine("  info: " + book.info);
                 Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
             }
+            */
         }
     }
 }

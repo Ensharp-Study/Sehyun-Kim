@@ -14,22 +14,15 @@ namespace Library.Controller
 {
     internal class BookLender
     {
-        private BookData bookData;
-        private UserData userData;
-
-        public BookLender(BookData bookData, UserData userData)
-        {
-            this.bookData = bookData;
-            this.userData = userData;
-        }
+       
         public void RentOutBook()
         {
-            
-            AllBookDisplay showAllBook = new AllBookDisplay(bookData, userData);
+
+            BookUpdater bookUpdater = new BookUpdater();
             UserMenuDisplay viewMenu = new UserMenuDisplay();
 
             Console.Clear();
-            showAllBook.DisplayAllBook();
+            bookUpdater.DisplayAllBook();
             Console.WriteLine("대여할 책 id를 입력하세요.");
             Console.WriteLine("(뒤로 가려면 0을 누르세요.)");
             int inputBookId = int.Parse(Console.ReadLine());
@@ -41,6 +34,7 @@ namespace Library.Controller
             }
             int i = 0;
             int booklistnumber = 0;
+            /*
             foreach (var book in bookData.BookList)
             {
                 i++;
@@ -68,10 +62,11 @@ namespace Library.Controller
                     break;
                 }
             }
+            */
         }
 
         public void borrowhistory()
-        {
+        {/*
             Console.Clear();
             foreach (BookConstructor book in userData.UserList[userlistnumber].rentedbooklist)
             {
@@ -88,6 +83,7 @@ namespace Library.Controller
                 Console.WriteLine("  info: " + book.info);
                 Console.WriteLine("■■■■■■■■■■■■■■■■■■■■■■■■■");
             }
+            */
         }
     }
 }

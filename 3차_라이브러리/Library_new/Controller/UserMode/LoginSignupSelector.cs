@@ -9,21 +9,13 @@ namespace Library.Controller
 {
     internal class LoginSignupSelector
     {
-        private BookData bookData;
-        private UserData userData;
         private string userid;
-
-        public LoginSignupSelector(BookData bookData, UserData userData)
-        {
-            this.bookData = bookData;
-            this.userData = userData;
-        }
 
         //입력하는 숫자에 따라 로그인 또는 회원가입 프로세스로 이동
         public void SelectLoginSignup()
         {
             HomeDisplay homeDisplay = new HomeDisplay();
-            Account account = new Account(bookData, userData, userid);
+            Account account = new Account(userid);
             AccountView accountView = new AccountView();
             ModeSelector modeSelector = new ModeSelector(); 
 

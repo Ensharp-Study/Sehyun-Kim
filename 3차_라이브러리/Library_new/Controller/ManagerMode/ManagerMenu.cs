@@ -16,19 +16,11 @@ namespace Library.Constant
 {
     internal class ManagerMenu
     {
-        private BookData bookData;
-        private UserData userData;
-
-        public ManagerMenu(BookData bookData, UserData userData)
-        {
-            this.bookData = bookData;
-            this.userData = userData;
-        }
-
+        
         public void SelectNumberInManagerMenu()
         {
             ManagerMenuView managerMenuView = new ManagerMenuView();
-            NumberInputManager numberInputManager = new NumberInputManager(bookData, userData);
+            NumberInputManager numberInputManager = new NumberInputManager();
 
             managerMenuView.viewManagermenu();
             int number=numberInputManager.modOfManager();
@@ -37,14 +29,14 @@ namespace Library.Constant
         public void ConstantOfManagerMenu(int number)
         {
             HomeDisplay display = new HomeDisplay();
-            NumberInputManager managerMode = new NumberInputManager(bookData, userData);
+            NumberInputManager managerMode = new NumberInputManager();
             UserInfoUpdater modifyBookInfo = new UserInfoUpdater();
             BookUpdater bookUpdater = new BookUpdater();
-            BookSearcher bookSearcher = new BookSearcher(bookData, userData);
-            BookDataAdder bookDataAdder = new BookDataAdder(bookData, userData);
+            BookSearcher bookSearcher = new BookSearcher();
+            BookDataAdder bookDataAdder = new BookDataAdder();
             ModeSelector modeSelector = new ModeSelector();
-            BookDataDeleter bookDataDeleter = new BookDataDeleter(bookData, userData);  
-            AllBookDisplay allBookDisplay = new AllBookDisplay(bookData, userData);
+            BookDataDeleter bookDataDeleter = new BookDataDeleter();
+
             bool check = false; //관리자모드니까 false로 설정
             switch (number)
             {
@@ -54,7 +46,7 @@ namespace Library.Constant
                     break;
                 case 1:
                     Console.Clear();
-                    allBookDisplay.DisplayAllBook();  //모든 책 표시하기 
+                    bookUpdater.DisplayAllBook(); //모든 책 표시   
                     bookSearcher.SearchBook(check); //책 검색하기. process : searchbook 도서 찾기 메뉴 (1-3 입력)
                                                     // -> searchebookwithnumber(입력한 숫자 바탕으로 책 정보 출력) -> viewusermenu(0 눌렀으면 유저메뉴로 복귀)
                     SelectNumberInManagerMenu();
