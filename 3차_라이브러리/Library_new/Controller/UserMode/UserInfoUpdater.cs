@@ -45,7 +45,7 @@ namespace Library.Controller
             reader.Close();
             connection.Close();
         }
-        public bool modifyuserinfo(string Userid)
+        public bool Modifyuserinfo(string Userid)
         {
             DisplayUserInformation(Userid);
             PasswordMasker passwordMasker = new PasswordMasker();
@@ -57,11 +57,11 @@ namespace Library.Controller
             Console.WriteLine("4. PhoneNumber");
             Console.WriteLine("5. Address");
             string updateQuery;
-            int num = int.Parse(Console.ReadLine());
+            int number = int.Parse(Console.ReadLine());
             Console.Clear();
             CRUDInDAO crudInDAO = new CRUDInDAO();
             bool check = true;
-            switch (num)
+            switch (number)
             {
                 case 1:
                     Console.WriteLine("새로운 패스워드를 입력하세요.");

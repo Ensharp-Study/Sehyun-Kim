@@ -39,7 +39,7 @@ namespace Library.Constant
             HomeDisplay display = new HomeDisplay();
             NumberInputManager managerMode = new NumberInputManager(bookData, userData);
             UserInfoUpdater modifyBookInfo = new UserInfoUpdater();
-            BookUpdater bookUpdater = new BookUpdater(bookData, userData);
+            BookUpdater bookUpdater = new BookUpdater();
             BookSearcher bookSearcher = new BookSearcher(bookData, userData);
             BookDataAdder bookDataAdder = new BookDataAdder(bookData, userData);
             ModeSelector modeSelector = new ModeSelector();
@@ -71,7 +71,7 @@ namespace Library.Constant
                     break;
                 case 4:
                     Console.Clear();
-                    bookUpdater.modifyBookInfo();
+                    bookUpdater.ModifyBookInfo();
                     SelectNumberInManagerMenu();
                     break;
 

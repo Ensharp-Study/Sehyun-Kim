@@ -86,7 +86,7 @@ namespace Library.Constant
                     break;
                 case 6://회원 정보 수정
                     Console.Clear();
-                    userInfoUpdater.modifyuserinfo(Userid);
+                    userInfoUpdater.Modifyuserinfo(Userid);
                     SelectNumberInUserMenu(Userid);
                     break;
                 case 7://회원 탈퇴 
