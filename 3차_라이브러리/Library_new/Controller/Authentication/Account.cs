@@ -46,7 +46,7 @@ namespace Library.Controller
             bool fine;
             //아이디 정규식 : 
             Console.WriteLine("아이디를 입력하세요.");
-            Userid = inputSaverUnlessEnter.SaveInputUnlessEnter(@"^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{3,16}$", 0,27);
+            Userid = inputSaverUnlessEnter.SaveInputUnlessEnter("^[a-zA-Z0-9]{4,16}$", 0,27);
             
             Console.SetCursorPosition(0, 28);
             Console.WriteLine("비밀번호를 입력하세요.");
@@ -80,14 +80,22 @@ namespace Library.Controller
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();
             UserMenu userMenu = new UserMenu();
             NumberInputUser numberInputUser = new NumberInputUser();
+            InputSaverUnlessEnter inputSaverUnlessEnter = new InputSaverUnlessEnter();
             CRUDInDAO mysqlConnecter = new CRUDInDAO();
 
+            Console.Clear();
             Console.Write("아이디를 입력하세요: ");
-            string userid = Console.ReadLine();
+            
+            string userid = inputSaverUnlessEnter.SaveInputUnlessEnter("^[a-zA-Z0-9]{4,16}$", 30, 0);
+
+            Console.SetCursorPosition(0, 1);
             Console.Write("비밀번호를 입력하세요: ");
-            string password = Console.ReadLine();
+            string password = inputSaverUnlessEnter.SaveInputUnlessEnter(@"^[\p{L}\p{N}]+$", 25, 1);
+
+            Console.SetCursorPosition(0, 4);
             Console.Write("이름을 입력하세요: ");
-            string name = Console.ReadLine();
+            string name = inputSaverUnlessEnter.SaveInputUnlessEnter(@"^[가-힣]{2,4}$", 0, 5);
+
             Console.Write("나이를 입력하세요: ");
             int age = int.Parse(Console.ReadLine());
             Console.Write("전화번호를 입력하세요: ");
