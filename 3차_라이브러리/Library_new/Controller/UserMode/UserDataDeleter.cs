@@ -27,7 +27,7 @@ namespace Library.Controller
         public void deleteuserinfo(string Userid)
         {
             Account account = new Account(bookData, userData, Userid);
-            MysqlConnecter mysqlConnecter = new MysqlConnecter();
+            CRUDInDAO mysqlConnecter = new CRUDInDAO();
            
             if (Userid == null) // null 체크
             {

@@ -44,7 +44,7 @@ namespace Library.Controller
             NumberInputUser numberInputUser = new NumberInputUser();
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();
             UserMenu userMenu = new UserMenu(bookData, userData);
-            MysqlConnecter mysqlConnecter = new MysqlConnecter();
+            CRUDInDAO mysqlConnecter = new CRUDInDAO();
             LoginSignupSelector loginSignupSelector = new LoginSignupSelector(bookData, userData);
             InputSaverUnlessEnter inputSaverUnlessEnter = new InputSaverUnlessEnter();
             
@@ -58,7 +58,7 @@ namespace Library.Controller
             string inputPw = getHiddenConsoleInput.HideConsoleInput(0,29);
             inputSaverUnlessEnter.CheckPwRegex(inputPw, @"^[\p{L}\p{N}]+$", 0, 29);
             
-            fine = mysqlConnecter.SelectMysql(Userid, inputPw);
+            fine = mysqlConnecter.SelectData($"SELECT * FROM userconstructor WHERE userid = '{userid}' AND password = '{inputPw}'");
             Console.Clear();
 
             if (fine) //로그인 실패
@@ -85,7 +85,7 @@ namespace Library.Controller
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();
             UserMenu userMenu = new UserMenu(bookData, userData);
             NumberInputUser numberInputUser = new NumberInputUser();
-            MysqlConnecter mysqlConnecter = new MysqlConnecter();
+            CRUDInDAO mysqlConnecter = new CRUDInDAO();
 
             Console.Write("아이디를 입력하세요: ");
             string userid = Console.ReadLine();
@@ -108,6 +108,7 @@ namespace Library.Controller
             Console.Clear();
             Console.WriteLine("회원가입 성공!");
             */
+            Console.Clear();
             if (fine)
             {
                 Console.WriteLine("회원가입 성공!");

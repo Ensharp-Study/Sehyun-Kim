@@ -27,7 +27,7 @@ namespace Library.Controller
         public void appendbook()
         {
             InputSaverUnlessEnter inputSaverUnlessEnter = new InputSaverUnlessEnter();
-            MysqlConnecter mysqlConnecter = new MysqlConnecter();
+            CRUDInDAO mysqlConnecter = new CRUDInDAO();
             Console.Clear();
             Console.WriteLine("추가할 도서의 정보를 입력하세요.");
 
