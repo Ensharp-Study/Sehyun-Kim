@@ -10,6 +10,7 @@ using Library.Model;
 using Library.View;
 using Library.Controller;
 using static Library.Controller.Account;
+using Library.Controller.Form;
 
 namespace Library.Controller
 {
@@ -25,6 +26,7 @@ namespace Library.Controller
         }
         public void appendbook()
         {
+            InputSaverUnlessEnter inputSaverUnlessEnter = new InputSaverUnlessEnter();
             MysqlConnecter mysqlConnecter = new MysqlConnecter();
             Console.Clear();
             Console.WriteLine("추가할 도서의 정보를 입력하세요.");
@@ -49,9 +51,13 @@ namespace Library.Controller
             string info = Console.ReadLine();
 
             int rentpossible = quantity;
-
-            mysqlConnecter.InsertBookData(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info);
-
+            bool fine = true;
+            fine= mysqlConnecter.InsertData($"INSERT INTO bookconstructor(id, bookName, author, publisher, quantity, price,publicationDate,isbn,info) VALUES('{id}', '{bookName}', '{author}', '{publisher}', '{quantity}', '{price}','{publicationDate}','{isbn}','{info}')");
+            Console.Clear();
+            if (fine)
+            {
+                Console.WriteLine("책 정보가 추가되었습니다.");
+            }
         }
     }
 }

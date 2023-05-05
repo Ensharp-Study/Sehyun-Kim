@@ -13,32 +13,16 @@ namespace Library.Controller
     {//insertdeleteupdate
         
         //쿼리문만 빼서 메소드 정리해야 한다 
-        public void InsertBookData(int id, string bookName, string author, string publisher, int quantity, int price, string publicationDate, string isbn, string info)
+
+        public bool InsertData(string insertQuery)
         {
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
-
-
-
-            string insertQuery = $"INSERT INTO bookconstructor(id, bookName, author, publisher, quantity, price,publicationDate,isbn,info) VALUES('{id}', '{bookName}', '{author}', '{publisher}', '{quantity}', '{price}','{publicationDate}','{isbn}','{info}')";
-
             connection.Open();
             MySqlCommand command = new MySqlCommand(insertQuery, connection);
-            command.ExecuteNonQuery();
+            int rowsAffected = command.ExecuteNonQuery();
             connection.Close();
-        }
-        
-        public void InsertMysql(string userid, string password, string name, int age, string phonenumber, string address) //회원 정보 추가
-        {//회원가입
-            MySqlConnection connection = DatabaseConnection.Instance.Connection;
 
-            
-
-            string insertQuery = $"INSERT INTO userconstructor(userid, password, name, age, phonenumber, address) VALUES('{userid}', '{password}', '{name}', {age}, '{phonenumber}', '{address}')";
-
-            connection.Open();
-            MySqlCommand command = new MySqlCommand(insertQuery, connection);
-            command.ExecuteNonQuery();
-            connection.Close();
+            return rowsAffected > 0;
         }
         
 
@@ -73,6 +57,19 @@ namespace Library.Controller
             reader.Close();
             connection.Close();
             return check;
+        }
+
+        public bool DeleteBooksql(int bookId)
+        {
+            MySqlConnection connection = DatabaseConnection.Instance.Connection;
+            string deleteQuery = $"DELETE FROM bookconstructor WHERE id = '{bookId}'";
+            MySqlCommand command = new MySqlCommand(deleteQuery, connection);
+
+            connection.Open();
+            int rowsAffected = command.ExecuteNonQuery();
+            connection.Close();
+
+            return rowsAffected > 0;
         }
 
         public bool DeleteMysql(string userid)

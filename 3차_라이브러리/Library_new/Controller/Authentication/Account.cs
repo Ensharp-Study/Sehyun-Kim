@@ -100,10 +100,18 @@ namespace Library.Controller
             Console.Write("주소를 입력하세요: ");
             string address = Console.ReadLine();
             bool fine = true;
+
+            fine = mysqlConnecter.InsertData($"INSERT INTO userconstructor(userid, password, name, age, phonenumber, address) VALUES('{userid}', '{password}', '{name}', {age}, '{phonenumber}', '{address}')");
+            /*
             mysqlConnecter.InsertMysql(userid,  password,  name,  age,  phonenumber,  address);
             
             Console.Clear();
             Console.WriteLine("회원가입 성공!");
+            */
+            if (fine)
+            {
+                Console.WriteLine("회원가입 성공!");
+            }
             loginSignupSelector.SelectLoginSignup();
         }
 
