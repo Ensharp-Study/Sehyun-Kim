@@ -52,7 +52,7 @@ namespace Library.Controller
 
             int rentpossible = quantity;
             bool fine = true;
-            fine= mysqlConnecter.InsertData($"INSERT INTO bookconstructor(id, bookName, author, publisher, quantity, price,publicationDate,isbn,info) VALUES('{id}', '{bookName}', '{author}', '{publisher}', '{quantity}', '{price}','{publicationDate}','{isbn}','{info}')");
+            fine= mysqlConnecter.InsertUpdateDelete($"INSERT INTO bookconstructor(id, bookName, author, publisher, quantity, price,publicationDate,isbn,info) VALUES('{id}', '{bookName}', '{author}', '{publisher}', '{quantity}', '{price}','{publicationDate}','{isbn}','{info}')");
             Console.Clear();
             if (fine)
             {

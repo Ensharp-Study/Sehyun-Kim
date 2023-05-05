@@ -38,7 +38,7 @@ namespace Library.Constant
         {
             HomeDisplay display = new HomeDisplay();
             NumberInputManager managerMode = new NumberInputManager(bookData, userData);
-            UserInfoUpdater modifyBookInfo = new UserInfoUpdater(bookData, userData);
+            UserInfoUpdater modifyBookInfo = new UserInfoUpdater();
             BookUpdater bookUpdater = new BookUpdater(bookData, userData);
             BookSearcher bookSearcher = new BookSearcher(bookData, userData);
             BookDataAdder bookDataAdder = new BookDataAdder(bookData, userData);

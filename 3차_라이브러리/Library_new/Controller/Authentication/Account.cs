@@ -101,7 +101,7 @@ namespace Library.Controller
             string address = Console.ReadLine();
             bool fine = true;
 
-            fine = mysqlConnecter.InsertData($"INSERT INTO userconstructor(userid, password, name, age, phonenumber, address) VALUES('{userid}', '{password}', '{name}', {age}, '{phonenumber}', '{address}')");
+            fine = mysqlConnecter.InsertUpdateDelete($"INSERT INTO userconstructor(userid, password, name, age, phonenumber, address) VALUES('{userid}', '{password}', '{name}', {age}, '{phonenumber}', '{address}')");
             /*
             mysqlConnecter.InsertMysql(userid,  password,  name,  age,  phonenumber,  address);
             

@@ -41,7 +41,7 @@ namespace Library.Constant
             NumberInputUser numberInputUser = new NumberInputUser();
             BookLender bookLender = new BookLender(bookData, userData);
             BookReturner bookReturner = new BookReturner(bookData, userData);
-            UserInfoUpdater userInfoUpdater = new UserInfoUpdater(bookData, userData);
+            UserInfoUpdater userInfoUpdater = new UserInfoUpdater();
             UserDataDeleter userDataDeleter = new UserDataDeleter(bookData, userData);  
             bool check = true; //유저모드인지 관리자모드인지 판단하는 bool, 유저모드니까 true
             
@@ -86,7 +86,7 @@ namespace Library.Constant
                     break;
                 case 6://회원 정보 수정
                     Console.Clear();
-                    userInfoUpdater.modifyuserinfo();
+                    userInfoUpdater.modifyuserinfo(Userid);
                     SelectNumberInUserMenu(Userid);
                     break;
                 case 7://회원 탈퇴 
