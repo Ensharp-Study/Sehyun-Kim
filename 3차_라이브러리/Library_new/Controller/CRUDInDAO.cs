@@ -28,7 +28,7 @@ namespace Library.Controller
             return rowsAffected > 0;
         }
 
-        public bool SelectData(string selectQuery)
+        public bool SelectData(string selectQuery)//bool형 return 참조 1개밖에없는데 로그인할때밖에안쓰이는데 네이밍이 selectquery같음 위에짜논거랑 방향성이안맞음 패키징이잘못됨
         {
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();

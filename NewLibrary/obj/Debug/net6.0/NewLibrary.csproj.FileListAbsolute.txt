@@ -1,0 +1,15 @@
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\bin\Debug\net6.0\NewLibrary.exe
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\bin\Debug\net6.0\NewLibrary.deps.json
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\bin\Debug\net6.0\NewLibrary.runtimeconfig.json
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\bin\Debug\net6.0\NewLibrary.dll
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\bin\Debug\net6.0\NewLibrary.pdb
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\obj\Debug\net6.0\NewLibrary.csproj.AssemblyReference.cache
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\obj\Debug\net6.0\NewLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\obj\Debug\net6.0\NewLibrary.AssemblyInfoInputs.cache
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\obj\Debug\net6.0\NewLibrary.AssemblyInfo.cs
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\obj\Debug\net6.0\NewLibrary.csproj.CoreCompileInputs.cache
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\obj\Debug\net6.0\NewLibrary.dll
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\obj\Debug\net6.0\refint\NewLibrary.dll
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\obj\Debug\net6.0\NewLibrary.pdb
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\obj\Debug\net6.0\NewLibrary.genruntimeconfig.cache
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\obj\Debug\net6.0\ref\NewLibrary.dll

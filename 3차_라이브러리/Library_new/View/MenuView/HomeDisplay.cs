@@ -13,7 +13,6 @@ namespace Library.View
     {
         
         public void InitialDisplay() { //처음 메뉴 디스플레이
-            Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("                                                                     ");
             Console.WriteLine("       ■       ■■■    ■■■     ■■■         ■       ■■■     ■    ■                             ");
             Console.WriteLine("       ■         ■      ■    ■   ■    ■      ■■      ■    ■   ■    ■                          ");
@@ -23,7 +22,6 @@ namespace Library.View
             Console.WriteLine("                                                                    ");
             Console.WriteLine("                                                                    \n\n\n\n\n\n\n ");
 
-            Console.ForegroundColor = ConsoleColor.White;
 
             Console.WriteLine("                      ■□■□■□■□■□■□■□■□■□■");
             Console.WriteLine("                      □                                  □              ");

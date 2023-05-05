@@ -58,7 +58,7 @@ namespace Library.Controller
             BookUpdater bookUpdater = new BookUpdater();
             Console.Clear();
 
-            MySqlConnection connection = DatabaseConnection.Instance.Connection; 
+            MySqlConnection connection = DatabaseConnection.Instance.Connection;
             MySqlCommand command = new MySqlCommand($"SELECT * FROM borrowlist WHERE userid = '{Userid}'", connection);
 
             connection.Open();

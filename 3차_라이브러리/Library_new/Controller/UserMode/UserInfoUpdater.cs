@@ -22,6 +22,8 @@ namespace Library.Controller
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
             string selectQuery = $"SELECT * FROM userconstructor WHERE userid = '{Userid}'";
             MySqlCommand command = new MySqlCommand(selectQuery, connection);
+            //이거 따로빼기 dao안에서하는게맞다 controller에 database와 연계되어있느애를생성하면안되고알고있어도안된다
+            //dao에 정의되어있으니까 dao안에서 하기
 
             connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
@@ -90,6 +92,11 @@ namespace Library.Controller
                     check = crudInDAO.InsertUpdateDelete($"UPDATE userconstructor SET name ='{addressinput}'WHERE userid = '{Userid}'");
                     break;
             }
+            //직접적인 쿼리문 컨트롤러에서는 유저아이디라던가 네임인풋 에이지인풋 이런 인자들만 dao에다가 넘겨주고 dao에서 mysql이랑 관련된 객체를 커넥션이라던가 커맨드라던가
+            //dao에서 관리하고 인자를 받은걸 바탕으로 쿼리를 날리는 식으로 하는게 지금 짜논 형식에 맞다
+            //menu이동재귀식 -> 고치기 
+            //crudindao 
+            //ui 패키징
             Console.Clear();
             if (check)
             {

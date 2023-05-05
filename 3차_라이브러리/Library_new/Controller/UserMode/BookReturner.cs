@@ -1,3 +1,4 @@
+﻿
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,10 +41,10 @@ namespace Library.Controller
             DateTime returnTime = DateTime.Now;
             string returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
 
-            
+
             bool check = mysqlConnecter.InsertUpdateDelete($"INSERT INTO returnlist(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible, borrowtime,returntime, userid) SELECT id, bookName, author, publisher, quantity, 0, publicationDate, isbn, info, rentpossible, borrowtime,'{returnTimeString}',userid FROM borrowlist WHERE id = '{inputBookId2}'");
 
-            
+
             check = mysqlConnecter.InsertUpdateDelete($"DELETE FROM borrowlist WHERE id = {inputBookId2}");
             if (check)
             {
@@ -61,23 +62,25 @@ namespace Library.Controller
 
             connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
-
-            if (reader.Read())
+            if (reader.HasRows)
             {
-                Console.WriteLine("=================================================");
-                Console.WriteLine("  id: " + reader["id"]);
-                Console.WriteLine("  bookName: " + reader["bookName"]);
-                Console.WriteLine("  author: " + reader["author"]);
-                Console.WriteLine("  publisher: " + reader["publisher"]);
-                Console.WriteLine("  quantity: " + reader["quantity"]);
-                Console.WriteLine("  price: " + reader["price"]);
-                Console.WriteLine("  publicationDate: " + reader["publicationDate"]);
-                Console.WriteLine("  isbn: " + reader["isbn"]);
-                Console.WriteLine("  info: " + reader["info"]);
-                Console.WriteLine("  rentpossible: " + reader["rentpossible"]);
-                Console.WriteLine("  borrowtime: " + reader["borrowtime"]);
-                Console.WriteLine("  returntime: " + reader["returntime"]);
-                Console.WriteLine("==================================================");
+                while (reader.Read())
+                {
+                    Console.WriteLine("=================================================");
+                    Console.WriteLine("  id: " + reader["id"]);
+                    Console.WriteLine("  bookName: " + reader["bookName"]);
+                    Console.WriteLine("  author: " + reader["author"]);
+                    Console.WriteLine("  publisher: " + reader["publisher"]);
+                    Console.WriteLine("  quantity: " + reader["quantity"]);
+                    Console.WriteLine("  price: " + reader["price"]);
+                    Console.WriteLine("  publicationDate: " + reader["publicationDate"]);
+                    Console.WriteLine("  isbn: " + reader["isbn"]);
+                    Console.WriteLine("  info: " + reader["info"]);
+                    Console.WriteLine("  rentpossible: " + reader["rentpossible"]);
+                    Console.WriteLine("  borrowtime: " + reader["borrowtime"]);
+                    Console.WriteLine("  returntime: " + reader["returntime"]);
+                    Console.WriteLine("==================================================");
+                }
             }
             else
             {
@@ -88,10 +91,7 @@ namespace Library.Controller
             connection.Close();
         }
     }
-    
+
 }
-
-
-
 
 
