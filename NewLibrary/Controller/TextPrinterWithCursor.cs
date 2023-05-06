@@ -22,49 +22,46 @@ namespace NewLibrary.Controller
             Console.Write(text);
         } //text의 좌표를 설정하고 하얀색으로 출력하는 메소드
 
-        public void ChangeTextColorByKeyNumber(int keyNumber, string text1, string text2) //SetColorByUpDownArrow로 받아온 keyNumber값으로 글자 출력
-        {
-            if (keyNumber == 1)
-            {
-                SetTextColorGreen(20, 14, "● "+ text1);
-                SetTextColorWhite(19, 15, "○ "+ text2);
-            }
-            else if (keyNumber == 2)
-            {
-                SetTextColorWhite(20, 14, "○ " + text1);
-                SetTextColorGreen(19, 15, "● " + text2);
-            }
-        }
-
-        
-        public void SetColorByUpDownArrow(int firstCursor, int lastCursor, string text1, string text2)
+       
+        public Tuple<int,bool> SetColorByUpDownArrow(int firstCursor, int lastCursor, int keyNumber)
         {//매개변수로 입력된 두 int값 범위 내에서 위 아래로 움직일 때마다 keyNumber 값 변화시키는 메소드
 
-            int keyNumber = 1;
-
+            bool check = true;
             while (true)
             {
-                ChangeTextColorByKeyNumber(keyNumber, text1, text2);
+                
                 ConsoleKeyInfo keyInput = Console.ReadKey();
 
                 if (keyInput.Key == ConsoleKey.Enter) //엔터키 누르면 정지
                 {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    check = false;
                     break;
                 }
                 else if (keyInput.Key == ConsoleKey.UpArrow && keyNumber > firstCursor) //위 방향키 누르면
                 {
                     keyNumber--;
+                    break;
                 }
                 else if (keyInput.Key == ConsoleKey.DownArrow && keyNumber < lastCursor) //아래 방향키 누르면
                 {
                     keyNumber++;
+                    break;
                 }
-                else
+                else if (keyInput.Key == ConsoleKey.Escape) //esc 누르면
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    keyNumber = 0;
+                    break;
+                }
+                else 
                 {
                     continue;
                 }
-
+                
             }
+            return new Tuple<int, bool>(keyNumber, check);
+
         }
     }
 }

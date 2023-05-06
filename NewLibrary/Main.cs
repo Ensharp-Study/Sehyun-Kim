@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NewLibrary.Controller;
 using NewLibrary.View;
 
 namespace NewLibrary
@@ -11,8 +12,8 @@ namespace NewLibrary
     {
         public static void Main(String[] args)
         {
-            ModeSelectView modeSelectView = new ModeSelectView();
-            modeSelectView.ViewModeSelect();
+            ModeSelector modeSelector = new ModeSelector();
+            modeSelector.SelectMode();
         }
     }
 }
