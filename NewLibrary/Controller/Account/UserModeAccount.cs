@@ -37,6 +37,10 @@ namespace NewLibrary.Controller
                 while (fine)
                 {
                     inputId = inputKeyUnlessEnter.SaveInputUnlessEnter(20, 14);
+                    if (inputId == null) // esc 키가 눌리면 즉시 종료
+                    {
+                        return null;
+                    }
                     Console.SetCursorPosition(16, 16);
                     Console.Write("                        ");
                     Console.SetCursorPosition(15, 17);
@@ -52,6 +56,11 @@ namespace NewLibrary.Controller
                 while (fine)
                 {
                     inputPw = passwordMasker.HideConsoleInput(20, 15);
+                    if (inputPw == null) // esc 키가 눌리면 즉시 종료
+                    {
+                        Console.Clear();
+                        return null;
+                    }
                     fine = inputKeyUnlessEnter.CheckRegex(inputPw, RegexConstant.userPwRegex, 20, 15, 16, 16);
                     Console.SetCursorPosition(40, 15);
                     Console.Write("|");
@@ -80,7 +89,32 @@ namespace NewLibrary.Controller
 
         public void UserSignUp() //회원가입
         {
+            InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
+            PasswordMasker passwordMasker = new PasswordMasker();
+            CRUDInDAO mysqlConnecter = new CRUDInDAO();
 
+            while (true)
+            {
+                string inputId = "";
+                string inputPw = "";
+                bool fine = true;
+                bool check = true;
+                while (fine)
+                {
+                    inputId = inputKeyUnlessEnter.SaveInputUnlessEnter(6, 14);
+                    Console.SetCursorPosition(16, 16);
+                    Console.Write("                        ");
+                    Console.SetCursorPosition(15, 17);
+                    Console.Write("                        ");
+                    fine = inputKeyUnlessEnter.CheckRegex(inputId, RegexConstant.userIdRegex, 20, 14, 16, 16);
+                    Console.SetCursorPosition(40, 14);
+                    Console.Write("|");
+                }
+                fine = true;
+                Console.SetCursorPosition(16, 16);
+                Console.Write("                        ");
+
+            }
         }
     }
 }

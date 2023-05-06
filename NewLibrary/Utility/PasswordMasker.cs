@@ -16,7 +16,7 @@ namespace Library.View
             do
             {
                 key = Console.ReadKey(true);
-                if (key.Key != ConsoleKey.Backspace && key.Key != ConsoleKey.Enter)
+                if (key.Key != ConsoleKey.Backspace&& key.Key != ConsoleKey.Escape && key.Key != ConsoleKey.Enter)
                 {
                     input += key.KeyChar;
                     Console.Write("*");
@@ -27,6 +27,10 @@ namespace Library.View
                     Console.SetCursorPosition(xcooperation + input.Length, ycooperation);
                     Console.Write(" ");
                     Console.SetCursorPosition(xcooperation + input.Length, ycooperation);
+                }
+                else if (key.Key == ConsoleKey.Escape)
+                {
+                    return null;
                 }
             } while (key.Key != ConsoleKey.Enter);
             Console.WriteLine();

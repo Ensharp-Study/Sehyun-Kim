@@ -10,7 +10,6 @@ namespace NewLibrary.View
     {
         public void ViewManagerAccount()
         {
-            Console.SetWindowSize(56, 21);
 
             Console.WriteLine("       _      _  _  ");
             Console.WriteLine("      | |    (_)| |");
@@ -32,6 +31,7 @@ namespace NewLibrary.View
             Console.WriteLine("            |                           | ");
             Console.WriteLine("            └ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┘");
             Console.WriteLine("                 ↑↓ 위, 아래 이동");
+            Console.WriteLine("                   ESC를 눌러 종료");
         }
     }
 }

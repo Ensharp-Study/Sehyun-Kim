@@ -46,6 +46,11 @@ namespace NewLibrary.Utility
                         }
                     }
                 }
+                else if (input.Key == ConsoleKey.Escape) //esc 입력됐을 경우
+                {
+                    Console.Clear();
+                    return null;
+                }
                 else // 나머지 다른 문자 입력됐을 경우
                 {
                     Console.Write(input.KeyChar);
