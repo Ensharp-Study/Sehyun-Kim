@@ -16,7 +16,7 @@ namespace NewLibrary.Utility
             string randomExpression = "";
 
             Console.SetCursorPosition(xCoordination, yCoordination);
-            Regex regex = new Regex(RegexConstant.koreanChar);
+            Regex regex = new Regex(RegexConstant.koreanCharRegex);
 
             while (true)
             {
@@ -56,14 +56,14 @@ namespace NewLibrary.Utility
             return randomExpression;
         }
 
-        public bool CheckRegex(string expression, string regexExpression, int xCoordinate, int yCoordinate, int interval)
+        public bool CheckRegex(string expression, string regexExpression, int xCoordinate, int yCoordinate, int movedX, int movedY)
         {
             //expression : 정규식 검사할 문자열
             //regexExpression : 정규식
             //xCoordinate, yCoordinate : 커서 set해서 입력받을 좌표
-            //interval : 입력이 잘못되었습니다 안내 메세지 띄울 간격
+            //movedX, movedY : 입력이 잘못되었습니다 안내 메세지 띄울 X,Y좌표
 
-            bool check = true;
+            bool check = false;
 
             Regex regex = new Regex(regexExpression);
 
@@ -71,13 +71,12 @@ namespace NewLibrary.Utility
             {
                 Console.SetCursorPosition(xCoordinate, yCoordinate);
                 Console.Write("                                        ");
-                Console.SetCursorPosition(xCoordinate + interval, yCoordinate);
+                Console.SetCursorPosition(movedX, movedY);
                 Console.WriteLine("입력이 잘못되었습니다.");
                 Console.SetCursorPosition(xCoordinate, yCoordinate);
-                check = false;
+                check = true;
                 //다시 입력을 받아야 한다.
             }
-            check = true;
             return check; //정규식 만족하면 true가 된 check를 반환
 
         }
@@ -86,7 +85,7 @@ namespace NewLibrary.Utility
         public void menu()
         {
             bool fine = false;
-            while (!fine) fine 
+            while (fine) fine 
             {
                 string id = SaveInputUnlessEnter(0, 0);
                 fine=CheckRegex(id, RegexConstant.koreanChar, 0, 0, 40);

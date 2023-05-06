@@ -68,10 +68,13 @@ namespace NewLibrary.Controller
             }
         }
 
+        private string userId;
         public void SelectUserLog()
         {
+            
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
-            UserModeAccount userModeAccount = new UserModeAccount();
+            UserModeAccount userModeAccount = new UserModeAccount(userId);
+            UserAccountView userAccountView = new UserAccountView();    
             bool fine = true;
             int Number = 1;
             while (fine)
@@ -106,7 +109,8 @@ namespace NewLibrary.Controller
                 case 1:
                     Console.Clear();
                     Console.CursorVisible = true;
-                    userModeAccount.UserLogin();
+                    userAccountView.ViewLogin(); //로그인 화면 view
+                    userModeAccount.UserLogin(); //로그인 기능 메소드
                     
                     //login 메소드 실행
                     break;
