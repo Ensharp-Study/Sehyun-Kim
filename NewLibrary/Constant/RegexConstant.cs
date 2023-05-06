@@ -12,11 +12,11 @@ namespace NewLibrary.Constant
         public const string koreanCharRegex = @"^[가-힣]$"; //한글 한 글자 
 
         //유저 정규식
-        public const string userIdRegex = @"^[a-zA-Z0-9]{4,16}$"; 
-        public const string userPwRegex = @"^[\p{L}\p{N}]+$";
+        public const string userIdRegex = @"^[a-zA-Z0-9]{5,12}$"; //영어 + 숫자 4-16자리
+        public const string userPwRegex = @"^[\p{L}\p{N}]{6,12}$"; //영어 _ 숫자 6-12
         public const string userNameRegex = @"^[가-힣]{2,4}$"; //2-4글자사이정규식
         public const string userAgeRegex = @"^(1[0-9]{2}|[1-9][0-9]|[1-9])$"; //0에서 200사이 정규식
-        public const string userPhoneNumberRegex= @"^\d{3}-\d{3,4}-\d{4}$";
+        public const string userPhoneNumberRegex= @"^\d{3}-\d{3,4}-\d{4}$";//고치기
         public const string userAddressRegex= @"^[가-힣0-9a-zA-Z\\s]*$";
 
         //책 정규식

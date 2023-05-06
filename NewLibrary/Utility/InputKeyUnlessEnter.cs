@@ -61,7 +61,7 @@ namespace NewLibrary.Utility
             return randomExpression;
         }
 
-        public bool CheckRegex(string expression, string regexExpression, int xCoordinate, int yCoordinate, int movedX, int movedY)
+        public bool CheckRegex(string expression, string regexExpression, int xCoordinate, int yCoordinate, int movedX, int movedY, string message)
         {
             //expression : 정규식 검사할 문자열
             //regexExpression : 정규식
@@ -77,7 +77,7 @@ namespace NewLibrary.Utility
                 Console.SetCursorPosition(xCoordinate, yCoordinate);
                 Console.Write("                                        ");
                 Console.SetCursorPosition(movedX, movedY);
-                Console.WriteLine("입력이 잘못되었습니다.");
+                Console.WriteLine(message);
                 Console.SetCursorPosition(xCoordinate, yCoordinate);
                 check = true;
                 //다시 입력을 받아야 한다.
@@ -85,6 +85,8 @@ namespace NewLibrary.Utility
             return check; //정규식 만족하면 true가 된 check를 반환
 
         }
+
+
 
         /* 두 메소드 사용하는 방법 예시 
         public void menu()

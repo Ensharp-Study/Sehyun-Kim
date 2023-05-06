@@ -68,7 +68,7 @@ namespace NewLibrary.Controller
                             userAccountView.ViewUserAccount(); //로그인, 회원가입 고르는 view
                             int Number = SetColorByCursor(); // 로그인, 회원가입 커서이동 엔터값에 따라 Number
                             keyNumber = LoginOrSignUp(Number); //입력된 number로 로그인이나 회원가입 들어가기 
-                            //keyNumber가 0이면 나가짐
+                            
                             break;
                         case 2: //관리자 메뉴
                             Console.Clear();
@@ -138,10 +138,17 @@ namespace NewLibrary.Controller
                     //유저메뉴에서 받은 값을 return
                     break;
                 case 2: //회원가입
+                    bool checker = true;
                     Console.Clear();
                     Console.SetWindowSize(62, 27);
                     userAccountView.ViewSignUp(); //회원가입 화면 view
-                    userModeAccount.UserSignUp(); //회원가입 기능 메소드
+                    checker=userModeAccount.UserSignUp(); //회원가입 기능 메소드
+                    if (!checker)
+                    {
+                        Console.CursorVisible = false;
+                        keyNumber = 1;
+                        return keyNumber;
+                    }
                     break;
             }
             return keyNumber;
