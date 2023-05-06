@@ -53,8 +53,10 @@ namespace NewLibrary.Controller
             {
                 case 1:
                     Console.Clear();
-                    userAccountView.ViewUserAccount(); //유저 모드 -> 로그인/회원가입 view
-                    //account 메소드
+                    userAccountView.ViewUserAccount();
+                    SelectUserLog();
+                    //유저 모드view -> 로그인/회원가입 view
+                    //account이랑 signup 둘중에 고르기
                     //if account 메소드에서 반환된 bool값이 true이면 유저 모드로 간다
                     //유저 모드 view
                     //while 유저 모드에서 입력받기 -> esc를 누르면 나온다. 중지
@@ -62,6 +64,55 @@ namespace NewLibrary.Controller
                 case 2:
                     Console.Clear();
                     //관리자 모드
+                    break;
+            }
+        }
+
+        public void SelectUserLog()
+        {
+            TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
+            UserModeAccount userModeAccount = new UserModeAccount();
+            bool fine = true;
+            int Number = 1;
+            while (fine)
+            {
+                switch (Number)
+                {
+                    case 0:
+                        return; //esc 누르면 keyNumber값을 0으로 설정하고 종료하기
+                    case 1:
+                        textPrinterWithCursor.SetTextColorGreen(22, 14, "● 로그인");
+                        textPrinterWithCursor.SetTextColorWhite(21, 15, "○ 회원 가입");
+                        break;
+                    case 2:
+                        textPrinterWithCursor.SetTextColorWhite(22, 14, "○ 로그인");
+                        textPrinterWithCursor.SetTextColorGreen(21, 15, "● 회원 가입");
+                        break;
+                }
+                //tuple의 반환값은 keyNumber, check -> check는 엔터 누르면 false가 됨
+                var tuple = textPrinterWithCursor.SetColorByUpDownArrow(1, 2, Number);
+                if (tuple.Item2 == false) //만약 check가 false이면
+                {
+                    fine = false;
+                }
+                else
+                {
+                    Number = tuple.Item1;
+                }
+            }
+            
+            switch (Number)
+            {
+                case 1:
+                    Console.Clear();
+                    Console.CursorVisible = true;
+                    userModeAccount.UserLogin();
+                    
+                    //login 메소드 실행
+                    break;
+                case 2:
+                    Console.Clear();
+                    //signup 메소드 실행
                     break;
             }
         }

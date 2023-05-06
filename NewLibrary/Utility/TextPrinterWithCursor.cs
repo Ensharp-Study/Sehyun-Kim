@@ -8,16 +8,16 @@ namespace NewLibrary.Controller
 {
     internal class TextPrinterWithCursor
     {
-        public void SetTextColorGreen(int xCooperation, int yCooperation, string text)
+        public void SetTextColorGreen(int xCoordinate, int yCoordinate, string text)
         {
-            Console.SetCursorPosition(xCooperation, yCooperation);
+            Console.SetCursorPosition(xCoordinate, yCoordinate);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write(text);
         } //text의 좌표를 설정하고 초록색으로 출력하는 메소드
 
-        public void SetTextColorWhite(int xCooperation, int yCooperation, string text)
+        public void SetTextColorWhite(int xCoordinate, int yCoordinate, string text)
         {
-            Console.SetCursorPosition(xCooperation, yCooperation);
+            Console.SetCursorPosition(xCoordinate, yCoordinate);
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write(text);
         } //text의 좌표를 설정하고 하얀색으로 출력하는 메소드
@@ -29,7 +29,6 @@ namespace NewLibrary.Controller
             bool check = true;
             while (true)
             {
-                
                 ConsoleKeyInfo keyInput = Console.ReadKey();
 
                 if (keyInput.Key == ConsoleKey.Enter) //엔터키 누르면 정지
