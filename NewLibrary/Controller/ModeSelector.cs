@@ -3,7 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NewLibrary.Controller.Function;
+using NewLibrary.Utility;
 using NewLibrary.View;
+using NewLibrary.View.FunctionView;
+using NewLibrary.View.MenuView;
+
 namespace NewLibrary.Controller
 {
     internal class ModeSelector
@@ -43,7 +48,7 @@ namespace NewLibrary.Controller
                             break;
                     }
                     //tuple의 반환값은 keyNumber, check -> check는 엔터 누르면 false가 됨
-                    var tuple = textPrinterWithCursor.SetColorByUpDownArrow(1, 2, keyNumber); 
+                    var tuple = textPrinterWithCursor.SetColorByUpDownArrow(1, 2, keyNumber);
                     if (tuple.Item2 == false) //만약 check가 false이면 반복문 정지하고 keyNumber문으로 이동
                     {                       //check가 false 다 = 엔터가 눌렸다
                         fine = false;
@@ -68,12 +73,12 @@ namespace NewLibrary.Controller
                             userAccountView.ViewUserAccount(); //로그인, 회원가입 고르는 view
                             int Number = SetColorByCursor(); // 로그인, 회원가입 커서이동 엔터값에 따라 Number
                             keyNumber = LoginOrSignUp(Number); //입력된 number로 로그인이나 회원가입 들어가기 
-                            
+
                             break;
                         case 2: //관리자 메뉴
                             Console.Clear();
                             break;
-                        
+
                     }
                 }
             }
@@ -120,7 +125,10 @@ namespace NewLibrary.Controller
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             UserModeAccount userModeAccount = new UserModeAccount(userId);
             UserAccountView userAccountView = new UserAccountView();
-            int keyNumber=1;
+            UserMenu userMenu = new UserMenu();
+            int keyNumber = 1;
+            int selectedNumber;
+            bool check = true;
             switch (Number)
             {
                 case 1: //로그인
@@ -134,15 +142,26 @@ namespace NewLibrary.Controller
                         keyNumber = 1;
                         return keyNumber;
                     }
-                    //안 눌렸으면 유저 메뉴 view
-                    //유저메뉴에서 받은 값을 return
+                    
+                    while (check)
+                    {
+                        Console.Clear();
+                        Console.SetWindowSize(62, 27);
+                        userMenu.ViewUserMenu(); //유저 메뉴 view
+                        selectedNumber = SelectInUserMenu(); //유저 메뉴에서 기능 고르기 
+                        userId=MethodInUserMenu(selectedNumber, userId);
+                        if (userId == null)
+                        {
+                            break;
+                        }
+                    }
                     break;
                 case 2: //회원가입
                     bool checker = true;
                     Console.Clear();
                     Console.SetWindowSize(62, 27);
                     userAccountView.ViewSignUp(); //회원가입 화면 view
-                    checker=userModeAccount.UserSignUp(); //회원가입 기능 메소드
+                    checker = userModeAccount.UserSignUp(); //회원가입 기능 메소드
                     if (!checker)
                     {
                         Console.CursorVisible = false;
@@ -153,5 +172,108 @@ namespace NewLibrary.Controller
             }
             return keyNumber;
         }
+        public string MethodInUserMenu(int selectedNumber, string userId)
+        {
+            BookSearcher bookSearcher = new BookSearcher();
+            UserFunctionView userFunctionView = new UserFunctionView();
+            BookDisplayer bookDisplay = new BookDisplayer();
+            BookLender bookLender = new BookLender();
+            switch (selectedNumber)
+            { 
+                case 0: //유저 메뉴에서 기능 고를 때 esc가 눌린 것
+                    userId = null;
+                    break;
+                case 1: //도서 찾기
+                    Console.Clear();
+                    userFunctionView.ViewBookSearcher();
+                    Console.SetCursorPosition(0, 14);
+                    bookDisplay.DisplayAllBook();
+                    bookSearcher.SearchBook(userId);
+                    break;
+                case 2: //도서 대여
+                    Console.Clear();
+                    userFunctionView.ViewBookLender1();
+                    bookDisplay.DisplayAllBook();
+                    userFunctionView.ViewBookLender2();
+                    bookLender.RentOutBook(userId);
+                    break;
+                case 3: //도서 반납
+                    break;
+                case 4: //도서 대여 확인
+                    Console.Clear();
+                    bookLender.BorrowHistory(userId);
+                    break;
+                case 5: //도서 반납 내역
+                    break;
+                case 6: //회원 정보 수정
+                    break;
+                case 7: //회원 탈퇴 
+                    break;
+
+
+            }
+            return userId;
+        }
+        public int SelectInUserMenu()
+        {
+            ModeSelectView modeSelectView = new ModeSelectView();
+            TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
+            UserAccountView userAccountView = new UserAccountView();
+            ManagerAccountView managerAccountView = new ManagerAccountView();
+            ListWithColoredIndexPrinter listWithColoredIndexPrinter = new ListWithColoredIndexPrinter();
+            bool exit = true;
+            List<string> strList = new List<string>() { "도서 찾기", "도서 대여", "도서 반납", "도서 대여 확인", "도서 반납 내역", "회원 정보 수정", "회원 탈퇴" };
+
+            Console.CursorVisible = false; //커서 안 보이게
+            Console.SetWindowSize(62, 27);
+
+            bool fine = true;
+            int keyNumber = 1;
+
+            while (fine) //keyNumber은 초기값이 1인 상태로 fine이 true일 동안 계속 반복
+            {
+                
+                switch (keyNumber)
+                {
+                    case 0:
+                        return keyNumber; //esc가 눌렸으면 keyNumber 0
+                    case 1:
+                        listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 0, 26,13);
+                        break;
+                    case 2:
+                        listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 1, 26, 13);
+                        break;
+                    case 3:
+                        listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 2, 26, 13);
+                        break;
+                    case 4:
+                        listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 3, 26, 13);
+                        break;
+                    case 5:
+                        listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 4, 26, 13);
+                        break;
+                    case 6:
+                        listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 5, 26, 13);
+                        break;
+                    case 7:
+                        listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 6, 26, 13);
+                        break;
+                }
+                //tuple의 반환값은 keyNumber, check -> check는 엔터 누르면 false가 됨
+                var tuple = textPrinterWithCursor.SetColorByUpDownArrow(1, 7, keyNumber);
+                if (tuple.Item2 == false) //만약 check가 false이면 반복문 정지하고 keyNumber문으로 이동
+                {                       //check가 false 다 = 엔터가 눌렸다
+                    fine = false;
+                }
+                else //엔터가 안 눌렸다 그래서 반환된 값을 다시 keyNumber에 넣어서 또 반복한다.
+                {
+                    keyNumber = tuple.Item1;
+                }
+            }
+            //엔터 입력시 여기로 나옴 
+            return keyNumber;
+
+        }
+        
     }
 }

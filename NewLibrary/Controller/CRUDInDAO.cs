@@ -7,7 +7,7 @@ using Library.View;
 using MySql.Data.MySqlClient;
 using NewLibrary.Model.DAO;
 
-namespace Library.Controller
+namespace NewLibrary.Controller
 {
     internal class CRUDInDAO // create, read, upload, delete
     {//insertdeleteupdate

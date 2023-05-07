@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Library.Controller;
+using NewLibrary.Controller;
 using Library.View;
 using NewLibrary.Constant;
 using NewLibrary.Utility;
@@ -29,10 +29,12 @@ namespace NewLibrary.Controller
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             PasswordMasker passwordMasker = new PasswordMasker();
             CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            string inputId = "";
+            string inputPw = "";
             while (true)
             {
-                string inputId = "";
-                string inputPw = "";
+                inputId = "";
+                inputPw = "";
                 bool fine = true;
                 bool check = true;
                 while (fine)
@@ -73,7 +75,7 @@ namespace NewLibrary.Controller
 
                 if (!check)//로그인 성공할 때까지 반복
                 {
-                    break;
+                    return inputId;
                 }
                 //로그인 실패시 화면 지우기
                 Console.SetCursorPosition(20, 14);
@@ -85,7 +87,7 @@ namespace NewLibrary.Controller
                 Console.SetCursorPosition(15, 17);
                 Console.Write(    "   다시 입력해주세요.");
             }
-            return UserId; //로그인 성공한 유저의 아이디 반환됨.
+            return inputId; //로그인 성공한 유저의 아이디 반환됨.
         }
 
         public bool UserSignUp() //회원가입
@@ -204,12 +206,6 @@ namespace NewLibrary.Controller
                 Console.Clear();
                 Console.WriteLine("회원가입 성공!");
                 */
-                Console.Clear();
-                if (checkMysql)
-                {
-                    Console.WriteLine("회원가입 성공!");
-                }
-
                 return true;
 
 

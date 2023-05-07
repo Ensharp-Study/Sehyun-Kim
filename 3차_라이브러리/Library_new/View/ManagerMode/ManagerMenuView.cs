@@ -28,7 +28,7 @@ namespace Library.View
             Console.WriteLine("                      ■          ④ 도서 수정            ■                    ");
             Console.WriteLine("                      □                                  □               ");
             Console.WriteLine("                      ■        0을 입력해 돌아가기       ■               ");
-            Console.WriteLine("                      □■□■□■□■□■□■□■□■□■□");
+            Console.WriteLine("                      □■□■□■□■□■□■□■□■□■□ 회원 관리 대여 상황");
         }
     }
 }
