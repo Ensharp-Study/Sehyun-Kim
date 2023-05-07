@@ -23,12 +23,12 @@ namespace NewLibrary.Controller.Function
             bool fine = true;
             while (fine)
             {
-                inputBookId = inputKeyUnlessEnter.SaveInputUnlessEnter(32,49);
+                inputBookId = inputKeyUnlessEnter.SaveInputUnlessEnter(32,6);
                 if (inputBookId == null)
                 {
                     return userId;
                 }
-                fine = inputKeyUnlessEnter.CheckRegex(inputBookId, RegexConstant.onlyNumberRegex, 32, 49, 20, 47, "입력이 잘못되었습니다");
+                fine = inputKeyUnlessEnter.CheckRegex(inputBookId, RegexConstant.onlyNumberRegex, 32, 6, 20, 5, "입력이 잘못되었습니다");
             }
             DateTime currentTime = DateTime.Now;
             string currentTimeString = currentTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
@@ -44,8 +44,8 @@ namespace NewLibrary.Controller.Function
                 if (check)
                 {
                     Console.WriteLine("");
-                    Console.WriteLine("     대여 완료하였습니다.");
-                    Console.WriteLine("     ESC를 눌러 돌아가기");
+                    Console.WriteLine("                  대여 완료하였습니다.");
+                    Console.WriteLine("                  ESC를 눌러 돌아가기");
                     while (true)
                     {
                         ConsoleKeyInfo input = Console.ReadKey(true);
@@ -82,19 +82,21 @@ namespace NewLibrary.Controller.Function
             return userId;
         }
 
-        public string BorrowHistory(string userId)
+        public string BorrowHistory(string userId, bool check)
         {
-            BookDisplayer bookDisplayer = new BookDisplayer();  
-            Console.Clear();
+            BookDisplayer bookDisplayer = new BookDisplayer();
 
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
             MySqlCommand command = new MySqlCommand($"SELECT * FROM borrowlist WHERE userid = '{userId}'", connection);
-
             connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
 
-            if (reader.Read())
+            bool hasRecords = false; // 레코드가 있는지 여부를 판단하기 위한 변수
+
+            while (reader.Read()) // 모든 레코드를 읽어서 출력
             {
+                hasRecords = true;
+
                 Console.WriteLine("=================================================");
                 Console.WriteLine("  id: " + reader["id"]);
                 Console.WriteLine("  bookName: " + reader["bookName"]);
@@ -109,17 +111,20 @@ namespace NewLibrary.Controller.Function
                 Console.WriteLine("  borrowtime: " + reader["borrowtime"]);
                 Console.WriteLine("==================================================");
             }
-            else
+
+            if (!hasRecords) // 레코드가 없는 경우 메시지 출력
             {
                 Console.WriteLine("책 정보가 없습니다.");
             }
-            Console.WriteLine("ESC를 눌러 돌아가기");
-            while (true)
+            Console.WriteLine("ESC를 눌러 종료");
+            while (check)
             {
                 ConsoleKeyInfo input = Console.ReadKey(true);
                 if (input.Key == ConsoleKey.Escape) //esc 입력됐을 경우
                 {
                     Console.Clear();
+                    reader.Close();
+                    connection.Close();
                     return userId;
                 }
                 else
@@ -130,6 +135,10 @@ namespace NewLibrary.Controller.Function
             reader.Close();
             connection.Close();
             return userId;
+
         }
+        
     }
+
+    
 }

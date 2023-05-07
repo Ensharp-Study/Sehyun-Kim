@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NewLibrary.Controller.DataDisplayer;
 using NewLibrary.Controller.Function;
+using NewLibrary.Controller.UserFunction;
 using NewLibrary.Utility;
 using NewLibrary.View;
 using NewLibrary.View.FunctionView;
@@ -178,6 +180,13 @@ namespace NewLibrary.Controller
             UserFunctionView userFunctionView = new UserFunctionView();
             BookDisplayer bookDisplay = new BookDisplayer();
             BookLender bookLender = new BookLender();
+            BookReturner bookReturner = new BookReturner();
+            UserDataUpdater userDataUpdater = new UserDataUpdater();
+            UserDataDeleter userDataDeleter = new UserDataDeleter();
+            UserDisplayer userDisplayer = new UserDisplayer();
+            
+            bool check;
+            int number;
             switch (selectedNumber)
             { 
                 case 0: //유저 메뉴에서 기능 고를 때 esc가 눌린 것
@@ -192,22 +201,40 @@ namespace NewLibrary.Controller
                     break;
                 case 2: //도서 대여
                     Console.Clear();
-                    userFunctionView.ViewBookLender1();
+                    userFunctionView.ViewBookLenderTop();
                     bookDisplay.DisplayAllBook();
-                    userFunctionView.ViewBookLender2();
                     bookLender.RentOutBook(userId);
                     break;
                 case 3: //도서 반납
+                    check = false;
+                    Console.Clear();
+                    userFunctionView.ViewBookReturnerTop();
+                    bookLender.BorrowHistory(userId, check);
+                    bookReturner.ReturnBook(userId);
                     break;
                 case 4: //도서 대여 확인
                     Console.Clear();
-                    bookLender.BorrowHistory(userId);
+                    check = true;
+                    bookLender.BorrowHistory(userId, check);
                     break;
                 case 5: //도서 반납 내역
+                    Console.Clear();
+                    bookReturner.ReturnHistory(userId);
                     break;
                 case 6: //회원 정보 수정
+                    Console.Clear();
+                    userFunctionView.ViewUserDataUpdaterTop();
+                    check = false;
+                    bool fine = true;
+                    userDisplayer.DisplayUserInformation(userId,check);
+                    userFunctionView.ViewUserDataUpdaterBottom();
+                    number = userDataUpdater.SetCursorWhenUpdate(userId);
+                    userDataUpdater.UpdateUserData(userId, number);
                     break;
                 case 7: //회원 탈퇴 
+                    Console.Clear();
+                    userFunctionView.ViewUserDataDeleter();
+                    userDataDeleter.DeleteUserData(userId);
                     break;
 
 

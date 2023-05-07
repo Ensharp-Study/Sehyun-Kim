@@ -16,8 +16,8 @@ namespace NewLibrary.Constant
         public const string userPwRegex = @"^[\p{L}\p{N}]{6,12}$"; //영어 _ 숫자 6-12
         public const string userNameRegex = @"^[가-힣]{2,4}$"; //2-4글자사이정규식
         public const string userAgeRegex = @"^(1[0-9]{2}|[1-9][0-9]|[1-9])$"; //0에서 200사이 정규식
-        public const string userPhoneNumberRegex= @"^\d{3}-\d{3,4}-\d{4}$";//고치기
-        public const string userAddressRegex= @"^[가-힣0-9a-zA-Z\\s]*$";
+        public const string userPhoneNumberRegex= @"^\d{3}-\d{3,4}-\d{4}$";//
+        public const string userAddressRegex= @"(([가-힣A-Za-z·\d~\-\.]{2,}(로|길).[\d]+)|([가-힣A-Za-z·\d~\-\.]+(읍|동)\s)[\d]+)";
 
         //책 정규식
         public const string onlyNumberRegex = @"^[0-9]+"; //책 아이디

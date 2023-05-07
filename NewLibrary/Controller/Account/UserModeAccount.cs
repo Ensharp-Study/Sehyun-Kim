@@ -183,8 +183,8 @@ namespace NewLibrary.Controller
                 Console.Write("                                ");
                 while (fine)
                 {
-                    Console.SetCursorPosition(20, 20);
-                    Console.Write("Address -> 한글 0-9자 고치기!!!");
+                    Console.SetCursorPosition(15, 20);
+                    Console.Write("Address -> 도로명 주소 or 지번 주소 or 동/호수까지");
                     inputAddress = inputKeyUnlessEnter.SaveInputUnlessEnter(20, 19);
                     if (inputAddress == null) // esc 키가 눌리면 즉시 종료
                         return false;

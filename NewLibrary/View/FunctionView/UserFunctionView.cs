@@ -25,18 +25,64 @@ namespace NewLibrary.View.FunctionView
             Console.WriteLine("                      ESC를 눌러 돌아가기");
         }
 
-        public void ViewBookLender1()
+        public void ViewBookLenderTop()
         {
             Console.WriteLine("                                                   ");
             Console.WriteLine("                       -* 유저 모드 *-");
             Console.WriteLine("                                                     ");
             Console.WriteLine("                        < 도서 대여 > ");
-            
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("     대여할 책 ID를 입력하세요 :");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("============================================================");
         }
 
-        public void ViewBookLender2()
+        public void ViewBookReturnerTop()
         {
-            Console.WriteLine("     대여할 책 ID를 입력하세요 :");
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                    -* 유저 모드 *-");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                     < 도서 반납 > ");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("     반납할 책 ID를 입력하세요 :");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                                                     ");
+        }
+
+        public void ViewUserDataUpdaterTop()
+        {
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                       -* 유저 모드 *-");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                        < 정보 수정 > ");
+        }
+
+        public void ViewUserDataUpdaterBottom()
+        {
+            Console.WriteLine("   ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
+            Console.WriteLine("   |                   ↑↓ 위, 아래 이동                  | ");
+            Console.WriteLine("   |                    ENTER를 눌러 선택                  | ");
+            Console.WriteLine("   |                                                       | ");
+            Console.WriteLine("   |  PW:                                                  | ");
+            Console.WriteLine("   |  Name:                                                | ");
+            Console.WriteLine("   |  Age:                                                 | ");
+            Console.WriteLine("   |  PhoneNumber :                                        | ");
+            Console.WriteLine("   |  Address :                                            | ");
+            Console.WriteLine("   |                                                       | ");
+            Console.WriteLine("   |                                                       | ");
+            Console.WriteLine("   └ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┘");
+            Console.WriteLine("                    입력 후 ENTER를 누르세요 ");
+            Console.WriteLine("                      ESC를 눌러 돌아가기");
+        }
+
+        public void ViewUserDataDeleter()
+        {
+                Console.WriteLine("                                                   ");
+                Console.WriteLine("                  -* 유저 모드 *-");
+                Console.WriteLine("                                                     ");
+                Console.WriteLine("                   < 회원 탈퇴 > ");
             
         }
     }
