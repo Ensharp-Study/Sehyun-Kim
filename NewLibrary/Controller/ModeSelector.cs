@@ -78,15 +78,16 @@ namespace NewLibrary.Controller
 
                             break;
                         case 2: //관리자 메뉴
-                            Console.Clear();
-                            managerMenu.ViewManagerMenu();
-                            fine = true;
-                            while (fine)
+                            while (true)
                             {
+                                Console.Clear();
+                                managerMenu.ViewManagerMenu();
+                                fine = true;
                                 int number = managerMenu.GoFunctionInManagerMenu();
                                 managerMenu.SelectNumberInManagerMenu(number);
+                                if (number == 0)
+                                    break;
                             }
-                            
                             break;
 
                     }

@@ -21,7 +21,8 @@ namespace NewLibrary.Constant
 
         //책 정규식
         public const string onlyNumberRegex = @"^[0-9]+"; //책 아이디
-        public const string englishKoreanNumberRegex = @"^[\p{L}\p{N}]+$"; //영어,한글,숫자 1글자 이상, 책이름,출판사, info
+        public const string englishKoreanNumberRegex = "^[a-zA-Z0-9가-힣\\s~`!@#$%^&*()-_=+\\\\|[\\]{};:'\",<.>/?]+$"; 
+            //영어,한글,숫자 1글자 이상, 책이름,출판사, info
         public const string englishKoreanRegex = @"^[\p{L}]+$";//영어, 한글 1글자 이상, 작가명
         public const string priceRegex = @"^[1-9][0-9]{0,6}$";//1-9999999 사이 자연수
         public const string quantityRegex = @"^[1-9][0-9]{0,2}$";//1-999 사이 자연수

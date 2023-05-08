@@ -47,21 +47,27 @@ namespace NewLibrary.View.MenuView
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             bool fine = true;
             string inputString = "1";
+            int inputNumber;
             while (fine)
             {
                 inputString = inputKeyUnlessEnter.SaveInputUnlessEnter(20, 25);
+                if (inputString == null)
+                {
+                    inputNumber = 0;
+                    return inputNumber;
+                }
                 fine = inputKeyUnlessEnter.CheckRegex(inputString, RegexConstant.menuNumberRegex, 20, 25, 40, 24, "입력이 잘못되었습니다");
             }
-            int inputNumber= int.Parse(inputString);
+            inputNumber = int.Parse(inputString);
             return inputNumber;
         }
-        public bool SelectNumberInManagerMenu(int number)
+        public void SelectNumberInManagerMenu(int number)
         {
             AppliedBookManager appliedBookManager = new AppliedBookManager();
             switch (number)
             {
                 case 0:
-                    return false;
+                    return;
                     break;
                 case 1://도서찾기
                     break;
@@ -80,22 +86,14 @@ namespace NewLibrary.View.MenuView
                 case 8://로그 저장
                     break;
                 case 9://신청 도서 관리
+                    Console.Clear();
                     appliedBookManager.ManagerAppliedBook();
 
                     break;
 
 
             }
-            return true;
-        }
-        public void DeleteUserLog()
-        {
-
-        }
-
-        public void ManageAppliedBook()
-        {
-
+            return;
         }
     }
 }
