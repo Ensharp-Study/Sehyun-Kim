@@ -85,5 +85,19 @@ namespace NewLibrary.View.FunctionView
                 Console.WriteLine("                   < 회원 탈퇴 > ");
             
         }
+
+        public void ViewApplyBook()
+        {
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                       -* 유저 모드 *-");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                        < 도서 신청 > \n");
+
+            Console.WriteLine("============================================================");
+            Console.WriteLine(" 책 제목  :                         ");
+            Console.WriteLine(" 수량     : ");
+            Console.WriteLine("============================================================");
+
+        }
     }
 }

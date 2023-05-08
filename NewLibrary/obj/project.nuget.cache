@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "2+YemxIEWe67SVVut+xEI3EtQAcG8L4wod+dQO2gkn8j3rTzitN+VAhqjOQnTstxWXUDzF9/7Lep7bW/YRVRRg==",
+  "dgSpecHash": "HpWrn2G90C5b2qtZKJwj9Sm9OWD/HQ0JPqdYp97qDByQDrH/ySAlUdrJLFkaNiug86aml16685Iw560rG0M1zw==",
   "success": true,
   "projectFilePath": "C:\\Users\\user\\OneDrive\\바탕 화면\\Sehyun-Kim\\NewLibrary\\NewLibrary.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,7 @@
     "C:\\Users\\user\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\mysql.data\\8.0.33\\mysql.data.8.0.33.nupkg.sha512",
+    "C:\\Users\\user\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\portable.bouncycastle\\1.9.0\\portable.bouncycastle.1.9.0.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\user\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.1\\system.configuration.configurationmanager.4.4.1.nupkg.sha512",

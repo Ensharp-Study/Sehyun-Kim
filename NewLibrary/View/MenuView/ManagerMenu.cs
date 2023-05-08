@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NewLibrary.Constant;
+using NewLibrary.Controller.ManagerFunction;
+using NewLibrary.Utility;
 
 namespace NewLibrary.View.MenuView
 {
@@ -23,18 +26,76 @@ namespace NewLibrary.View.MenuView
             Console.WriteLine("                           < 메뉴 > ");
             Console.WriteLine("   ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
             Console.WriteLine("   |                                                       | ");
-            Console.WriteLine("   |                       도서 찾기                       | ");
-            Console.WriteLine("   |                       도서 추가                       | ");
-            Console.WriteLine("   |                       도서 삭제                       | ");
-            Console.WriteLine("   |                       도서 수정                       | ");
-            Console.WriteLine("   |                       회원 관리                       | ");
-            Console.WriteLine("   |                       대여 상황                       | ");
-            Console.WriteLine("   |                                                       | ");
-            Console.WriteLine("   |                                                       | ");
-            Console.WriteLine("   |                   ↑↓ 위, 아래 이동                  | ");
+            Console.WriteLine("   |                     1  도서 찾기                       | ");
+            Console.WriteLine("   |                     2  도서 추가                       | ");
+            Console.WriteLine("   |                     3  도서 삭제                       | ");
+            Console.WriteLine("   |                    4   도서 수정                       | ");
+            Console.WriteLine("   |                    5   회원 관리                       | ");
+            Console.WriteLine("   |                    6   대여 상황                       | ");
+            Console.WriteLine("   |                    7   로그 삭제                      | ");
+            Console.WriteLine("   |                    8   로그 저장                       | ");
+            Console.WriteLine("   |                    9  신청 도서 관리                  | ");
             Console.WriteLine("   └ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┘");
-            Console.WriteLine("                   선택하려면 ENTER를 누르세요");
+            Console.WriteLine("                   ");
             Console.WriteLine("                      ESC를 눌러 돌아가기");
+        }
+
+        public int GoFunctionInManagerMenu()
+        {
+            Console.CursorVisible = true;
+            Console.SetWindowSize(56, 50);
+            InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
+            bool fine = true;
+            string inputString = "1";
+            while (fine)
+            {
+                inputString = inputKeyUnlessEnter.SaveInputUnlessEnter(20, 25);
+                fine = inputKeyUnlessEnter.CheckRegex(inputString, RegexConstant.menuNumberRegex, 20, 25, 40, 24, "입력이 잘못되었습니다");
+            }
+            int inputNumber= int.Parse(inputString);
+            return inputNumber;
+        }
+        public bool SelectNumberInManagerMenu(int number)
+        {
+            AppliedBookManager appliedBookManager = new AppliedBookManager();
+            switch (number)
+            {
+                case 0:
+                    return false;
+                    break;
+                case 1://도서찾기
+                    break;
+                case 2://도서 추가
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7://로그 삭제
+                    break;
+                case 8://로그 저장
+                    break;
+                case 9://신청 도서 관리
+                    appliedBookManager.ManagerAppliedBook();
+
+                    break;
+
+
+            }
+            return true;
+        }
+        public void DeleteUserLog()
+        {
+
+        }
+
+        public void ManageAppliedBook()
+        {
+
         }
     }
 }

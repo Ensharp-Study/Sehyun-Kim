@@ -22,7 +22,7 @@ namespace NewLibrary.Controller
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             UserAccountView userAccountView = new UserAccountView();
             ManagerAccountView managerAccountView = new ManagerAccountView();
-
+            ManagerMenu managerMenu = new ManagerMenu();    
             bool exit = true;
 
             while (exit) //exit 값이 true인 동안 반복한다.
@@ -79,6 +79,14 @@ namespace NewLibrary.Controller
                             break;
                         case 2: //관리자 메뉴
                             Console.Clear();
+                            managerMenu.ViewManagerMenu();
+                            fine = true;
+                            while (fine)
+                            {
+                                int number = managerMenu.GoFunctionInManagerMenu();
+                                managerMenu.SelectNumberInManagerMenu(number);
+                            }
+                            
                             break;
 
                     }
@@ -184,7 +192,7 @@ namespace NewLibrary.Controller
             UserDataUpdater userDataUpdater = new UserDataUpdater();
             UserDataDeleter userDataDeleter = new UserDataDeleter();
             UserDisplayer userDisplayer = new UserDisplayer();
-            
+            BookApplier bookApplier = new BookApplier();
             bool check;
             int number;
             switch (selectedNumber)
@@ -236,6 +244,11 @@ namespace NewLibrary.Controller
                     userFunctionView.ViewUserDataDeleter();
                     userDataDeleter.DeleteUserData(userId);
                     break;
+                case 8: //도서 신청
+                    Console.Clear();
+                    userFunctionView.ViewApplyBook();
+                    bookApplier.ApplyBook(userId);
+                    break;
 
 
             }
@@ -249,7 +262,7 @@ namespace NewLibrary.Controller
             ManagerAccountView managerAccountView = new ManagerAccountView();
             ListWithColoredIndexPrinter listWithColoredIndexPrinter = new ListWithColoredIndexPrinter();
             bool exit = true;
-            List<string> strList = new List<string>() { "도서 찾기", "도서 대여", "도서 반납", "도서 대여 확인", "도서 반납 내역", "회원 정보 수정", "회원 탈퇴" };
+            List<string> strList = new List<string>() { "도서 찾기", "도서 대여", "도서 반납", "도서 대여 확인", "도서 반납 내역", "회원 정보 수정", "회원 탈퇴","도서 신청" };
 
             Console.CursorVisible = false; //커서 안 보이게
             Console.SetWindowSize(62, 27);
@@ -285,9 +298,12 @@ namespace NewLibrary.Controller
                     case 7:
                         listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 6, 26, 13);
                         break;
+                    case 8:
+                        listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 7, 26, 13);
+                        break;
                 }
                 //tuple의 반환값은 keyNumber, check -> check는 엔터 누르면 false가 됨
-                var tuple = textPrinterWithCursor.SetColorByUpDownArrow(1, 7, keyNumber);
+                var tuple = textPrinterWithCursor.SetColorByUpDownArrow(1, 8, keyNumber);
                 if (tuple.Item2 == false) //만약 check가 false이면 반복문 정지하고 keyNumber문으로 이동
                 {                       //check가 false 다 = 엔터가 눌렸다
                     fine = false;

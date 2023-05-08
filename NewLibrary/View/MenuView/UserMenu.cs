@@ -30,7 +30,7 @@ namespace NewLibrary.View.MenuView
             Console.WriteLine("   |                      도서 반납 내역                   | ");
             Console.WriteLine("   |                      회원 정보 수정                   | ");
             Console.WriteLine("   |                      회원 탈퇴                        | ");
-            Console.WriteLine("   |                                                       | ");
+            Console.WriteLine("   |                      도서 신청                        | ");
             Console.WriteLine("   |                   ↑↓ 위, 아래 이동                  | ");
             Console.WriteLine("   └ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┘");
             Console.WriteLine("                   선택하려면 ENTER를 누르세요");

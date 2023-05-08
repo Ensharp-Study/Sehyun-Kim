@@ -40,3 +40,4 @@ C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\bin\Debug\net6.0\runt
 C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\obj\Debug\net6.0\NewLibrary.csproj.CopyComplete
+C:\Users\user\OneDrive\바탕 화면\Sehyun-Kim\NewLibrary\bin\Debug\net6.0\Newtonsoft.Json.dll

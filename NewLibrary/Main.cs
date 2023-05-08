@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using NewLibrary.Controller;
+using NewLibrary.Model;
 using NewLibrary.View;
 
 namespace NewLibrary
@@ -13,9 +14,9 @@ namespace NewLibrary
     {
         public static void Main(String[] args)
         {
-            
             ModeSelector modeSelector = new ModeSelector();
             modeSelector.SelectMode();
+            
         }
     }
 }
