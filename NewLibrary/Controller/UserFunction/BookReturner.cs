@@ -83,7 +83,7 @@ namespace NewLibrary.Controller.Function
             }
         }
 
-        public string ReturnHistory(string userId)
+        public string ReturnList(string userId)
         {
             BookDisplayer bookDisplayer = new BookDisplayer();
             Console.Clear();

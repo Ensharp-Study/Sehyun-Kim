@@ -14,7 +14,7 @@ namespace NewLibrary
     {
         public static void Main(String[] args)
         {
-            ModeSelector modeSelector = new ModeSelector();
+            UserModeSelector modeSelector = new UserModeSelector();
             modeSelector.SelectMode();
             
         }

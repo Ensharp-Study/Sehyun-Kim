@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NewLibrary.Controller.DataDisplayer;
 using NewLibrary.Controller.Function;
+using NewLibrary.Controller.ModeSelector;
 using NewLibrary.Controller.UserFunction;
 using NewLibrary.Utility;
 using NewLibrary.View;
@@ -13,11 +14,13 @@ using NewLibrary.View.MenuView;
 
 namespace NewLibrary.Controller
 {
-    internal class ModeSelector
+    internal class UserModeSelector
     {
         private string userId;
         public void SelectMode() //유저 모드, 관리자 모드 둘 중 하나 선택하는 메소드 
         {
+            ManagerModeSelector managerModeSelector = new ManagerModeSelector();
+            UserModeSelector userModeSelector = new UserModeSelector(); 
             ModeSelectView modeSelectView = new ModeSelectView();
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             UserAccountView userAccountView = new UserAccountView();
@@ -85,8 +88,8 @@ namespace NewLibrary.Controller
                                 Console.Clear();
                                 managerMenu.ViewManagerMenu();
                                 fine = true;
-                                int number = managerMenu.GoFunctionInManagerMenu();
-                                managerMenu.SelectNumberInManagerMenu(number);
+                                int number = managerModeSelector.GoFunctionInManagerMenu();
+                                managerModeSelector.SelectNumberInManagerMenu(number);
                                 if (number == 0)
                                     checker = false;
                             }
@@ -222,17 +225,17 @@ namespace NewLibrary.Controller
                     check = false;
                     Console.Clear();
                     userFunctionView.ViewBookReturnerTop();
-                    bookLender.BorrowHistory(userId, check);
+                    bookLender.RentalList(userId, check);
                     bookReturner.ReturnBook(userId);
                     break;
                 case 4: //도서 대여 확인
                     Console.Clear();
                     check = true;
-                    bookLender.BorrowHistory(userId, check);
+                    bookLender.RentalList(userId, check);
                     break;
                 case 5: //도서 반납 내역
                     Console.Clear();
-                    bookReturner.ReturnHistory(userId);
+                    bookReturner.ReturnList(userId);
                     break;
                 case 6: //회원 정보 수정
                     Console.Clear();

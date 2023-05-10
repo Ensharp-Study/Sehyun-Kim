@@ -10,15 +10,6 @@ namespace NewLibrary.View.MenuView
     {
         public void ViewUserMenu()
         {
-            Console.WriteLine("           _      _  _  ");
-            Console.WriteLine("          | |    (_)| |");
-            Console.WriteLine("          | |     _ | |__   _ __   __ _  _ __  _   _ ");
-            Console.WriteLine("          | |    | || '_ ＼| '__| / _` || '__|| | | |");
-            Console.WriteLine("          | |____| || |_) || |   | (_| || |   | |_| |");
-            Console.WriteLine("          ＼____/|_||_.__/ |_|   ＼__,_||_|   ＼__, |");
-            Console.WriteLine("                                                __/ |");
-            Console.WriteLine("                                               |___/ ");
-            Console.WriteLine("");
             Console.WriteLine("                       -* 유저 모드 *-");
             Console.WriteLine("                           < 메뉴 > ");
             Console.WriteLine("   ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");

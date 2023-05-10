@@ -10,17 +10,7 @@ namespace NewLibrary.View
     {
         public void ViewManagerAccount()
         {
-
-            Console.WriteLine("       _      _  _  ");
-            Console.WriteLine("      | |    (_)| |");
-            Console.WriteLine("      | |     _ | |__   _ __   __ _  _ __  _   _ ");
-            Console.WriteLine("      | |    | || '_ ＼| '__| / _` || '__|| | | |");
-            Console.WriteLine("      | |____| || |_) || |   | (_| || |   | |_| |");
-            Console.WriteLine("      ＼____/|_||_.__/ |_|   ＼__,_||_|   ＼__, |");
-            Console.WriteLine("                                            __/ |");
-            Console.WriteLine("                                           |___/ ");
-            Console.WriteLine("");
-            Console.WriteLine("                   -* 유저 모드 *-");
+            Console.WriteLine("                   -* 매니저 모드 *-");
             Console.WriteLine("                     < 로그인 >");
             Console.WriteLine("            ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
             Console.WriteLine("            |                           | ");

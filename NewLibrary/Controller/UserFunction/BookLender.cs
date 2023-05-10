@@ -90,7 +90,7 @@ namespace NewLibrary.Controller.Function
             return userId;
         }
 
-        public string BorrowHistory(string userId, bool check)
+        public string RentalList(string userId, bool check)
         {
             BookDisplayer bookDisplayer = new BookDisplayer();
             CRUDInDAO mysqlConnecter = new CRUDInDAO();

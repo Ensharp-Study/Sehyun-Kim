@@ -10,17 +10,6 @@ namespace NewLibrary.View
     {
         public void ViewUserAccount()
         {
-            
-
-            Console.WriteLine("       _      _  _  ");
-            Console.WriteLine("      | |    (_)| |");
-            Console.WriteLine("      | |     _ | |__   _ __   __ _  _ __  _   _ ");
-            Console.WriteLine("      | |    | || '_ ＼| '__| / _` || '__|| | | |");
-            Console.WriteLine("      | |____| || |_) || |   | (_| || |   | |_| |");
-            Console.WriteLine("      ＼____/|_||_.__/ |_|   ＼__,_||_|   ＼__, |");
-            Console.WriteLine("                                            __/ |");
-            Console.WriteLine("                                           |___/ ");
-            Console.WriteLine("");
             Console.WriteLine("                   -* 유저 모드 *-");
             Console.WriteLine("                  Enter를 눌러 선택");
             Console.WriteLine("            ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
@@ -38,15 +27,6 @@ namespace NewLibrary.View
 
         public void ViewLogin()
         {
-            Console.WriteLine("       _      _  _  ");
-            Console.WriteLine("      | |    (_)| |");
-            Console.WriteLine("      | |     _ | |__   _ __   __ _  _ __  _   _ ");
-            Console.WriteLine("      | |    | || '_ ＼| '__| / _` || '__|| | | |");
-            Console.WriteLine("      | |____| || |_) || |   | (_| || |   | |_| |");
-            Console.WriteLine("      ＼____/|_||_.__/ |_|   ＼__,_||_|   ＼__, |");
-            Console.WriteLine("                                            __/ |");
-            Console.WriteLine("                                           |___/ ");
-            Console.WriteLine("");
             Console.WriteLine("                   -* 유저 모드 *-");
             Console.WriteLine("                     < 로그인 >");
             Console.WriteLine("            ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
@@ -63,15 +43,6 @@ namespace NewLibrary.View
 
         public void ViewSignUp()
         {
-            Console.WriteLine("           _      _  _  ");
-            Console.WriteLine("          | |    (_)| |");
-            Console.WriteLine("          | |     _ | |__   _ __   __ _  _ __  _   _ ");
-            Console.WriteLine("          | |    | || '_ ＼| '__| / _` || '__|| | | |");
-            Console.WriteLine("          | |____| || |_) || |   | (_| || |   | |_| |");
-            Console.WriteLine("          ＼____/|_||_.__/ |_|   ＼__,_||_|   ＼__, |");
-            Console.WriteLine("                                                __/ |");
-            Console.WriteLine("                                               |___/ ");
-            Console.WriteLine("");
             Console.WriteLine("                       -* 유저 모드 *-");
             Console.WriteLine("                        < 회원 가입 > ");
             Console.WriteLine("   ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");

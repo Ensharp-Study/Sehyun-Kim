@@ -9,7 +9,7 @@ namespace NewLibrary.View
 {
     internal class ModeSelectView
     {
-        public void ViewModeSelect()
+        public void ViewLibraryLogo()
         {
             Console.WriteLine("       _      _  _  ");
             Console.WriteLine("      | |    (_)| |");
@@ -21,6 +21,10 @@ namespace NewLibrary.View
             Console.WriteLine("                                           |___/ ");
             Console.WriteLine("");
             Console.WriteLine("");
+        }
+        public void ViewModeSelect()
+        {
+            
             Console.WriteLine("                  Enter를 눌러 선택");
             Console.WriteLine("            ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
             Console.WriteLine("            |                           | ");

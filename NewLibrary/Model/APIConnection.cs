@@ -14,7 +14,6 @@ namespace NewLibrary.Model
 {
     internal class APIConnection
     {
-        //이거 리팩토링해야함
         public void ConnectApiWhenApply(int inputBookQuantity, string inputBookWord, string userId)
         {//도서 신청하기 
             CRUDInDAO mysqlConnecter = new CRUDInDAO();
@@ -121,35 +120,6 @@ namespace NewLibrary.Model
                 checkMysql = mysqlConnecter.InsertUpdateDelete($"INSERT INTO bookconstructor(id, bookName, author, publisher,quantity, publicationDate, isbn,userid) VALUES('{id}',{title}', '{author}', '{publisher}','{quantity}','{discount}', {pubdate}', '{isbn}','{infoValue}')");
             }
         }
-
-
-        /*
-            bool checkMysql = true;
-
-
-            foreach (var item in items)
-            {
-                string title = item["title"].ToString();
-                string link = item["link"].ToString();
-                string author = item["author"].ToString();
-                string discount = item["discount"].ToString();
-                string publisher = item["publisher"].ToString();
-                string pubdate = item["pubdate"].ToString();
-                string isbn = item["isbn"].ToString();
-                string description = item["description"].ToString();
-
-                // 출력을 정렬하여 표시
-                Console.WriteLine($"Title: {title}");
-                Console.WriteLine($"Author: {author}");
-                Console.WriteLine($"Publisher: {publisher}");
-                Console.WriteLine($"Publication Date: {pubdate}");
-                Console.WriteLine($"Discount: {discount}");
-                Console.WriteLine($"ISBN: {isbn}");
-                Console.WriteLine($"Description: {description}");
-                Console.WriteLine();
-            }
-            */
-
 
 
         public JArray ConnectNaverApi(int inputBookQuantity, string inputBookWord)
