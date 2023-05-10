@@ -21,6 +21,8 @@ namespace NewLibrary.Controller.Function
             Console.CursorVisible = true;
             string inputBookId="";
             bool fine = true;
+            string returnTimeString = "";
+            DateTime returnTime;
             while (fine)
             {
                 inputBookId = inputKeyUnlessEnter.SaveInputUnlessEnter(32,6);
@@ -46,6 +48,9 @@ namespace NewLibrary.Controller.Function
                     Console.WriteLine("");
                     Console.WriteLine("                  대여 완료하였습니다.");
                     Console.WriteLine("                  ESC를 눌러 돌아가기");
+                    returnTime = DateTime.Now;
+                    returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+                    mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"도서 대여"}')");
                     while (true)
                     {
                         ConsoleKeyInfo input = Console.ReadKey(true);
@@ -65,6 +70,9 @@ namespace NewLibrary.Controller.Function
             {
                 Console.WriteLine("대여 가능한 도서가 없습니다.");
                 Console.WriteLine("ESC를 눌러 돌아가기");
+                returnTime = DateTime.Now;
+                returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+                mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"실패"}', '{"도서 대여"}')");
                 while (true)
                 {
                     ConsoleKeyInfo input = Console.ReadKey(true);
@@ -85,13 +93,15 @@ namespace NewLibrary.Controller.Function
         public string BorrowHistory(string userId, bool check)
         {
             BookDisplayer bookDisplayer = new BookDisplayer();
-
+            CRUDInDAO mysqlConnecter = new CRUDInDAO();
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
             MySqlCommand command = new MySqlCommand($"SELECT * FROM borrowlist WHERE userid = '{userId}'", connection);
             connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
 
             bool hasRecords = false; // 레코드가 있는지 여부를 판단하기 위한 변수
+            string returnTimeString = "";
+            DateTime returnTime;
 
             while (reader.Read()) // 모든 레코드를 읽어서 출력
             {
@@ -116,6 +126,10 @@ namespace NewLibrary.Controller.Function
             {
                 Console.WriteLine("책 정보가 없습니다.");
             }
+
+            returnTime = DateTime.Now;
+            returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+            mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"도서 대여"}')");
             Console.WriteLine("ESC를 눌러 종료");
             while (check)
             {

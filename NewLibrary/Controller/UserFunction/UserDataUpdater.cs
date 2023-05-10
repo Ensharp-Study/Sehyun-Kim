@@ -78,6 +78,9 @@ namespace NewLibrary.Controller.UserFunction
             string inputPhone = "";
             string inputAddress = "";
             bool fine = true;
+            string returnTimeString = "";
+            DateTime returnTime;
+
             Console.CursorVisible = true;
             switch (number)
             {
@@ -148,6 +151,9 @@ namespace NewLibrary.Controller.UserFunction
             }
             Console.SetCursorPosition(16, 28);
             Console.WriteLine("회원 정보가 수정되었습니다.");
+            returnTime = DateTime.Now;
+            returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+            crudInDAO.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"회원 정보 수정"}')");
             while (true)
             {
                 ConsoleKeyInfo input = Console.ReadKey(true);

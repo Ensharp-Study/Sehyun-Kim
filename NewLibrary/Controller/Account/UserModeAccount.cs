@@ -23,7 +23,7 @@ namespace NewLibrary.Controller
             get { return userId; }
             set { userId = value; }
         }
-        public string Login(string constructor) //로그인
+        public string Login() //로그인
         {
             //매개변수 constructor : MySQL 테이블 이름 (유저 테이블 OR 매니저 테이블)
             
@@ -35,17 +35,6 @@ namespace NewLibrary.Controller
             string inputId = "";
             string inputPw = "";
             string returnTimeString = "";
-            string userLog = "";
-
-            if (constructor == "userconstructor")
-            {
-                userLog = "유저";
-            }
-            else if (constructor == "managerconstructor")
-            {
-                userLog = "관리자";
-            }
-            
             
             while (true)
             {
@@ -93,14 +82,18 @@ namespace NewLibrary.Controller
                 Console.SetCursorPosition(16, 16);
                 Console.Write("                        ");
 
-                check = mysqlConnecter.SelectData(string.Format("SELECT * FROM '{0}' WHERE userid = '{1}' AND password = '{2}'", constructor, inputId, inputPw));
-                //check = mysqlConnecter.SelectData($"SELECT * FROM '{constructor}' WHERE userid = '{inputId}' AND password = '{inputPw}'");
+                check = mysqlConnecter.SelectData(string.Format("SELECT * FROM userconstructor WHERE userid = '{0}' AND password = '{1}'", inputId, inputPw));
+                
 
-                if (!check)//로그인 성공할 때까지 반복
+                if (!check)//로그인 성공하면 return
                 {
+                    returnTime = DateTime.Now;
+                    returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+                    mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"유저"}', '{"성공"}', '{"로그인"}')");
                     return inputId;
                 }
                 //로그인 실패시 화면 지우기
+
                 Console.SetCursorPosition(20, 14);
                 Console.Write("                    |               ");
                 Console.SetCursorPosition(20, 15);
@@ -111,21 +104,21 @@ namespace NewLibrary.Controller
                 Console.Write(    "   다시 입력해주세요.");
                 returnTime = DateTime.Now;
                 returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-                mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_id,log_time, log_user, log_info, log_behave) VALUES('{""}', '{returnTimeString}', '{userLog}', '{"실패"}', '{"로그인"}')");
+                mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"유저"}', '{"실패"}', '{"로그인"}')");
             }
-            returnTime = DateTime.Now;
-            returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-            mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_id,log_time, log_user, log_info, log_behave) VALUES('{inputId}', '{returnTimeString}', '{userLog}', '{"성공"}', '{"로그인"}')");
+            
             return inputId; //로그인 성공한 유저의 아이디 반환됨.
         }
 
         public bool UserSignUp() //회원가입
         {
-            Console.CursorVisible = true;
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             PasswordMasker passwordMasker = new PasswordMasker();
             CRUDInDAO mysqlConnecter = new CRUDInDAO();
 
+            Console.CursorVisible = true;
+
+            DateTime returnTime;
             while (true)
             {
                 string inputId="";
@@ -134,9 +127,10 @@ namespace NewLibrary.Controller
                 int inputAge=0;
                 string inputPhone = "";
                 string inputAddress = "";
-                //y좌표 14부터 시작됨
+                string returnTimeString = "";
                 bool fine = true;
                 bool check = true;
+
                 while (fine)
                 {
                     Console.SetCursorPosition(16, 20);
@@ -210,6 +204,7 @@ namespace NewLibrary.Controller
                 fine = true;
                 Console.SetCursorPosition(16, 20);
                 Console.Write("                                ");
+
                 while (fine)
                 {
                     Console.SetCursorPosition(15, 20);
@@ -221,23 +216,18 @@ namespace NewLibrary.Controller
                     Console.SetCursorPosition(59, 19); //입력이 칸 넘어가면 제대로 안 지워지니까 콘솔창보다 크게 지우고, 칸 한번 더 그리기
                     Console.Write("|");
                 }
+
                 fine = true;
                 Console.SetCursorPosition(20, 20);
                 Console.Write("                                ");
                 Console.CursorVisible = false;
-
                 bool checkMysql = true;
 
                 checkMysql = mysqlConnecter.InsertUpdateDelete($"INSERT INTO userconstructor(userid, password, name, age, phonenumber, address) VALUES('{inputId}', '{inputPw}', '{inputName}', {inputAge}, '{inputPhone}', '{inputAddress}')");
-                /*
-                mysqlConnecter.InsertMysql(userid,  password,  name,  age,  phonenumber,  address);
-
-                Console.Clear();
-                Console.WriteLine("회원가입 성공!");
-                */
+                returnTime = DateTime.Now;
+                returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+                mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"회원가입"}')");
                 return true;
-
-
             }
         }
     }

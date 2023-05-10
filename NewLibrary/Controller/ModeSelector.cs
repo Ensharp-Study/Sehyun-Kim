@@ -150,7 +150,7 @@ namespace NewLibrary.Controller
                     Console.Clear();
                     Console.CursorVisible = true;
                     userAccountView.ViewLogin(); //로그인 화면 view
-                    userId = userModeAccount.Login("userconstructor"); //로그인 기능 메소드
+                    userId = userModeAccount.Login(); //로그인 기능 메소드
                     if (userId == null) //로그인 기능 중 esc가 눌린 경우 -> 로그인 또는 회원가입 메뉴로
                     {
                         Console.CursorVisible = false;

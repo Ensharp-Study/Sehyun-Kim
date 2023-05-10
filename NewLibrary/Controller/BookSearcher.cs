@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NewLibrary.Controller.Function;
+using NewLibrary.Model.DAO;
 using NewLibrary.Utility;
 
 namespace NewLibrary.Controller
@@ -12,6 +13,7 @@ namespace NewLibrary.Controller
     {
         public string SearchBook(string userId)
         {
+            CRUDInDAO mysqlConnecter = new CRUDInDAO();
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             BookDisplayer bookDisplayer = new BookDisplayer();
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
@@ -23,6 +25,8 @@ namespace NewLibrary.Controller
 
             bool fine = true;
             int keyNumber = 1;
+            string returnTimeString = "";
+            DateTime returnTime;
 
             while (fine) //keyNumber은 초기값이 1인 상태로 fine이 true일 동안 계속 반복
             {
@@ -102,6 +106,9 @@ namespace NewLibrary.Controller
                     
                     break;
             }
+            returnTime = DateTime.Now;
+            returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+            mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"도서 검색"}')");
             Console.Write("ESC 키를 눌러 돌아가기");
             while (true)
             {
