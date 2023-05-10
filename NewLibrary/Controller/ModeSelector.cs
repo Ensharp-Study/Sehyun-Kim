@@ -60,9 +60,9 @@ namespace NewLibrary.Controller
                         keyNumber = tuple.Item1;
                     }
                 }
-
+                bool checker = true;
                 //while(fine)문에서 엔터가 눌렸기 때문에 switch(keyNumber)로 간다.
-                while (true)
+                while (checker)
                 {
                     switch (keyNumber)
                     {
@@ -72,13 +72,15 @@ namespace NewLibrary.Controller
                             break;
                         case 1: //유저 메뉴
                             Console.Clear();
+
                             userAccountView.ViewUserAccount(); //로그인, 회원가입 고르는 view
                             int Number = SetColorByCursor(); // 로그인, 회원가입 커서이동 엔터값에 따라 Number
                             keyNumber = LoginOrSignUp(Number); //입력된 number로 로그인이나 회원가입 들어가기 
-
+                            if (Number == 0)
+                                checker = false;
                             break;
                         case 2: //관리자 메뉴
-                            while (true)
+                            while (checker)
                             {
                                 Console.Clear();
                                 managerMenu.ViewManagerMenu();
@@ -86,7 +88,7 @@ namespace NewLibrary.Controller
                                 int number = managerMenu.GoFunctionInManagerMenu();
                                 managerMenu.SelectNumberInManagerMenu(number);
                                 if (number == 0)
-                                    break;
+                                    checker = false;
                             }
                             break;
 
@@ -142,11 +144,13 @@ namespace NewLibrary.Controller
             bool check = true;
             switch (Number)
             {
+                case 0:
+                    return keyNumber;
                 case 1: //로그인
                     Console.Clear();
                     Console.CursorVisible = true;
                     userAccountView.ViewLogin(); //로그인 화면 view
-                    userId = userModeAccount.UserLogin(); //로그인 기능 메소드
+                    userId = userModeAccount.Login("userconstructor"); //로그인 기능 메소드
                     if (userId == null) //로그인 기능 중 esc가 눌린 경우 -> 로그인 또는 회원가입 메뉴로
                     {
                         Console.CursorVisible = false;

@@ -139,6 +139,7 @@ namespace NewLibrary.Controller.ManagerFunction
             }
 
             connection.Close();
+            
         }
     }
 }

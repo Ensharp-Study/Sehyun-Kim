@@ -8,7 +8,7 @@ using MySql.Data.MySqlClient;
 namespace NewLibrary.Model.DAO
 {
     internal class DatabaseConnection
-    {
+    {//dao에서 빼기 연결만 하는건 dao아님
         private static DatabaseConnection instance = null;
         private MySqlConnection connection = null;
 
