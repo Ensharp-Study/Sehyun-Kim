@@ -116,5 +116,18 @@ namespace NewLibrary.View.FunctionView
             Console.WriteLine("============================================================");
 
         }
+
+        public void ViewAddBook()
+        {
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                       -* 매니저 모드 *-");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                        < 도서 추가 > \n");
+
+            Console.WriteLine("============================================================");
+            Console.WriteLine(" 책 제목  :                         ");
+            Console.WriteLine(" 수량     : ");
+            Console.WriteLine("============================================================");
+        }
     }
 }

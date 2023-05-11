@@ -19,19 +19,20 @@ namespace NewLibrary.Controller
         private string userId;
         public void SelectMode() //유저 모드, 관리자 모드 둘 중 하나 선택하는 메소드 
         {
-            ManagerModeSelector managerModeSelector = new ManagerModeSelector();
-            UserModeSelector userModeSelector = new UserModeSelector(); 
             ModeSelectView modeSelectView = new ModeSelectView();
+            UserModeSelector userModeSelector = new UserModeSelector(); 
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             UserAccountView userAccountView = new UserAccountView();
             ManagerAccountView managerAccountView = new ManagerAccountView();
             ManagerMenu managerMenu = new ManagerMenu();    
+            ManagerModeSelector managerModeSelector = new ManagerModeSelector();   
             bool exit = true;
 
             while (exit) //exit 값이 true인 동안 반복한다.
             {
                 Console.CursorVisible = false; //커서 안 보이게
                 Console.SetWindowSize(56, 22);
+                modeSelectView.ViewLibraryLogo();
                 modeSelectView.ViewModeSelect(); //모드 고르는 메뉴 view
 
                 bool fine = true;
@@ -75,7 +76,7 @@ namespace NewLibrary.Controller
                             break;
                         case 1: //유저 메뉴
                             Console.Clear();
-
+                            modeSelectView.ViewLibraryLogo();
                             userAccountView.ViewUserAccount(); //로그인, 회원가입 고르는 view
                             int Number = SetColorByCursor(); // 로그인, 회원가입 커서이동 엔터값에 따라 Number
                             keyNumber = LoginOrSignUp(Number); //입력된 number로 로그인이나 회원가입 들어가기 
@@ -86,6 +87,7 @@ namespace NewLibrary.Controller
                             while (checker)
                             {
                                 Console.Clear();
+                                modeSelectView.ViewLibraryLogo();
                                 managerMenu.ViewManagerMenu();
                                 fine = true;
                                 int number = managerModeSelector.GoFunctionInManagerMenu();
@@ -138,6 +140,7 @@ namespace NewLibrary.Controller
         }
         public int LoginOrSignUp(int Number)
         {
+            ModeSelectView modeSelectView = new ModeSelectView();
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             UserModeAccount userModeAccount = new UserModeAccount(userId);
             UserAccountView userAccountView = new UserAccountView();
@@ -152,6 +155,7 @@ namespace NewLibrary.Controller
                 case 1: //로그인
                     Console.Clear();
                     Console.CursorVisible = true;
+                    modeSelectView.ViewLibraryLogo();
                     userAccountView.ViewLogin(); //로그인 화면 view
                     userId = userModeAccount.Login(); //로그인 기능 메소드
                     if (userId == null) //로그인 기능 중 esc가 눌린 경우 -> 로그인 또는 회원가입 메뉴로
@@ -160,11 +164,11 @@ namespace NewLibrary.Controller
                         keyNumber = 1;
                         return keyNumber;
                     }
-                    
                     while (check)
                     {
                         Console.Clear();
                         Console.SetWindowSize(62, 27);
+                        modeSelectView.ViewLibraryLogo();
                         userMenu.ViewUserMenu(); //유저 메뉴 view
                         selectedNumber = SelectInUserMenu(); //유저 메뉴에서 기능 고르기 
                         userId=MethodInUserMenu(selectedNumber, userId);
@@ -178,6 +182,7 @@ namespace NewLibrary.Controller
                     bool checker = true;
                     Console.Clear();
                     Console.SetWindowSize(62, 27);
+                    modeSelectView.ViewLibraryLogo();
                     userAccountView.ViewSignUp(); //회원가입 화면 view
                     checker = userModeAccount.UserSignUp(); //회원가입 기능 메소드
                     if (!checker)

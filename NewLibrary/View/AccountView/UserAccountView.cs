@@ -10,6 +10,7 @@ namespace NewLibrary.View
     {
         public void ViewUserAccount()
         {
+            
             Console.WriteLine("                   -* 유저 모드 *-");
             Console.WriteLine("                  Enter를 눌러 선택");
             Console.WriteLine("            ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
@@ -27,6 +28,7 @@ namespace NewLibrary.View
 
         public void ViewLogin()
         {
+             
             Console.WriteLine("                   -* 유저 모드 *-");
             Console.WriteLine("                     < 로그인 >");
             Console.WriteLine("            ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
@@ -43,6 +45,7 @@ namespace NewLibrary.View
 
         public void ViewSignUp()
         {
+            Console.WriteLine("");
             Console.WriteLine("                       -* 유저 모드 *-");
             Console.WriteLine("                        < 회원 가입 > ");
             Console.WriteLine("   ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");

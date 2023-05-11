@@ -20,11 +20,10 @@ namespace NewLibrary.View
             Console.WriteLine("                                            __/ |");
             Console.WriteLine("                                           |___/ ");
             Console.WriteLine("");
-            Console.WriteLine("");
         }
         public void ViewModeSelect()
         {
-            
+            Console.WriteLine("");
             Console.WriteLine("                  Enter를 눌러 선택");
             Console.WriteLine("            ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
             Console.WriteLine("            |                           | ");

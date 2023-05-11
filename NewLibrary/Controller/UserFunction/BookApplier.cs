@@ -66,6 +66,24 @@ namespace NewLibrary.Controller.UserFunction
                 Console.WriteLine($"Description: {description}");
                 Console.WriteLine("============================================================");
             }
+            fine = true;
+            string inputIsbn="";
+            Console.WriteLine("추가할 도서의 isbn을 입력하세요.");
+            while (fine)
+            {//inputIsbn 입력&예외처리
+                inputIsbn = inputKeyUnlessEnter.SaveInputUnlessEnter(12, 7);
+                //이거 아이에스비엔 regex 새로 만들어놓기
+                fine = inputKeyUnlessEnter.CheckRegex(inputIsbn, RegexConstant.onlyNumberRegex, 10, 7, 10, 9, "잘못된 입력입니다");
+            }
+            foreach (var item in items)
+            {
+                string isbn = item["isbn"].ToString();
+                if (inputIsbn == isbn)
+                {
+
+                }
+
+            }
 
             //ESC를 눌러 돌아가기 기능
             Console.WriteLine("                  ESC를 눌러 돌아가기");
