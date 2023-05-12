@@ -9,14 +9,8 @@ using NewLibrary.Model.DAO;
 
 namespace NewLibrary.Controller
 {
-    internal class CRUDInDAO // create, read, upload, delete
-    {//insertdeleteupdate
-
-        //쿼리문만 빼서 메소드 정리해야 한다 
-        //string selectQuery = $"SELECT * FROM userconstructor WHERE userid = '{userid}' AND password = '{inputPw}'";
-        //string deleteQuery = $"DELETE FROM bookconstructor WHERE id = '{bookId}'";
-        // string updateQuery = $"UPDATE userconstructor SET userpw='{newPw}' WHERE userid='{userid}'";
-
+    internal class FunctionInDAO 
+    {
         public bool InsertUpdateDelete(string QueryExpression)
         {
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
@@ -28,7 +22,7 @@ namespace NewLibrary.Controller
             return rowsAffected > 0;
         }
 
-        public bool SelectData(string selectQuery)//bool형 return 참조 1개밖에없는데 로그인할때밖에안쓰이는데 네이밍이 selectquery같음 위에짜논거랑 방향성이안맞음 패키징이잘못됨
+        public bool ReadDataForCheck(string selectQuery)
         {
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();
@@ -41,7 +35,6 @@ namespace NewLibrary.Controller
                 //조회 성공
                 check = false;
             }
-
 
             reader.Close();
             connection.Close();

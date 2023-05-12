@@ -16,7 +16,7 @@ namespace NewLibrary.Model
     {
         public void ConnectApiWhenApply(int inputBookQuantity, string inputBookWord, string userId)
         {//도서 신청하기 
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             APIConnection connection = new APIConnection();
             string url = "https://openapi.naver.com/v1/search/book.json?display={0}&query={1}";
             url = string.Format(url, inputBookQuantity, inputBookWord);
@@ -51,7 +51,7 @@ namespace NewLibrary.Model
         }
         public void ConnectApiWhenAdd(int inputBookQuantity, string inputBookWord)
         {//도서 추가하기 
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             APIConnection connection = new APIConnection();
             string url = "https://openapi.naver.com/v1/search/book.json?display={0}&query={1}";
             url = string.Format(url, inputBookQuantity, inputBookWord);
@@ -124,7 +124,7 @@ namespace NewLibrary.Model
 
         public JArray ConnectNaverApi(int inputBookQuantity, string inputBookWord)
         {
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             APIConnection connection = new APIConnection();
 
             string url = "https://openapi.naver.com/v1/search/book.json?display={0}&query={1}";

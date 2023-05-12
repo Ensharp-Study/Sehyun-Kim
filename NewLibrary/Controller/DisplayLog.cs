@@ -16,7 +16,7 @@ namespace NewLibrary.Controller.Log
             string selectQuery = "SELECT * FROM log";
             MySqlCommand command = new MySqlCommand(selectQuery, connection);
             MySqlDataReader dataReader = null;
-
+            
             try
             {
                 connection.Open();
@@ -41,6 +41,7 @@ namespace NewLibrary.Controller.Log
             {
                 if (dataReader != null)
                 {
+                    
                     Console.WriteLine("로그가 저장되었습니다.");
                     dataReader.Close();
                 }

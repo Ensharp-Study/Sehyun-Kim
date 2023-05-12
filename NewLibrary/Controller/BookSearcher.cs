@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NewLibrary.Constant;
 using NewLibrary.Controller.Function;
 using NewLibrary.Model.DAO;
 using NewLibrary.Utility;
@@ -13,7 +14,7 @@ namespace NewLibrary.Controller
     {
         public string SearchBook(string userId)
         {
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             DataDisplayer bookDisplayer = new DataDisplayer();
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
@@ -76,7 +77,7 @@ namespace NewLibrary.Controller
                         break; 
                     }
                     Console.Clear();
-                    bookDisplayer.DisplayBookInformation($"SELECT * FROM bookconstructor WHERE bookName = '{inputTitle}'");
+                    bookDisplayer.DisplayBookInformation(string.Format(ConstantOfQuery.selectBookNameQuery, inputTitle));
                     break;
                 case 2:
                     Console.SetCursorPosition(18, 11);
@@ -89,7 +90,7 @@ namespace NewLibrary.Controller
                         break;
                     }
                     Console.Clear();
-                    bookDisplayer.DisplayBookInformation($"SELECT * FROM bookconstructor WHERE author = '{authorname}'");
+                    bookDisplayer.DisplayBookInformation(string.Format(ConstantOfQuery.selectauthorQuery, authorname));
                     break;
                 case 3:
                     Console.SetCursorPosition(18, 11);
@@ -102,13 +103,14 @@ namespace NewLibrary.Controller
                         break; 
                     }
                     Console.Clear();
-                    bookDisplayer.DisplayBookInformation($"SELECT * FROM bookconstructor WHERE publisher = '{publishername}'");
+                    bookDisplayer.DisplayBookInformation(string.Format(ConstantOfQuery.selectpublisherQuery, publishername));
+                    
                     
                     break;
             }
             returnTime = DateTime.Now;
             returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-            mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"도서 검색"}')");
+            mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "성공", "도서 검색"));
             Console.Write("ESC 키를 눌러 돌아가기");
             while (true)
             {

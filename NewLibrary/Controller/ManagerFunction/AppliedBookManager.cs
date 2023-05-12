@@ -100,10 +100,11 @@ namespace NewLibrary.Controller.ManagerFunction
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
             string selectQuery = $"SELECT * FROM appliedbooklist WHERE title='{title}'";
             MySqlCommand selectCommand = new MySqlCommand(selectQuery, connection);
-
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             connection.Open();
             MySqlDataReader reader = selectCommand.ExecuteReader();
-
+            DateTime returnTime;
+            string returnTimeString = "";
             bool isExist = false;
             if (reader.Read())
             {
@@ -123,19 +124,23 @@ namespace NewLibrary.Controller.ManagerFunction
                 string deleteQuery = $"DELETE FROM appliedbooklist WHERE title='{title}' AND userid='{userId}'";
                 MySqlCommand deleteCommand = new MySqlCommand(deleteQuery, connection);
                 int deleteResult = deleteCommand.ExecuteNonQuery();
+                returnTime = DateTime.Now;
+                returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
 
                 if (insertResult > 0 && deleteResult > 0)
                 {
-                    Console.WriteLine($"{title} 책이 bookconstructor로 이동되었습니다.");
+                    Console.WriteLine($"도서가 추가되었습니다.");
+                    mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "매니저", "성공", "신청 도서 추가"));
                 }
                 else
                 {
-                    Console.WriteLine($"{title} 책 이동에 실패했습니다.");
+                    Console.WriteLine($"도서 추가에 실패했습니다.");
+                    mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "매니저", "실패", "신청 도서 추가"));
                 }
             }
             else
             {
-                Console.WriteLine($"{title} 책이 appliedbooklist에 존재하지 않습니다.");
+                Console.WriteLine($"도서가 신청 리스트에 존재하지 않습니다.");
             }
 
             connection.Close();

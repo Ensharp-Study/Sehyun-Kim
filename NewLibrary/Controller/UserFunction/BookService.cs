@@ -15,7 +15,7 @@ namespace NewLibrary.Controller.Function
     {
         public string RentOutBook(string userId)
         {
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             Console.SetWindowSize(56, 50);
             Console.CursorVisible = true;
@@ -39,10 +39,13 @@ namespace NewLibrary.Controller.Function
             if (rentPossible >= 1)
             {
                 //bookconstructor 테이블에서 대여할 책 정보를 불러와 borrowlist 테이블에 삽입
-                bool check = mysqlConnecter.InsertUpdateDelete($"INSERT INTO borrowlist(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible, borrowtime, userid) SELECT id, bookName, author, publisher, quantity, 0, publicationDate, isbn, info, rentpossible, '{currentTimeString}', '{userId}' FROM bookconstructor WHERE id = '{inputBookId}'");
+                bool check = mysqlConnecter.InsertUpdateDelete(string.Format(@"INSERT INTO borrowlist(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible, borrowtime, userid) 
+                                        SELECT id, bookName, author, publisher, quantity, 0, publicationDate, isbn, info, rentpossible, '{0}', '{1}' 
+                                        FROM bookconstructor 
+                                        WHERE id = '{2}'", currentTimeString, userId, inputBookId));
 
                 //bookconstructor 테이블에서 rentpossible 값을 1 감소시킴
-                check = mysqlConnecter.InsertUpdateDelete($"UPDATE bookconstructor SET rentpossible = rentpossible - 1 WHERE id = '{inputBookId}'");
+                check = mysqlConnecter.InsertUpdateDelete(string.Format("UPDATE bookconstructor SET rentpossible = rentpossible - 1 WHERE id = '{0}'", inputBookId));
                 if (check)
                 {
                     Console.WriteLine("");
@@ -50,7 +53,7 @@ namespace NewLibrary.Controller.Function
                     Console.WriteLine("                  ESC를 눌러 돌아가기");
                     returnTime = DateTime.Now;
                     returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-                    mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"도서 대여"}')");
+                    mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "성공", "도서 대여"));
                     while (true)
                     {
                         ConsoleKeyInfo input = Console.ReadKey(true);
@@ -72,7 +75,7 @@ namespace NewLibrary.Controller.Function
                 Console.WriteLine("ESC를 눌러 돌아가기");
                 returnTime = DateTime.Now;
                 returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-                mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"실패"}', '{"도서 대여"}')");
+                mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "실패", "도서 대여"));
                 while (true)
                 {
                     ConsoleKeyInfo input = Console.ReadKey(true);
@@ -92,9 +95,9 @@ namespace NewLibrary.Controller.Function
 
         public string RentalList(string userId, bool check)
         {
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
-            MySqlCommand command = new MySqlCommand($"SELECT * FROM borrowlist WHERE userid = '{userId}'", connection);
+            MySqlCommand command = new MySqlCommand(string.Format("SELECT * FROM borrowlist WHERE userid = '{0}'", userId), connection);
             connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -128,7 +131,7 @@ namespace NewLibrary.Controller.Function
 
             returnTime = DateTime.Now;
             returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-            mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"도서 대여"}')");
+            mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "성공", "도서 대여 확인"));
             Console.WriteLine("ESC를 눌러 종료");
             while (check)
             {
@@ -153,7 +156,7 @@ namespace NewLibrary.Controller.Function
 
         public string ReturnBook(string userId)
         {
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             Console.SetWindowSize(56, 50);
             Console.CursorVisible = true;
@@ -181,11 +184,11 @@ namespace NewLibrary.Controller.Function
 
             if (check)
             {
-                bool checker = mysqlConnecter.InsertUpdateDelete($"DELETE FROM borrowlist WHERE id = {inputBookId} AND userid = '{userId}'");
+                bool checker = mysqlConnecter.InsertUpdateDelete(string.Format("DELETE FROM borrowlist WHERE id = {0} AND userid = '{1}'", inputBookId, userId));
                 if (checker)
                 {
-                    bool rentPossibleUpdate = mysqlConnecter.InsertUpdateDelete($@"UPDATE bookconstructor SET rentpossible = rentpossible + 1
-            WHERE id = '{inputBookId}'");
+                    bool rentPossibleUpdate = mysqlConnecter.InsertUpdateDelete(string.Format(@"UPDATE bookconstructor SET rentpossible = rentpossible + 1
+WHERE id = '{0}'", inputBookId));
 
                     if (rentPossibleUpdate)
                     {
@@ -194,7 +197,7 @@ namespace NewLibrary.Controller.Function
                         Console.WriteLine("     ESC를 눌러 돌아가기");
                         returnTime = DateTime.Now;
                         returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-                        mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"도서 반납"}')");
+                        mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "성공", "도서 반납"));
                     }
                 }
             }
@@ -205,7 +208,7 @@ namespace NewLibrary.Controller.Function
                 Console.WriteLine("     ESC를 눌러 돌아가기");
                 returnTime = DateTime.Now;
                 returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-                mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"실패"}', '{"도서 반납"}')");
+                mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "실패", "도서 반납"));
             }
             while (true)
             {
@@ -225,9 +228,9 @@ namespace NewLibrary.Controller.Function
         public string ReturnList(string userId)
         {
             Console.Clear();
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
-            MySqlCommand command = new MySqlCommand($"SELECT * FROM returnlist WHERE userid = '{userId}'", connection);
+            MySqlCommand command = new MySqlCommand(string.Format("SELECT * FROM returnlist WHERE userid = '{0}'", userId), connection);
             connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
 
@@ -259,7 +262,7 @@ namespace NewLibrary.Controller.Function
             }
             returnTime = DateTime.Now;
             returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-            mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"도서 반납 확인"}')");
+            mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "성공", "도서 반납 확인"));
             Console.WriteLine("ESC를 눌러 종료");
             while (true)
             {

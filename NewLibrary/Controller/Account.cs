@@ -10,9 +10,9 @@ using NewLibrary.Utility;
 
 namespace NewLibrary.Controller
 {
-    internal class UserModeAccount
+    internal class Account
     {
-        public UserModeAccount(string userId)
+        public Account(string userId)
         {
             this.userId = userId;
         }
@@ -31,7 +31,7 @@ namespace NewLibrary.Controller
             
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             PasswordMasker passwordMasker = new PasswordMasker();
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             
             DateTime returnTime;
             string inputId = "";
@@ -86,13 +86,13 @@ namespace NewLibrary.Controller
 
                 if (number == 1)
                 {
-                    check = mysqlConnecter.SelectData(string.Format("SELECT * FROM userconstructor WHERE userid = '{0}' AND password = '{1}'", inputId, inputPw));
+                    check = mysqlConnecter.ReadDataForCheck(string.Format(ConstantOfQuery.LoginUserQuery, inputId, inputPw));
 
                 }
 
                 else 
                 {
-                    check = mysqlConnecter.SelectData(string.Format("SELECT * FROM managerconstructor WHERE managerid = '{0}' AND managerpw = '{1}'", inputId, inputPw));
+                    check = mysqlConnecter.ReadDataForCheck(string.Format(ConstantOfQuery.LoginManagerQuery, inputId, inputPw));
                 }
                 if (!check)//로그인 성공하면 return
                 {
@@ -100,11 +100,11 @@ namespace NewLibrary.Controller
                     returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
                     if (number == 1)
                     {
-                        mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"유저"}', '{"성공"}', '{"로그인"}')");
+                        mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery,returnTimeString, "유저", "성공", "로그인"));
                     }
                     else
                     {
-                        mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"관리자"}', '{"성공"}', '{"로그인"}')");
+                        mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "관리자", "성공", "로그인"));
                     }
                     return inputId;
                 }
@@ -122,11 +122,11 @@ namespace NewLibrary.Controller
                 returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
                 if (number == 1)
                 {
-                    mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"유저"}', '{"실패"}', '{"로그인"}')");
+                    mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "실패", "로그인"));
                 }
                 else
                 {
-                    mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"관리자"}', '{"실패"}', '{"로그인"}')");
+                    mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "관리자", "실패", "로그인"));
                 }
                 }
             
@@ -137,7 +137,7 @@ namespace NewLibrary.Controller
         {
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             PasswordMasker passwordMasker = new PasswordMasker();
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
 
             Console.CursorVisible = true;
 
@@ -246,10 +246,10 @@ namespace NewLibrary.Controller
                 Console.CursorVisible = false;
                 bool checkMysql = true;
 
-                checkMysql = mysqlConnecter.InsertUpdateDelete($"INSERT INTO userconstructor(userid, password, name, age, phonenumber, address) VALUES('{inputId}', '{inputPw}', '{inputName}', {inputAge}, '{inputPhone}', '{inputAddress}')");
+                checkMysql = mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInSignUpQuery, inputId, inputPw, inputName, inputAge, inputPhone, inputAddress));
                 returnTime = DateTime.Now;
                 returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-                mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"회원가입"}')");
+                mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "성공", "회원가입"));
                 return true;
             }
         }

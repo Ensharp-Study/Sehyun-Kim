@@ -24,7 +24,7 @@ namespace NewLibrary.Controller
             AccountView userAccountView = new AccountView();
             AccountView AccountView = new AccountView();  
             ManagerModeSelector managerModeSelector = new ManagerModeSelector();
-            UserModeAccount userModeAccount = new UserModeAccount(userId);
+            Account userModeAccount = new Account(userId);
             UserMenu userMenu = new UserMenu();
             bool exit = true;
 
@@ -87,19 +87,19 @@ namespace NewLibrary.Controller
                             while (checker)
                             {
                                 Console.Clear();
+                                Console.CursorVisible = true;
                                 fine = true;
                                 modeSelectView.ViewLibraryLogo();
-
                                 userAccountView.ViewLogin();
                                 userId = userModeAccount.Login(2);
-
                                 if (userId == null)
                                 {
                                     checker = false;
+                                    fine = false;
                                 }
-                                Console.Clear();
                                 while (fine)
                                 {
+                                    Console.Clear();
                                     modeSelectView.ViewLibraryLogo();
                                     userMenu.ViewManagerMenu();
                                     int number = managerModeSelector.GoFunctionInManagerMenu();
@@ -118,7 +118,7 @@ namespace NewLibrary.Controller
         public int SetColorByCursor()
         {
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
-            UserModeAccount userModeAccount = new UserModeAccount(userId);
+            Account userModeAccount = new Account(userId);
             AccountView userAccountView = new AccountView();
             bool fine = true;
             int Number = 1;
@@ -156,7 +156,7 @@ namespace NewLibrary.Controller
         {
             ModeSelectView modeSelectView = new ModeSelectView();
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
-            UserModeAccount userModeAccount = new UserModeAccount(userId);
+            Account userModeAccount = new Account(userId);
             AccountView userAccountView = new AccountView();
             UserMenu userMenu = new UserMenu();
             int keyNumber = 1;

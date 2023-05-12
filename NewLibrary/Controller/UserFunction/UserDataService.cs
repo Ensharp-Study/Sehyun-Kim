@@ -17,7 +17,7 @@ namespace NewLibrary.Controller.UserFunction
         public string DeleteUserData(string userId)
         {
 
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
 
             string query = $"SELECT COUNT(*) FROM borrowlist WHERE userid='{userId}'";
@@ -36,8 +36,8 @@ namespace NewLibrary.Controller.UserFunction
             else
             {
                 // borrowlist 테이블에서 해당 유저의 대여 기록 삭제
-                fine = mysqlConnecter.InsertUpdateDelete($"DELETE FROM userconstructor WHERE userid='{userId}'");
-                mysqlConnecter.InsertUpdateDelete($"DELETE FROM borrowlist WHERE userid='{userId}'");
+                fine = mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.deleteUser, userId));
+                mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.deleteBorrowList, userId));
                 if (!fine)
                 {
                     Console.WriteLine();
@@ -125,7 +125,7 @@ namespace NewLibrary.Controller.UserFunction
         public string UpdateUserData(string userId,int number)
         {
 
-            CRUDInDAO crudInDAO = new CRUDInDAO();
+            FunctionInDAO crudInDAO = new FunctionInDAO();
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             string inputPw = "";
             string inputName = "";
@@ -151,7 +151,7 @@ namespace NewLibrary.Controller.UserFunction
                             return userId;
                         fine = inputKeyUnlessEnter.CheckRegex(inputPw, RegexConstant.userPwRegex, 10, 17, 0, 0, "");
                     }
-                    crudInDAO.InsertUpdateDelete($"UPDATE userconstructor SET password = '{inputPw}' WHERE userid = '{userId}'");
+                    crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updatePassword, inputAge, userId));
                     break;
                 case 2://name
                     while (fine)
@@ -163,7 +163,7 @@ namespace NewLibrary.Controller.UserFunction
                             return userId;
                         fine = inputKeyUnlessEnter.CheckRegex(inputName, RegexConstant.userNameRegex, 12, 16, 0, 0, " ");
                     }
-                    crudInDAO.InsertUpdateDelete($"UPDATE userconstructor SET name = '{inputName}' WHERE userid = '{userId}'");
+                    crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updateName, inputAge, userId));
                     break;
                 case 3://age
                     while (fine)
@@ -177,7 +177,7 @@ namespace NewLibrary.Controller.UserFunction
                         fine = inputKeyUnlessEnter.CheckRegex(bowl, RegexConstant.userAgeRegex, 12, 17, 0, 0, " ");
                         inputAge = int.Parse(bowl);
                     }
-                    crudInDAO.InsertUpdateDelete($"UPDATE userconstructor SET age = '{inputAge}' WHERE userid = '{userId}'");
+                    crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updateAge, inputAge, userId));
                     break;
                 case 4://phoneNumber
                     while (fine)
@@ -189,7 +189,7 @@ namespace NewLibrary.Controller.UserFunction
                             return userId;
                         fine = inputKeyUnlessEnter.CheckRegex(inputPhone, RegexConstant.userPhoneNumberRegex, 22, 18, 0, 0, " ");
                     }
-                    crudInDAO.InsertUpdateDelete($"UPDATE userconstructor SET phoneNumber = '{inputPhone}' WHERE userid = '{userId}'");
+                    crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updatePhone, inputPhone, userId));
                     break;
                 case 5://Address
                     while (fine)
@@ -201,14 +201,14 @@ namespace NewLibrary.Controller.UserFunction
                             return userId;
                         fine = inputKeyUnlessEnter.CheckRegex(inputAddress, RegexConstant.userAddressRegex, 22, 19, 0, 0, " ");
                     }
-                    crudInDAO.InsertUpdateDelete($"UPDATE userconstructor SET address = '{inputAddress}' WHERE userid = '{userId}'");
+                    crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updateAddress, inputAddress, userId)); ;
                     break;
             }
             Console.SetCursorPosition(16, 28);
             Console.WriteLine("회원 정보가 수정되었습니다.");
             returnTime = DateTime.Now;
             returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-            crudInDAO.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES('{returnTimeString}', '{"유저"}', '{"성공"}', '{"회원 정보 수정"}')");
+            crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "성공", "회원 정보 수정"));
             while (true)
             {
                 ConsoleKeyInfo input = Console.ReadKey(true);

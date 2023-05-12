@@ -16,14 +16,15 @@ namespace NewLibrary.Controller.ManagerFunction
         { //도서 추가
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             string inputBookWord = "";
             string inputBookisbn = "";
             string inputBookId = "";
             string inputBookQuantity = "0";
             string inputBookInfo = "";
             bool fine = true;
-
+            DateTime returnTime;
+            string returnTimeString = "";
             Console.CursorVisible = true;
 
             while (fine)
@@ -121,6 +122,9 @@ namespace NewLibrary.Controller.ManagerFunction
                     {
                         Console.SetCursorPosition(0, 17);
                         Console.WriteLine("도서가 성공적으로 추가되었습니다.");
+                        returnTime = DateTime.Now;
+                        returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+                        mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "매니저", "성공", "도서 추가"));
                     }
                 
                 }
@@ -146,9 +150,11 @@ namespace NewLibrary.Controller.ManagerFunction
         { //도서 추가
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();
-            CRUDInDAO mysqlConnecter = new CRUDInDAO();
+            FunctionInDAO mysqlConnecter = new FunctionInDAO();
             string inputBookisbn = "";
             bool fine = true;
+            DateTime returnTime;
+            string returnTimeString = "";
 
             Console.CursorVisible = true;
 
@@ -167,7 +173,9 @@ namespace NewLibrary.Controller.ManagerFunction
             {
                 Console.WriteLine();
                 Console.WriteLine("               도서 삭제가 완료되었습니다.");
-
+                returnTime = DateTime.Now;
+                returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+                mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "매니저", "성공", "도서 삭제"));
             }
 
             Console.WriteLine("ESC를 눌러 돌아가기");
@@ -190,14 +198,15 @@ namespace NewLibrary.Controller.ManagerFunction
         {
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();
-            CRUDInDAO crudInDAO = new CRUDInDAO();
+            FunctionInDAO crudInDAO = new FunctionInDAO();
 
             string inputBookId = "";
             int intInputBookId;
             int intInputNumber;
             string numberInput = "0";
             bool fine = true;
-
+            DateTime returnTime;
+            string returnTimeString = "";
             Console.WriteLine("수정할 책 id를 입력해주세요.");
             while (fine)
             {//inputBookId 입력&예외처리
@@ -285,11 +294,17 @@ namespace NewLibrary.Controller.ManagerFunction
             {
                 Console.SetCursorPosition(0, 20);
                 Console.WriteLine("책 정보가 성공적으로 수정되었습니다.");
+                returnTime = DateTime.Now;
+                returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+                crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "매니저", "성공", "도서 수정"));
             }
             else
             {
                 Console.SetCursorPosition(0, 20);
                 Console.WriteLine("책 정보 수정에 실패했습니다.");
+                returnTime = DateTime.Now;
+                returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
+                crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "매니저", "실패", "도서 수정"));
             }
             Console.SetCursorPosition(0, 21);
             Console.WriteLine("ESC를 눌러 돌아가기");

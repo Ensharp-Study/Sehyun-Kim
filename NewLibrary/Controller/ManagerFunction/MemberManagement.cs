@@ -41,6 +41,7 @@ namespace NewLibrary.Controller.ManagerFunction
 
         public void DisplayRentalStatus()
         {
+            Console.WriteLine("ESC를 눌러 돌아가기");
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
             string selectQuery = $"SELECT * FROM borrowlist"; //number 입력받아서 id=number인 행 찾기 
             MySqlCommand command = new MySqlCommand(selectQuery, connection);
@@ -66,13 +67,27 @@ namespace NewLibrary.Controller.ManagerFunction
             }
             reader.Close();
             connection.Close();
+
+            while (true)
+            {
+                ConsoleKeyInfo input = Console.ReadKey(true);
+                if (input.Key == ConsoleKey.Escape) //esc 입력됐을 경우
+                {
+                    Console.Clear();
+                    return;
+                }
+                else
+                {
+                    continue;
+                }
+            }
         }
 
         public void ManageMember()
         {
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();
-            CRUDInDAO crudInDAO = new CRUDInDAO();
+            FunctionInDAO crudInDAO = new FunctionInDAO();
 
             bool fine = true;
             string numberInput = "0";
