@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NewLibrary.Controller.Log
+namespace NewLibrary.Constant
 {
-    internal class DisplayLog
+    internal class ConstantOfQuery
     {
     }
 }

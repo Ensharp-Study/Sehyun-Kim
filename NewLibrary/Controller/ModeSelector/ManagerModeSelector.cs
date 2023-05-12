@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NewLibrary.Constant;
 using NewLibrary.Controller.Function;
+using NewLibrary.Controller.Log;
 using NewLibrary.Controller.ManagerFunction;
 using NewLibrary.Model;
 using NewLibrary.Utility;
@@ -22,6 +23,7 @@ namespace NewLibrary.Controller.ModeSelector
             bool fine = true;
             string inputString = "1";
             int inputNumber;
+
             while (fine)
             {
                 inputString = inputKeyUnlessEnter.SaveInputUnlessEnter(20, 25);
@@ -39,90 +41,70 @@ namespace NewLibrary.Controller.ModeSelector
 
         public void SelectNumberInManagerMenu(int number)
         {
+            MemberManagement memberManagement = new MemberManagement(); 
             APIConnection apiConnection = new APIConnection();
             AppliedBookManager appliedBookManager = new AppliedBookManager();
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             BookSearcher bookSearcher = new BookSearcher();
-            UserFunctionView userFunctionView = new UserFunctionView();
-            BookDisplayer bookDisplay = new BookDisplayer();
-            BookAdder bookAdder = new BookAdder();
+            FunctionView userFunctionView = new FunctionView();
+            DataDisplayer dataDisplayer = new DataDisplayer();  
+            BookManager bookManager = new BookManager();
+            DisplayLog displayLog = new DisplayLog();
+
             bool fine = true;
-            string v = "";
 
             switch (number)
             {
-                case 0:
+                case 0://돌아가기
                     return;
                     break;
                 case 1://도서찾기
-                    while (true)
-                    {
-                        Console.Clear();
-
-                        userFunctionView.ViewBookSearcherManager();
-                        bookDisplay.DisplayAllBook();
-                        v = bookSearcher.SearchBook("dfd");
-                        if (v == "dfd")
-                        {
-                            return;
-                        }
-                        while (true)
-                        {
-                            ConsoleKeyInfo input = Console.ReadKey(true);
-                            if (input.Key == ConsoleKey.Escape) //esc 입력됐을 경우
-                            {
-                                Console.Clear();
-                                return;
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                    }
-
+                    Console.Clear();
+                    userFunctionView.ViewBookSearcherManager();
+                    dataDisplayer.DisplayAllBook();
+                    bookSearcher.SearchBook("0");
                     break;
                 case 2://도서 추가
                     Console.Clear();
                     userFunctionView.ViewAddBook();
-                    bookAdder.AddBook();
+                    bookManager.AddBook();
                     break;
-                case 3:
+                case 3: //도서 삭제
+                    Console.Clear();
+                    userFunctionView.ViewDeleteBook();
+                    Console.SetCursorPosition(0, 8);
+                    dataDisplayer.DisplayAllBook();
+                    Console.SetCursorPosition(0, 5);
+                    bookManager.DeleteBook();
                     break;
-                case 4:
+                case 4: //도서 수정
+                    Console.Clear();
+                    userFunctionView.ViewUpdateBook();
+                    Console.SetCursorPosition(0, 22);
+                    dataDisplayer.DisplayAllBook();
+                    Console.SetCursorPosition(0, 5);
+                    bookManager.ModifyBook();
                     break;
-                case 5:
+                case 5: //회원 관리
+                    Console.Clear();
+                    userFunctionView.ViewUpdateUserData();
+                    Console.SetCursorPosition(0, 22);
+                    memberManagement.DisplayMemberData();
+                    Console.SetCursorPosition(0, 5);
+                    memberManagement.ManageMember();
                     break;
-                case 6:
+                case 6: //대여 상황
+                    Console.Clear();
+                    memberManagement.DisplayRentalStatus();
                     break;
-                case 7://로그 삭제
+                case 7://로그 저장
+                    Console.Clear();
+                    displayLog.DownloadLog();
                     break;
-                case 8://로그 저장
+                case 8://신청 도서 관리
+                    Console.Clear();
+                    appliedBookManager.ManagerAppliedBook();
                     break;
-                case 9://신청 도서 관리
-
-                    while (true)
-                    {
-                        Console.Clear();
-                        appliedBookManager.ManagerAppliedBook();
-                        Console.WriteLine("ESC를 눌러 종료");
-                        while (true)
-                        {
-                            ConsoleKeyInfo input = Console.ReadKey(true);
-                            if (input.Key == ConsoleKey.Escape) //esc 입력됐을 경우
-                            {
-                                Console.Clear();
-                                return;
-                            }
-                            else
-                            {
-                                continue;
-                            }
-                        }
-                    }
-                    break;
-
-
             }
             return;
         }

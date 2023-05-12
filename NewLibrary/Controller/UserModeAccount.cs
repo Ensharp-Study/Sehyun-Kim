@@ -23,8 +23,10 @@ namespace NewLibrary.Controller
             get { return userId; }
             set { userId = value; }
         }
-        public string Login() //로그인
+        public string Login(int number) //로그인
         {
+            //if number==1 : 유저모드
+            //if number==2 : 매니저 모드 
             //매개변수 constructor : MySQL 테이블 이름 (유저 테이블 OR 매니저 테이블)
             
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
@@ -82,14 +84,28 @@ namespace NewLibrary.Controller
                 Console.SetCursorPosition(16, 16);
                 Console.Write("                        ");
 
-                check = mysqlConnecter.SelectData(string.Format("SELECT * FROM userconstructor WHERE userid = '{0}' AND password = '{1}'", inputId, inputPw));
-                
+                if (number == 1)
+                {
+                    check = mysqlConnecter.SelectData(string.Format("SELECT * FROM userconstructor WHERE userid = '{0}' AND password = '{1}'", inputId, inputPw));
 
+                }
+
+                else 
+                {
+                    check = mysqlConnecter.SelectData(string.Format("SELECT * FROM managerconstructor WHERE managerid = '{0}' AND managerpw = '{1}'", inputId, inputPw));
+                }
                 if (!check)//로그인 성공하면 return
                 {
                     returnTime = DateTime.Now;
                     returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-                    mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"유저"}', '{"성공"}', '{"로그인"}')");
+                    if (number == 1)
+                    {
+                        mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"유저"}', '{"성공"}', '{"로그인"}')");
+                    }
+                    else
+                    {
+                        mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"관리자"}', '{"성공"}', '{"로그인"}')");
+                    }
                     return inputId;
                 }
                 //로그인 실패시 화면 지우기
@@ -104,8 +120,15 @@ namespace NewLibrary.Controller
                 Console.Write(    "   다시 입력해주세요.");
                 returnTime = DateTime.Now;
                 returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-                mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"유저"}', '{"실패"}', '{"로그인"}')");
-            }
+                if (number == 1)
+                {
+                    mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"유저"}', '{"실패"}', '{"로그인"}')");
+                }
+                else
+                {
+                    mysqlConnecter.InsertUpdateDelete($"INSERT INTO log(log_time, log_user, log_info, log_behave) VALUES( '{returnTimeString}', '{"관리자"}', '{"실패"}', '{"로그인"}')");
+                }
+                }
             
             return inputId; //로그인 성공한 유저의 아이디 반환됨.
         }

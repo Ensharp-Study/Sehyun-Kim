@@ -15,7 +15,7 @@ namespace NewLibrary.Controller
         {
             CRUDInDAO mysqlConnecter = new CRUDInDAO();
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
-            BookDisplayer bookDisplayer = new BookDisplayer();
+            DataDisplayer bookDisplayer = new DataDisplayer();
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             ListWithColoredIndexPrinter listWithColoredIndexPrinter = new ListWithColoredIndexPrinter();
             List<string> strList = new List<string>() { "ⓛ 제목으로 찾기", "② 작가명으로 찾기", "③ 출판사명으로 찾기"};

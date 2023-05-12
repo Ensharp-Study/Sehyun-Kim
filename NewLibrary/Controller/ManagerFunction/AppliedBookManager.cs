@@ -139,7 +139,21 @@ namespace NewLibrary.Controller.ManagerFunction
             }
 
             connection.Close();
-            
+
+            Console.WriteLine("ESC를 눌러 종료");
+            while (true)
+            {
+                ConsoleKeyInfo input = Console.ReadKey(true);
+                if (input.Key == ConsoleKey.Escape) //esc 입력됐을 경우
+                {
+                    Console.Clear();
+                    return;
+                }
+                else
+                {
+                    continue;
+                }
+            }
         }
     }
 }

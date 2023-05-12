@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace NewLibrary.View.FunctionView
 {
-    internal class UserFunctionView
+    internal class FunctionView
     {
         public void ViewBookSearcher()
         {
             Console.WriteLine("                                                   ");
-            Console.WriteLine("                       -* 유저 모드 *-");
+            Console.WriteLine("                        ");
             Console.WriteLine("                                                     ");
             Console.WriteLine("                        < 도서 찾기 > ");
             Console.WriteLine("   ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
@@ -28,7 +28,7 @@ namespace NewLibrary.View.FunctionView
         public void ViewBookSearcherManager()
         {
             Console.WriteLine("                                                   ");
-            Console.WriteLine("                       -*매니저 모드 *-");
+            Console.WriteLine("                        ");
             Console.WriteLine("                                                     ");
             Console.WriteLine("                        < 도서 찾기 > ");
             Console.WriteLine("   ┌ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ┐");
@@ -45,7 +45,7 @@ namespace NewLibrary.View.FunctionView
         public void ViewBookLenderTop()
         {
             Console.WriteLine("                                                   ");
-            Console.WriteLine("                       -* 유저 모드 *-");
+            Console.WriteLine("                        ");
             Console.WriteLine("                                                     ");
             Console.WriteLine("                        < 도서 대여 > ");
             Console.WriteLine("                                                     ");
@@ -59,7 +59,7 @@ namespace NewLibrary.View.FunctionView
         public void ViewBookReturnerTop()
         {
             Console.WriteLine("                                                   ");
-            Console.WriteLine("                    -* 유저 모드 *-");
+            Console.WriteLine("                     ");
             Console.WriteLine("                                                     ");
             Console.WriteLine("                     < 도서 반납 > ");
             Console.WriteLine("                                                     ");
@@ -71,7 +71,7 @@ namespace NewLibrary.View.FunctionView
         public void ViewUserDataUpdaterTop()
         {
             Console.WriteLine("                                                   ");
-            Console.WriteLine("                       -* 유저 모드 *-");
+            Console.WriteLine("                        ");
             Console.WriteLine("                                                     ");
             Console.WriteLine("                        < 정보 수정 > ");
         }
@@ -96,17 +96,17 @@ namespace NewLibrary.View.FunctionView
 
         public void ViewUserDataDeleter()
         {
-                Console.WriteLine("                                                   ");
-                Console.WriteLine("                  -* 유저 모드 *-");
-                Console.WriteLine("                                                     ");
-                Console.WriteLine("                   < 회원 탈퇴 > ");
-            
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                   ");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                   < 회원 탈퇴 > ");
+
         }
 
         public void ViewApplyBook()
         {
             Console.WriteLine("                                                   ");
-            Console.WriteLine("                       -* 유저 모드 *-");
+            Console.WriteLine("                        ");
             Console.WriteLine("                                                     ");
             Console.WriteLine("                        < 도서 신청 > \n");
 
@@ -120,7 +120,7 @@ namespace NewLibrary.View.FunctionView
         public void ViewAddBook()
         {
             Console.WriteLine("                                                   ");
-            Console.WriteLine("                       -* 매니저 모드 *-");
+            Console.WriteLine("                        ");
             Console.WriteLine("                                                     ");
             Console.WriteLine("                        < 도서 추가 > \n");
 
@@ -128,6 +128,30 @@ namespace NewLibrary.View.FunctionView
             Console.WriteLine(" 책 제목  :                         ");
             Console.WriteLine(" 수량     : ");
             Console.WriteLine("============================================================");
+        }
+
+        public void ViewDeleteBook()
+        {
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                        < 도서 삭제 > \n");
+        }
+
+        public void ViewUpdateBook()
+        {
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                        ");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                        < 도서 수정 > \n");
+        }
+
+        public void ViewUpdateUserData()
+        {
+            Console.WriteLine("                                                   ");
+            Console.WriteLine("                       ");
+            Console.WriteLine("                                                     ");
+            Console.WriteLine("                        < 회원 정보 수정 > \n");
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NewLibrary.Controller.DataDisplayer;
 using NewLibrary.Controller.Function;
 using NewLibrary.Controller.ModeSelector;
 using NewLibrary.Controller.UserFunction;
@@ -22,10 +21,11 @@ namespace NewLibrary.Controller
             ModeSelectView modeSelectView = new ModeSelectView();
             UserModeSelector userModeSelector = new UserModeSelector(); 
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
-            UserAccountView userAccountView = new UserAccountView();
-            ManagerAccountView managerAccountView = new ManagerAccountView();
-            ManagerMenu managerMenu = new ManagerMenu();    
-            ManagerModeSelector managerModeSelector = new ManagerModeSelector();   
+            AccountView userAccountView = new AccountView();
+            AccountView AccountView = new AccountView();  
+            ManagerModeSelector managerModeSelector = new ManagerModeSelector();
+            UserModeAccount userModeAccount = new UserModeAccount(userId);
+            UserMenu userMenu = new UserMenu();
             bool exit = true;
 
             while (exit) //exit 값이 true인 동안 반복한다.
@@ -87,25 +87,39 @@ namespace NewLibrary.Controller
                             while (checker)
                             {
                                 Console.Clear();
-                                modeSelectView.ViewLibraryLogo();
-                                managerMenu.ViewManagerMenu();
                                 fine = true;
-                                int number = managerModeSelector.GoFunctionInManagerMenu();
-                                managerModeSelector.SelectNumberInManagerMenu(number);
-                                if (number == 0)
+                                modeSelectView.ViewLibraryLogo();
+
+                                userAccountView.ViewLogin();
+                                userId = userModeAccount.Login(2);
+
+                                if (userId == null)
+                                {
                                     checker = false;
+                                }
+                                Console.Clear();
+                                while (fine)
+                                {
+                                    modeSelectView.ViewLibraryLogo();
+                                    userMenu.ViewManagerMenu();
+                                    int number = managerModeSelector.GoFunctionInManagerMenu();
+                                    managerModeSelector.SelectNumberInManagerMenu(number);
+                                    if (number == 0)
+                                        fine = false;
+                                }
                             }
                             break;
-
                     }
                 }
             }
         }
+
+        
         public int SetColorByCursor()
         {
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             UserModeAccount userModeAccount = new UserModeAccount(userId);
-            UserAccountView userAccountView = new UserAccountView();
+            AccountView userAccountView = new AccountView();
             bool fine = true;
             int Number = 1;
 
@@ -143,7 +157,7 @@ namespace NewLibrary.Controller
             ModeSelectView modeSelectView = new ModeSelectView();
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             UserModeAccount userModeAccount = new UserModeAccount(userId);
-            UserAccountView userAccountView = new UserAccountView();
+            AccountView userAccountView = new AccountView();
             UserMenu userMenu = new UserMenu();
             int keyNumber = 1;
             int selectedNumber;
@@ -157,7 +171,7 @@ namespace NewLibrary.Controller
                     Console.CursorVisible = true;
                     modeSelectView.ViewLibraryLogo();
                     userAccountView.ViewLogin(); //로그인 화면 view
-                    userId = userModeAccount.Login(); //로그인 기능 메소드
+                    userId = userModeAccount.Login(1); //로그인 기능 메소드
                     if (userId == null) //로그인 기능 중 esc가 눌린 경우 -> 로그인 또는 회원가입 메뉴로
                     {
                         Console.CursorVisible = false;
@@ -198,13 +212,10 @@ namespace NewLibrary.Controller
         public string MethodInUserMenu(int selectedNumber, string userId)
         {
             BookSearcher bookSearcher = new BookSearcher();
-            UserFunctionView userFunctionView = new UserFunctionView();
-            BookDisplayer bookDisplay = new BookDisplayer();
-            BookLender bookLender = new BookLender();
-            BookReturner bookReturner = new BookReturner();
-            UserDataUpdater userDataUpdater = new UserDataUpdater();
-            UserDataDeleter userDataDeleter = new UserDataDeleter();
-            UserDisplayer userDisplayer = new UserDisplayer();
+            FunctionView userFunctionView = new FunctionView();
+            DataDisplayer dataDisplayer = new DataDisplayer();
+            BookService bookservice = new BookService();
+            UserDataService userDataService = new UserDataService();
             BookApplier bookApplier = new BookApplier();
             bool check;
             int number;
@@ -217,53 +228,51 @@ namespace NewLibrary.Controller
                     Console.Clear();
                     userFunctionView.ViewBookSearcher();
                     Console.SetCursorPosition(0, 14);
-                    bookDisplay.DisplayAllBook();
+                    dataDisplayer.DisplayAllBook();
                     bookSearcher.SearchBook(userId);
                     break;
                 case 2: //도서 대여
                     Console.Clear();
                     userFunctionView.ViewBookLenderTop();
-                    bookDisplay.DisplayAllBook();
-                    bookLender.RentOutBook(userId);
+                    dataDisplayer.DisplayAllBook();
+                    bookservice.RentOutBook(userId);
                     break;
                 case 3: //도서 반납
                     check = false;
                     Console.Clear();
                     userFunctionView.ViewBookReturnerTop();
-                    bookLender.RentalList(userId, check);
-                    bookReturner.ReturnBook(userId);
+                    bookservice.RentalList(userId, check);
+                    bookservice.ReturnBook(userId);
                     break;
                 case 4: //도서 대여 확인
                     Console.Clear();
                     check = true;
-                    bookLender.RentalList(userId, check);
+                    bookservice.RentalList(userId, check);
                     break;
                 case 5: //도서 반납 내역
                     Console.Clear();
-                    bookReturner.ReturnList(userId);
+                    bookservice.ReturnList(userId);
                     break;
                 case 6: //회원 정보 수정
                     Console.Clear();
                     userFunctionView.ViewUserDataUpdaterTop();
                     check = false;
                     bool fine = true;
-                    userDisplayer.DisplayUserInformation(userId,check);
+                    dataDisplayer.DisplayUserInformation(userId,check);
                     userFunctionView.ViewUserDataUpdaterBottom();
-                    number = userDataUpdater.SetCursorWhenUpdate(userId);
-                    userDataUpdater.UpdateUserData(userId, number);
+                    number = userDataService.SetCursorWhenUpdate(userId);
+                    userDataService.UpdateUserData(userId, number);
                     break;
                 case 7: //회원 탈퇴 
                     Console.Clear();
                     userFunctionView.ViewUserDataDeleter();
-                    userDataDeleter.DeleteUserData(userId);
+                    userDataService.DeleteUserData(userId);
                     break;
                 case 8: //도서 신청
                     Console.Clear();
                     userFunctionView.ViewApplyBook();
                     bookApplier.ApplyBook(userId);
                     break;
-
-
             }
             return userId;
         }
@@ -271,8 +280,7 @@ namespace NewLibrary.Controller
         {
             ModeSelectView modeSelectView = new ModeSelectView();
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
-            UserAccountView userAccountView = new UserAccountView();
-            ManagerAccountView managerAccountView = new ManagerAccountView();
+            AccountView accountView = new AccountView();
             ListWithColoredIndexPrinter listWithColoredIndexPrinter = new ListWithColoredIndexPrinter();
             bool exit = true;
             List<string> strList = new List<string>() { "도서 찾기", "도서 대여", "도서 반납", "도서 대여 확인", "도서 반납 내역", "회원 정보 수정", "회원 탈퇴","도서 신청" };
