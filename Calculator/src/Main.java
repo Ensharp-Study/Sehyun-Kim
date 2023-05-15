@@ -3,6 +3,8 @@
 public class Main {
     public static void main(String[] args) {
         GUIFrame guiFrame = new GUIFrame();
+        SQLTest sqlTest = new SQLTest();
+        //sqlTest.testSQL() throws ;
         guiFrame.createJFrame();
         guiFrame.createTextField();
         guiFrame.createPannel();
