@@ -22,7 +22,7 @@ public class GUIFrame extends JFrame {
     private String num = "";
     //계산 기능을 구현하기 위해 ArrayList에 숫자와 연산 기호를 하나씩 구분해 담음3
     private ArrayList<String> equation = new ArrayList<String>();
-    public void createJFrame() {
+    public void createJFrame() { //프레임
         // JFrame 생성 및 초기화 -> JFrame : 밑바탕이 되는 프레임
         JFrame frame = new JFrame("Calculator");
         frame.setPreferredSize(new Dimension(324, 534));
@@ -31,7 +31,7 @@ public class GUIFrame extends JFrame {
         setResizable(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //esc 눌러도 남아있는 JVM을 다 지워주는 기능
     }
-    public void createTextField(){
+    public void createTextField(){ //텍스트필드
         //JTextField 생성
         setLayout(null); //컨테이너의 레이아웃 매니저를 NULL로 설정한다.
 
@@ -53,30 +53,34 @@ public class GUIFrame extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    public void createPannel(){
+    public void createPannel(){ //패널
         setLayout(null);
         JPanel buttonPanel = new JPanel();
         //GridLayout(4, 4, 10, 10) -> 가로 칸수, 세로 칸수, 좌우 간격, 상하 간격
         buttonPanel.setLayout(new GridLayout(6, 5, 10, 10));
         buttonPanel.setBounds(8, 130, 290, 420);
 
-        String button_names[] = { "CE", "C", "◀", "÷", "7", "8", "9", "x", "4", "5", "6", "-", "1", "2", "3", "+","±","0",".","=" };
+        String button_names[] = { "C", "CE", "⌫", "÷", "7", "8", "9", "×", "4", "5", "6", "-", "1", "2", "3", "+","±","0",".","=" };
         JButton buttons[] = new JButton[button_names.length];
-
+        Color color = new Color(0, 153, 153);
         for (int i = 0; i < button_names.length; i++) {
             buttons[i] = new JButton(button_names[i]);
-            buttons[i].setFont(new Font("Arial", Font.BOLD, 15));
-            if ((i >= 4 && i <= 6) || (i >= 8 && i <= 10) || (i >= 12 && i <= 14) || (i == 17))
+            buttons[i].setFont(new Font("Noto Sans CJK", Font.PLAIN, 15));
+            if (i==19){
+                buttons[i].setBackground(color);
+                buttons[i].setForeground(Color.WHITE);
+            }
+            else {
                 buttons[i].setBackground(Color.WHITE);
-            else buttons[i].setBackground(Color.GRAY);
-            buttons[i].setForeground(Color.BLACK);
+                buttons[i].setForeground(Color.BLACK);
+            }
             buttons[i].setBorderPainted(false);
             buttons[i].addActionListener(new PadActionListener());
             buttonPanel.add(buttons[i]);
         }
-        JButton logButton = new JButton("Log");
+        JButton logButton = new JButton("LOG");
         logButton.setBounds(220, 10, 80, 30);
-        logButton.setFont(new Font("Arial", Font.BOLD, 15));
+        logButton.setFont(new Font("Noto Sans CJK", Font.PLAIN,15));
         logButton.setBorderPainted(false);
         logButton.setForeground(Color.BLACK);
         logButton.setBackground(Color.WHITE);
@@ -99,76 +103,53 @@ public class GUIFrame extends JFrame {
             }
             else if (operation.equals("=")) {
                 String result = Double.toString(calculate(inputSpace.getText()));
+                //inputspace 에 입력된 문자열을 calculate 메소드의 매개변수로 넣어서 string 형식으로 바꿔서 result에 저장
                 inputSpace.setText("" + result);
+
                 num = "";
             }
-            else if (operation.equals("Log")){
-//로그 버튼 -> 로그 패널 하나 더 만들기
-            }
-            else {
+            else { //숫자면
                 inputSpace.setText(inputSpace.getText() + e.getActionCommand());
             }
         }
     }
 
-    public void displayLog(){
-        // 로그 패널을 만듭니다.
-        JPanel logPanel = new JPanel();
-        logArea = new JTextArea(10, 20);
-        JScrollPane scrollPane = new JScrollPane(logArea);
-        logArea.setEditable(false); // 로그 영역을 수정 불가능하도록 설정합니다.
-        logPanel.add(scrollPane);
+    public void separateText(String inputText) {
+        equation.clear(); //equation 초기화
 
-        // 로그 버튼 패널을 만듭니다.
-        JPanel logButtonPanel = new JPanel();
-        JButton showLogButton = new JButton("Show Log");
-        JButton hideLogButton = new JButton("Hide Log");
-        showLogButton.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                logPanel.setVisible(true);
-                showLogButton.setVisible(false);
-                hideLogButton.setVisible(true);
-            }
-        });
-        hideLogButton.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                logPanel.setVisible(false);
-                showLogButton.setVisible(true);
-                hideLogButton.setVisible(false);
-            }
-        });
-        hideLogButton.setVisible(false);
-        logButtonPanel.add(showLogButton);
-        logButtonPanel.add(hideLogButton);
-
-        // 로그 패널과 로그 버튼 패널을 프레임의 EAST에 추가합니다.
-        JPanel rightPanel = new JPanel(new BorderLayout());
-        rightPanel.add(logButtonPanel, BorderLayout.NORTH);
-        rightPanel.add(logPanel, BorderLayout.CENTER);
-        //frame.add(rightPanel, BorderLayout.EAST);
-    }
-
-    public void seperateText(String inputText) {
-        equation.clear();
-
-        for (int i = 0; i < inputText.length(); i++) {
+        for (int i = 1; i < inputText.length(); i++) {
             char text = inputText.charAt(i);
+            char prevText=inputText.charAt(i-1);
 
-            if (text == '-' || text == '+' || text == '×' || text == '÷') {
-                equation.add(num);
-                num = "";
-                equation.add(text + "");
-            } else {
+            if (isOperator(prevText)&&isOperator(text)){
+                // 이전 문자와 현재 문자가 모두 연산자인 경우
+                equation.remove(equation.size() - 1); // 이전 연산자 제거
+                equation.add(text + ""); // 현재 연산자 추가
+            }
+            else if (!isOperator(prevText)&&isOperator(text)){
+                // 이전 문자는 숫자이고, 현재 문자가 연산자인 경우
+                equation.add(num); // 지금까지 더해놨던 num을 equation에 추가하기
+                num = ""; // num 초기화
+                equation.add(text + ""); // equation에 text를 추가
+            }
+            else if (isOperator(prevText)&&!isOperator(text)){
+                // 이전 문자가 연산자이고, 현재 문자는 숫자인 경우
+                equation.add(text + ""); // equation에 text를 추가
+            }
+            else if (!isOperator(prevText)&&!isOperator(text)) {
+                // 이전 문자와 현재 문자가 모두 숫자인 경우
                 num = num + text;
             }
         }
         equation.add(num);
     }
 
+    public boolean isOperator (char text){
+        return text == '+' || text == '-' || text == '*' || text == '/';
+    } //text가 연산기호면 true 반환, 아니면 false 반환하는 메소드 isOperator
+
     public double calculate(String inputText) {
-        seperateText(inputText);
+        separateText(inputText);
 
         double firstExpression = 0;
         double secondExpression = 0;
@@ -203,6 +184,43 @@ public class GUIFrame extends JFrame {
         }
 
         return firstExpression;
+    }
+
+    public void displayLog(){
+        JPanel logPanel = new JPanel();
+        logArea = new JTextArea(10, 20);
+        JScrollPane scrollPane = new JScrollPane(logArea);
+        logArea.setEditable(false);
+        logPanel.add(scrollPane);
+
+        JPanel logButtonPanel = new JPanel();
+        JButton showLogButton = new JButton("Show Log");
+        JButton hideLogButton = new JButton("Hide Log");
+        showLogButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                logPanel.setVisible(true);
+                showLogButton.setVisible(false);
+                hideLogButton.setVisible(true);
+            }
+        });
+        hideLogButton.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                logPanel.setVisible(false);
+                showLogButton.setVisible(true);
+                hideLogButton.setVisible(false);
+            }
+        });
+        hideLogButton.setVisible(false);
+        logButtonPanel.add(showLogButton);
+        logButtonPanel.add(hideLogButton);
+
+        // 로그 패널과 로그 버튼 패널을 프레임의 EAST에 추가합니다.
+        JPanel rightPanel = new JPanel(new BorderLayout());
+        rightPanel.add(logButtonPanel, BorderLayout.NORTH);
+        rightPanel.add(logPanel, BorderLayout.CENTER);
+        //frame.add(rightPanel, BorderLayout.EAST);
     }
 }
 
