@@ -14,43 +14,52 @@ import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.event.*;
+import javax.swing.*;
 import javax.swing.JFrame;
 public class GUIFrame extends JFrame {
     private JTextArea logArea;
     private JTextField inputSpace;
-    //계산식의 숫자를 담을 변수 num
+    private JTextField displaySpace;
     private String num = "";
-    //계산 기능을 구현하기 위해 ArrayList에 숫자와 연산 기호를 하나씩 구분해 담음3
     private ArrayList<String> equation = new ArrayList<String>();
-    public void createJFrame() { //프레임
-        // JFrame 생성 및 초기화 -> JFrame : 밑바탕이 되는 프레임
-        JFrame frame = new JFrame("Calculator");
-        frame.setPreferredSize(new Dimension(324, 534));
-        frame.setMinimumSize(new Dimension(324, 534));
-        frame.setLocationRelativeTo(null); //setDefaultCloseOperation 짝꿍
-        setResizable(false);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //esc 눌러도 남아있는 JVM을 다 지워주는 기능
-    }
-    public void createTextField(){ //텍스트필드
-        //JTextField 생성
-        setLayout(null); //컨테이너의 레이아웃 매니저를 NULL로 설정한다.
 
-        // -> 하위 컴포넌트들은 레이아웃 매니저에 의해 배치되는 것이 아니라 setBounds()메소드로 위치,크기 지정된다.
-        inputSpace = new JTextField();
-        inputSpace.setEditable(false);
-        inputSpace.setBackground(Color.WHITE);
-        inputSpace.setHorizontalAlignment(JTextField.RIGHT);
-        inputSpace.setFont(new Font("Arial", Font.BOLD, 50));
-        inputSpace.setBounds(8, 50, 290, 70);
-        add(inputSpace);
-
+    public void createJFrame() {
+        setSize(324, 534);
+        setMinimumSize(new Dimension(324, 534));
+        setLocationRelativeTo(null);
         setTitle("계산기");
         setVisible(true);
-        setMinimumSize(new Dimension(324, 534));
-        setSize(324,534);
         setResizable(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+
+        createTextField();
+        createExpressionTextField();
+    }
+
+    public void createTextField() { //숫자가 들어가는 TEXTFIELD
+        setLayout(null);
+
+        inputSpace = new JTextField();
+        inputSpace.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        inputSpace.setEditable(true);
+        inputSpace.setHorizontalAlignment(JTextField.RIGHT);
+        inputSpace.setFont(new Font("Arial", Font.BOLD, 50));
+        inputSpace.setBounds(8, 80, 290, 60);
+
+        add(inputSpace);
+    }
+    public void createExpressionTextField() { //식이 들어가는 TEXTFIELD
+        setLayout(null);
+
+        displaySpace = new JTextField();
+        displaySpace.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        displaySpace.setEditable(true);
+        displaySpace.setHorizontalAlignment(JTextField.RIGHT);
+        displaySpace.setFont(new Font("Noto Sans CJK", Font.PLAIN, 18));
+        displaySpace.setBounds(8, 50, 290, 30);
+        displaySpace.setForeground(Color.GRAY);
+        add(displaySpace);
     }
 
     public void createPannel(){ //패널
@@ -58,7 +67,7 @@ public class GUIFrame extends JFrame {
         JPanel buttonPanel = new JPanel();
         //GridLayout(4, 4, 10, 10) -> 가로 칸수, 세로 칸수, 좌우 간격, 상하 간격
         buttonPanel.setLayout(new GridLayout(6, 5, 10, 10));
-        buttonPanel.setBounds(8, 130, 290, 420);
+        buttonPanel.setBounds(8, 145, 290, 420);
 
         String button_names[] = { "C", "CE", "⌫", "÷", "7", "8", "9", "×", "4", "5", "6", "-", "1", "2", "3", "+","±","0",".","=" };
         JButton buttons[] = new JButton[button_names.length];
@@ -92,6 +101,7 @@ public class GUIFrame extends JFrame {
     }
 
     class PadActionListener implements ActionListener{
+
         public void actionPerformed(ActionEvent e) {
             String operation = e.getActionCommand();
 
@@ -102,88 +112,89 @@ public class GUIFrame extends JFrame {
                 inputSpace.setText("");
             }
             else if (operation.equals("=")) {
+                String expression = inputSpace.getText();
                 String result = Double.toString(calculate(inputSpace.getText()));
-                //inputspace 에 입력된 문자열을 calculate 메소드의 매개변수로 넣어서 string 형식으로 바꿔서 result에 저장
+                displaySpace.setText(""+expression+"=");
                 inputSpace.setText("" + result);
-
                 num = "";
             }
-            else { //숫자면
+            else if  (operation.equals("+")||operation.equals("-")||operation.equals("×")||operation.equals("÷")){
+                String expression = inputSpace.getText();
+                displaySpace.setText(expression+operation);
+
+            }
+            else if (operation.equals("Log")) {
+//로그 버튼 -> 로그 패널 하나 더 만들기
+            }
+            else {
                 inputSpace.setText(inputSpace.getText() + e.getActionCommand());
             }
         }
     }
 
-    public void separateText(String inputText) {
-        equation.clear(); //equation 초기화
+    public void seperateText(String inputText) {
+        equation.clear();
 
-        for (int i = 1; i < inputText.length(); i++) {
+        for (int i = 0; i < inputText.length(); i++) {
             char text = inputText.charAt(i);
-            char prevText=inputText.charAt(i-1);
-
-            if (isOperator(prevText)&&isOperator(text)){
-                // 이전 문자와 현재 문자가 모두 연산자인 경우
-                equation.remove(equation.size() - 1); // 이전 연산자 제거
-                equation.add(text + ""); // 현재 연산자 추가
-            }
-            else if (!isOperator(prevText)&&isOperator(text)){
-                // 이전 문자는 숫자이고, 현재 문자가 연산자인 경우
-                equation.add(num); // 지금까지 더해놨던 num을 equation에 추가하기
-                num = ""; // num 초기화
-                equation.add(text + ""); // equation에 text를 추가
-            }
-            else if (isOperator(prevText)&&!isOperator(text)){
-                // 이전 문자가 연산자이고, 현재 문자는 숫자인 경우
-                equation.add(text + ""); // equation에 text를 추가
-            }
-            else if (!isOperator(prevText)&&!isOperator(text)) {
-                // 이전 문자와 현재 문자가 모두 숫자인 경우
+            if (text == '-' || text == '+' || text == '×' || text == '÷') {
+                equation.add(num);
+                num = "";
+                equation.add(text + "");
+            } else {
                 num = num + text;
             }
         }
         equation.add(num);
     }
 
-    public boolean isOperator (char text){
-        return text == '+' || text == '-' || text == '*' || text == '/';
-    } //text가 연산기호면 true 반환, 아니면 false 반환하는 메소드 isOperator
-
     public double calculate(String inputText) {
-        separateText(inputText);
-
-        double firstExpression = 0;
-        double secondExpression = 0;
+        seperateText(inputText); //이 메소드를 통해 입력된 식은 equation 리스트에 담김
+        double expression = 0;
+        double number = 0;
         String mode = "";
 
-        for (String s : equation) {
-            if (s.equals("+")) {
+        //리스트에 있는 요소를 하나씩 꺼내기
+        for (int i = 0; i < equation.size(); i++) {
+            String text = equation.get(i);
+            if (text.equals("+")) {
                 mode = "add";
-            } else if (s.equals("-")) {
+            } else if (text.equals("-")) {
                 mode = "sub";
-            } else if (s.equals("×")) {
+            } else if (text.equals("×")) {
                 mode = "mul";
-            } else if (s.equals("÷")) {
+            } else if (text.equals("÷")) {
                 mode = "div";
-            } else {
-                secondExpression = Double.parseDouble(s);
-
-                if (mode.equals("add")) {
-                    firstExpression += secondExpression;
-                } else if (mode.equals("sub")) {
-                    firstExpression -= secondExpression;
-                } else if (mode.equals("mul")) {
-                    firstExpression *= secondExpression;
-                } else if (mode.equals("div")) {
-                    firstExpression /= secondExpression;
+            } else { //연산자가 아니라면(숫자인 경우)
+                number = Double.parseDouble(text);
+                //숫자로 변환한 뒤 number 변수에 저장
+                if (mode.equals("add")) { //더하기
+                    expression += number;
+                } else if (mode.equals("sub")) { //빼기
+                    expression -= number;
+                } else if (mode.equals("mul")) { //곱하기
+                    expression *= number;
+                } else if (mode.equals("div")) { //나누기
+                    expression /= number;
                 } else { //숫자면
-                    firstExpression = secondExpression;
+                    expression = number;
                 }
-                firstExpression = Math.round(firstExpression * 100000) / 100000.0;
+                expression = Math.round(expression * 100000) / 100000.0;
                 mode = "";
+
+                // 현재 검사 중인 요소가 연산자이고, 다음 요소도 연산자인 경우
+                if (i < equation.size() - 1 && (equation.get(i + 1).equals("+") || equation.get(i + 1).equals("-") || equation.get(i + 1).equals("×") || equation.get(i + 1).equals("÷"))) {
+                    // i번째 요소 제거
+                    equation.remove(i);
+                    // i+1번째 요소를 현재 요소로 설정
+                    equation.set(i, equation.get(i));
+                    // i를 감소시켜 다음 요소를 검사하도록 함
+                    i--;
+                }
             }
         }
 
-        return firstExpression;
+        return expression;
     }
 
     public void displayLog(){
@@ -197,7 +208,6 @@ public class GUIFrame extends JFrame {
         JButton showLogButton = new JButton("Show Log");
         JButton hideLogButton = new JButton("Hide Log");
         showLogButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 logPanel.setVisible(true);
                 showLogButton.setVisible(false);
@@ -205,7 +215,6 @@ public class GUIFrame extends JFrame {
             }
         });
         hideLogButton.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 logPanel.setVisible(false);
                 showLogButton.setVisible(true);
