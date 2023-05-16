@@ -2,9 +2,9 @@
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
     public static void main(String[] args) {
-        GUIFrame guiFrame = new GUIFrame();
-        guiFrame.createJFrame();
-        guiFrame.createTextField();
-        guiFrame.createPannel();
+        CalculatorFrame calculatorFrame = new CalculatorFrame();
+        calculatorFrame.createJFrame();
+        calculatorFrame.createTextField();
+        calculatorFrame.createPanel();
     }
 }
