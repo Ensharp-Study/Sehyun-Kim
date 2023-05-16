@@ -23,6 +23,7 @@ public class GUIFrame extends JFrame {
     private JTextField displaySpace;
     private String num = "";
     private ArrayList<String> equation = new ArrayList<String>();
+    private String expression="";
 
     public void createJFrame() {
         setSize(324, 534);
@@ -103,41 +104,58 @@ public class GUIFrame extends JFrame {
     class PadActionListener implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
-
             String operation = e.getActionCommand();
-            ArrayList<String> expression = new ArrayList<String>();
+            int index=0;
+            index=expression.length()-1;
+
             if (operation.equals("C")) { //C 입력 시
                 inputSpace.setText("");
-                expression.removeAll(expression);
+                displaySpace.setText("");
+                expression = "";
             }
             else if (operation.equals("CE")) { //c와 ce 차이 있는거 반영하기
                 inputSpace.setText("");
-                expression.removeAll(expression);
+                displaySpace.setText("");
+                expression = "";
             }
             else if (operation.equals("=")) { //= 입력 시
-                expression.add(operation);
-                String result = Double.toString(calculate(inputSpace.getText()));
-                String displayExpression = expression.toString();//expression은 문자열이니까, setText를 하기 위해 문자로 바꿔준다.
-                displaySpace.setText(displayExpression);
+                expression+=operation;
+                String result="Check";
+                result="";
+                result = Double.toString(calculate(displaySpace.getText()));
+                displaySpace.setText(expression);
                 inputSpace.setText("" + result);
                 num = "";
             }
-            else if (operation.equals("Log")) { //Log 입력 시
-            }
-            else if (operation.equals("+")&&operation.equals("-")&&operation.equals("×")&&operation.equals("÷")){//연산기호 입력 시
-                expression.add(operation);
-                String displayExpression = expression.toString();//expression은 문자열이니까, setText를 하기 위해 문자로 바꿔준다.
-                displaySpace.setText(displayExpression);
-            }
-            else { //else 숫자 입력 시
-                int index=expression.size();
-                if (expression.get(index - 1) >=0&&)
-                expression.add(operation);
-                String displayExpression = expression.toString();//expression은 문자열이니까, setText를 하기 위해 문자로 바꿔준다.
-                displaySpace.setText(displayExpression);
-                inputSpace.setText("");//inputspace 초기화
 
+            else if (operation.equals("+")||operation.equals("-")||operation.equals("×")||operation.equals("÷")) {//연산기호 입력 시
+                expression+=operation;
+                displaySpace.setText(expression);
+            }
+            else if (Character.isDigit(operation.charAt(0))&&index>=0) { //else 숫자 입력 시
+                index=expression.length()-1;
+                char lastText = expression.charAt(index);
+                expression+=operation;
+                if (Character.isDigit(lastText))
+                { //그 전 입력도 숫자면
+                    inputSpace.setText(inputSpace.getText() + e.getActionCommand()); //이어 붙이기
+                    displaySpace.setText(displaySpace.getText() + e.getActionCommand());
+                }
+                else
+                { //그 전 입력이 숫자가 아니면
+                    inputSpace.setText(""+operation);//inputspace 초기화
+                    displaySpace.setText(expression);
+                }
                 //inputSpace.setText(""+inputSpace.getText() + e.getActionCommand());
+            }
+            else if (Character.isDigit(operation.charAt(0))){ //처음에 숫자면
+                expression+=operation;
+                inputSpace.setText(""+operation);
+                displaySpace.setText(expression);
+            }
+
+
+            else if (operation.equals("Log")) { //Log 입력 시
             }
         }
     }
