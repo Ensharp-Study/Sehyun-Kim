@@ -103,53 +103,68 @@ public class GUIFrame extends JFrame {
     class PadActionListener implements ActionListener{
 
         public void actionPerformed(ActionEvent e) {
-            String operation = e.getActionCommand();
 
-            if (operation.equals("C")) {
+            String operation = e.getActionCommand();
+            ArrayList<String> expression = new ArrayList<String>();
+            if (operation.equals("C")) { //C 입력 시
                 inputSpace.setText("");
+                expression.removeAll(expression);
             }
-            else if (operation.equals("CE")) {
+            else if (operation.equals("CE")) { //c와 ce 차이 있는거 반영하기
                 inputSpace.setText("");
+                expression.removeAll(expression);
             }
-            else if (operation.equals("=")) {
-                String expression = inputSpace.getText();
+            else if (operation.equals("=")) { //= 입력 시
+                expression.add(operation);
                 String result = Double.toString(calculate(inputSpace.getText()));
-                displaySpace.setText(""+expression+"=");
+                String displayExpression = expression.toString();//expression은 문자열이니까, setText를 하기 위해 문자로 바꿔준다.
+                displaySpace.setText(displayExpression);
                 inputSpace.setText("" + result);
                 num = "";
             }
-            else if  (operation.equals("+")||operation.equals("-")||operation.equals("×")||operation.equals("÷")){
-                String expression = inputSpace.getText();
-                displaySpace.setText(expression+operation);
+            else if (operation.equals("Log")) { //Log 입력 시
+            }
+            else if (operation.equals("+")&&operation.equals("-")&&operation.equals("×")&&operation.equals("÷")){//연산기호 입력 시
+                expression.add(operation);
+                String displayExpression = expression.toString();//expression은 문자열이니까, setText를 하기 위해 문자로 바꿔준다.
+                displaySpace.setText(displayExpression);
+            }
+            else { //else 숫자 입력 시
+                int index=expression.size();
+                if (expression.get(index - 1) >=0&&)
+                expression.add(operation);
+                String displayExpression = expression.toString();//expression은 문자열이니까, setText를 하기 위해 문자로 바꿔준다.
+                displaySpace.setText(displayExpression);
+                inputSpace.setText("");//inputspace 초기화
 
-            }
-            else if (operation.equals("Log")) {
-//로그 버튼 -> 로그 패널 하나 더 만들기
-            }
-            else {
-                inputSpace.setText(inputSpace.getText() + e.getActionCommand());
+                //inputSpace.setText(""+inputSpace.getText() + e.getActionCommand());
             }
         }
     }
 
-    public void seperateText(String inputText) {
-        equation.clear();
+    public void separateText(String inputText) {
+        //분리한 숫자는 num에 들어가고,
+        //equation에는 num + 연산기호 + num 의 형태로 식이 들어간다.
 
-        for (int i = 0; i < inputText.length(); i++) {
+        equation.clear(); //임의의 문자열 equation 초기화
+
+        for (int i = 0; i < inputText.length(); i++) { //입력된 문자열을 분석한다.
             char text = inputText.charAt(i);
-            if (text == '-' || text == '+' || text == '×' || text == '÷') {
-                equation.add(num);
-                num = "";
-                equation.add(text + "");
-            } else {
-                num = num + text;
+            if (text == '-' || text == '+' || text == '×' || text == '÷') { //문자가 연산기호일 경우
+                equation.add(num); //지금까지 이어 붙였던 num을 equation에 add
+                num = ""; //num 초기화
+                equation.add(text + ""); //text 변수의 값을 문자열로 바꾼 뒤에 equation에 이어 붙인다.
+            }
+            else { //연산기호가 아닐 경우 (숫자일 경우에는)
+                num = num + text; //num에 숫자를 이어 붙인다.
             }
         }
-        equation.add(num);
+        equation.add(num); //남아있을 수 있는 num을 equation에 add
     }
 
     public double calculate(String inputText) {
-        seperateText(inputText); //이 메소드를 통해 입력된 식은 equation 리스트에 담김
+        //계산 메소드
+        separateText(inputText); //먼저, separateText 메소드를 통해
         double expression = 0;
         double number = 0;
         String mode = "";
