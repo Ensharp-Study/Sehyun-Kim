@@ -78,13 +78,21 @@ public class Calculator extends JFrame {
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
-                getContentPane().add(calculatePanel, BorderLayout.WEST);
                 Dimension size = getSize();
-                if (size.width >= 800) {
-                    getContentPane().add(logPanel, BorderLayout.EAST);
-                } else {
-                    getContentPane().remove(logPanel);
+                calculatePanel.setPreferredSize(new Dimension(size.width, size.height));
+
+                if (size.width >= 800) { // 계산 패널의 가로 너비가 800 이상이라면, 로그 패널 추가
+                    if (logPanel.getParent() == null) {
+                        getContentPane().add(logPanel, BorderLayout.EAST);
+                        logPanel.setVisible(true);
+                    }
+                } else { // 아니라면 로그 패널 삭제
+                    if (logPanel.getParent() != null) {
+                        getContentPane().remove(logPanel);
+                        logPanel.setVisible(false);
+                    }
                 }
+                getContentPane().add(calculatePanel, BorderLayout.WEST);
                 revalidate();
                 repaint();
             }
