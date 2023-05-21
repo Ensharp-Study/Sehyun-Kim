@@ -6,14 +6,15 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.*;
 
-public class ButtonPanel extends JPanel {
-    private CalculatorFrame frame;
-    public ButtonPanel(CalculatorFrame frame) {
+public class InputButtonPanel extends JPanel {
+    private Calculator frame;
+    public InputButtonPanel(Calculator frame) {
         this.frame = frame;
         setLayout(new GridLayout(6, 5, 10, 10));
 
-        String button_names[] = { "C", "CE", "⌫", "÷", "7", "8", "9", "×", "4", "5", "6", "-", "1", "2", "3", "+", "±", "0", ".", "=" };
+        String button_names[] = {"C", "CE", "⌫", "÷", "7", "8", "9", "×", "4", "5", "6", "-", "1", "2", "3", "+", "±", "0", ".", "="};
         JButton buttons[] = new JButton[button_names.length];
         Color color = new Color(0, 153, 153);
 
@@ -41,6 +42,7 @@ public class ButtonPanel extends JPanel {
 
     class PadActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
+
             String operation = e.getActionCommand();
             int index = 0;
             index = frame.getDisplaySpace().getText().length() - 1;
@@ -48,22 +50,18 @@ public class ButtonPanel extends JPanel {
             if (operation.equals("C")) { //C 입력 시
                 frame.getInputSpace().setText("");
                 frame.getDisplaySpace().setText("");
-            }
-            else if (operation.equals("CE")) {  //c와 ce 차이 있는거 반영하기
+            } else if (operation.equals("CE")) {  //c와 ce 차이 있는거 반영하기
                 frame.getInputSpace().setText("");
                 frame.getDisplaySpace().setText("");
-            }
-            else if (operation.equals("=")) {  //= 입력 시
+            } else if (operation.equals("=")) {  //= 입력 시
                 String expression = frame.getDisplaySpace().getText();
                 String result = Double.toString(calculate(expression));
                 frame.getDisplaySpace().setText(expression);
                 frame.getInputSpace().setText(result);
-            }
-            else if (operation.equals("+") || operation.equals("-") || operation.equals("×") || operation.equals("÷")) {
+            } else if (operation.equals("+") || operation.equals("-") || operation.equals("×") || operation.equals("÷")) {
                 //연산기호 입력 시
                 frame.getDisplaySpace().setText(frame.getDisplaySpace().getText() + operation);
-            }
-            else if (Character.isDigit(operation.charAt(0)) && index >= 0) {
+            } else if (Character.isDigit(operation.charAt(0)) && index >= 0) {
                 //else 숫자 입력 시
                 index = frame.getDisplaySpace().getText().length() - 1;
                 char lastText = frame.getDisplaySpace().getText().charAt(index);
@@ -74,13 +72,11 @@ public class ButtonPanel extends JPanel {
                 } else { //그 전 입력이 숫자가 아니면
                     frame.getInputSpace().setText("" + operation);
                 }
-            }
-            else if (Character.isDigit(operation.charAt(0))) {
+            } else if (Character.isDigit(operation.charAt(0))) {
                 //처음에 숫자면
                 frame.getDisplaySpace().setText(operation);
                 frame.getInputSpace().setText(operation);
-            }
-            else if (operation.equals("Log")) {
+            } else if (operation.equals("Log")) {
                 // Handle Log operation
             }
         }
@@ -149,5 +145,4 @@ public class ButtonPanel extends JPanel {
 
         return equation;
     }
-
 }
