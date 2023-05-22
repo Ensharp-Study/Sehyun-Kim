@@ -45,7 +45,8 @@ public class InputButtonPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             String operation = e.getActionCommand();
             int index = 0;
-            index = frame.getInputSpace().getText().length() - 1;
+            Boolean check =true;
+            index = frame.getDisplaySpace().getText().length() - 1;
 
             if (operation.equals("C")) { //C 입력 시
                 frame.getInputSpace().setText("");
@@ -81,18 +82,20 @@ public class InputButtonPanel extends JPanel {
                 frame.getDisplaySpace().setText(frame.getInputSpace().getText() + operation);
             }
             else if (Character.isDigit(operation.charAt(0)) && index >=  0) { //숫자긴 한데, 처음으로 입력되는 게 아님
-                index = frame.getInputSpace().getText().length() - 1;
-                char lastText = frame.getInputSpace().getText().charAt(index); //inputspace의 마지막 글자 확인
-
+                index = frame.getDisplaySpace().getText().length() - 1;
+                char lastText = frame.getDisplaySpace().getText().charAt(index); //inputspace의 마지막 글자 확인
                 String expression = frame.getInputSpace().getText();
-
                 int displayedIndex = frame.getDisplaySpace().getText().length() - 1;
                 char displayedLastText = frame.getDisplaySpace().getText().charAt(displayedIndex);
 
-                if (Character.isDigit(lastText)||lastText=='.') { //마지막 입력된 게 숫자일 때
-                    frame.getInputSpace().setText(expression + operation);
+                if ((Character.isDigit(lastText)||lastText=='.')&&displayedLastText!='=') { //inputspace에 마지막 입력된 게 숫자일 때
+                    frame.getInputSpace().setText(expression + operation); //이어붙인다.
                 }
-                else  {
+                else if ((Character.isDigit(lastText)||lastText=='.')&&displayedLastText=='=') {
+                    frame.getDisplaySpace().setText("");
+                    frame.getInputSpace().setText(""+operation);
+                }
+                else if (Character.isDigit(operation.charAt(0))){//inputspace에 마지막 입력된 게 숫자가 아니며, 새로운 숫자가 입력이 되면
                     frame.getInputSpace().setText(""+operation); //inputspace 지우고 새 숫자 넣기
                 }
             }
