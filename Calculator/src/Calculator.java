@@ -34,7 +34,6 @@ public class Calculator extends JFrame {
         // 왼쪽 상단 패널 - 계산식 올라가는 패널
         calculatePanel = new JPanel();
         calculatePanel.setPreferredSize(new Dimension(324, 534));
-        calculatePanel.setBackground(Color.RED);
         calculatePanel.setLayout(null); // calculatePanel에 null 레이아웃 설정
         add(calculatePanel);
 
