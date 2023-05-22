@@ -54,14 +54,13 @@ public class InputButtonPanel extends JPanel {
             }
             else if (operation.equals("CE")) {  //ce
                 frame.getInputSpace().setText("");
-                frame.getDisplaySpace().setText("");
             }
             else if (operation.equals("⌫")) {
-                index = frame.getDisplaySpace().getText().length() - 1;
-                char lastText = frame.getDisplaySpace().getText().charAt(index);
+                index = frame.getInputSpace().getText().length() - 1;
+                char lastText = frame.getInputSpace().getText().charAt(index);
                 if (lastText != '+' && lastText != '-' && lastText != '×' && lastText != '÷') {
-                    String result = String.valueOf(Integer.parseInt(frame.getInputSpace().getText()));
-                    result.substring(0, result.length() - 1);
+                    String result =  frame.getInputSpace().getText();
+                    result=result.substring(0, result.length() - 1);
                     frame.getInputSpace().setText(formatNumber(Double.parseDouble(result)));
                     frame.getDisplaySpace().setText(formatNumber(Double.parseDouble(result)));
                 }
@@ -70,34 +69,45 @@ public class InputButtonPanel extends JPanel {
                 String value = frame.getInputSpace().getText();
                 String expression = frame.getDisplaySpace().getText();
                 frame.getDisplaySpace().setText(expression + value);
-
                 expression = frame.getDisplaySpace().getText();
-                double result = calculate(expression);
-                String formattedResult = formatResult(result);
-                frame.getDisplaySpace().setText(expression + "=");
-                frame.getInputSpace().setText(formattedResult);
+                double result = calculate(expression); //계산 -> = 빼고 다 들어가있음
+                String formattedResult = formatResult(result); //형변환
+                frame.getDisplaySpace().setText(expression + "="); // = 더해서 DISPLAYSPACE에 추가
+                frame.getInputSpace().setText(formattedResult); //형변환해서 INPUTSPACE에 추가
             }
             else if (operation.equals("+") || operation.equals("-") || operation.equals("×") || operation.equals("÷")) {
                 //연산기호면 displacespace에 올리기
                 frame.getDisplaySpace().setText(frame.getInputSpace().getText() + operation);
             }
-            else if (Character.isDigit(operation.charAt(0)) && index >=  0) { //숫자긴 한데, 처음으로 입력되는 게 아님
-                index = frame.getDisplaySpace().getText().length() - 1;
-                char lastText = frame.getDisplaySpace().getText().charAt(index); //inputspace의 마지막 글자 확인
-                String expression = frame.getInputSpace().getText();
-                int displayedIndex = frame.getDisplaySpace().getText().length() - 1;
-                char displayedLastText = frame.getDisplaySpace().getText().charAt(displayedIndex);
+            //index = frame.getDisplaySpace().getText().length() - 1;
 
-                if ((Character.isDigit(lastText)||lastText=='.')&&displayedLastText!='=') { //inputspace에 마지막 입력된 게 숫자일 때
-                    frame.getInputSpace().setText(expression + operation); //이어붙인다.
+            else if (Character.isDigit(operation.charAt(0)) ) { //입력된 게 숫자면
+                //if(frame.getInputSpace().getText().length() != 0) {
+                    //index = frame.getInputSpace().getText().length() - 1;
+                    //char lastText = frame.getDisplaySpace().getText().charAt(index);
+                    //String expression = frame.getInputSpace().getText();
+                    //int inputIndex = frame.getInputSpace().getText().length() - 1;
+                    //char text = frame.getInputSpace().getText().charAt(index);
+                    //if ((lastText == '+' || lastText == '-' || lastText == '×' || lastText == '÷') && Character.isDigit(text)) {
+                    //    frame.getDisplaySpace().setText(expression + operation);
+                    //} //else if (!Character.isDigit(text)) {
+                    //    frame.getDisplaySpace().setText("" + operation);
+                    //}
+                //}
+                //else{
+                if(frame.getDisplaySpace().getText().endsWith("+") || frame.getDisplaySpace().getText().endsWith("-") || frame.getDisplaySpace().getText().endsWith("×") || frame.getDisplaySpace().getText().endsWith("÷")) {
+                    frame.getInputSpace().setText(String.valueOf(operation.charAt(0)));
                 }
-                else if ((Character.isDigit(lastText)||lastText=='.')&&displayedLastText=='=') {
+                else if(frame.getDisplaySpace().getText().endsWith("=")) {
                     frame.getDisplaySpace().setText("");
-                    frame.getInputSpace().setText(""+operation);
+                    frame.getInputSpace().setText(String.valueOf(operation.charAt(0)));
                 }
-                else if (Character.isDigit(operation.charAt(0))){//inputspace에 마지막 입력된 게 숫자가 아니며, 새로운 숫자가 입력이 되면
-                    frame.getInputSpace().setText(""+operation); //inputspace 지우고 새 숫자 넣기
+                    else {
+                    if (frame.getInputSpace().getText().length() < 16) {
+                        frame.getInputSpace().setText(frame.getInputSpace().getText() + operation.charAt(0));
+                    }
                 }
+                //}
             }
             else if (operation.equals(".")){ //점이 입력될 떄
                 String expression = frame.getInputSpace().getText();
