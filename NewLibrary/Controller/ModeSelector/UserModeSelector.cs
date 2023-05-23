@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NewLibrary.Constant;
 using NewLibrary.Controller.Function;
 using NewLibrary.Controller.ModeSelector;
 using NewLibrary.Controller.UserFunction;
@@ -19,31 +20,38 @@ namespace NewLibrary.Controller
         public void SelectMode() //유저 모드, 관리자 모드 둘 중 하나 선택하는 메소드 
         {
             ModeSelectView modeSelectView = new ModeSelectView();
+            AccountView userAccountView = new AccountView();
+            AccountView AccountView = new AccountView();
+
+            ManagerModeSelector managerModeSelector = new ManagerModeSelector();
             UserModeSelector userModeSelector = new UserModeSelector(); 
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
-            AccountView userAccountView = new AccountView();
-            AccountView AccountView = new AccountView();  
-            ManagerModeSelector managerModeSelector = new ManagerModeSelector();
+
             Account userModeAccount = new Account(userId);
             UserMenu userMenu = new UserMenu();
+
+            MenuHandler menuHandler = new MenuHandler();
+            
             bool exit = true;
 
-            while (exit) //exit 값이 true인 동안 반복한다.
+            while (exit) 
             {
-                Console.CursorVisible = false; //커서 안 보이게
+                Console.CursorVisible = false; 
                 Console.SetWindowSize(56, 22);
+
                 modeSelectView.ViewLibraryLogo();
-                modeSelectView.ViewModeSelect(); //모드 고르는 메뉴 view
+                modeSelectView.ViewModeSelect();
 
-                bool fine = true;
-                int keyNumber = 1;
+                bool checker = true;
+                bool selectMode = true;
+                int cursorNumber = 1; //초기 화면에서, 유저 모드에 커서가 있을 수 있도록 초기값을 1로 설정합니다. 
 
-                while (fine) //keyNumber은 초기값이 1인 상태로 fine이 true일 동안 계속 반복
+                while (selectMode) 
                 {
-                    switch (keyNumber)
+                    switch (cursorNumber)
                     {
                         case 0:
-                            return; //esc 누르면 keyNumber값을 0으로 설정하고 종료하기
+                            return; 
                         case 1:
                             textPrinterWithCursor.SetTextColorGreen(20, 14, "● 유저 모드");
                             textPrinterWithCursor.SetTextColorWhite(19, 15, "○ 관리자 모드");
@@ -53,22 +61,22 @@ namespace NewLibrary.Controller
                             textPrinterWithCursor.SetTextColorGreen(19, 15, "● 관리자 모드");
                             break;
                     }
-                    //tuple의 반환값은 keyNumber, check -> check는 엔터 누르면 false가 됨
-                    var tuple = textPrinterWithCursor.SetColorByUpDownArrow(1, 2, keyNumber);
-                    if (tuple.Item2 == false) //만약 check가 false이면 반복문 정지하고 keyNumber문으로 이동
-                    {                       //check가 false 다 = 엔터가 눌렸다
-                        fine = false;
+                    
+                    var tuple = textPrinterWithCursor.SetColorByUpDownArrow(1, 2, cursorNumber);
+                    if (tuple.Item2 == false) 
+                    {                       
+                        selectMode = false;
                     }
-                    else //엔터가 안 눌렸다 그래서 반환된 값을 다시 keyNumber에 넣어서 또 반복한다.
+                    else 
                     {
-                        keyNumber = tuple.Item1;
+                        cursorNumber = tuple.Item1;
                     }
                 }
-                bool checker = true;
-                //while(fine)문에서 엔터가 눌렸기 때문에 switch(keyNumber)로 간다.
+                
+                
                 while (checker)
                 {
-                    switch (keyNumber)
+                    switch (cursorNumber)
                     {
                         case 0:
                             Console.Clear();
@@ -79,34 +87,31 @@ namespace NewLibrary.Controller
                             modeSelectView.ViewLibraryLogo();
                             userAccountView.ViewUserAccount(); //로그인, 회원가입 고르는 view
                             int Number = SetColorByCursor(); // 로그인, 회원가입 커서이동 엔터값에 따라 Number
-                            keyNumber = LoginOrSignUp(Number); //입력된 number로 로그인이나 회원가입 들어가기 
+                            cursorNumber = LoginOrSignUp(Number); //입력된 number로 로그인이나 회원가입 들어가기 
                             if (Number == 0)
                                 checker = false;
                             break;
                         case 2: //관리자 메뉴
-                            while (checker)
+                            Console.Clear();
+                            Console.CursorVisible = true;
+                            selectMode = true;
+                            modeSelectView.ViewLibraryLogo();
+                            userAccountView.ViewLogin();
+                            userId = userModeAccount.Login(2);
+                            if (userId == null)
+                            {
+                                checker = false;
+                                selectMode = false;
+                            }
+                            while (selectMode)
                             {
                                 Console.Clear();
-                                Console.CursorVisible = true;
-                                fine = true;
                                 modeSelectView.ViewLibraryLogo();
-                                userAccountView.ViewLogin();
-                                userId = userModeAccount.Login(2);
-                                if (userId == null)
-                                {
-                                    checker = false;
-                                    fine = false;
-                                }
-                                while (fine)
-                                {
-                                    Console.Clear();
-                                    modeSelectView.ViewLibraryLogo();
-                                    userMenu.ViewManagerMenu();
-                                    int number = managerModeSelector.GoFunctionInManagerMenu();
-                                    managerModeSelector.SelectNumberInManagerMenu(number);
-                                    if (number == 0)
-                                        fine = false;
-                                }
+                                userMenu.ViewManagerMenu();
+                                int number = managerModeSelector.GoFunctionInManagerMenu();
+                                managerModeSelector.SelectNumberInManagerMenu(number);
+                                if (number == 0)
+                                    selectMode = false;
                             }
                             break;
                     }
