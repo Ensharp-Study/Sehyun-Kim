@@ -22,10 +22,10 @@ namespace NewLibrary.Controller
         {
             ModeSelectView modeSelectView = new ModeSelectView();
             AccountView userAccountView = new AccountView();
-            AccountView AccountView = new AccountView(); 
+            AccountView AccountView = new AccountView();
             ManagerModeSelector managerModeSelector = new ManagerModeSelector();
             UserModeSelector userModeSelector = new UserModeSelector();
-            TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor(); 
+            TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             Account userModeAccount = new Account(userId);
             UserMenu userMenu = new UserMenu();
 
@@ -51,12 +51,12 @@ namespace NewLibrary.Controller
                 {
                     switch (cursorNumber)
                     {
-                        case 1: // 유저 모드
+                        case (int)SelectModeByCursor.userMode: // 유저 모드
                             selectMode = HandleUserMode(out cursorNumber);
                             if (!selectMode)
                                 checker = cursorNumber != 0;
                             break;
-                        case 2: // 관리자 모드
+                        case (int)SelectModeByCursor.managerMode: // 관리자 모드
                             selectMode = HandleManagerMode(out cursorNumber);
                             if (!selectMode)
                                 checker = cursorNumber != 0;
@@ -68,6 +68,12 @@ namespace NewLibrary.Controller
                     return;
             }
         }
+        public enum SelectModeByCursor
+        {
+            userMode = 1,
+            managerMode = 2
+        }
+
 
         private int SelectModeWithCursor(TextPrinterWithCursor textPrinterWithCursor)
         {
@@ -77,11 +83,11 @@ namespace NewLibrary.Controller
             {
                 switch (cursorNumber)
                 {
-                    case 1:
+                    case (int)SelectModeByCursor.userMode:
                         textPrinterWithCursor.SetTextColorGreen(20, 14, "● 유저 모드");
                         textPrinterWithCursor.SetTextColorWhite(19, 15, "○ 관리자 모드");
                         break;
-                    case 2:
+                    case (int)SelectModeByCursor.managerMode:
                         textPrinterWithCursor.SetTextColorWhite(20, 14, "○ 유저 모드");
                         textPrinterWithCursor.SetTextColorGreen(19, 15, "● 관리자 모드");
                         break;
@@ -166,11 +172,11 @@ namespace NewLibrary.Controller
                     case 0:
                         Console.Clear();
                         return Number; //esc 누르면 keyNumber값을 0으로 설정하고 종료하기
-                    case 1:
+                    case (int)SelectModeByCursor.userMode:
                         textPrinterWithCursor.SetTextColorGreen(22, 14, "● 로그인");
                         textPrinterWithCursor.SetTextColorWhite(21, 15, "○ 회원 가입");
                         break;
-                    case 2:
+                    case (int)SelectModeByCursor.managerMode:
                         textPrinterWithCursor.SetTextColorWhite(22, 14, "○ 로그인");
                         textPrinterWithCursor.SetTextColorGreen(21, 15, "● 회원 가입");
                         break;
@@ -188,63 +194,59 @@ namespace NewLibrary.Controller
             }
             return Number;
         }
-        public int LoginOrSignUp(int Number)
+        public int LoginOrSignUp(int number)
         {
             ModeSelectView modeSelectView = new ModeSelectView();
-            TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             Account userModeAccount = new Account(userId);
             AccountView userAccountView = new AccountView();
             UserMenu userMenu = new UserMenu();
-            int keyNumber = 1;
-            int selectedNumber;
-            bool check = true;
-            switch (Number)
+
+            switch (number)
             {
                 case 0:
-                    return keyNumber;
-                case 1: //로그인
+                    return 1;
+                case 1: // 로그인
                     Console.Clear();
                     Console.CursorVisible = true;
                     modeSelectView.ViewLibraryLogo();
-                    userAccountView.ViewLogin(); //로그인 화면 view
-                    userId = userModeAccount.Login(1); //로그인 기능 메소드
-                    if (userId == null) //로그인 기능 중 esc가 눌린 경우 -> 로그인 또는 회원가입 메뉴로
+                    userAccountView.ViewLogin();
+                    userId = userModeAccount.Login(1);
+                    if (userId == null)
                     {
                         Console.CursorVisible = false;
-                        keyNumber = 1;
-                        return keyNumber;
+                        return 1;
                     }
-                    while (check)
-                    {
-                        Console.Clear();
+
+                    while (true)
+                    { 
                         Console.SetWindowSize(62, 27);
                         modeSelectView.ViewLibraryLogo();
-                        userMenu.ViewUserMenu(); //유저 메뉴 view
-                        selectedNumber = SelectInUserMenu(); //유저 메뉴에서 기능 고르기 
-                        userId=MethodInUserMenu(selectedNumber, userId);
+                        userMenu.ViewUserMenu();
+                        int selectedNumber = SelectInUserMenu();
+                        userId = MethodInUserMenu(selectedNumber, userId);
                         if (userId == null)
                         {
                             break;
                         }
                     }
                     break;
-                case 2: //회원가입
-                    bool checker = true;
+                case 2: // 회원가입
                     Console.Clear();
                     Console.SetWindowSize(62, 27);
                     modeSelectView.ViewLibraryLogo();
-                    userAccountView.ViewSignUp(); //회원가입 화면 view
-                    checker = userModeAccount.UserSignUp(); //회원가입 기능 메소드
+                    userAccountView.ViewSignUp();
+                    bool checker = userModeAccount.UserSignUp();
                     if (!checker)
                     {
                         Console.CursorVisible = false;
-                        keyNumber = 1;
-                        return keyNumber;
+                        return 1;
                     }
                     break;
             }
-            return keyNumber;
+
+            return 1;
         }
+
         public string MethodInUserMenu(int selectedNumber, string userId)
         {
             BookSearcher bookSearcher = new BookSearcher();
