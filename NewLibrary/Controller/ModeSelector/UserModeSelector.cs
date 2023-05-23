@@ -17,109 +17,140 @@ namespace NewLibrary.Controller
     internal class UserModeSelector
     {
         private string userId;
-        public void SelectMode() //유저 모드, 관리자 모드 둘 중 하나 선택하는 메소드 
+
+        public void SelectMode()
         {
             ModeSelectView modeSelectView = new ModeSelectView();
             AccountView userAccountView = new AccountView();
-            AccountView AccountView = new AccountView();
-
+            AccountView AccountView = new AccountView(); 
             ManagerModeSelector managerModeSelector = new ManagerModeSelector();
-            UserModeSelector userModeSelector = new UserModeSelector(); 
-            TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
-
+            UserModeSelector userModeSelector = new UserModeSelector();
+            TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor(); 
             Account userModeAccount = new Account(userId);
             UserMenu userMenu = new UserMenu();
 
-            MenuHandler menuHandler = new MenuHandler();
-            
             bool exit = true;
 
-            while (exit) 
+            while (exit)
             {
-                Console.CursorVisible = false; 
+                Console.CursorVisible = false;
                 Console.SetWindowSize(56, 22);
 
                 modeSelectView.ViewLibraryLogo();
                 modeSelectView.ViewModeSelect();
 
-                bool checker = true;
-                bool selectMode = true;
-                int cursorNumber = 1; //초기 화면에서, 유저 모드에 커서가 있을 수 있도록 초기값을 1로 설정합니다. 
+                int cursorNumber = SelectModeWithCursor(textPrinterWithCursor);
 
-                while (selectMode) 
+                if (cursorNumber == 0)
+                    return;
+
+                bool selectMode = true;
+                bool checker = true;
+
+                while (selectMode)
                 {
                     switch (cursorNumber)
                     {
-                        case 0:
-                            return; 
-                        case 1:
-                            textPrinterWithCursor.SetTextColorGreen(20, 14, "● 유저 모드");
-                            textPrinterWithCursor.SetTextColorWhite(19, 15, "○ 관리자 모드");
+                        case 1: // 유저 모드
+                            selectMode = HandleUserMode(out cursorNumber);
+                            if (!selectMode)
+                                checker = cursorNumber != 0;
                             break;
-                        case 2:
-                            textPrinterWithCursor.SetTextColorWhite(20, 14, "○ 유저 모드");
-                            textPrinterWithCursor.SetTextColorGreen(19, 15, "● 관리자 모드");
+                        case 2: // 관리자 모드
+                            selectMode = HandleManagerMode(out cursorNumber);
+                            if (!selectMode)
+                                checker = cursorNumber != 0;
                             break;
-                    }
-                    
-                    var tuple = textPrinterWithCursor.SetColorByUpDownArrow(1, 2, cursorNumber);
-                    if (tuple.Item2 == false) 
-                    {                       
-                        selectMode = false;
-                    }
-                    else 
-                    {
-                        cursorNumber = tuple.Item1;
                     }
                 }
-                
-                
-                while (checker)
+
+                if (!checker)
+                    return;
+            }
+        }
+
+        private int SelectModeWithCursor(TextPrinterWithCursor textPrinterWithCursor)
+        {
+            int cursorNumber = 1;
+
+            while (true)
+            {
+                switch (cursorNumber)
                 {
-                    switch (cursorNumber)
-                    {
-                        case 0:
-                            Console.Clear();
-                            Environment.Exit(0);
-                            break;
-                        case 1: //유저 메뉴
-                            Console.Clear();
-                            modeSelectView.ViewLibraryLogo();
-                            userAccountView.ViewUserAccount(); //로그인, 회원가입 고르는 view
-                            int Number = SetColorByCursor(); // 로그인, 회원가입 커서이동 엔터값에 따라 Number
-                            cursorNumber = LoginOrSignUp(Number); //입력된 number로 로그인이나 회원가입 들어가기 
-                            if (Number == 0)
-                                checker = false;
-                            break;
-                        case 2: //관리자 메뉴
-                            Console.Clear();
-                            Console.CursorVisible = true;
-                            selectMode = true;
-                            modeSelectView.ViewLibraryLogo();
-                            userAccountView.ViewLogin();
-                            userId = userModeAccount.Login(2);
-                            if (userId == null)
-                            {
-                                checker = false;
-                                selectMode = false;
-                            }
-                            while (selectMode)
-                            {
-                                Console.Clear();
-                                modeSelectView.ViewLibraryLogo();
-                                userMenu.ViewManagerMenu();
-                                int number = managerModeSelector.GoFunctionInManagerMenu();
-                                managerModeSelector.SelectNumberInManagerMenu(number);
-                                if (number == 0)
-                                    selectMode = false;
-                            }
-                            break;
-                    }
+                    case 1:
+                        textPrinterWithCursor.SetTextColorGreen(20, 14, "● 유저 모드");
+                        textPrinterWithCursor.SetTextColorWhite(19, 15, "○ 관리자 모드");
+                        break;
+                    case 2:
+                        textPrinterWithCursor.SetTextColorWhite(20, 14, "○ 유저 모드");
+                        textPrinterWithCursor.SetTextColorGreen(19, 15, "● 관리자 모드");
+                        break;
+                }
+
+                var tuple = textPrinterWithCursor.SetColorByUpDownArrow(1, 2, cursorNumber);
+
+                if (!tuple.Item2)
+                    return cursorNumber;
+
+                cursorNumber = tuple.Item1;
+            }
+        }
+
+        private bool HandleUserMode(out int cursorNumber)
+        {
+            AccountView userAccountView = new AccountView();
+            ModeSelectView modeSelectView = new ModeSelectView();
+            TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
+
+            Console.Clear();
+
+            modeSelectView.ViewLibraryLogo();
+            userAccountView.ViewUserAccount();
+
+            int number = SetColorByCursor();
+            cursorNumber = LoginOrSignUp(number);
+
+            return number != 0;
+        }
+
+        private bool HandleManagerMode(out int cursorNumber)
+        {
+            ModeSelectView modeSelectView = new ModeSelectView();
+            AccountView userAccountView = new AccountView();
+            Account userModeAccount = new Account(userId);
+            UserMenu userMenu = new UserMenu();
+            ManagerModeSelector managerModeSelector = new ManagerModeSelector();
+
+            Console.Clear();
+
+            modeSelectView.ViewLibraryLogo();
+            userAccountView.ViewLogin();
+            userId = userModeAccount.Login(2);
+
+            if (userId == null)
+            {
+                cursorNumber = 0;
+                return false;
+            }
+
+            while (true)
+            {
+                Console.Clear();
+                modeSelectView.ViewLibraryLogo();
+                userMenu.ViewManagerMenu();
+                int number = managerModeSelector.GoFunctionInManagerMenu();
+                managerModeSelector.SelectNumberInManagerMenu(number);
+                if (number == 0)
+                {
+                    cursorNumber = 0;
+                    return false;
                 }
             }
         }
 
-        
+
+
+
         public int SetColorByCursor()
         {
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
