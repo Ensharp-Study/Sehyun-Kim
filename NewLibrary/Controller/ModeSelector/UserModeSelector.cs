@@ -11,14 +11,16 @@ using NewLibrary.Utility;
 using NewLibrary.View;
 using NewLibrary.View.FunctionView;
 using NewLibrary.View.MenuView;
+using static NewLibrary.Constant.MenuHandler;
 
 namespace NewLibrary.Controller
 {
     internal class UserModeSelector
     {
-        private string userId;
+        private string userId; 
 
-        public void SelectMode()
+        public void SelectMode() 
+            //유저 모드 또는 관리자 모드 중 선택하는 메소드
         {
             ModeSelectView modeSelectView = new ModeSelectView();
             AccountView userAccountView = new AccountView();
@@ -28,7 +30,7 @@ namespace NewLibrary.Controller
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             Account userModeAccount = new Account(userId);
             UserMenu userMenu = new UserMenu();
-
+            MenuHandler menuHandler = new MenuHandler();
             bool exit = true;
 
             while (exit)
@@ -39,8 +41,10 @@ namespace NewLibrary.Controller
                 modeSelectView.ViewLibraryLogo();
                 modeSelectView.ViewModeSelect();
 
+                //SelectModeWithCursor 메소드에서 받아온 cursorNumber
                 int cursorNumber = SelectModeWithCursor(textPrinterWithCursor);
 
+                //cursorNumber가 0이면 프로그램 종료 
                 if (cursorNumber == 0)
                     return;
 
@@ -49,61 +53,69 @@ namespace NewLibrary.Controller
 
                 while (selectMode)
                 {
+                    //cursorNumber에 따라서 그에 맞는 모드로 이동
                     switch (cursorNumber)
                     {
-                        case (int)SelectModeByCursor.userMode: // 유저 모드
-                            selectMode = HandleUserMode(out cursorNumber);
+                        case (int)SelectModeByCursor.userMode: 
+                            //유저 모드로 이동
+                            selectMode = HandleUserMode(out cursorNumber); 
                             if (!selectMode)
+                                //cursorNumber가 0이 아니면 checker가 true
                                 checker = cursorNumber != 0;
                             break;
-                        case (int)SelectModeByCursor.managerMode: // 관리자 모드
+                        case (int)SelectModeByCursor.managerMode: 
+                            //관리자 모드로 이동
                             selectMode = HandleManagerMode(out cursorNumber);
                             if (!selectMode)
                                 checker = cursorNumber != 0;
                             break;
                     }
                 }
-
+                //checker가 false인 경우, 프로그램 종료
                 if (!checker)
                     return;
             }
         }
-        public enum SelectModeByCursor
-        {
-            userMode = 1,
-            managerMode = 2
-        }
-
-
+        
         private int SelectModeWithCursor(TextPrinterWithCursor textPrinterWithCursor)
         {
+            //cursorNumber에 따라, 색깔 바꿔주는 메소드
             int cursorNumber = 1;
 
             while (true)
             {
                 switch (cursorNumber)
                 {
-                    case (int)SelectModeByCursor.userMode:
+                    case (int)SelectModeByCursor.userMode: 
+                        //유저 모드를 초록색, 관리자 모드를 하얀색으로 설정
                         textPrinterWithCursor.SetTextColorGreen(20, 14, "● 유저 모드");
                         textPrinterWithCursor.SetTextColorWhite(19, 15, "○ 관리자 모드");
                         break;
                     case (int)SelectModeByCursor.managerMode:
+                        //유저 모드를 하얀색, 관리자 모드를 초록색으로 설정 
                         textPrinterWithCursor.SetTextColorWhite(20, 14, "○ 유저 모드");
                         textPrinterWithCursor.SetTextColorGreen(19, 15, "● 관리자 모드");
                         break;
                 }
 
+                //item1 : (int)keyNumber, item2 : (bool) check
+                //keyNumber : 커서 이동할 때마다 증가 혹은 감소하는 int형 변수 
+                //check : 사용자가 엔터 키를 누르면 false가 됨.
+
                 var tuple = textPrinterWithCursor.SetColorByUpDownArrow(1, 2, cursorNumber);
 
+                //check가 false이면 cursorNumber 반환 (= 엔터 눌리면 cursorNumber 반환)
                 if (!tuple.Item2)
                     return cursorNumber;
 
                 cursorNumber = tuple.Item1;
+                //cursorNumber는 사용자의 입력에 따라 증감된 keyNumber
             }
         }
 
         private bool HandleUserMode(out int cursorNumber)
         {
+            //모드 선택에서 유저 모드로 이동했을 경우 실행되는 메소드 
             AccountView userAccountView = new AccountView();
             ModeSelectView modeSelectView = new ModeSelectView();
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
@@ -113,14 +125,19 @@ namespace NewLibrary.Controller
             modeSelectView.ViewLibraryLogo();
             userAccountView.ViewUserAccount();
 
+            //커서에 따라 색상을 설정하는 값을 number에 할당
             int number = SetColorByCursor();
+            //number에 따라 로그인 또는 회원가입 처리, 그 결과를 cursorNumber에 할당
             cursorNumber = LoginOrSignUp(number);
 
+            //커서 번호를 out 매개변수를 통해 반환
+            //number가 0이 아니면 true, 0이면 false 반환
             return number != 0;
         }
 
         private bool HandleManagerMode(out int cursorNumber)
         {
+            //모드 선택에서 매니저 모드로 이동했을 경우 실행되는 메소드 
             ModeSelectView modeSelectView = new ModeSelectView();
             AccountView userAccountView = new AccountView();
             Account userModeAccount = new Account(userId);
@@ -200,52 +217,22 @@ namespace NewLibrary.Controller
             Account userModeAccount = new Account(userId);
             AccountView userAccountView = new AccountView();
             UserMenu userMenu = new UserMenu();
+            MenuVisitor menuVisitor = new MenuVisitor();
 
             switch (number)
             {
                 case 0:
                     return 1;
                 case 1: // 로그인
-                    Console.Clear();
-                    Console.CursorVisible = true;
-                    modeSelectView.ViewLibraryLogo();
-                    userAccountView.ViewLogin();
-                    userId = userModeAccount.Login(1);
-                    if (userId == null)
-                    {
-                        Console.CursorVisible = false;
-                        return 1;
-                    }
-
-                    while (true)
-                    { 
-                        Console.SetWindowSize(62, 27);
-                        modeSelectView.ViewLibraryLogo();
-                        userMenu.ViewUserMenu();
-                        int selectedNumber = SelectInUserMenu();
-                        userId = MethodInUserMenu(selectedNumber, userId);
-                        if (userId == null)
-                        {
-                            break;
-                        }
-                    }
-                    break;
+                    return menuVisitor.HandleLogin(modeSelectView, userAccountView, userModeAccount, userMenu);
                 case 2: // 회원가입
-                    Console.Clear();
-                    Console.SetWindowSize(62, 27);
-                    modeSelectView.ViewLibraryLogo();
-                    userAccountView.ViewSignUp();
-                    bool checker = userModeAccount.UserSignUp();
-                    if (!checker)
-                    {
-                        Console.CursorVisible = false;
-                        return 1;
-                    }
-                    break;
+                    return menuVisitor.HandleSignUp(modeSelectView, userAccountView, userModeAccount);
             }
 
             return 1;
         }
+
+        
 
         public string MethodInUserMenu(int selectedNumber, string userId)
         {
@@ -255,65 +242,45 @@ namespace NewLibrary.Controller
             BookService bookservice = new BookService();
             UserDataService userDataService = new UserDataService();
             BookApplier bookApplier = new BookApplier();
+            MenuVisitor menuVisitor = new MenuVisitor();
             bool check;
             int number;
+
             switch (selectedNumber)
-            { 
-                case 0: //유저 메뉴에서 기능 고를 때 esc가 눌린 것
+            {
+                case 0: // 유저 메뉴에서 기능 고를 때 esc가 눌린 것
                     userId = null;
                     break;
-                case 1: //도서 찾기
-                    Console.Clear();
-                    userFunctionView.ViewBookSearcher();
-                    Console.SetCursorPosition(0, 14);
-                    dataDisplayer.DisplayAllBook();
-                    bookSearcher.SearchBook(userId);
+                case 1: // 도서 찾기
+                    menuVisitor.SearchBooks(userId, userFunctionView, dataDisplayer, bookSearcher);
                     break;
-                case 2: //도서 대여
-                    Console.Clear();
-                    userFunctionView.ViewBookLenderTop();
-                    dataDisplayer.DisplayAllBook();
-                    bookservice.RentOutBook(userId);
+                case 2: // 도서 대여
+                    menuVisitor.RentOutBook(userId, userFunctionView, dataDisplayer, bookservice);
                     break;
-                case 3: //도서 반납
-                    check = false;
-                    Console.Clear();
-                    userFunctionView.ViewBookReturnerTop();
-                    bookservice.RentalList(userId, check);
-                    bookservice.ReturnBook(userId);
+                case 3: // 도서 반납
+                    menuVisitor.ReturnBook(userId, userFunctionView, bookservice);
                     break;
-                case 4: //도서 대여 확인
-                    Console.Clear();
-                    check = true;
-                    bookservice.RentalList(userId, check);
+                case 4: // 도서 대여 확인
+                    menuVisitor.ShowRentalList(userId, bookservice);
                     break;
-                case 5: //도서 반납 내역
-                    Console.Clear();
-                    bookservice.ReturnList(userId);
+                case 5: // 도서 반납 내역
+                    menuVisitor.ShowReturnList(userId, bookservice);
                     break;
-                case 6: //회원 정보 수정
-                    Console.Clear();
-                    userFunctionView.ViewUserDataUpdaterTop();
-                    check = false;
-                    bool fine = true;
-                    dataDisplayer.DisplayUserInformation(userId,check);
-                    userFunctionView.ViewUserDataUpdaterBottom();
-                    number = userDataService.SetCursorWhenUpdate(userId);
-                    userDataService.UpdateUserData(userId, number);
+                case 6: // 회원 정보 수정
+                    menuVisitor.UpdateUserData(userId, userFunctionView, dataDisplayer, userDataService);
                     break;
-                case 7: //회원 탈퇴 
-                    Console.Clear();
-                    userFunctionView.ViewUserDataDeleter();
-                    userDataService.DeleteUserData(userId);
+                case 7: // 회원 탈퇴
+                    menuVisitor.DeleteUserData(userId, userFunctionView, userDataService);
                     break;
-                case 8: //도서 신청
-                    Console.Clear();
-                    userFunctionView.ViewApplyBook();
-                    bookApplier.ApplyBook(userId);
+                case 8: // 도서 신청
+                    menuVisitor.ApplyBook(userId, userFunctionView, bookApplier);
                     break;
             }
+
             return userId;
         }
+
+       
         public int SelectInUserMenu()
         {
             ModeSelectView modeSelectView = new ModeSelectView();

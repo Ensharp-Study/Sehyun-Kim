@@ -8,6 +8,11 @@ namespace NewLibrary.Constant
 {
     internal class MenuHandler
     {
+        public enum SelectModeByCursor
+        {
+            userMode = 1,
+            managerMode = 2
+        }
         public enum ModeSelect
         {
             Exit = 0,
