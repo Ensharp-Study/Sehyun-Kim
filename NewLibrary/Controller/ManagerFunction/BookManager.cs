@@ -200,7 +200,6 @@ namespace NewLibrary.Controller.ManagerFunction
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();
             FunctionInDAO crudInDAO = new FunctionInDAO();
-
             string inputBookId = "";
             int intInputBookId;
             int intInputNumber;
@@ -251,8 +250,16 @@ namespace NewLibrary.Controller.ManagerFunction
                     {
                         idInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
                         inputChecker = inputKeyUnlessEnter.CheckRegex(idInput, RegexConstant.onlyNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+
+                        int modifyImpossible = 0;
+                        modifyImpossible = crudInDAO.ReadData("id", $"SELECT id FROM bookconstructor WHERE id ='{idInput}'");
+                        if (modifyImpossible >= 1)
+                        {
+                            inputChecker = true;
+                            Console.SetCursorPosition(20, 20);
+                            Console.WriteLine("이미 존재하는 id입니다!");
+                        }
                     }
-                    inputChecker = true;
                     intIdInput = int.Parse(idInput);
                     check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery,"id", idInput, intInputBookId)); ;
                     break;
@@ -264,6 +271,14 @@ namespace NewLibrary.Controller.ManagerFunction
                     {
                         bookNameInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
                         inputChecker = inputKeyUnlessEnter.CheckRegex(bookNameInput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                        int modifyImpossible = 0;
+                        modifyImpossible = crudInDAO.ReadData("bookName", $"SELECT bookName FROM bookconstructor WHERE  bookName ='{bookNameInput}'");
+                        if (modifyImpossible >= 1)
+                        {
+                            inputChecker = true;
+                            Console.SetCursorPosition(20, 20);
+                            Console.WriteLine("이미 존재하는 bookName입니다!");
+                        }
                     }
                     inputChecker = true;
                     check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "bookName", bookNameInput, intInputBookId)); ;
@@ -275,6 +290,14 @@ namespace NewLibrary.Controller.ManagerFunction
                     {
                         authorInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
                         inputChecker = inputKeyUnlessEnter.CheckRegex(authorInput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                        int modifyImpossible = 0;
+                        modifyImpossible = crudInDAO.ReadData("author", $"SELECT author FROM bookconstructor WHERE author ='{authorInput}'");
+                        if (modifyImpossible >= 1)
+                        {
+                            inputChecker = true;
+                            Console.SetCursorPosition(20, 20);
+                            Console.WriteLine("이미 존재하는 author입니다!");
+                        }
                     }
                     inputChecker = true;
                     check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "author", authorInput, intInputBookId));
@@ -286,6 +309,14 @@ namespace NewLibrary.Controller.ManagerFunction
                     {
                         publisherInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
                         inputChecker = inputKeyUnlessEnter.CheckRegex(publisherInput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                        int modifyImpossible = 0;
+                        modifyImpossible = crudInDAO.ReadData("publisher", $"SELECT publisher FROM bookconstructor WHERE publisher ='{publisherInput}'");
+                        if (modifyImpossible >= 1)
+                        {
+                            inputChecker = true;
+                            Console.SetCursorPosition(20, 20);
+                            Console.WriteLine("이미 존재하는 publisher입니다!");
+                        }
                     }
                     inputChecker = true;
                     check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "publisher", publisherInput, intInputBookId));
@@ -298,6 +329,7 @@ namespace NewLibrary.Controller.ManagerFunction
                     {
                         quantityinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
                         inputChecker = inputKeyUnlessEnter.CheckRegex(quantityinput, RegexConstant.quantityRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                        
                     }
                     inputChecker = true;
                     intQuantityInput = int.Parse(quantityinput);
@@ -311,6 +343,7 @@ namespace NewLibrary.Controller.ManagerFunction
                     {
                         priceinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
                         inputChecker = inputKeyUnlessEnter.CheckRegex(priceinput, RegexConstant.priceRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                        
                     }
                     inputChecker = true;
                     intpriceinput = int.Parse(priceinput);
@@ -323,6 +356,7 @@ namespace NewLibrary.Controller.ManagerFunction
                     {
                         publicationDateinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
                         inputChecker = inputKeyUnlessEnter.CheckRegex(publicationDateinput, RegexConstant.publicationDateRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                        
                     }
                     inputChecker = true;
                     check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "publicationDate", publicationDateinput, intInputBookId));
@@ -334,6 +368,14 @@ namespace NewLibrary.Controller.ManagerFunction
                     {
                         isbninput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
                         inputChecker = inputKeyUnlessEnter.CheckRegex(isbninput, RegexConstant.isbnRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                        int modifyImpossible = 0;
+                        modifyImpossible = crudInDAO.ReadData("isbn", $"SELECT isbn FROM bookconstructor WHERE isbn ='{isbninput}'");
+                        if (modifyImpossible >= 1)
+                        {
+                            inputChecker = true;
+                            Console.SetCursorPosition(20, 20);
+                            Console.WriteLine("이미 존재하는 isbn입니다!");
+                        }
                     }
                     inputChecker = true;
                     check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "isbn", isbninput, intInputBookId));
@@ -345,6 +387,7 @@ namespace NewLibrary.Controller.ManagerFunction
                     {
                         infoinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
                         inputChecker = inputKeyUnlessEnter.CheckRegex(infoinput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                        
                     }
                     inputChecker = true;
                     check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "info", infoinput, intInputBookId));

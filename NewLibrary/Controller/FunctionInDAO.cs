@@ -52,7 +52,17 @@ namespace NewLibrary.Controller
 
             while (reader.Read())
             {
-                columnValue = (int)reader[columnName]; // 변수에 값을 저장
+                string columnStringValue = reader[columnName].ToString(); // 값을 문자열로 가져옴
+                int parsedValue;
+                if (Int32.TryParse(columnStringValue, out parsedValue)) // 문자열 값을 Int32로 변환
+                {
+                    columnValue = parsedValue; // 변환된 값이 유효하면 변수에 저장
+                }
+                else
+                {
+                    // 변환 실패 처리
+                    columnValue = 0;
+                }
             }
 
             reader.Close();
