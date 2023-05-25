@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NewLibrary.Constant;
-using NewLibrary.Controller.Function;
+﻿using NewLibrary.Constant;
 using NewLibrary.Controller.Log;
 using NewLibrary.Controller.ManagerFunction;
 using NewLibrary.Model;
 using NewLibrary.Utility;
 using NewLibrary.View.FunctionView;
+using static NewLibrary.Constant.MenuHandler;
 
 namespace NewLibrary.Controller.ModeSelector
 {
     internal class ManagerModeSelector
     {
-        public int GoFunctionInManagerMenu()
+        public int GoFunctionInManagerMenu(string userId)
         {
             Console.CursorVisible = true;
             Console.SetWindowSize(56, 50);
@@ -39,15 +34,15 @@ namespace NewLibrary.Controller.ModeSelector
         }
 
 
-        public void SelectNumberInManagerMenu(int number)
+        public void SelectNumberInManagerMenu(int number, string userId)
         {
-            MemberManagement memberManagement = new MemberManagement(); 
+            MemberManagement memberManagement = new MemberManagement();
             APIConnection apiConnection = new APIConnection();
             AppliedBookManager appliedBookManager = new AppliedBookManager();
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             BookSearcher bookSearcher = new BookSearcher();
-            FunctionView userFunctionView = new FunctionView();
-            DataDisplayer dataDisplayer = new DataDisplayer();  
+            FunctionView functionView = new FunctionView();
+            DataDisplayer dataDisplayer = new DataDisplayer();
             BookManager bookManager = new BookManager();
             DisplayLog displayLog = new DisplayLog();
 
@@ -55,58 +50,117 @@ namespace NewLibrary.Controller.ModeSelector
 
             switch (number)
             {
-                case 0://돌아가기
+                case (int)ManagerMenuSelect.None:
+                    // 돌아가기
                     return;
+
+                case (int)ManagerMenuSelect.BookSearch:
+                    // 도서찾기
+                    DoBookSearch(memberManagement, functionView, dataDisplayer, bookSearcher, userId);
                     break;
-                case 1://도서찾기
-                    Console.Clear();
-                    userFunctionView.ViewBookSearcherManager();
-                    dataDisplayer.DisplayAllBook();
-                    bookSearcher.SearchBook("0");
+
+                case (int)ManagerMenuSelect.BookAdder:
+                    // 도서 추가
+                    DoAddBook(functionView, bookManager, userId);
                     break;
-                case 2://도서 추가
-                    Console.Clear();
-                    userFunctionView.ViewAddBook();
-                    bookManager.AddBook();
+
+                case (int)ManagerMenuSelect.BookDeleter:
+                    // 도서 삭제
+                    DoDeleteBook(functionView, dataDisplayer, bookManager, userId);
                     break;
-                case 3: //도서 삭제
-                    Console.Clear();
-                    userFunctionView.ViewDeleteBook();
-                    Console.SetCursorPosition(0, 8);
-                    dataDisplayer.DisplayAllBook();
-                    Console.SetCursorPosition(0, 5);
-                    bookManager.DeleteBook();
+
+                case (int)ManagerMenuSelect.BookModifier:
+                    // 도서 수정
+                    DoModifyBook(functionView, dataDisplayer, bookManager, userId);
                     break;
-                case 4: //도서 수정
-                    Console.Clear();
-                    userFunctionView.ViewUpdateBook();
-                    Console.SetCursorPosition(0, 22);
-                    dataDisplayer.DisplayAllBook();
-                    Console.SetCursorPosition(0, 5);
-                    bookManager.ModifyBook();
+
+                case (int)ManagerMenuSelect.MemberUpdater:
+                    // 회원 관리
+                    DoManageMember(functionView, memberManagement, userId);
                     break;
-                case 5: //회원 관리
-                    Console.Clear();
-                    userFunctionView.ViewUpdateUserData();
-                    Console.SetCursorPosition(0, 22);
-                    memberManagement.DisplayMemberData();
-                    Console.SetCursorPosition(0, 5);
-                    memberManagement.ManageMember();
+
+                case (int)ManagerMenuSelect.RentalStatus:
+                    // 대여 상황
+                    memberManagement.DisplayRentalStatus(userId);
                     break;
-                case 6: //대여 상황
-                    Console.Clear();
-                    memberManagement.DisplayRentalStatus();
+
+                case (int)ManagerMenuSelect.LogDownloader:
+                    // 로그 저장
+                    displayLog.DownloadLog(userId);
                     break;
-                case 7://로그 저장
-                    Console.Clear();
-                    displayLog.DownloadLog();
-                    break;
-                case 8://신청 도서 관리
-                    Console.Clear();
-                    appliedBookManager.ManagerAppliedBook();
+
+                case (int)ManagerMenuSelect.AppliedBookManager:
+                    // 신청 도서 관리
+                    appliedBookManager.ManagerAppliedBook(userId);
                     break;
             }
+
             return;
+        }
+
+        private void DoBookSearch(MemberManagement memberManagement, FunctionView userFunctionView, DataDisplayer dataDisplayer, BookSearcher bookSearcher, string userId)
+        {
+            Console.Clear();
+            userFunctionView.ViewBookSearcherManager();
+            dataDisplayer.DisplayAllBook();
+            bookSearcher.SearchBook(userId);
+        }
+
+        private void DoAddBook(FunctionView userFunctionView, BookManager bookManager, string userId)
+        {
+            Console.Clear();
+            userFunctionView.ViewAddBook();
+            bookManager.AddBook(userId);
+        }
+
+        private void DoDeleteBook(FunctionView userFunctionView, DataDisplayer dataDisplayer, BookManager bookManager, string userId)
+        {
+            Console.Clear();
+            userFunctionView.ViewDeleteBook();
+            Console.SetCursorPosition(0, 8);
+            dataDisplayer.DisplayAllBook();
+            Console.SetCursorPosition(0, 5);
+            bookManager.DeleteBook(userId);
+        }
+
+        private void DoModifyBook(FunctionView functionView, DataDisplayer dataDisplayer, BookManager bookManager, string userId)
+        {
+            Console.Clear();
+            functionView.ViewUpdateBook();
+            Console.SetCursorPosition(0, 22);
+            dataDisplayer.DisplayAllBook();
+            Console.SetCursorPosition(0, 5);
+            bookManager.ModifyBook(userId);
+        }
+        private void DoManageMember(FunctionView functionView, MemberManagement memberManagement, string userId)
+        {
+            Console.Clear();
+            functionView.ViewUpdateUserData();
+            Console.SetCursorPosition(0, 22);
+            memberManagement.DisplayMemberData(userId);
+            Console.SetCursorPosition(0, 5);
+            memberManagement.ManageMember(userId);
+        }
+
+        // 대여 상황
+        private void DoDisplayRentalStatus(MemberManagement memberManagement, string userId)
+        {
+            Console.Clear();
+            memberManagement.DisplayRentalStatus(userId);
+        }
+
+        // 로그 저장
+        private void DoDownloadLog(DisplayLog displayLog, string userId)
+        {
+            Console.Clear();
+            displayLog.DownloadLog(userId);
+        }
+
+        // 신청 도서 관리
+        private void DoManagerAppliedBook(AppliedBookManager appliedBookManager, string userId)
+        {
+            Console.Clear();
+            appliedBookManager.ManagerAppliedBook(userId);
         }
     }
 }

@@ -14,7 +14,7 @@ namespace NewLibrary.Controller.ManagerFunction
     internal class MemberManagement
     {
         //모든 회원 정보 표시 
-        public void DisplayMemberData()
+        public void DisplayMemberData(string userId)
         {
 
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
@@ -39,7 +39,7 @@ namespace NewLibrary.Controller.ManagerFunction
             connection.Close();
         }
 
-        public void DisplayRentalStatus()
+        public void DisplayRentalStatus(string userId)
         {
             Console.WriteLine("ESC를 눌러 돌아가기");
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
@@ -83,7 +83,21 @@ namespace NewLibrary.Controller.ManagerFunction
             }
         }
 
-        public void ManageMember()
+        public void EnterInformation(string inputUserId, string inputValue, bool fine, bool check, string message, string query)
+        {
+            InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
+            FunctionInDAO crudInDAO = new FunctionInDAO();
+            Console.WriteLine(message);
+            while (fine)
+            {
+                inputValue=inputKeyUnlessEnter.SaveInputUnlessEnter(0, 16);
+                fine = inputKeyUnlessEnter.CheckRegex(inputValue, RegexConstant.userPwRegex, 0, 16, 10, 16, "잘못된 입력입니다");
+            }
+            check = crudInDAO.InsertUpdateDelete(query);
+            
+        }
+
+        public void ManageMember(string userId)
         {
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();
@@ -112,7 +126,7 @@ namespace NewLibrary.Controller.ManagerFunction
             Console.WriteLine("⑤ address");
             fine = true;
             while (fine)
-            {//numberInput 입력&예외처리
+            {
                 numberInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 14);
                 fine = inputKeyUnlessEnter.CheckRegex(numberInput, RegexConstant.menuNumberRegex, 0, 14, 10, 14, "잘못된 입력입니다");
             }
@@ -124,51 +138,20 @@ namespace NewLibrary.Controller.ManagerFunction
             Console.SetCursorPosition(0, 15);
             switch (intInputNumber)
             {
-                case 1:
-                    Console.WriteLine("새로운 password를 입력하세요.");
-                    while (fine)
-                    {//numberInput 입력&예외처리
-                        inputValue = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 16);
-                        fine = inputKeyUnlessEnter.CheckRegex(inputValue, RegexConstant.userPwRegex, 0, 16, 10, 16, "잘못된 입력입니다");
-                    }
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE userconstructor SET password = '{inputValue}' WHERE userid = '{inputUserId}'");
+                case 1:     
+                    EnterInformation(inputUserId, inputValue, fine, check, "새로운 password를 입력하세요.", $"UPDATE userconstructor SET password = '{inputValue}' WHERE userid = '{inputUserId}'");
                     break;
-
                 case 2:
-                    Console.WriteLine("새로운 name을 입력하세요.");
-                    while (fine)
-                    {//numberInput 입력&예외처리
-                        inputValue = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 16);
-                        fine = inputKeyUnlessEnter.CheckRegex(inputValue, RegexConstant.userNameRegex, 0, 16, 10, 16, "잘못된 입력입니다");
-                    }
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE userconstructor SET name ='{inputValue}'WHERE userid = '{inputUserId}'");
+                    EnterInformation(inputUserId, inputValue, fine, check, "새로운 name을 입력하세요.", $"UPDATE userconstructor SET name ='{inputValue}'WHERE userid = '{inputUserId}'");
                     break;
                 case 3:
-                    Console.WriteLine("새로운 age를 입력하세요.");
-                    while (fine)
-                    {//numberInput 입력&예외처리
-                        inputValue = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 16);
-                        fine = inputKeyUnlessEnter.CheckRegex(inputValue, RegexConstant.userAgeRegex, 0, 16, 10, 16, "잘못된 입력입니다");
-                    }
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE userconstructor SET age ='{inputValue}'WHERE userid = '{inputUserId}'");
+                    EnterInformation(inputUserId, inputValue, fine, check, "새로운 age를 입력하세요.", $"UPDATE userconstructor SET age ='{inputValue}'WHERE userid = '{inputUserId}'");
                     break;
                 case 4:
-                    Console.WriteLine("새로운 phonenumber를 입력하세요.");
-                    while (fine)
-                    {//numberInput 입력&예외처리
-                        inputValue = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 16);
-                        fine = inputKeyUnlessEnter.CheckRegex(inputValue, RegexConstant.userPhoneNumberRegex, 0, 16, 10, 16, "잘못된 입력입니다");
-                    }
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE userconstructor SET phonenumber ='{inputValue}'WHERE userid = '{inputUserId}'");
+                    EnterInformation(inputUserId, inputValue, fine, check, "새로운 phonenumber를 입력하세요.", $"UPDATE userconstructor SET phonenumber ='{inputValue}'WHERE userid = '{inputUserId}'");
                     break;
                 case 5:
-                    Console.WriteLine("새로운 address를 입력하세요.");
-                    while (fine)
-                    {//numberInput 입력&예외처리
-                        inputValue = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 16);
-                        fine = inputKeyUnlessEnter.CheckRegex(inputValue, RegexConstant.userAddressRegex, 0, 16, 10, 16, "잘못된 입력입니다");
-                    }
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE userconstructor SET address ='{inputValue}'WHERE userid = '{inputUserId}'");
+                    EnterInformation(inputUserId, inputValue, fine, check, "새로운 address를 입력하세요.", $"UPDATE userconstructor SET address ='{inputValue}'WHERE userid = '{inputUserId}'");
                     break;
             }
             Console.Clear();

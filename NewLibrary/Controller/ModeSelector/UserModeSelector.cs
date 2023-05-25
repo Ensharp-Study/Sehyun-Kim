@@ -148,8 +148,8 @@ namespace NewLibrary.Controller
                 Console.Clear();
                 modeSelectView.ViewLibraryLogo();
                 userMenu.ViewManagerMenu();
-                int number = managerModeSelector.GoFunctionInManagerMenu();
-                managerModeSelector.SelectNumberInManagerMenu(number);
+                int number = managerModeSelector.GoFunctionInManagerMenu(userId);
+                managerModeSelector.SelectNumberInManagerMenu(number, userId);
                 if (number == 0)
                 {
                     cursorNumber = 0;
@@ -159,7 +159,7 @@ namespace NewLibrary.Controller
         }
 
 
-        public int SetColorByCursor()
+        public int SetColorByCursor() //view로 빼기 
         {
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
             Account userModeAccount = new Account(userId);

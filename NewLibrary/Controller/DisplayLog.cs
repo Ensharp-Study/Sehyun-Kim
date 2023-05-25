@@ -10,7 +10,7 @@ namespace NewLibrary.Controller.Log
 {
     internal class DisplayLog
     {
-        public void DownloadLog()
+        public void DownloadLog(string userId)
         {
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
             string selectQuery = "SELECT * FROM log";

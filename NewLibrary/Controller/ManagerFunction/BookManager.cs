@@ -12,7 +12,7 @@ namespace NewLibrary.Controller.ManagerFunction
 {
     internal class BookManager
     {
-        public void AddBook()
+        public void AddBook(string userId)
         { //도서 추가
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();
@@ -146,7 +146,7 @@ namespace NewLibrary.Controller.ManagerFunction
             }
         }
 
-        public void DeleteBook()
+        public void DeleteBook(string userId)
         { //도서 추가
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();
@@ -194,7 +194,7 @@ namespace NewLibrary.Controller.ManagerFunction
             }
         }
 
-        public void ModifyBook()
+        public void ModifyBook(string userId)
         {
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();

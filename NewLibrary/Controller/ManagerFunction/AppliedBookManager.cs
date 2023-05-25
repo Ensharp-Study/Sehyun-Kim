@@ -12,7 +12,7 @@ namespace NewLibrary.Controller.ManagerFunction
 {
     internal class AppliedBookManager
     {
-        public void ManagerAppliedBook()
+        public void ManagerAppliedBook(string userId)
         {
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             MySqlConnection connection = DatabaseConnection.Instance.Connection;

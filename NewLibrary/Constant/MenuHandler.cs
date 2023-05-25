@@ -38,5 +38,20 @@ namespace NewLibrary.Constant
             UserWithdrawal = 7,
             BookApplication = 8
         }
+
+        public enum ManagerMenuSelect
+        {
+            None=0,
+            BookSearch=1,
+            BookAdder=2,
+            BookDeleter=3,
+            BookModifier=4,
+            MemberUpdater=5,
+            RentalStatus=6,
+            LogDownloader=7,
+            AppliedBookManager=8
+
+
+        }
     }
 }
