@@ -13,7 +13,7 @@ namespace NewLibrary.Controller.Function
 {
     internal class BookService
     {
-        public string RentOutBook(string userId)
+        public string RentOutBook(string userId) //도서 대여 
         {
             FunctionInDAO mysqlConnecter = new FunctionInDAO();
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
@@ -93,7 +93,7 @@ namespace NewLibrary.Controller.Function
             return userId;
         }
 
-        public string RentalList(string userId, bool check)
+        public string RentalList(string userId, bool check) //대여 목록
         {
             FunctionInDAO mysqlConnecter = new FunctionInDAO();
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
@@ -128,7 +128,8 @@ namespace NewLibrary.Controller.Function
             {
                 Console.WriteLine("책 정보가 없습니다.");
             }
-
+            reader.Close();
+            connection.Close();
             returnTime = DateTime.Now;
             returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
             mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "성공", "도서 대여 확인"));
@@ -154,7 +155,7 @@ namespace NewLibrary.Controller.Function
 
         }
 
-        public string ReturnBook(string userId)
+        public string ReturnBook(string userId) //도서 반납
         {
             FunctionInDAO mysqlConnecter = new FunctionInDAO();
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
@@ -176,7 +177,7 @@ namespace NewLibrary.Controller.Function
             string returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
 
             bool check = mysqlConnecter.InsertUpdateDelete($@"INSERT INTO returnlist(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible, borrowtime, returntime, userid)
-                             SELECT id, bookName, author, publisher, quantity, 0, publicationDate, isbn, info, rentpossible, borrowtime, '{returnTimeString}', '{userId}'
+                             SELECT id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible, borrowtime, '{returnTimeString}', '{userId}'
                              FROM borrowlist
                              WHERE id = '{inputBookId}' AND userid = '{userId}'
                              ORDER BY borrowtime ASC
@@ -225,7 +226,7 @@ WHERE id = '{0}'", inputBookId));
             }
         }
 
-        public string ReturnList(string userId)
+        public string ReturnList(string userId) //반납 목록
         {
             Console.Clear();
             FunctionInDAO mysqlConnecter = new FunctionInDAO();
