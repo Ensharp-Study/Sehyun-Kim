@@ -10,8 +10,14 @@ namespace NewLibrary.Constant
     {
         public enum SelectModeByCursor
         {
-            userMode = 1,
-            managerMode = 2
+            UserMode = 1,
+            ManagerMode = 2
+        }
+
+        public enum SelectLoginOrSignUp
+        {
+            Login=1,
+            SignUp=2
         }
         public enum ModeSelect
         {
@@ -27,7 +33,7 @@ namespace NewLibrary.Constant
             BookLender = 2,
             BookReturn = 3,
             RentalConfirmation = 4,
-            ReturnHistory = 5,
+            ReturnList = 5,
             UserInfoUpdate = 6,
             UserWithdrawal = 7,
             BookApplication = 8

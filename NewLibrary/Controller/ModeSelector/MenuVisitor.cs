@@ -78,15 +78,15 @@ namespace NewLibrary.Controller.ModeSelector
             bookApplier.ApplyBook(userId);
         }
 
-        public int HandleLogin(ModeSelectView modeSelectView, AccountView userAccountView, Account userModeAccount, UserMenu userMenu)
+        public int HandleLogin(ModeSelectView modeSelectView, AccountView userAccountView, Account userModeAccount, UserMenu userMenu, out string userId)
         {
             UserModeSelector userModeSelector = new UserModeSelector();
             Console.Clear();
             Console.CursorVisible = true;
             modeSelectView.ViewLibraryLogo();
             userAccountView.ViewLogin();
-            userModeSelector.userId = userModeAccount.Login(1);
-            if (userModeSelector.userId == null)
+            userId = userModeAccount.Login("userMode");
+            if (userId == null)
             {
                 Console.CursorVisible = false;
                 return 1;
@@ -99,8 +99,8 @@ namespace NewLibrary.Controller.ModeSelector
                 modeSelectView.ViewLibraryLogo();
                 userMenu.ViewUserMenu();
                 int selectedNumber = userModeSelector.SelectInUserMenu();
-                userModeSelector.userId = userModeSelector.MethodInUserMenu(selectedNumber, userModeSelector.userId);
-                if (userModeSelector.userId == null)
+                userId = userModeSelector.MethodInUserMenu(selectedNumber, userId);
+                if (userId == null)
                 {
                     break;
                 }

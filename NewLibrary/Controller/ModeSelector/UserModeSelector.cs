@@ -17,10 +17,10 @@ namespace NewLibrary.Controller
 {
     internal class UserModeSelector
     {
-        private string userId; 
+        private string userId;
 
-        public void SelectMode() 
-            //유저 모드 또는 관리자 모드 중 선택하는 메소드
+        public void SelectMode()
+        //유저 모드 또는 관리자 모드 중 선택하는 메소드
         {
             ModeSelectView modeSelectView = new ModeSelectView();
             AccountView userAccountView = new AccountView();
@@ -31,9 +31,8 @@ namespace NewLibrary.Controller
             Account userModeAccount = new Account(userId);
             UserMenu userMenu = new UserMenu();
             MenuHandler menuHandler = new MenuHandler();
-            bool exit = true;
-
-            while (exit)
+            bool checker = true;
+            while (checker)
             {
                 Console.CursorVisible = false;
                 Console.SetWindowSize(56, 22);
@@ -49,34 +48,22 @@ namespace NewLibrary.Controller
                     return;
 
                 bool selectMode = true;
-                bool checker = true;
 
-                while (selectMode)
+                if (cursorNumber == (int)SelectModeByCursor.UserMode)
                 {
-                    //cursorNumber에 따라서 그에 맞는 모드로 이동
-                    switch (cursorNumber)
-                    {
-                        case (int)SelectModeByCursor.userMode: 
-                            //유저 모드로 이동
-                            selectMode = HandleUserMode(out cursorNumber); 
-                            if (!selectMode)
-                                //cursorNumber가 0이 아니면 checker가 true
-                                checker = cursorNumber != 0;
-                            break;
-                        case (int)SelectModeByCursor.managerMode: 
-                            //관리자 모드로 이동
-                            selectMode = HandleManagerMode(out cursorNumber);
-                            if (!selectMode)
-                                checker = cursorNumber != 0;
-                            break;
-                    }
+                    checker = HandleUserMode(out cursorNumber);
+                    if (!checker)
+                        checker = cursorNumber != 0;
                 }
-                //checker가 false인 경우, 프로그램 종료
-                if (!checker)
-                    return;
+                else if (cursorNumber == (int)SelectModeByCursor.ManagerMode)
+                {
+                    checker = HandleManagerMode(out cursorNumber);
+                    if (!checker)
+                        checker = cursorNumber == 0;
+                }
             }
         }
-        
+
         private int SelectModeWithCursor(TextPrinterWithCursor textPrinterWithCursor)
         {
             //cursorNumber에 따라, 색깔 바꿔주는 메소드
@@ -86,12 +73,12 @@ namespace NewLibrary.Controller
             {
                 switch (cursorNumber)
                 {
-                    case (int)SelectModeByCursor.userMode: 
+                    case (int)SelectModeByCursor.UserMode:
                         //유저 모드를 초록색, 관리자 모드를 하얀색으로 설정
                         textPrinterWithCursor.SetTextColorGreen(20, 14, "● 유저 모드");
                         textPrinterWithCursor.SetTextColorWhite(19, 15, "○ 관리자 모드");
                         break;
-                    case (int)SelectModeByCursor.managerMode:
+                    case (int)SelectModeByCursor.ManagerMode:
                         //유저 모드를 하얀색, 관리자 모드를 초록색으로 설정 
                         textPrinterWithCursor.SetTextColorWhite(20, 14, "○ 유저 모드");
                         textPrinterWithCursor.SetTextColorGreen(19, 15, "● 관리자 모드");
@@ -148,7 +135,7 @@ namespace NewLibrary.Controller
 
             modeSelectView.ViewLibraryLogo();
             userAccountView.ViewLogin();
-            userId = userModeAccount.Login(2);
+            userId = userModeAccount.Login("managerMode");
 
             if (userId == null)
             {
@@ -172,8 +159,6 @@ namespace NewLibrary.Controller
         }
 
 
-
-
         public int SetColorByCursor()
         {
             TextPrinterWithCursor textPrinterWithCursor = new TextPrinterWithCursor();
@@ -189,11 +174,11 @@ namespace NewLibrary.Controller
                     case 0:
                         Console.Clear();
                         return Number; //esc 누르면 keyNumber값을 0으로 설정하고 종료하기
-                    case (int)SelectModeByCursor.userMode:
+                    case (int)SelectModeByCursor.UserMode:
                         textPrinterWithCursor.SetTextColorGreen(22, 14, "● 로그인");
                         textPrinterWithCursor.SetTextColorWhite(21, 15, "○ 회원 가입");
                         break;
-                    case (int)SelectModeByCursor.managerMode:
+                    case (int)SelectModeByCursor.ManagerMode:
                         textPrinterWithCursor.SetTextColorWhite(22, 14, "○ 로그인");
                         textPrinterWithCursor.SetTextColorGreen(21, 15, "● 회원 가입");
                         break;
@@ -224,7 +209,7 @@ namespace NewLibrary.Controller
                 case 0:
                     return 1;
                 case 1: // 로그인
-                    return menuVisitor.HandleLogin(modeSelectView, userAccountView, userModeAccount, userMenu);
+                    return menuVisitor.HandleLogin(modeSelectView, userAccountView, userModeAccount, userMenu, out userId);
                 case 2: // 회원가입
                     return menuVisitor.HandleSignUp(modeSelectView, userAccountView, userModeAccount);
             }
@@ -232,7 +217,7 @@ namespace NewLibrary.Controller
             return 1;
         }
 
-        
+
 
         public string MethodInUserMenu(int selectedNumber, string userId)
         {
@@ -248,31 +233,31 @@ namespace NewLibrary.Controller
 
             switch (selectedNumber)
             {
-                case 0: // 유저 메뉴에서 기능 고를 때 esc가 눌린 것
+                case (int)UserMenuSelect.None: // 유저 메뉴에서 기능 고를 때 esc가 눌린 것
                     userId = null;
                     break;
-                case 1: // 도서 찾기
+                case (int)UserMenuSelect.BookSearch: // 도서 찾기
                     menuVisitor.SearchBooks(userId, userFunctionView, dataDisplayer, bookSearcher);
                     break;
-                case 2: // 도서 대여
+                case (int)UserMenuSelect.BookLender: // 도서 대여
                     menuVisitor.RentOutBook(userId, userFunctionView, dataDisplayer, bookservice);
                     break;
-                case 3: // 도서 반납
+                case (int)UserMenuSelect.BookReturn: // 도서 반납
                     menuVisitor.ReturnBook(userId, userFunctionView, bookservice);
                     break;
-                case 4: // 도서 대여 확인
+                case (int)UserMenuSelect.RentalConfirmation: // 도서 대여 확인
                     menuVisitor.ShowRentalList(userId, bookservice);
                     break;
-                case 5: // 도서 반납 내역
+                case (int)UserMenuSelect.ReturnList: // 도서 반납 내역
                     menuVisitor.ShowReturnList(userId, bookservice);
                     break;
-                case 6: // 회원 정보 수정
+                case (int)UserMenuSelect.UserInfoUpdate: // 회원 정보 수정
                     menuVisitor.UpdateUserData(userId, userFunctionView, dataDisplayer, userDataService);
                     break;
-                case 7: // 회원 탈퇴
+                case (int)UserMenuSelect.UserWithdrawal: // 회원 탈퇴
                     menuVisitor.DeleteUserData(userId, userFunctionView, userDataService);
                     break;
-                case 8: // 도서 신청
+                case (int)UserMenuSelect.BookApplication: // 도서 신청
                     menuVisitor.ApplyBook(userId, userFunctionView, bookApplier);
                     break;
             }
@@ -280,7 +265,7 @@ namespace NewLibrary.Controller
             return userId;
         }
 
-       
+
         public int SelectInUserMenu()
         {
             ModeSelectView modeSelectView = new ModeSelectView();
@@ -288,7 +273,7 @@ namespace NewLibrary.Controller
             AccountView accountView = new AccountView();
             ListWithColoredIndexPrinter listWithColoredIndexPrinter = new ListWithColoredIndexPrinter();
             bool exit = true;
-            List<string> strList = new List<string>() { "도서 찾기", "도서 대여", "도서 반납", "도서 대여 확인", "도서 반납 내역", "회원 정보 수정", "회원 탈퇴","도서 신청" };
+            List<string> strList = new List<string>() { "도서 찾기", "도서 대여", "도서 반납", "도서 대여 확인", "도서 반납 내역", "회원 정보 수정", "회원 탈퇴", "도서 신청" };
 
             Console.CursorVisible = false; //커서 안 보이게
             Console.SetWindowSize(62, 27);
@@ -298,13 +283,13 @@ namespace NewLibrary.Controller
 
             while (fine) //keyNumber은 초기값이 1인 상태로 fine이 true일 동안 계속 반복
             {
-                
+
                 switch (keyNumber)
                 {
                     case 0:
                         return keyNumber; //esc가 눌렸으면 keyNumber 0
                     case 1:
-                        listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 0, 26,13);
+                        listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 0, 26, 13);
                         break;
                     case 2:
                         listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 1, 26, 13);
@@ -343,6 +328,6 @@ namespace NewLibrary.Controller
             return keyNumber;
 
         }
-        
+
     }
 }

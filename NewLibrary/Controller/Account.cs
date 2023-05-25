@@ -23,10 +23,9 @@ namespace NewLibrary.Controller
             get { return userId; }
             set { userId = value; }
         }
-        public string Login(int number) //로그인
+        public string Login(string mode) //로그인
         {
-            //if number==1 : 유저모드
-            //if number==2 : 매니저 모드 
+            //mode가 userMode 이면 유저모드, managerMode 이면 매니저모드이다.
             //매개변수 constructor : MySQL 테이블 이름 (유저 테이블 OR 매니저 테이블)
             
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
@@ -84,7 +83,7 @@ namespace NewLibrary.Controller
                 Console.SetCursorPosition(16, 16);
                 Console.Write("                        ");
 
-                if (number == 1)
+                if (mode == "userMode")
                 {
                     check = mysqlConnecter.ReadDataForCheck(string.Format(ConstantOfQuery.LoginUserQuery, inputId, inputPw));
 
@@ -98,7 +97,7 @@ namespace NewLibrary.Controller
                 {
                     returnTime = DateTime.Now;
                     returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-                    if (number == 1)
+                    if (mode == "userMode")
                     {
                         mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery,returnTimeString, "유저", "성공", "로그인"));
                     }
@@ -120,7 +119,7 @@ namespace NewLibrary.Controller
                 Console.Write(    "   다시 입력해주세요.");
                 returnTime = DateTime.Now;
                 returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
-                if (number == 1)
+                if (mode == "userMode")
                 {
                     mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "실패", "로그인"));
                 }
