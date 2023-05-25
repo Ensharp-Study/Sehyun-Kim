@@ -22,6 +22,8 @@ namespace NewLibrary.Constant
         public const string updatePhone = "UPDATE userconstructor SET phoneNumber = '{0}' WHERE userid = '{1}'";
         public const string updateAddress = "UPDATE userconstructor SET address = '{0}' WHERE userid = '{1}'";
 
+
+        public const string selectFromUser = $"SELECT * FROM userconstructor";
         public const string deleteUser = "DELETE FROM userconstructor WHERE userid='{0}'";
         public const string deleteBorrowList = "DELETE FROM borrowlist WHERE userid='{0}'";
 

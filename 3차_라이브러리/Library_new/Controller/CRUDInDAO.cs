@@ -68,6 +68,5 @@ namespace Library.Controller
             return columnValue; // 변수를 반환
         }
     }
-        
-    }
 
+}

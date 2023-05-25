@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
 namespace Library
-{/*
+{
     internal class DatabaseConnection
     {
         private static DatabaseConnection instance = null;
@@ -35,5 +35,5 @@ namespace Library
             get { return connection; }
         }
     }
-    */
+    
 }

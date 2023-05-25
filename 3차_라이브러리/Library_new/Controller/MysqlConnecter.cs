@@ -11,7 +11,7 @@ namespace Library.Controller
 {
     internal class MysqlConnecter // 글자 print랑 분리하기 
     {//insertdeleteupdate
-        
+
         //쿼리문만 빼서 메소드 정리해야 한다 
 
         public bool InsertData(string insertQuery)
@@ -24,7 +24,7 @@ namespace Library.Controller
 
             return rowsAffected > 0;
         }
-        
+
 
         public void SetQuery(string queryExpression)
         {
@@ -32,15 +32,15 @@ namespace Library.Controller
             string selectQuery = queryExpression;
             connection.Open();
             MySqlCommand command = new MySqlCommand(selectQuery, connection);
-            MySqlDataReader reader = command.ExecuteReader(); 
+            MySqlDataReader reader = command.ExecuteReader();
             reader.Close();
             connection.Close();
         }
-        public bool  SelectMysql(string userid, string inputPw) //회원 정보 검색
+        public bool SelectMysql(string userid, string inputPw) //회원 정보 검색
         {//로그인
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
             PasswordMasker getHiddenConsoleInput = new PasswordMasker();
-            
+
             string selectQuery = $"SELECT * FROM userconstructor WHERE userid = '{userid}' AND password = '{inputPw}'";
 
             connection.Open();
@@ -53,7 +53,7 @@ namespace Library.Controller
                 check = false;
             }
 
-            
+
             reader.Close();
             connection.Close();
             return check;
@@ -74,7 +74,7 @@ namespace Library.Controller
 
         public bool DeleteMysql(string userid)
         {
-           
+
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
             string deleteQuery = $"DELETE FROM userconstructor WHERE userid = '{userid}'";
             MySqlCommand command = new MySqlCommand(deleteQuery, connection);
@@ -117,6 +117,5 @@ namespace Library.Controller
         }
         */
     }
-        
-    }
 
+}

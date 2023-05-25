@@ -16,12 +16,22 @@ namespace NewLibrary.Controller.ManagerFunction
         {
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
+
             string selectQuery = "SELECT * FROM appliedbooklist";
             MySqlCommand command = new MySqlCommand(selectQuery, connection);
+
+            bool check = true;
+            string titleValue = "";
+            string idValue = "0";
+            string quantityValue = "0";
+            string priceValue = "0";
+            string infoValue = "";
+            string rentpossibleValue = "0";
 
             connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
             Console.WriteLine("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+
             while (reader.Read())
             {
                 Console.WriteLine("  title: " + reader["title"].ToString());
@@ -32,17 +42,12 @@ namespace NewLibrary.Controller.ManagerFunction
                 Console.WriteLine("  isbn: " + reader["isbn"].ToString());
                 Console.WriteLine("  userid: " + reader["userid"].ToString());
                 Console.WriteLine("============================================================");
-                
             }
             Console.SetCursorPosition(0, 0);
             Console.WriteLine("추가할 책의 제목을 입력하세요.");
-            bool check = true;
-            string titleValue = "";
-            string idValue = "0";
-            string quantityValue = "0";
-            string priceValue="0";
-            string infoValue = "";
-            string rentpossibleValue = "0";
+
+            
+
             while (check)
             {
                 titleValue=inputKeyUnlessEnter.SaveInputUnlessEnter(0, 1);

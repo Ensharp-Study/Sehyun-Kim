@@ -16,9 +16,9 @@ namespace NewLibrary.Controller.ManagerFunction
         //모든 회원 정보 표시 
         public void DisplayMemberData(string userId)
         {
-
+            RegexConstant regexConstant = new RegexConstant();
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
-            string selectQuery = $"SELECT * FROM userconstructor"; //number 입력받아서 id=number인 행 찾기 
+            string selectQuery = regexConstant.selectFromUser; //number 입력받아서 id=number인 행 찾기 
             MySqlCommand command = new MySqlCommand(selectQuery, connection);
 
             connection.Open();

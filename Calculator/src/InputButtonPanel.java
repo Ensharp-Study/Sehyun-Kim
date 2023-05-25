@@ -37,9 +37,9 @@ public class InputButtonPanel extends JPanel {
     class PadActionListener implements ActionListener {
         private String formatResult(double result) {
             if (result == (long) result) {
-                return String.format("%d", (long) result); // Format as integer if the result is a whole number
+                return String.format("%d", (long) result);
             } else {
-                return String.format("%s", result); // Format as decimal number if the result has decimal places
+                return String.format("%s", result);
             }
         }
         public void actionPerformed(ActionEvent e) {
@@ -59,10 +59,16 @@ public class InputButtonPanel extends JPanel {
                 index = frame.getInputSpace().getText().length() - 1;
                 char lastText = frame.getInputSpace().getText().charAt(index);
                 if (lastText != '+' && lastText != '-' && lastText != '×' && lastText != '÷') {
-                    String result =  frame.getInputSpace().getText();
-                    result=result.substring(0, result.length() - 1);
-                    frame.getInputSpace().setText(formatNumber(Double.parseDouble(result)));
-                    frame.getDisplaySpace().setText(formatNumber(Double.parseDouble(result)));
+                    String result = frame.getInputSpace().getText();
+                    result = result.substring(0, result.length() - 1);
+                    if (result.length() != 0) {
+                        frame.getInputSpace().setText(formatNumber(Double.parseDouble(result)));
+                        frame.getDisplaySpace().setText(formatNumber(Double.parseDouble(result)));
+                    }
+                    else{
+                        frame.getInputSpace().setText("0");
+                        frame.getDisplaySpace().setText("");
+                    }
                 }
             }
             else if (operation.equals("=")) {
@@ -82,20 +88,16 @@ public class InputButtonPanel extends JPanel {
             //index = frame.getDisplaySpace().getText().length() - 1;
 
             else if (Character.isDigit(operation.charAt(0)) ) { //입력된 게 숫자면
-                //if(frame.getInputSpace().getText().length() != 0) {
-                    //index = frame.getInputSpace().getText().length() - 1;
-                    //char lastText = frame.getDisplaySpace().getText().charAt(index);
-                    //String expression = frame.getInputSpace().getText();
-                    //int inputIndex = frame.getInputSpace().getText().length() - 1;
-                    //char text = frame.getInputSpace().getText().charAt(index);
-                    //if ((lastText == '+' || lastText == '-' || lastText == '×' || lastText == '÷') && Character.isDigit(text)) {
-                    //    frame.getDisplaySpace().setText(expression + operation);
-                    //} //else if (!Character.isDigit(text)) {
-                    //    frame.getDisplaySpace().setText("" + operation);
-                    //}
-                //}
-                //else{
-                if(frame.getDisplaySpace().getText().endsWith("+") || frame.getDisplaySpace().getText().endsWith("-") || frame.getDisplaySpace().getText().endsWith("×") || frame.getDisplaySpace().getText().endsWith("÷")) {
+                if (frame.getDisplaySpace().getText().endsWith("÷")){
+                    if (operation=="0"){
+                        frame.getInputSpace().setText("");
+                        frame.getDisplaySpace().setText(""+"0으로 나눌 수 없습니다.");
+                    }
+                    else{
+                        frame.getInputSpace().setText(String.valueOf(operation.charAt(0)));
+                    }
+                }
+                else if(frame.getDisplaySpace().getText().endsWith("+") || frame.getDisplaySpace().getText().endsWith("-") || frame.getDisplaySpace().getText().endsWith("×") || frame.getDisplaySpace().getText().endsWith("÷")) {
                     frame.getInputSpace().setText(String.valueOf(operation.charAt(0)));
                 }
                 else if(frame.getDisplaySpace().getText().endsWith("=")) {
@@ -104,7 +106,12 @@ public class InputButtonPanel extends JPanel {
                 }
                     else {
                     if (frame.getInputSpace().getText().length() < 16) {
-                        frame.getInputSpace().setText(frame.getInputSpace().getText() + operation.charAt(0));
+                        if(frame.getInputSpace().getText().equals("0")) {
+                            frame.getInputSpace().setText(String.valueOf(operation.charAt(0)));
+                        }
+                        else {
+                            frame.getInputSpace().setText(frame.getInputSpace().getText() + operation.charAt(0));
+                        }
                     }
                 }
                 //}
@@ -127,7 +134,7 @@ public class InputButtonPanel extends JPanel {
         }
 
         private String formatNumber(double number) {
-            DecimalFormat decimalFormat = new DecimalFormat("#,###.###");
+            DecimalFormat decimalFormat = new DecimalFormat("####.###");
             return decimalFormat.format(number);
         }
 
