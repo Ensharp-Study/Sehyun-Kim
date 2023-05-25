@@ -116,8 +116,9 @@ namespace NewLibrary.Controller.ManagerFunction
                 // bookconstructor 테이블에 해당하는 책 추가
                 if (isbn == inputBookisbn)
                 {
-                    bool check = mysqlConnecter.InsertUpdateDelete($"INSERT INTO bookconstructor(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible) VALUES('{intid}','{title}','{author}','{publisher}','{intquantity}','{intDiscount}','{pubdate}','{isbn}','{inputBookInfo}','{intquantity}')");
-                
+                    bool check = mysqlConnecter.InsertUpdateDelete(string.Format("INSERT INTO bookconstructor(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible) VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}')",
+                                           intid, title, author, publisher, intquantity, intDiscount, pubdate, isbn, inputBookInfo, intquantity));
+
                     if (check)
                     {
                         Console.SetCursorPosition(0, 17);
@@ -165,10 +166,10 @@ namespace NewLibrary.Controller.ManagerFunction
                 inputBookisbn = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 6);
                 fine = inputKeyUnlessEnter.CheckRegex(inputBookisbn, RegexConstant.onlyNumberRegex, 0, 6, 10, 6, "잘못된 입력입니다");
             }
-
-            fine = mysqlConnecter.InsertUpdateDelete($"DELETE FROM bookconstructor WHERE isbn='{inputBookisbn}'");
-            mysqlConnecter.InsertUpdateDelete($"DELETE FROM borrowlist WHERE isbn='{inputBookisbn}'");
-            mysqlConnecter.InsertUpdateDelete($"DELETE FROM returnlist WHERE isbn='{inputBookisbn}'");
+            
+            fine = mysqlConnecter.InsertUpdateDelete(string.Format("DELETE FROM bookconstructor WHERE isbn='{0}'", inputBookisbn));
+            mysqlConnecter.InsertUpdateDelete(string.Format("DELETE FROM borrowlist WHERE isbn='{0}'", inputBookisbn));
+            mysqlConnecter.InsertUpdateDelete(string.Format("DELETE FROM returnlist WHERE isbn='{0}'", inputBookisbn));
             if (!fine)
             {
                 Console.WriteLine();
@@ -244,48 +245,48 @@ namespace NewLibrary.Controller.ManagerFunction
                 case 1:
                     Console.WriteLine("새로운 id를 입력하세요.");
                     string idinput = Console.ReadLine();
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE bookconstructor SET id = '{idinput}' WHERE id = '{intInputBookId}'");
+                    check = crudInDAO.InsertUpdateDelete(string.Format("UPDATE bookconstructor SET id = '{0}' WHERE id = '{1}'", idinput, intInputBookId)); ;
                     break;
 
                 case 2:
                     Console.WriteLine("새로운 bookName을 입력하세요.");
                     string bookNameinput = Console.ReadLine();
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE bookconstructor SET bookName ='{bookNameinput}'WHERE id = '{intInputBookId}'");
+                    check = crudInDAO.InsertUpdateDelete(string.Format("UPDATE bookconstructor SET bookName = '{0}' WHERE id = '{1}'", bookNameinput, intInputBookId)); ;
                     break;
                 case 3:
                     Console.WriteLine("새로운 author를 입력하세요.");
                     string authorinput = Console.ReadLine();
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE bookconstructor SET author ='{authorinput}'WHERE id = '{intInputBookId}'");
+                    check = crudInDAO.InsertUpdateDelete(string.Format("UPDATE bookconstructor SET author = '{0}' WHERE id = '{1}'", authorinput, intInputBookId));
                     break;
                 case 4:
                     Console.WriteLine("새로운 publisher를 입력하세요.");
                     string publisherinput = Console.ReadLine();
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE bookconstructor SET publisher ='{publisherinput}'WHERE id = '{intInputBookId}'");
+                    check = crudInDAO.InsertUpdateDelete(string.Format("UPDATE bookconstructor SET publisher = '{0}' WHERE id = '{1}'", publisherinput, intInputBookId));
                     break;
                 case 5:
                     Console.WriteLine("새로운 quantity를 입력하세요.");
                     string quantityinput = Console.ReadLine();
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE bookconstructor SET quantity ='{quantityinput}'WHERE id = '{intInputBookId}'");
+                    check = crudInDAO.InsertUpdateDelete(string.Format("UPDATE bookconstructor SET quantity = '{0}' WHERE id = '{1}'", quantityinput, intInputBookId));
                     break;
                 case 6:
                     Console.WriteLine("새로운 price 입력하세요.");
                     string priceinput = Console.ReadLine();
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE bookconstructor SET price ='{priceinput}'WHERE id = '{intInputBookId}'");
+                    check = crudInDAO.InsertUpdateDelete(string.Format("UPDATE bookconstructor SET price = '{0}' WHERE id = '{1}'", priceinput, intInputBookId));
                     break;
                 case 7:
                     Console.WriteLine("새로운 publicationDate를 입력하세요.");
                     string publicationDateinput = Console.ReadLine();
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE bookconstructor SET publicationDate ='{publicationDateinput}'WHERE id = '{intInputBookId}'");
+                    check = crudInDAO.InsertUpdateDelete(string.Format("UPDATE bookconstructor SET publicationDate = '{0}' WHERE id = '{1}'", publicationDateinput, intInputBookId));
                     break;
                 case 8:
                     Console.WriteLine("새로운 isbn를 입력하세요.");
                     string isbninput = Console.ReadLine();
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE bookconstructor SET isbn ='{isbninput}'WHERE id = '{intInputBookId}'");
+                    check = crudInDAO.InsertUpdateDelete(string.Format("UPDATE bookconstructor SET isbn = '{0}' WHERE id = '{1}'", isbninput, intInputBookId));
                     break;
                 case 9:
                     Console.WriteLine("새로운 info를 입력하세요.");
                     string infoinput = Console.ReadLine();
-                    check = crudInDAO.InsertUpdateDelete($"UPDATE bookconstructor SET info ='{infoinput}'WHERE id = '{intInputBookId}'");
+                    check = crudInDAO.InsertUpdateDelete(string.Format("UPDATE bookconstructor SET info = '{0}' WHERE id = '{1}'", infoinput, intInputBookId));
                     break;
 
             }
