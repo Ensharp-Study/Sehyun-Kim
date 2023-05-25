@@ -25,15 +25,7 @@ namespace NewLibrary.Constant
         public const string updateAddress = "UPDATE userconstructor SET address = '{0}' WHERE userid = '{1}'";
 
         //책 업데이트 query
-        public const string updateBookId = "UPDATE bookconstructor SET id = '{0}' WHERE id = '{1}'";
-        public const string updateBookName = "UPDATE bookconstructor SET bookName = '{0}' WHERE id = '{1}'";
-        public const string updateAuthor = "UPDATE bookconstructor SET author = '{0}' WHERE id = '{1}'";
-        public const string updatePublisher = "UPDATE bookconstructor SET publisher = '{0}' WHERE id = '{1}'";
-        public const string updateQuantity = "UPDATE bookconstructor SET quantity = '{0}' WHERE id = '{1}'";
-        public const string updatePrice = "UPDATE bookconstructor SET price = '{0}' WHERE id = '{1}'";
-        public const string updatePublicationDate = "UPDATE bookconstructor SET publicationDate = '{0}' WHERE id = '{1}'";
-        public const string updateIsbn = "UPDATE bookconstructor SET isbn = '{0}' WHERE id = '{1}'";
-        public const string updateInfo = "UPDATE bookconstructor SET info = '{0}' WHERE id = '{1}'";
+        public const string UpdateBookQuery = "UPDATE bookconstructor SET {0} = '{1}' WHERE id = '{2}'";
 
 
         public const string selectFromApply = "SELECT * FROM appliedbooklist";
