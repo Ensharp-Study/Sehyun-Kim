@@ -31,6 +31,7 @@ namespace NewLibrary.Controller
             Account userModeAccount = new Account(userId);
             UserMenu userMenu = new UserMenu();
             MenuHandler menuHandler = new MenuHandler();
+
             bool checker = true;
             while (checker)
             {
@@ -174,11 +175,11 @@ namespace NewLibrary.Controller
                     case 0:
                         Console.Clear();
                         return Number; //esc 누르면 keyNumber값을 0으로 설정하고 종료하기
-                    case (int)SelectModeByCursor.UserMode:
+                    case (int)SelectLoginOrSignUp.Login:
                         textPrinterWithCursor.SetTextColorGreen(22, 14, "● 로그인");
                         textPrinterWithCursor.SetTextColorWhite(21, 15, "○ 회원 가입");
                         break;
-                    case (int)SelectModeByCursor.ManagerMode:
+                    case (int)SelectLoginOrSignUp.SignUp:
                         textPrinterWithCursor.SetTextColorWhite(22, 14, "○ 로그인");
                         textPrinterWithCursor.SetTextColorGreen(21, 15, "● 회원 가입");
                         break;
@@ -208,9 +209,9 @@ namespace NewLibrary.Controller
             {
                 case 0:
                     return 1;
-                case 1: // 로그인
+                case (int)SelectLoginOrSignUp.Login: // 로그인
                     return menuVisitor.HandleLogin(modeSelectView, userAccountView, userModeAccount, userMenu, out userId);
-                case 2: // 회원가입
+                case (int)SelectLoginOrSignUp.SignUp: // 회원가입
                     return menuVisitor.HandleSignUp(modeSelectView, userAccountView, userModeAccount);
             }
 
