@@ -176,20 +176,19 @@ namespace NewLibrary.Controller.Function
             DateTime returnTime = DateTime.Now;
             string returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
 
-            bool check = mysqlConnecter.InsertUpdateDelete($@"INSERT INTO returnlist(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible, borrowtime, returntime, userid)
-                             SELECT id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible, borrowtime, '{returnTimeString}', '{userId}'
+            bool check = mysqlConnecter.InsertUpdateDelete(string.Format($@"INSERT INTO returnlist(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible, borrowtime, returntime, userid)
+                             SELECT id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible, borrowtime, '{0}', '{1}'
                              FROM borrowlist
-                             WHERE id = '{inputBookId}' AND userid = '{userId}'
+                             WHERE id = '{2}' AND userid = '{3}'
                              ORDER BY borrowtime ASC
-                             LIMIT 1");
+                             LIMIT 1", returnTimeString, userId, inputBookId, userId));
 
             if (check)
             {
-                bool checker = mysqlConnecter.InsertUpdateDelete(string.Format("DELETE FROM borrowlist WHERE id = {0} AND userid = '{1}'", inputBookId, userId));
+                bool checker = mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.deleteBorrowList, inputBookId, userId));
                 if (checker)
                 {
-                    bool rentPossibleUpdate = mysqlConnecter.InsertUpdateDelete(string.Format(@"UPDATE bookconstructor SET rentpossible = rentpossible + 1
-WHERE id = '{0}'", inputBookId));
+                    bool rentPossibleUpdate = mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.updateRentPossibleIncrease, inputBookId));
 
                     if (rentPossibleUpdate)
                     {

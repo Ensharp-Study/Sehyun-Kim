@@ -183,7 +183,7 @@ namespace NewLibrary.Controller.ManagerFunction
                 fine = inputKeyUnlessEnter.CheckRegex(inputBookisbn, RegexConstant.onlyNumberRegex, 0, 6, 10, 6, "잘못된 입력입니다");
             }
             
-            fine = mysqlConnecter.InsertUpdateDelete(string.Format("DELETE FROM bookconstructor WHERE isbn='{0}'", inputBookisbn));
+            fine = mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.deleteWithIsbn, inputBookisbn));
             mysqlConnecter.InsertUpdateDelete(string.Format("DELETE FROM borrowlist WHERE isbn='{0}'", inputBookisbn));
             mysqlConnecter.InsertUpdateDelete(string.Format("DELETE FROM returnlist WHERE isbn='{0}'", inputBookisbn));
             if (!fine)
@@ -259,156 +259,32 @@ namespace NewLibrary.Controller.ManagerFunction
             switch (intInputNumber)
             {
                 case 1:
-                    int intIdInput = 0;
-                    string idInput = "0";
-                    Console.WriteLine("새로운 id를 입력하세요.");
-                    while (inputChecker)
-                    {
-                        idInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
-                        inputChecker = inputKeyUnlessEnter.CheckRegex(idInput, RegexConstant.onlyNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
-
-                        int modifyImpossible = 0;
-                        modifyImpossible = crudInDAO.ReadData("id", $"SELECT id FROM bookconstructor WHERE id ='{idInput}'");
-                        if (modifyImpossible >= 1)
-                        {
-                            inputChecker = true;
-                            Console.SetCursorPosition(20, 20);
-                            Console.WriteLine("이미 존재하는 id입니다!");
-                        }
-                    }
-                    intIdInput = int.Parse(idInput);
-                    check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery,"id", idInput, intInputBookId)); ;
+                    UpdateBookId();
                     break;
-
                 case 2:
-                    string bookNameInput = "";
-                    Console.WriteLine("새로운 bookName을 입력하세요.");
-                    while (inputChecker)
-                    {
-                        bookNameInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
-                        inputChecker = inputKeyUnlessEnter.CheckRegex(bookNameInput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
-                        int modifyImpossible = 0;
-                        modifyImpossible = crudInDAO.ReadData("bookName", $"SELECT bookName FROM bookconstructor WHERE  bookName ='{bookNameInput}'");
-                        if (modifyImpossible >= 1)
-                        {
-                            inputChecker = true;
-                            Console.SetCursorPosition(20, 20);
-                            Console.WriteLine("이미 존재하는 bookName입니다!");
-                        }
-                    }
-                    inputChecker = true;
-                    check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "bookName", bookNameInput, intInputBookId)); ;
+                    UpdateBookName();
                     break;
                 case 3:
-                    string authorInput = "";
-                    Console.WriteLine("새로운 author를 입력하세요.");
-                    while (inputChecker)
-                    {
-                        authorInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
-                        inputChecker = inputKeyUnlessEnter.CheckRegex(authorInput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
-                        int modifyImpossible = 0;
-                        modifyImpossible = crudInDAO.ReadData("author", $"SELECT author FROM bookconstructor WHERE author ='{authorInput}'");
-                        if (modifyImpossible >= 1)
-                        {
-                            inputChecker = true;
-                            Console.SetCursorPosition(20, 20);
-                            Console.WriteLine("이미 존재하는 author입니다!");
-                        }
-                    }
-                    inputChecker = true;
-                    check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "author", authorInput, intInputBookId));
+                    UpdateAuthor();
                     break;
                 case 4:
-                    string publisherInput = "";
-                    Console.WriteLine("새로운 publisher를 입력하세요.");
-                    while (inputChecker)
-                    {
-                        publisherInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
-                        inputChecker = inputKeyUnlessEnter.CheckRegex(publisherInput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
-                        int modifyImpossible = 0;
-                        modifyImpossible = crudInDAO.ReadData("publisher", $"SELECT publisher FROM bookconstructor WHERE publisher ='{publisherInput}'");
-                        if (modifyImpossible >= 1)
-                        {
-                            inputChecker = true;
-                            Console.SetCursorPosition(20, 20);
-                            Console.WriteLine("이미 존재하는 publisher입니다!");
-                        }
-                    }
-                    inputChecker = true;
-                    check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "publisher", publisherInput, intInputBookId));
+                    UpdatePublisher();
                     break;
                 case 5:
-                    int intQuantityInput = 0;
-                    string quantityinput = "0";
-                    Console.WriteLine("새로운 quantity를 입력하세요.");
-                    while (inputChecker)
-                    {
-                        quantityinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
-                        inputChecker = inputKeyUnlessEnter.CheckRegex(quantityinput, RegexConstant.quantityRegex, 0, 20, 10, 20, "잘못된 입력입니다");
-                        
-                    }
-                    inputChecker = true;
-                    intQuantityInput = int.Parse(quantityinput);
-                    check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "quantity", intQuantityInput, intInputBookId));
+                    UpdateQuantity();
                     break;
                 case 6:
-                    int intpriceinput = 0;
-                    string priceinput = "0";
-                    Console.WriteLine("새로운 price 입력하세요."); 
-                    while (inputChecker)
-                    {
-                        priceinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
-                        inputChecker = inputKeyUnlessEnter.CheckRegex(priceinput, RegexConstant.priceRegex, 0, 20, 10, 20, "잘못된 입력입니다");
-                        
-                    }
-                    inputChecker = true;
-                    intpriceinput = int.Parse(priceinput);
-                    check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "price", priceinput, intInputBookId));
+                    UpdatePrice();
                     break;
                 case 7:
-                    string publicationDateinput = "";
-                    Console.WriteLine("새로운 publicationDate를 입력하세요."); 
-                    while (inputChecker)
-                    {
-                        publicationDateinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
-                        inputChecker = inputKeyUnlessEnter.CheckRegex(publicationDateinput, RegexConstant.publicationDateRegex, 0, 20, 10, 20, "잘못된 입력입니다");
-                        
-                    }
-                    inputChecker = true;
-                    check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "publicationDate", publicationDateinput, intInputBookId));
+                    UpdatePublicationDate();
                     break;
                 case 8:
-                    string isbninput = "";
-                    Console.WriteLine("새로운 isbn를 입력하세요."); 
-                    while (inputChecker)
-                    {
-                        isbninput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
-                        inputChecker = inputKeyUnlessEnter.CheckRegex(isbninput, RegexConstant.isbnRegex, 0, 20, 10, 20, "잘못된 입력입니다");
-                        int modifyImpossible = 0;
-                        modifyImpossible = crudInDAO.ReadData("isbn", $"SELECT isbn FROM bookconstructor WHERE isbn ='{isbninput}'");
-                        if (modifyImpossible >= 1)
-                        {
-                            inputChecker = true;
-                            Console.SetCursorPosition(20, 20);
-                            Console.WriteLine("이미 존재하는 isbn입니다!");
-                        }
-                    }
-                    inputChecker = true;
-                    check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "isbn", isbninput, intInputBookId));
+                    UpdateISBN();
                     break;
                 case 9:
-                    string infoinput = "";
-                    Console.WriteLine("새로운 info를 입력하세요."); 
-                    while (inputChecker)
-                    {
-                        infoinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
-                        inputChecker = inputKeyUnlessEnter.CheckRegex(infoinput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
-                        
-                    }
-                    inputChecker = true;
-                    check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "info", infoinput, intInputBookId));
+                    UpdateInfo();
                     break;
-
             }
             Console.Clear();
             if (check)
@@ -442,6 +318,170 @@ namespace NewLibrary.Controller.ManagerFunction
                     continue;
                 }
             }
+
+            void UpdateBookId()
+            {
+                int intIdInput = 0;
+                string idInput = "0";
+                Console.WriteLine("새로운 id를 입력하세요.");
+                while (inputChecker)
+                {
+                    idInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
+                    inputChecker = inputKeyUnlessEnter.CheckRegex(idInput, RegexConstant.onlyNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+
+                    int modifyImpossible = 0;
+                    modifyImpossible = crudInDAO.ReadData("id", string.Format("SELECT id FROM bookconstructor WHERE id = '{0}'", idInput));
+                    if (modifyImpossible >= 1)
+                    {
+                        inputChecker = true;
+                        Console.SetCursorPosition(20, 20);
+                        Console.WriteLine("이미 존재하는 id입니다!");
+                    }
+                }
+                intIdInput = int.Parse(idInput);
+                check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "id", idInput, intInputBookId));
+            }
+
+            void UpdateBookName()
+            {
+                string bookNameInput = "";
+                Console.WriteLine("새로운 bookName을 입력하세요.");
+                while (inputChecker)
+                {
+                    bookNameInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
+                    inputChecker = inputKeyUnlessEnter.CheckRegex(bookNameInput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                    int modifyImpossible = 0;
+                    modifyImpossible = crudInDAO.ReadData("bookName", string.Format("SELECT bookName FROM bookconstructor WHERE bookName = '{0}'", bookNameInput));
+                    if (modifyImpossible >= 1)
+                    {
+                        inputChecker = true;
+                        Console.SetCursorPosition(20, 20);
+                        Console.WriteLine("이미 존재하는 bookName입니다!");
+                    }
+                }
+                inputChecker = true;
+                check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "bookName", bookNameInput, intInputBookId));
+            }
+
+            void UpdateAuthor()
+            {
+                string authorInput = "";
+                Console.WriteLine("새로운 author를 입력하세요.");
+                while (inputChecker)
+                {
+                    authorInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
+                    inputChecker = inputKeyUnlessEnter.CheckRegex(authorInput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                    int modifyImpossible = 0;
+                    modifyImpossible = crudInDAO.ReadData("author", string.Format("SELECT author FROM bookconstructor WHERE author = '{0}'", authorInput));
+                    if (modifyImpossible >= 1)
+                    {
+                        inputChecker = true;
+                        Console.SetCursorPosition(20, 20);
+                        Console.WriteLine("이미 존재하는 author입니다!");
+                    }
+                }
+                inputChecker = true;
+                check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "author", authorInput, intInputBookId));
+            }
+
+            void UpdatePublisher()
+            {
+                string publisherInput = "";
+                Console.WriteLine("새로운 publisher를 입력하세요.");
+                while (inputChecker)
+                {
+                    publisherInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
+                    inputChecker = inputKeyUnlessEnter.CheckRegex(publisherInput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                    int modifyImpossible = 0;
+                    modifyImpossible = crudInDAO.ReadData("publisher", string.Format("SELECT publisher FROM bookconstructor WHERE publisher = '{0}'", publisherInput));
+                    if (modifyImpossible >= 1)
+                    {
+                        inputChecker = true;
+                        Console.SetCursorPosition(20, 20);
+                        Console.WriteLine("이미 존재하는 publisher입니다!");
+                    }
+                }
+                inputChecker = true;
+                check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "publisher", publisherInput, intInputBookId));
+            }
+            void UpdateQuantity()
+            {
+                int intQuantityInput = 0;
+                string quantityinput = "0";
+                Console.WriteLine("새로운 quantity를 입력하세요.");
+                while (inputChecker)
+                {
+                    quantityinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
+                    inputChecker = inputKeyUnlessEnter.CheckRegex(quantityinput, RegexConstant.quantityRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                }
+                inputChecker = true;
+                intQuantityInput = int.Parse(quantityinput);
+                check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "quantity", intQuantityInput, intInputBookId));
+            }
+
+            void UpdatePrice()
+            {
+                int intpriceinput = 0;
+                string priceinput = "0";
+                Console.WriteLine("새로운 price 입력하세요.");
+                while (inputChecker)
+                {
+                    priceinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
+                    inputChecker = inputKeyUnlessEnter.CheckRegex(priceinput, RegexConstant.priceRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                }
+                inputChecker = true;
+                intpriceinput = int.Parse(priceinput);
+                check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "price", priceinput, intInputBookId));
+            }
+
+            void UpdatePublicationDate()
+            {
+                string publicationDateinput = "";
+                Console.WriteLine("새로운 publicationDate를 입력하세요.");
+                while (inputChecker)
+                {
+                    publicationDateinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
+                    inputChecker = inputKeyUnlessEnter.CheckRegex(publicationDateinput, RegexConstant.publicationDateRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                }
+                inputChecker = true;
+                check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "publicationDate", publicationDateinput, intInputBookId));
+            }
+
+            void UpdateISBN()
+            {
+                string isbnInput = "";
+                Console.WriteLine("새로운 isbn를 입력하세요.");
+                while (inputChecker)
+                {
+                    isbnInput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
+                    inputChecker = inputKeyUnlessEnter.CheckRegex(isbnInput, RegexConstant.isbnRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                    int modifyImpossible = 0;
+                    modifyImpossible = crudInDAO.ReadData("isbn", string.Format("SELECT isbn FROM bookconstructor WHERE isbn = '{0}'", isbnInput));
+                    if (modifyImpossible >= 1)
+                    {
+                        inputChecker = true;
+                        Console.SetCursorPosition(20, 20);
+                        Console.WriteLine("이미 존재하는 isbn입니다!");
+                    }
+                }
+                inputChecker = true;
+                check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "isbn", isbnInput, intInputBookId));
+            }
+
+            void UpdateInfo()
+            {
+                string infoinput = "";
+                Console.WriteLine("새로운 info를 입력하세요.");
+                while (inputChecker)
+                {
+                    infoinput = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 20);
+                    inputChecker = inputKeyUnlessEnter.CheckRegex(infoinput, RegexConstant.englishKoreanNumberRegex, 0, 20, 10, 20, "잘못된 입력입니다");
+                }
+                inputChecker = true;
+                check = crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.UpdateBookQuery, "info", infoinput, intInputBookId));
+            }
         }
+
+        
     }
 }

@@ -88,7 +88,7 @@ namespace NewLibrary.Controller.UserFunction
                 inputBookisbn = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 10);
                 fine = inputKeyUnlessEnter.CheckRegex(inputBookisbn, RegexConstant.isbnRegex, 0, 10, 10, 10, "잘못된 입력입니다");
                 int modifyImpossible = 0;
-                modifyImpossible = mysqlConnecter.ReadData("isbn", $"SELECT isbn FROM bookconstructor WHERE isbn ='{inputBookisbn}'");
+                modifyImpossible = mysqlConnecter.ReadData("isbn", string.Format(ConstantOfQuery.selectWithIsbn, inputBookisbn));
                 if (modifyImpossible >= 1)
                 {
                     fine = true;
@@ -102,7 +102,7 @@ namespace NewLibrary.Controller.UserFunction
                 inputBookId = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 12);
                 fine = inputKeyUnlessEnter.CheckRegex(inputBookId, RegexConstant.onlyNumberRegex, 0, 12, 10, 12, "잘못된 입력입니다");
                 int modifyImpossible = 0;
-                modifyImpossible = mysqlConnecter.ReadData("id", $"SELECT id FROM bookconstructor WHERE id ='{inputBookId}'");
+                modifyImpossible = mysqlConnecter.ReadData("id", string.Format(ConstantOfQuery.selectBookId, inputBookId));
                 if (modifyImpossible >= 1)
                 {
                     fine = true;
@@ -138,7 +138,7 @@ namespace NewLibrary.Controller.UserFunction
                 // bookconstructor 테이블에 해당하는 책 추가
                 if (isbn == inputIsbn)
                 {
-                    bool check = mysqlConnecter.InsertUpdateDelete($"INSERT INTO bookconstructor(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible) VALUES('{intid}','{title}','{author}','{publisher}','{intquantity}','{intDiscount}','{pubdate}','{isbn}','{inputBookInfo}','{intquantity}')");
+                    bool check = mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.insertBookQuery, intid, title, author, publisher, intquantity, intDiscount, pubdate, isbn, inputBookInfo, intquantity));
 
                     if (check)
                     {
