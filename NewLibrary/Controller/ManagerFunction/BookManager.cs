@@ -81,12 +81,28 @@ namespace NewLibrary.Controller.ManagerFunction
             {//inputBookisbn 입력&예외처리
                 inputBookisbn = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 10);
                 fine = inputKeyUnlessEnter.CheckRegex(inputBookisbn, RegexConstant.onlyNumberRegex, 0, 10, 10, 10, "잘못된 입력입니다");
+                int modifyImpossible = 0;
+                modifyImpossible = mysqlConnecter.ReadData("isbn", $"SELECT isbn FROM bookconstructor WHERE isbn ='{inputBookisbn}'");
+                if (modifyImpossible >= 1)
+                {
+                    fine = true;
+                    Console.SetCursorPosition(10, 10);
+                    Console.WriteLine("이미 존재하는 isbn입니다!");
+                }
             }
             fine = true;
             while (fine)
             {//inputBookId 입력&예외처리
                 inputBookId = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 12);
                 fine = inputKeyUnlessEnter.CheckRegex(inputBookId, RegexConstant.onlyNumberRegex, 0, 12, 10, 12, "잘못된 입력입니다");
+                int modifyImpossible = 0;
+                modifyImpossible = mysqlConnecter.ReadData("id", $"SELECT id FROM bookconstructor WHERE id ='{inputBookId}'");
+                if (modifyImpossible >= 1)
+                {
+                    fine = true;
+                    Console.SetCursorPosition(10, 12);
+                    Console.WriteLine("이미 존재하는 id입니다!");
+                }
             }
             fine = true;
             int intid = int.Parse(inputBookId);
@@ -148,7 +164,7 @@ namespace NewLibrary.Controller.ManagerFunction
         }
 
         public void DeleteBook(string userId)
-        { //도서 추가
+        { //도서 삭제
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();
             FunctionInDAO mysqlConnecter = new FunctionInDAO();
@@ -196,7 +212,7 @@ namespace NewLibrary.Controller.ManagerFunction
         }
 
         public void ModifyBook(string userId)
-        {
+        {//도서 수정
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();
             FunctionInDAO crudInDAO = new FunctionInDAO();

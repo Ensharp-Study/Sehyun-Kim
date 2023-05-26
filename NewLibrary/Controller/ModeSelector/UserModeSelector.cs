@@ -35,6 +35,7 @@ namespace NewLibrary.Controller
             bool checker = true;
             while (checker)
             {
+                Console.Clear();
                 Console.CursorVisible = false;
                 Console.SetWindowSize(56, 22);
 

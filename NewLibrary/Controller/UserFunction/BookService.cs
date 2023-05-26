@@ -261,6 +261,8 @@ WHERE id = '{0}'", inputBookId));
             {
                 Console.WriteLine("책 정보가 없습니다.");
             }
+            reader.Close();
+            connection.Close();
             returnTime = DateTime.Now;
             returnTimeString = returnTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
             mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.InsertInLogQuery, returnTimeString, "유저", "성공", "도서 반납 확인"));

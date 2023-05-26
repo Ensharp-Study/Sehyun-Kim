@@ -28,7 +28,7 @@ namespace NewLibrary.Constant
         public const string priceRegex = @"^[1-9][0-9]{0,6}$";//1-9999999 사이 자연수
         public const string quantityRegex = @"^[1-9][0-9]{0,2}$";//1-999 사이 자연수
         public const string publicationDateRegex = @"^(19|20)\d{2}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[0-1])"; //출판일자
-        public const string isbnRegex = @"^\d{9}$"; //isbn, 정수 9개
+        public const string isbnRegex = @"^\d{13}$"; //isbn, 정수 9개
 
         //메뉴 정규식
         public const string menuNumberRegex = "^[0-9]$";

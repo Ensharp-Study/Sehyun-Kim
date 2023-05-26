@@ -13,7 +13,7 @@ namespace NewLibrary.Controller.UserFunction
     internal class BookApplier
     { 
         public void ApplyBook(string userId)
-        { //도서 신청하기 
+        { //신청된 도서 추가하기  
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             APIConnection apiConnection = new APIConnection();
             FunctionInDAO mysqlConnecter = new FunctionInDAO();
@@ -44,8 +44,8 @@ namespace NewLibrary.Controller.UserFunction
             //ConnectNaverApi 메소드에 원하는 검색 결과 수, 키워드 넣어서 JArray 받아오기
             JArray items=apiConnection.ConnectNaverApi(quantity, inputBookWord);
 
-            Console.SetCursorPosition(0, 9);
-
+            Console.SetCursorPosition(0, 17);
+            Console.WriteLine("============================================================");
             //ConnectNaverApi 메소드를 통해 받아온 JArray를 정렬해서 출력하기
             foreach (var item in items)
             {
@@ -86,13 +86,29 @@ namespace NewLibrary.Controller.UserFunction
             while (fine)
             {//inputBookisbn 입력&예외처리
                 inputBookisbn = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 10);
-                fine = inputKeyUnlessEnter.CheckRegex(inputBookisbn, RegexConstant.onlyNumberRegex, 0, 10, 10, 10, "잘못된 입력입니다");
+                fine = inputKeyUnlessEnter.CheckRegex(inputBookisbn, RegexConstant.isbnRegex, 0, 10, 10, 10, "잘못된 입력입니다");
+                int modifyImpossible = 0;
+                modifyImpossible = mysqlConnecter.ReadData("isbn", $"SELECT isbn FROM bookconstructor WHERE isbn ='{inputBookisbn}'");
+                if (modifyImpossible >= 1)
+                {
+                    fine = true;
+                    Console.SetCursorPosition(10, 10);
+                    Console.WriteLine("이미 존재하는 isbn입니다!");
+                }
             }
             fine = true;
             while (fine)
             {//inputBookId 입력&예외처리
                 inputBookId = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 12);
                 fine = inputKeyUnlessEnter.CheckRegex(inputBookId, RegexConstant.onlyNumberRegex, 0, 12, 10, 12, "잘못된 입력입니다");
+                int modifyImpossible = 0;
+                modifyImpossible = mysqlConnecter.ReadData("id", $"SELECT id FROM bookconstructor WHERE id ='{inputBookId}'");
+                if (modifyImpossible >= 1)
+                {
+                    fine = true;
+                    Console.SetCursorPosition(10, 12);
+                    Console.WriteLine("이미 존재하는 id입니다!");
+                }
             }
             fine = true;
             int intid = int.Parse(inputBookId);
