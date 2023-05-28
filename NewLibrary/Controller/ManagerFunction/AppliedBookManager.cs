@@ -17,9 +17,9 @@ namespace NewLibrary.Controller.ManagerFunction
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
 
-            string selectQuery = "SELECT * FROM appliedbooklist";
+            string selectQuery = ConstantOfQuery.selectInApply;
             MySqlCommand command = new MySqlCommand(selectQuery, connection);
-
+            FunctionInDAO functionInDAO = new FunctionInDAO();
             bool check = true;
             string titleValue = "";
             string idValue = "0";
@@ -46,8 +46,6 @@ namespace NewLibrary.Controller.ManagerFunction
             Console.SetCursorPosition(0, 0);
             Console.WriteLine("추가할 책의 제목을 입력하세요.");
 
-            
-
             while (check)
             {
                 titleValue=inputKeyUnlessEnter.SaveInputUnlessEnter(0, 1);
@@ -59,6 +57,15 @@ namespace NewLibrary.Controller.ManagerFunction
             while (check)
             {
                 idValue = inputKeyUnlessEnter.SaveInputUnlessEnter(0, 3);
+
+                int modifyImpossible = 0;
+                modifyImpossible = functionInDAO.ReadData("id", string.Format(ConstantOfQuery.selectId, idValue));
+                if (modifyImpossible >= 1)
+                {
+                    check = true;
+                    Console.SetCursorPosition(20, 3);
+                    Console.WriteLine("이미 존재하는 id입니다!");
+                }
                 check = inputKeyUnlessEnter.CheckRegex(idValue, RegexConstant.onlyNumberRegex, 0, 3, 20, 3, "입력이 잘못되었습니다.");
             }
             check = true;
@@ -103,7 +110,7 @@ namespace NewLibrary.Controller.ManagerFunction
         public void MoveBookToConstructor(string bookId, string title, int quantity, int price, string info, int rentPossible)
         {
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
-            string selectQuery = string.Format("SELECT * FROM appliedbooklist WHERE title='{0}'", title);
+            string selectQuery = string.Format(ConstantOfQuery.selectApplyList, title);
             MySqlCommand selectCommand = new MySqlCommand(selectQuery, connection);
             FunctionInDAO mysqlConnecter = new FunctionInDAO();
             connection.Open();
@@ -121,13 +128,12 @@ namespace NewLibrary.Controller.ManagerFunction
 
                 reader.Close();
 
-                string insertQuery = string.Format("INSERT INTO bookconstructor(id, bookName, author, publisher, publicationDate, quantity, price, isbn, info, rentpossible) " +
-                                   "VALUES('{0}', '{1}', '{2}', '{3}', '{4}', {5}, '{6}', '{7}', '{8}', {9})",
+                string insertQuery = string.Format(ConstantOfQuery.insertBookQuery,
                                    bookId, title, author, publisher, pubDate, quantity, price, isbn, info, rentPossible);
                 MySqlCommand insertCommand = new MySqlCommand(insertQuery, connection);
                 int insertResult = insertCommand.ExecuteNonQuery();
 
-                string deleteQuery = string.Format("DELETE FROM appliedbooklist WHERE title='{0}' AND userid='{1}'", title, userId);
+                string deleteQuery = string.Format(ConstantOfQuery.deleteApplyList, title, userId);
                 MySqlCommand deleteCommand = new MySqlCommand(deleteQuery, connection);
                 int deleteResult = deleteCommand.ExecuteNonQuery();
                 returnTime = DateTime.Now;
