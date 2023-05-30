@@ -44,9 +44,10 @@ namespace NewLibrary.Controller
 
                 //SelectModeWithCursor 메소드에서 받아온 cursorNumber
                 int cursorNumber = SelectModeWithCursor(textPrinterWithCursor);
+                const int ExitProgram = 0;
 
                 //cursorNumber가 0이면 프로그램 종료 
-                if (cursorNumber == 0)
+                if (cursorNumber == ExitProgram)
                     return;
 
                 bool selectMode = true;
@@ -288,30 +289,30 @@ namespace NewLibrary.Controller
 
                 switch (keyNumber)
                 {
-                    case 0:
+                    case (int)UserMenuSelect.None: 
                         return keyNumber; //esc가 눌렸으면 keyNumber 0
-                    case 1:
+                    case (int)UserMenuSelect.BookSearch:
                         listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 0, 26, 13);
                         break;
-                    case 2:
+                    case (int)UserMenuSelect.BookLender:
                         listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 1, 26, 13);
                         break;
-                    case 3:
+                    case (int)UserMenuSelect.BookReturn:
                         listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 2, 26, 13);
                         break;
-                    case 4:
+                    case (int)UserMenuSelect.RentalConfirmation:
                         listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 3, 26, 13);
                         break;
-                    case 5:
+                    case (int)UserMenuSelect.ReturnList:
                         listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 4, 26, 13);
                         break;
-                    case 6:
+                    case (int)UserMenuSelect.UserInfoUpdate:
                         listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 5, 26, 13);
                         break;
-                    case 7:
+                    case (int)UserMenuSelect.UserWithdrawal:
                         listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 6, 26, 13);
                         break;
-                    case 8:
+                    case (int)UserMenuSelect.BookApplication:
                         listWithColoredIndexPrinter.PrintListWithColoredIndex(strList, 7, 26, 13);
                         break;
                 }

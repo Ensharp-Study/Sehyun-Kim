@@ -141,67 +141,20 @@ namespace NewLibrary.Controller.UserFunction
             {
                 case 0:
                     break;
-                case 1: //pw
-                    while (fine)
-                    {
-                        Console.SetCursorPosition(16, 22);
-                        Console.Write("PW -> 영어 또는 숫자 6-12자리");
-                        inputPw = inputKeyUnlessEnter.SaveInputUnlessEnter(10, 17);
-                        if (inputPw == null) // esc 키가 눌리면 즉시 종료
-                            return userId;
-                        fine = inputKeyUnlessEnter.CheckRegex(inputPw, RegexConstant.userPwRegex, 10, 17, 0, 0, "");
-                    }
-                    crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updatePassword, inputAge, userId));
+                case 1: // pw
+                    UpdatePassword();
                     break;
-                case 2://name
-                    while (fine)
-                    {
-                        Console.SetCursorPosition(20, 22);
-                        Console.Write("Name -> 한글 2-4자리");
-                        inputName = inputKeyUnlessEnter.SaveInputUnlessEnter(12, 18);
-                        if (inputName == null) // esc 키가 눌리면 즉시 종료
-                            return userId;
-                        fine = inputKeyUnlessEnter.CheckRegex(inputName, RegexConstant.userNameRegex, 12, 16, 0, 0, " ");
-                    }
-                    crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updateName, inputAge, userId));
+                case 2: // name
+                    UpdateName();
                     break;
-                case 3://age
-                    while (fine)
-                    {
-                        string bowl;
-                        Console.SetCursorPosition(23, 22);
-                        Console.Write("Age -> 1에서 200 사이 정수");
-                        bowl = inputKeyUnlessEnter.SaveInputUnlessEnter(12, 19);
-                        if (bowl == null) // esc 키가 눌리면 즉시 종료
-                            return userId;
-                        fine = inputKeyUnlessEnter.CheckRegex(bowl, RegexConstant.userAgeRegex, 12, 17, 0, 0, " ");
-                        inputAge = int.Parse(bowl);
-                    }
-                    crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updateAge, inputAge, userId));
+                case 3: // age
+                    UpdateAge();
                     break;
-                case 4://phoneNumber
-                    while (fine)
-                    {
-                        Console.SetCursorPosition(16, 22);
-                        Console.Write("PhoneNumber -> 01x-xxxx-xxxx");
-                        inputPhone = inputKeyUnlessEnter.SaveInputUnlessEnter(22, 20);
-                        if (inputPhone == null) // esc 키가 눌리면 즉시 종료
-                            return userId;
-                        fine = inputKeyUnlessEnter.CheckRegex(inputPhone, RegexConstant.userPhoneNumberRegex, 22, 18, 0, 0, " ");
-                    }
-                    crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updatePhone, inputPhone, userId));
+                case 4: // phoneNumber
+                    UpdatePhoneNumber();
                     break;
-                case 5://Address
-                    while (fine)
-                    {
-                        Console.SetCursorPosition(15, 22);
-                        Console.Write("Address -> 도로명 주소 or 지번 주소 or 동/호수까지");
-                        inputAddress = inputKeyUnlessEnter.SaveInputUnlessEnter(20, 21);
-                        if (inputAddress == null) // esc 키가 눌리면 즉시 종료
-                            return userId;
-                        fine = inputKeyUnlessEnter.CheckRegex(inputAddress, RegexConstant.userAddressRegex, 22, 19, 0, 0, " ");
-                    }
-                    crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updateAddress, inputAddress, userId)); ;
+                case 5: // Address
+                    UpdateAddress();
                     break;
             }
             Console.SetCursorPosition(16, 28);
@@ -222,7 +175,88 @@ namespace NewLibrary.Controller.UserFunction
                     continue;
                 }
             }
+            
+
+            string UpdatePassword()
+            {
+                while (fine)
+                {
+                    Console.SetCursorPosition(16, 22);
+                    Console.Write("PW -> 영어 또는 숫자 6-12자리");
+                    inputPw = inputKeyUnlessEnter.SaveInputUnlessEnter(10, 17);
+                    if (inputPw == null) // esc 키가 눌리면 즉시 종료
+                        return userId;
+                    fine = inputKeyUnlessEnter.CheckRegex(inputPw, RegexConstant.userPwRegex, 10, 17, 0, 0, "");
+                }
+                crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updatePassword, inputAge, userId));
+                return userId;
+            }
+
+            string UpdateName()
+            {
+                while (fine)
+                {
+                    Console.SetCursorPosition(20, 22);
+                    Console.Write("Name -> 한글 2-4자리");
+                    inputName = inputKeyUnlessEnter.SaveInputUnlessEnter(12, 18);
+                    if (inputName == null) // esc 키가 눌리면 즉시 종료
+                        return userId;
+                    fine = inputKeyUnlessEnter.CheckRegex(inputName, RegexConstant.userNameRegex, 12, 16, 0, 0, " ");
+                }
+                crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updateName, inputAge, userId));
+                return userId;
+            }
+
+            string UpdateAge()
+            {
+                while (fine)
+                {
+                    string bowl;
+                    Console.SetCursorPosition(23, 22);
+                    Console.Write("Age -> 1에서 200 사이 정수");
+                    bowl = inputKeyUnlessEnter.SaveInputUnlessEnter(12, 19);
+                    if (bowl == null) // esc 키가 눌리면 즉시 종료
+                        return userId;
+                    fine = inputKeyUnlessEnter.CheckRegex(bowl, RegexConstant.userAgeRegex, 12, 17, 0, 0, " ");
+                    inputAge = int.Parse(bowl);
+                }
+                crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updateAge, inputAge, userId));
+                return userId;
+            }
+
+            string UpdatePhoneNumber()
+            {
+                while (fine)
+                {
+                    Console.SetCursorPosition(16, 22);
+                    Console.Write("PhoneNumber -> 01x-xxxx-xxxx");
+                    inputPhone = inputKeyUnlessEnter.SaveInputUnlessEnter(22, 20);
+                    if (inputPhone == null) // esc 키가 눌리면 즉시 종료
+                        return userId;
+                    fine = inputKeyUnlessEnter.CheckRegex(inputPhone, RegexConstant.userPhoneNumberRegex, 22, 18, 0, 0, " ");
+                }
+                crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updatePhone, inputPhone, userId));
+                return userId;
+            }
+
+            string UpdateAddress()
+            {
+                while (fine)
+                {
+                    Console.SetCursorPosition(15, 22);
+                    Console.Write("Address -> 도로명 주소 or 지번 주소 or 동/호수까지");
+                    inputAddress = inputKeyUnlessEnter.SaveInputUnlessEnter(20, 21);
+                    if (inputAddress == null) // esc 키가 눌리면 즉시 종료
+                        return userId;
+                    fine = inputKeyUnlessEnter.CheckRegex(inputAddress, RegexConstant.userAddressRegex, 22, 19, 0, 0, " ");
+                }
+                crudInDAO.InsertUpdateDelete(string.Format(ConstantOfQuery.updateAddress, inputAddress, userId));
+                return userId;
+            }
+
             return userId;
         }
+
+
     }
 }

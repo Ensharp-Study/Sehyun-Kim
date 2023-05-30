@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
+using NewLibrary.Constant;
 using NewLibrary.Model.DAO;
 
 namespace NewLibrary.Controller
@@ -13,10 +14,8 @@ namespace NewLibrary.Controller
         public string DisplayUserInformation(string userId, bool check)
         {
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
-            string selectQuery = $"SELECT * FROM userconstructor WHERE userid = '{userId}'";
+            string selectQuery = string.Format(ConstantOfQuery.selectUserWithId, userId);
             MySqlCommand command = new MySqlCommand(selectQuery, connection);
-            //이거 따로빼기 dao안에서하는게맞다 controller에 database와 연계되어있느애를생성하면안되고알고있어도안된다
-            //dao에 정의되어있으니까 dao안에서 하기
 
             connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
@@ -62,7 +61,7 @@ namespace NewLibrary.Controller
         {
 
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
-            //string selectQuery = $"SELECT * FROM bookconstructor WHERE id = '{number}'"; //number 입력받아서 id=number인 행 찾기 
+            
             MySqlCommand command = new MySqlCommand(selectQuery, connection);
 
             connection.Open();
@@ -93,7 +92,7 @@ namespace NewLibrary.Controller
         public void DisplayAllBook()
         {
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
-            string selectQuery = "SELECT * FROM bookconstructor";
+            string selectQuery = ConstantOfQuery.selectBook;
             MySqlCommand command = new MySqlCommand(selectQuery, connection);
 
             connection.Open();

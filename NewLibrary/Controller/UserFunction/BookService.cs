@@ -35,17 +35,14 @@ namespace NewLibrary.Controller.Function
             DateTime currentTime = DateTime.Now;
             string currentTimeString = currentTime.ToString("yyyy-MM-dd HH:mm:ss"); //현재시각측정
                                                                                     //만약 대여 가능한 책 수가 1권 이상이면
-            int rentPossible = mysqlConnecter.ReadData("rentpossible", $"SELECT rentpossible FROM bookconstructor WHERE id ='{inputBookId}'");
+            int rentPossible = mysqlConnecter.ReadData("rentpossible", string.Format("SELECT rentpossible FROM bookconstructor WHERE id = '{0}'", inputBookId));
             if (rentPossible >= 1)
             {
                 //bookconstructor 테이블에서 대여할 책 정보를 불러와 borrowlist 테이블에 삽입
-                bool check = mysqlConnecter.InsertUpdateDelete(string.Format(@"INSERT INTO borrowlist(id, bookName, author, publisher, quantity, price, publicationDate, isbn, info, rentpossible, borrowtime, userid) 
-                                        SELECT id, bookName, author, publisher, quantity, 0, publicationDate, isbn, info, rentpossible, '{0}', '{1}' 
-                                        FROM bookconstructor 
-                                        WHERE id = '{2}'", currentTimeString, userId, inputBookId));
+                bool check = mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.insertBorrowList, currentTimeString, userId, inputBookId));
 
                 //bookconstructor 테이블에서 rentpossible 값을 1 감소시킴
-                check = mysqlConnecter.InsertUpdateDelete(string.Format("UPDATE bookconstructor SET rentpossible = rentpossible - 1 WHERE id = '{0}'", inputBookId));
+                check = mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.updateRentPossibleDecrease, inputBookId));
                 if (check)
                 {
                     Console.WriteLine("");
@@ -97,7 +94,7 @@ namespace NewLibrary.Controller.Function
         {
             FunctionInDAO mysqlConnecter = new FunctionInDAO();
             MySqlConnection connection = DatabaseConnection.Instance.Connection;
-            MySqlCommand command = new MySqlCommand(string.Format("SELECT * FROM borrowlist WHERE userid = '{0}'", userId), connection);
+            MySqlCommand command = new MySqlCommand(string.Format(ConstantOfQuery.selectBorrowList, userId), connection);
             connection.Open();
             MySqlDataReader reader = command.ExecuteReader();
 

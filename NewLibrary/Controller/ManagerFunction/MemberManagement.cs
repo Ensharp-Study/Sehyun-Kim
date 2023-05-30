@@ -96,6 +96,8 @@ namespace NewLibrary.Controller.ManagerFunction
             
         }
 
+
+
         public void ManageMember(string userId)
         {
             InputKeyUnlessEnter inputKeyUnlessEnter = new InputKeyUnlessEnter();

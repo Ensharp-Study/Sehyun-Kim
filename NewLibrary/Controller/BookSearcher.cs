@@ -66,46 +66,13 @@ namespace NewLibrary.Controller
                     userId = null;
                     return userId;
                 case 1:
-                    Console.SetCursorPosition(18, 11);
-                    Console.Write("                                              ");
-                    Console.SetCursorPosition(10, 12);
-                    Console.Write("제목을 입력하세요 :                   ");
-                    
-                    string inputTitle = inputKeyUnlessEnter.SaveInputUnlessEnter(31, 12);
-                    if (inputTitle == null) // esc 키가 눌리면 즉시 종료
-                    {
-                        break; 
-                    }
-                    Console.Clear();
-                    bookDisplayer.DisplayBookInformation(string.Format(ConstantOfQuery.selectBookNameQuery, inputTitle));
+                    SearchByTitle();
                     break;
                 case 2:
-                    Console.SetCursorPosition(18, 11);
-                    Console.Write("                                             ");
-                    Console.SetCursorPosition(10, 12);
-                    Console.Write("작가명을 입력하세요 :                  ");
-                    string authorname = inputKeyUnlessEnter.SaveInputUnlessEnter(31, 12);
-                    if (authorname == null) // esc 키가 눌리면 즉시 종료
-                    {
-                        break;
-                    }
-                    Console.Clear();
-                    bookDisplayer.DisplayBookInformation(string.Format(ConstantOfQuery.selectauthorQuery, authorname));
+                    SearchByAuthor();
                     break;
                 case 3:
-                    Console.SetCursorPosition(18, 11);
-                    Console.Write("                                             ");
-                    Console.SetCursorPosition(10, 12);
-                    Console.Write("출판사명을 입력하세요 :                  ");
-                    string publishername = inputKeyUnlessEnter.SaveInputUnlessEnter(31, 12);
-                    if (publishername == null) // esc 키가 눌리면 즉시 종료
-                    {
-                        break; 
-                    }
-                    Console.Clear();
-                    bookDisplayer.DisplayBookInformation(string.Format(ConstantOfQuery.selectpublisherQuery, publishername));
-                    
-                    
+                    SearchByPublisher();
                     break;
             }
             returnTime = DateTime.Now;
@@ -124,6 +91,51 @@ namespace NewLibrary.Controller
                 {
                     continue;
                 }
+            }
+            void SearchByTitle()
+            {
+                Console.SetCursorPosition(18, 11);
+                Console.Write("                                              ");
+                Console.SetCursorPosition(10, 12);
+                Console.Write("제목을 입력하세요 :                   ");
+
+                string inputTitle = inputKeyUnlessEnter.SaveInputUnlessEnter(31, 12);
+                if (inputTitle == null) // esc 키가 눌리면 즉시 종료
+                {
+                    return;
+                }
+                Console.Clear();
+                bookDisplayer.DisplayBookInformation(string.Format(ConstantOfQuery.selectBookNameQuery, inputTitle));
+            }
+
+            void SearchByAuthor()
+            {
+                Console.SetCursorPosition(18, 11);
+                Console.Write("                                             ");
+                Console.SetCursorPosition(10, 12);
+                Console.Write("작가명을 입력하세요 :                  ");
+                string authorname = inputKeyUnlessEnter.SaveInputUnlessEnter(31, 12);
+                if (authorname == null) // esc 키가 눌리면 즉시 종료
+                {
+                    return;
+                }
+                Console.Clear();
+                bookDisplayer.DisplayBookInformation(string.Format(ConstantOfQuery.selectauthorQuery, authorname));
+            }
+
+            void SearchByPublisher()
+            {
+                Console.SetCursorPosition(18, 11);
+                Console.Write("                                             ");
+                Console.SetCursorPosition(10, 12);
+                Console.Write("출판사명을 입력하세요 :                  ");
+                string publishername = inputKeyUnlessEnter.SaveInputUnlessEnter(31, 12);
+                if (publishername == null) // esc 키가 눌리면 즉시 종료
+                {
+                    return;
+                }
+                Console.Clear();
+                bookDisplayer.DisplayBookInformation(string.Format(ConstantOfQuery.selectpublisherQuery, publishername));
             }
             return userId;
 

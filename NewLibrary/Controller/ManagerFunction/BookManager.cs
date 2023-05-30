@@ -184,8 +184,8 @@ namespace NewLibrary.Controller.ManagerFunction
             }
             
             fine = mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.deleteWithIsbn, inputBookisbn));
-            mysqlConnecter.InsertUpdateDelete(string.Format("DELETE FROM borrowlist WHERE isbn='{0}'", inputBookisbn));
-            mysqlConnecter.InsertUpdateDelete(string.Format("DELETE FROM returnlist WHERE isbn='{0}'", inputBookisbn));
+            mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.deleteBorrowListWithIsbn, inputBookisbn));
+            mysqlConnecter.InsertUpdateDelete(string.Format(ConstantOfQuery.deleteReturnListWithIsbn, inputBookisbn));
             if (!fine)
             {
                 Console.WriteLine();
