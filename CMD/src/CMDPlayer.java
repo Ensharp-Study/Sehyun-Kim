@@ -34,20 +34,15 @@ public class CMDPlayer {
         if (command.startsWith("cd")) {
             currentDirectory=mode.enterCdMode(command, currentDrive, currentDirectory);
         }
-        else if (command.equals("dir")) {
-            // Handle dir command
+        else if (command.startsWith("dir")) {
         }
-        else if (command.equals("cls")) {
-            // Handle cls command
+        else if (command.startsWith("cls")) {
         }
-        else if (command.equals("help")) {
-            // Handle help command
+        else if (command.startsWith("help")) {
         }
-        else if (command.equals("copy")) {
-            // Handle copy command
+        else if (command.startsWith("copy")) {
         }
-        else if (command.equals("move")) {
-            // Handle move command
+        else if (command.startsWith("move")) {
         }
         else {
             System.out.print("'" + command + "'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는\n");
