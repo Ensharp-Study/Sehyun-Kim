@@ -1,14 +1,16 @@
 import java.util.Scanner;
 
-public class CMD {
+public class CMDPlayer {
     private String currentDrive; //현재 드라이브의 정보를 담을 변수
     private String currentDirectory; //현재 디렉터리의 정보를 담을 변수
 
+    public CMDPlayer(String currentDrive, String currentDirectory){
+        this.currentDrive = currentDrive;
+        this.currentDirectory = currentDirectory;
+    }
     private void printMessage(){
         System.out.println("Microsoft Windows [Version 10.0.22621.1555]");
         System.out.println("(c) Microsoft Corporation. All rights reserved.");
-        currentDrive="C:\\";
-        currentDirectory="Users\\user";
     }
 
     //실행 메소드
@@ -28,9 +30,9 @@ public class CMD {
 
     //모드로 진입하는 메소드
     private void enterMode(String command) {
-        Mode mode = new Mode();
+        CdPlayer mode = new CdPlayer(currentDrive, currentDirectory);
         if (command.startsWith("cd")) {
-            mode.enterCdMode(command, currentDrive, currentDirectory);
+            currentDirectory=mode.enterCdMode(command, currentDrive, currentDirectory);
         }
         else if (command.equals("dir")) {
             // Handle dir command

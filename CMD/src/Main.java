@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
-        CMD cmd = new CMD();
+        CMDPlayer cmd = new CMDPlayer("C:\\","Users\\user");
         cmd.run();
     }
 }
