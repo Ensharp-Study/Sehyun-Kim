@@ -1,3 +1,6 @@
+import ModePlayer.CdPlayer;
+import ModePlayer.ClsPlayer;
+
 import java.util.Scanner;
 
 public class CMDPlayer {
@@ -30,13 +33,15 @@ public class CMDPlayer {
 
     //모드로 진입하는 메소드
     private void enterMode(String command) {
-        CdPlayer mode = new CdPlayer(currentDrive, currentDirectory);
+        CdPlayer cdPlayer = new CdPlayer(currentDrive, currentDirectory);
+        ClsPlayer clsPlayer = new ClsPlayer();
         if (command.startsWith("cd")) {
-            currentDirectory=mode.enterCdMode(command, currentDrive, currentDirectory);
+            currentDirectory=cdPlayer.enterCdMode(command, currentDrive, currentDirectory);
         }
         else if (command.startsWith("dir")) {
         }
         else if (command.startsWith("cls")) {
+            clsPlayer.clearScreen();
         }
         else if (command.startsWith("help")) {
         }
