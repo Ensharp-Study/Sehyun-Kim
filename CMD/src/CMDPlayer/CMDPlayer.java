@@ -1,3 +1,5 @@
+package CMDPlayer;
+
 import ModePlayer.CdPlayer;
 import ModePlayer.ClsPlayer;
 import ModePlayer.CopyPlayer;
