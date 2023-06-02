@@ -1,5 +1,6 @@
 import ModePlayer.CdPlayer;
 import ModePlayer.ClsPlayer;
+import ModePlayer.CopyPlayer;
 import ModePlayer.HelpPlayer;
 
 import java.util.Scanner;
@@ -37,6 +38,7 @@ public class CMDPlayer {
         CdPlayer cdPlayer = new CdPlayer(currentDrive, currentDirectory);
         ClsPlayer clsPlayer = new ClsPlayer();
         HelpPlayer helpPlayer = new HelpPlayer();
+        CopyPlayer copyPlayer = new CopyPlayer(currentDrive, currentDirectory);
         if (command.startsWith("cd")) {
             currentDirectory=cdPlayer.enterCdMode(command, currentDrive, currentDirectory);
         }
@@ -49,6 +51,7 @@ public class CMDPlayer {
             helpPlayer.informHelp();
         }
         else if (command.startsWith("copy")) {
+            copyPlayer.enterCopyMode(command, currentDrive, currentDirectory);
         }
         else if (command.startsWith("move")) {
         }
