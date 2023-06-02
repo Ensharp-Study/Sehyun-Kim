@@ -13,17 +13,18 @@ public class CopyPlayer {
     }
     public void enterCopyMode(String command, String currentDrive, String currentDirectory){
         String commandTokens = command.substring(5); //copy+" " 제외 나머지 문자열
-        int spaceIndex = commandTokens.indexOf(" ");
-        String sourcePath = commandTokens.substring(0, spaceIndex-1 );
-        String destinationPath = commandTokens.substring(spaceIndex);
+        int spaceIndex = commandTokens.indexOf(" "); //공백이 몇 번째 인덱스에서 나오는지 찾기
+        String sourcePath = commandTokens.substring(0, spaceIndex-1 ); //공백 이전 문자열 저장
+        String destinationPath = commandTokens.substring(spaceIndex); //공백 이후 문자열 저장
 
-        File sourceFile = new File(currentDirectory, sourcePath);
-        File destinationDir = new File(currentDirectory, destinationPath);
+        File sourceFile = new File(currentDirectory, sourcePath); //sourcePath에 해당하는 파일 찾기
+        File destinationDir = new File(currentDirectory, destinationPath); //destinationPath에 해당하는 파일 찾기
 
         if (sourceFile.exists() && destinationDir.exists()&&destinationDir.isDirectory()){
+            //파일이 존재하는지, destinationDir이 디렉터리 경로인지 확인
             Path source = sourceFile.toPath();
             Path destination = new File(destinationDir, sourceFile.getName()).toPath();
-            //Files.copy(source, destination, StandardCopyOption.COPY_ATTRIBUTES);
+            Files.copy(source, destination, StandardCopyOption.COPY_ATTRIBUTES);
             System.out.println("!");
         }
         else{

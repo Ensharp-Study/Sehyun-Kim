@@ -23,6 +23,9 @@ public class CdPlayer {
         else if (command.equals("cd")){ //cd만 입력된 경우
             System.out.println(currentDrive + currentDirectory);
         }
+        else if (cleanedCommand.equals("\\")){
+            currentDirectory="";
+        }
         else if (Paths.get(cleanedCommand).isAbsolute()) { // 절대 경로가 입력된 경우
             String drive = cleanedCommand.substring(0, 3);
             currentDrive = drive;
