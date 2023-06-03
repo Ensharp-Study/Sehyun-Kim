@@ -16,7 +16,8 @@ public class CMDPlayer {
         this.currentDirectory = currentDirectory;
     }
     private void printMessage(){
-        System.out.println("Microsoft Windows [Version 10.0.22621.1555]");
+        String osVersion = System.getProperty("os.version");
+        System.out.println("Microsoft Windows [Version " + osVersion + "]");
         System.out.println("(c) Microsoft Corporation. All rights reserved.");
     }
 
@@ -25,12 +26,16 @@ public class CMDPlayer {
         Scanner scanner = new Scanner(System.in);
         String command;
         printMessage();
-        //exit이 입력되기 전까지 반복
-        do {
-            System.out.print(currentDrive + currentDirectory+">");
+        // exit이 입력되기 전까지 반복
+        System.out.println(currentDrive + currentDirectory + ">");
+        command = scanner.nextLine();
+        enterMode(command);
+
+        while (!command.equals("exit")) {
+            System.out.print(currentDrive + currentDirectory + ">");
             command = scanner.nextLine();
             enterMode(command);
-        } while (!command.equals("exit"));
+        }
 
         scanner.close();
     }

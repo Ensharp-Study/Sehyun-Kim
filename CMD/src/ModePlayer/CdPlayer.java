@@ -14,28 +14,28 @@ public class CdPlayer {
 
     public String enterCdMode(String command, String currentDrive, String currentDirectory) {
         String commandTokens = command.substring(2); //cd 지우고 나머지 문자열 저장
-        String cleanedCommand = commandTokens.replace(" ",""); //나머지 문자열의 공백을 모두 제거
-        File file = new File(currentDrive + currentDirectory, cleanedCommand); // 드라이브 정보를 포함한 전체 경로로 설정
+        File file;
+        file = new File(currentDrive + currentDirectory, commandTokens); // 드라이브 정보를 포함한 전체 경로로 설정
 
-        if (cleanedCommand.equals("..")){ //cd .. 입력된 경우
+        if (commandTokens.equals("..") || commandTokens.equals(" ..")){ //cd .. 입력된 경우
             currentDirectory = moveToParentDirectory(currentDrive, currentDirectory);
         }
         else if (command.equals("cd")){ //cd만 입력된 경우
             System.out.println(currentDrive + currentDirectory);
         }
-        else if (cleanedCommand.equals("\\")){
+        else if (commandTokens.equals("\\")){
             currentDirectory="";
         }
-        else if (Paths.get(cleanedCommand).isAbsolute()) { // 절대 경로가 입력된 경우
-            String drive = cleanedCommand.substring(0, 3);
+        else if (Paths.get(commandTokens).isAbsolute()) { // 절대 경로가 입력된 경우
+            String drive = commandTokens.substring(0, 3);
             currentDrive = drive;
-            currentDirectory = cleanedCommand.substring(3);
+            currentDirectory = commandTokens.substring(3);
         }
-        else if (file.exists() && file.isDirectory()) {
+        else if (file.exists()) {
             if (currentDirectory.isEmpty()) {
-                currentDirectory = cleanedCommand;
+                currentDirectory = commandTokens;
             } else {
-                currentDirectory += "\\" + cleanedCommand; // 상대 경로를 추가하여 이동
+                currentDirectory += "\\" + commandTokens; // 상대 경로를 추가하여 이동
             }
         }
         else{
