@@ -15,7 +15,8 @@ public class CdPlayer {
     public String enterCdMode(String command, String currentDrive, String currentDirectory) {
         String commandTokens = command.substring(2); //cd 지우고 나머지 문자열 저장
         File file;
-        file = new File(currentDrive + currentDirectory, commandTokens); // 드라이브 정보를 포함한 전체 경로로 설정
+        String cleanedCommand = command.substring(3);
+        file = new File(currentDrive + currentDirectory, cleanedCommand); // 드라이브 정보를 포함한 전체 경로로 설정
 
         if (commandTokens.equals("..") || commandTokens.equals(" ..")){ //cd .. 입력된 경우
             currentDirectory = moveToParentDirectory(currentDrive, currentDirectory);
@@ -26,16 +27,16 @@ public class CdPlayer {
         else if (commandTokens.equals("\\")){
             currentDirectory="";
         }
-        else if (Paths.get(commandTokens).isAbsolute()) { // 절대 경로가 입력된 경우
-            String drive = commandTokens.substring(0, 3);
+        else if (Paths.get(cleanedCommand).isAbsolute()) { // 절대 경로가 입력된 경우
+            String drive = cleanedCommand.substring(0, 3);
             currentDrive = drive;
-            currentDirectory = commandTokens.substring(3);
+            currentDirectory = cleanedCommand.substring(3);
         }
         else if (file.exists()) {
             if (currentDirectory.isEmpty()) {
-                currentDirectory = commandTokens;
+                currentDirectory = cleanedCommand;
             } else {
-                currentDirectory += "\\" + commandTokens; // 상대 경로를 추가하여 이동
+                currentDirectory += "\\" + cleanedCommand; // 상대 경로를 추가하여 이동
             }
         }
         else{
@@ -58,12 +59,12 @@ public class CdPlayer {
         return currentDirectory;
     }
     private String moveToParentDirectory(String currentDrive, String currentDirectory) {
-        //cd..이라고 입력하면 상위 디렉터리로 이동
+        // cd..이라고 입력하면 상위 디렉터리로 이동
         String[] currentPathTokens = currentDirectory.split("\\\\");
         if (currentPathTokens.length > 0) {
             StringBuilder parentDirectory = new StringBuilder();
             for (int i = 0; i < currentPathTokens.length - 1; i++) {
-                parentDirectory.append(currentPathTokens[i]);
+                parentDirectory.append(currentPathTokens[i]).append("\\");
             }
             currentDirectory = parentDirectory.toString();
         }

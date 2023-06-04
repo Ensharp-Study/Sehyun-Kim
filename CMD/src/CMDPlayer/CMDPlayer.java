@@ -44,6 +44,8 @@ public class CMDPlayer {
         HelpPlayer helpPlayer = new HelpPlayer();
         CopyPlayer copyPlayer = new CopyPlayer(currentDrive, currentDirectory);
         DirPlayer dirPlayer = new DirPlayer(currentDrive, currentDirectory);
+        MovePlayer movePlayer = new MovePlayer(currentDrive, currentDirectory);
+
         if (command.startsWith("cd")) {
             currentDirectory=cdPlayer.enterCdMode(command, currentDrive, currentDirectory);
         }
@@ -57,9 +59,10 @@ public class CMDPlayer {
             helpPlayer.informHelp();
         }
         else if (command.startsWith("copy")) {
-            copyPlayer.enterCopyMode(command, currentDrive, currentDirectory);
+            copyPlayer.isFileOrDirectory(command, currentDrive, currentDirectory);
         }
         else if (command.startsWith("move")) {
+            movePlayer.move(command);
         }
         else {
             System.out.print("'" + command + "'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는\n");

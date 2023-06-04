@@ -26,10 +26,10 @@ public class DirPlayer {
                 long lastModified = file.lastModified();
                 String lastModifiedDateString = dateFormat.format(new Date(lastModified));
 
-                System.out.printf("%s\t%s\t%-10s\t%,12d bytes%n", lastModifiedDateString.substring(0, 10), lastModifiedDateString.substring(11), type, size);
+                System.out.printf("%s\t%s\t%-10s\t%,12d \t%s%n", lastModifiedDateString.substring(0, 10), lastModifiedDateString.substring(11), type, size, name);
             }
-            System.out.printf("%d개 파일\t\t\t\t\t\t\t%,15d 바이트%n", files.length, directory.getTotalSpace());
-            System.out.printf("%d개 디렉터리\t\t\t\t\t\t\t%,15d 바이트 남음%n", directory.listFiles(File::isDirectory).length, directory.getFreeSpace());
+            System.out.printf("\t\t\t\t%d개 파일\t\t\t\t%,15d 바이트%n", files.length, directory.getTotalSpace());
+            System.out.printf("\t\t\t\t%d개 디렉터리\t\t\t\t%,15d 바이트 남음%n", directory.listFiles(File::isDirectory).length, directory.getFreeSpace());
         } else {
             System.out.println("");
         }
