@@ -17,10 +17,10 @@ public class CopyPlayer {
         String sourcePath = commandTokens.substring(0, spaceIndex); // 공백 이전 문자열 저장
         String destinationPath = commandTokens.substring(spaceIndex + 1); // 공백 이후 문자열 저장
 
-        File sourceFile = new File(currentDrive+currentDirectory, sourcePath); // sourcePath에 해당하는 파일 찾기
-        File destinationDir = new File(currentDrive+currentDirectory, destinationPath); // destinationPath에 해당하는 폴더 찾기
+        File sourceFile = new File(currentDrive + currentDirectory, sourcePath); // sourcePath에 해당하는 파일 찾기
+        File destinationDir = new File(currentDrive + currentDirectory, destinationPath); // destinationPath에 해당하는 폴더 찾기
 
-        if (sourceFile.exists() && destinationDir.exists() && destinationDir.isDirectory()) {
+        if (sourceFile.exists() &&  destinationDir.isDirectory()) {
             // 파일이 존재하는지, destinationDir이 디렉터리 경로인지 확인
             Path source = sourceFile.toPath();
             Path destination = new File(destinationDir, sourceFile.getName()).toPath();
@@ -33,6 +33,8 @@ public class CopyPlayer {
                 System.out.println("지정된 경로를 찾을 수 없습니다.");
             }
         }
-        System.out.println("1개 파일이 복사되었습니다.");
+        else{
+            System.out.println("지정된 경로를 찾을 수 없습니다.");
+        }
     }
 }

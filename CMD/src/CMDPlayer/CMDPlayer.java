@@ -1,9 +1,6 @@
 package CMDPlayer;
 
-import ModePlayer.CdPlayer;
-import ModePlayer.ClsPlayer;
-import ModePlayer.CopyPlayer;
-import ModePlayer.HelpPlayer;
+import ModePlayer.*;
 
 import java.util.Scanner;
 
@@ -46,10 +43,12 @@ public class CMDPlayer {
         ClsPlayer clsPlayer = new ClsPlayer();
         HelpPlayer helpPlayer = new HelpPlayer();
         CopyPlayer copyPlayer = new CopyPlayer(currentDrive, currentDirectory);
+        DirPlayer dirPlayer = new DirPlayer(currentDrive, currentDirectory);
         if (command.startsWith("cd")) {
             currentDirectory=cdPlayer.enterCdMode(command, currentDrive, currentDirectory);
         }
         else if (command.startsWith("dir")) {
+            dirPlayer.displayDirectory();
         }
         else if (command.startsWith("cls")) {
             clsPlayer.clearScreen();

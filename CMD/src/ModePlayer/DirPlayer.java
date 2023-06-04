@@ -23,7 +23,7 @@ public class DirPlayer {
                 System.out.printf("%-20s%-10s%10d bytes%n", name, type, size);
             }
         } else {
-            System.out.println("Failed to retrieve directory contents.");
+            System.out.println("");
         }
     }
 }
