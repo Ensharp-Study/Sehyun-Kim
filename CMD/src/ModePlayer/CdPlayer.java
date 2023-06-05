@@ -4,7 +4,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class CdPlayer {
+public class CdPlayer {  
     private String currentDrive; //현재 드라이브의 정보를 담을 변수
     private String currentDirectory; //현재 디렉터리의 정보를 담을 변수
     public CdPlayer(String currentDrive, String currentDirectory) {
