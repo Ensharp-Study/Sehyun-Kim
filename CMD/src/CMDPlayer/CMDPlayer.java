@@ -59,7 +59,7 @@ public class CMDPlayer {
             helpPlayer.informHelp();
         }
         else if (command.startsWith("copy")) {
-            copyPlayer.isFileOrDirectory(command, currentDrive, currentDirectory);
+            copyPlayer.isFileOrDirectory(command);
         }
         else if (command.startsWith("move")) {
             movePlayer.move(command);
