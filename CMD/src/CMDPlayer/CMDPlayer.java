@@ -12,14 +12,14 @@ public class CMDPlayer {
         this.currentDrive = currentDrive;
         this.currentDirectory = currentDirectory;
     }
-    private void printMessage(){
+    private void printMessage() {
         String osVersion = System.getProperty("os.version");
         System.out.println("Microsoft Windows [Version " + osVersion + "]");
         System.out.println("(c) Microsoft Corporation. All rights reserved.");
     }
 
     //실행 메소드
-    public void run() {
+    public void run(){
         Scanner scanner = new Scanner(System.in);
         String command;
         printMessage();
