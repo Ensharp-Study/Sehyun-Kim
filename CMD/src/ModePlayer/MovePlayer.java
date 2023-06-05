@@ -28,16 +28,21 @@ public class MovePlayer {
         }
 
         try {
+
             if (source.isFile() && destination.isDirectory()) {
+                //파일을 폴더로 이동
                 moveFileToDirectory(source, destination);
-            } else if (source.isDirectory() && destination.isDirectory()) {
+            }
+            else if (source.isDirectory() && destination.isDirectory()) {
+                //폴더를 폴더로 이동
                 moveDirectoryToDirectory(source, destination);
-            } else if (isAbsolutePath(destinationPath)) {
-                moveFileToAbsolutePath(source, destination);
-            } else if (source.isFile() && destination.isFile()) {
+            }
+            else if (source.isFile() && destination.isFile()) {
+                //파일을 파일로 덮어쓰기
                 moveFileToFile(source, destination);
-            } else {
-                System.out.println("이동할 수 없는 조합입니다.");
+            }
+            else {
+                System.out.println("지정된 파일을 찾을 수 없습니다.");
             }
         } catch (Exception e) {
             System.out.println("파일 또는 디렉터리 이동에 실패했습니다.");
@@ -63,7 +68,6 @@ public class MovePlayer {
             System.out.println("대상 폴더를 찾을 수 없습니다.");
             return;
         }
-
         File destination = new File(destinationDir, source.getName());
         Files.move(source.toPath(), destination.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
@@ -76,9 +80,7 @@ public class MovePlayer {
             System.out.println("대상 파일을 찾을 수 없습니다.");
             return;
         }
-
         Files.move(source.toPath(), destinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-
         System.out.println("파일을 성공적으로 이동했습니다.");
     }
 
@@ -96,5 +98,6 @@ public class MovePlayer {
 
     private boolean isAbsolutePath(String path) {
         return new File(path).isAbsolute();
+
     }
 }
