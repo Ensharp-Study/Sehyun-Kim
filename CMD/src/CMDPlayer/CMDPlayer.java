@@ -26,7 +26,7 @@ public class CMDPlayer {
         // exit이 입력되기 전까지 반복
         System.out.println(currentDrive + currentDirectory + ">");
         command = scanner.nextLine();
-        enterMode(command);
+        currentDirectory=enterMode(command);
 
         while (!command.equals("exit")) {
             System.out.print(currentDrive + currentDirectory + ">");
@@ -38,7 +38,7 @@ public class CMDPlayer {
     }
 
     //모드로 진입하는 메소드
-    private void enterMode(String command) {
+    private String enterMode(String command) {
         CdPlayer cdPlayer = new CdPlayer(currentDrive, currentDirectory);
         ClsPlayer clsPlayer = new ClsPlayer();
         HelpPlayer helpPlayer = new HelpPlayer();
@@ -68,5 +68,7 @@ public class CMDPlayer {
             System.out.print("'" + command + "'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는\n");
             System.out.print("배치 파일이 아닙니다.\n\n");
         }
+
+        return currentDirectory;
     }
 }

@@ -24,8 +24,9 @@ public class CdPlayer {
         else if (command.equals("cd")){ //cd만 입력된 경우
             System.out.println(currentDrive + currentDirectory);
         }
-        else if (commandTokens.equals("\\")){
+        else if (cleanedCommand.equals("\\")){
             currentDirectory="";
+            return currentDirectory;
         }
         else if (Paths.get(cleanedCommand).isAbsolute()) { // 절대 경로가 입력된 경우
             String drive = cleanedCommand.substring(0, 3);
@@ -47,17 +48,6 @@ public class CdPlayer {
         return currentDirectory;
     }
 
-    private String moveToParticularDirectory(String directoryPath) {
-        //1. 가고 싶은 디렉터리의 전체 경로 입력되었을 경우
-        //2. cd + 원하는 디렉터리 --> 해당 디렉터리로 이동
-        File directory = new File(directoryPath);
-        if (directory.isDirectory()) {
-            currentDirectory = directoryPath;
-        } else {
-            System.out.println("지정된 경로를 찾을 수 없습니다.");
-        }
-        return currentDirectory;
-    }
     private String moveToParentDirectory(String currentDrive, String currentDirectory) {
         // cd..이라고 입력하면 상위 디렉터리로 이동
         String[] currentPathTokens = currentDirectory.split("\\\\");
