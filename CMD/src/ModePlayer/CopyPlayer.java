@@ -38,11 +38,19 @@ public class CopyPlayer {
     }
 
     private void copyFile(File sourceFile, File destinationFile) {
-        try {
-            Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
-            System.out.println("\t\t\t\t 1개 파일이 복사되었습니다.");
-        } catch (IOException e) {
-            System.out.println("지정된 파일을 찾을 수 없습니다.");
+        String sourcePath = sourceFile.getAbsolutePath();
+        String destinationPath = destinationFile.getAbsolutePath();
+
+        if (destinationPath.equals(sourcePath)) {
+            System.out.println("같은 파일로 복사할 수 없습니다: " + sourceFile.getName());
+            System.out.println("     0개 파일이 복사되었습니다.");
+        } else {
+            try {
+                Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
+                System.out.println("     1개 파일이 복사되었습니다.");
+            } catch (IOException e) {
+                System.out.println("지정된 파일을 찾을 수 없습니다.");
+            }
         }
     }
 
@@ -68,9 +76,8 @@ public class CopyPlayer {
     }
 
     private void OverwriteDestination(File sourceFolder, File destinationFolder) {
-        // 덮어쓰기 여부를 물어보고 입력에 따라 처리
-        int fileCount = 0; // 복사된 파일의 수를 세는 변수
-        File[] files = sourceFolder.listFiles(); // 폴더 내 파일들을 가져옴
+        int fileCount = 0;
+        File[] files = sourceFolder.listFiles();
         Scanner scanner = new Scanner(System.in);
 
         if (files != null) {
@@ -85,13 +92,11 @@ public class CopyPlayer {
                 String input = scanner.nextLine().toLowerCase();
 
                 if (destinationFile.exists()) {
-                    // 파일 이름이 동일한 경우 거부
                     if (destinationFile.getName().equals(file.getName())) {
                         System.out.println("같은 이름의 파일로 복사할 수 없습니다: " + file.getName());
                         continue;
                     }
 
-                    // all 옵션인 경우에만 덮어쓰기 수행
                     if (!input.equals("all")) {
                         System.out.println("파일이 이미 존재합니다: " + file.getName());
                         continue;
@@ -112,7 +117,6 @@ public class CopyPlayer {
             }
         }
 
-        scanner.close();
         System.out.println(fileCount + "개 파일이 성공적으로 복사되었습니다.");
     }
     private void copyDirectory(File sourceFolder, File destinationFolder) {
