@@ -4,7 +4,7 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class CdPlayer {  
+public class CdPlayer {
     private String currentDrive; //현재 드라이브의 정보를 담을 변수
     private String currentDirectory; //현재 디렉터리의 정보를 담을 변수
     public CdPlayer(String currentDrive, String currentDirectory) {
@@ -12,11 +12,31 @@ public class CdPlayer {
         this.currentDirectory = currentDirectory;
     }
 
+    public Object[] sliceCommand(String command, int number) {
+        String commandTokens = command.substring(number);
+        String cleanedCommand = command.substring(number + 1);
+        File file = new File(currentDrive + currentDirectory, cleanedCommand);
+        return new Object[]{cleanedCommand, commandTokens, file};
+    }
+
+    public Object[] sliceCommandWithSpace(String command, int number){
+        String commandTokens  =command.substring(number);
+        int spaceIndex=commandTokens.indexOf(" ");
+
+        String sourcePath = commandTokens.substring(0, spaceIndex);
+        String destinationPath = commandTokens.substring(spaceIndex+1);
+
+        File source = new File(currentDrive + currentDirectory + File.separator + sourcePath);
+        File destination = new File(currentDrive + currentDirectory + File.separator + destinationPath);
+
+        return new Object[] {sourcePath, destinationPath, source, destination};
+    }
+
     public String enterCdMode(String command, String currentDrive, String currentDirectory) {
-        String commandTokens = command.substring(2); //cd 지우고 나머지 문자열 저장
-        File file;
-        String cleanedCommand = command.substring(3);
-        file = new File(currentDrive + currentDirectory, cleanedCommand); // 드라이브 정보를 포함한 전체 경로로 설정
+        Object[] result = sliceCommand(command, 3);
+        String cleanedCommand = (String) result[0];
+        String commandTokens = (String) result[1];
+        File file = (File) result[2];
 
         if (commandTokens.equals("..") || commandTokens.equals(" ..")){ //cd .. 입력된 경우
             currentDirectory = moveToParentDirectory(currentDrive, currentDirectory);

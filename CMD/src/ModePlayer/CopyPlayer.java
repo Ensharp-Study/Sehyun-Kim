@@ -32,7 +32,8 @@ public class CopyPlayer {
 
         if (source.exists() && source.isFile()) {
             copyFile(source, destination);
-        } else if (source.exists() && source.isDirectory()) {
+        }
+        else if (source.exists() && source.isDirectory()) {
             copyDirectory(source, destination);
         }
     }
@@ -44,7 +45,9 @@ public class CopyPlayer {
         if (destinationPath.equals(sourcePath)) {
             System.out.println("같은 파일로 복사할 수 없습니다: " + sourceFile.getName());
             System.out.println("     0개 파일이 복사되었습니다.");
-        } else {
+        }
+
+        else {
             try {
                 Files.copy(sourceFile.toPath(), destinationFile.toPath(), StandardCopyOption.COPY_ATTRIBUTES);
                 System.out.println("     1개 파일이 복사되었습니다.");
