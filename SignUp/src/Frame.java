@@ -13,7 +13,7 @@ public class Frame extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        background = new ImageIcon("C:\\Users\\user\\OneDrive\\바탕 화면\\엔샵크래프트.png").getImage();
+        background = new ImageIcon("엔샵크래프트.png").getImage();
         JPanel panel = new JPanel() {
             @Override
             //배경 이미지 그리기
