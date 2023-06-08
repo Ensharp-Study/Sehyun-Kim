@@ -21,6 +21,7 @@ public class MainFrame extends JFrame {
     private JPanel wallPanel;
     private JPanel panel;
     private JPanel backPanel;
+    private JButton LogInFunctionButton;
     public MainFrame() {
         //bringImage 메소드를 통해 전달받은 상대경로 매개변수로 이미지를 가져오기
         this.mainFrameBackground = bringImage("images/엔샵크래프트.png");
@@ -56,12 +57,34 @@ public class MainFrame extends JFrame {
             Component[] components = mainPanel.getComponents();
             for (Component component : components) {
                 component.setVisible(false);
-            } //mainPanel 구성요소 모두 안 보이게
+            } // mainPanel 구성요소 모두 안 보이게
 
-            //backPanel에 패널 추가
+            // backPanel에 패널 추가
             BufferedImage logInImage = bringImage("images/로그인.png");
-            backPanel = addPanel(logInImage, 330, 310, 370, 200);
-            setComponentZOrder(backPanel, 0); // 맨 앞으로 가져오기
+            backPanel = addPanel(logInImage, 300, 310, 400, 230);
+
+            backPanel.setLayout(null); // 레이아웃 매니저를 null로 설정
+
+            JTextField idTextField = new JTextField();
+            backPanel.add(idTextField);
+            idTextField.setBounds(15, 25, 372, 58);
+
+            JTextField pwTextField = new JTextField();
+            backPanel.add(pwTextField);
+            pwTextField.setBounds(15, 100, 372, 58);
+
+            BufferedImage logInFunctionButtonImage = bringImage("images/로그인 버튼.png");
+            backPanel =addButton(logInFunctionButtonImage, 330, 3310, 340, 370, LogInFunctionButton);
+            // wallPanel을 JLayeredPane으로 변경
+            JLayeredPane layeredPane = new JLayeredPane();
+            wallPanel.removeAll(); // 기존 구성 요소 제거
+            wallPanel.setLayout(new BorderLayout());
+            wallPanel.add(layeredPane, BorderLayout.CENTER);
+
+            // backPanel을 JLayeredPane에 추가
+            layeredPane.add(backPanel, JLayeredPane.PALETTE_LAYER); // 적절한 레이어 사용
+
+            mainFrame.revalidate(); // 변경 사항을 적용
         });
         addFunctionToButton(signUpButton, () -> {
             // 버튼 클릭 시 실행할 내용 작성
