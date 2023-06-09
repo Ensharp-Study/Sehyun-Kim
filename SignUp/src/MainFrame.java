@@ -21,7 +21,7 @@ public class MainFrame extends JFrame {
     private JPanel wallPanel;
     private JPanel panel;
     private JPanel backPanel;
-    private JButton LogInFunctionButton;
+    private JButton popUppedLogInButton;
     public MainFrame() {
         //bringImage 메소드를 통해 전달받은 상대경로 매개변수로 이미지를 가져오기
         this.mainFrameBackground = bringImage("images/엔샵크래프트.png");
@@ -40,6 +40,7 @@ public class MainFrame extends JFrame {
         this.popUppedLogIn = new JButton();
         this.panel= new JPanel();
         this.backPanel=new JPanel();
+        this.popUppedLogInButton= new JButton();
     }
 
     //프로그램 실행 메소드
@@ -73,30 +74,28 @@ public class MainFrame extends JFrame {
             backPanel.add(pwTextField);
             pwTextField.setBounds(15, 100, 372, 58);
 
-            BufferedImage logInFunctionButtonImage = bringImage("images/로그인 버튼.png");
-            backPanel =addButton(logInFunctionButtonImage, 330, 3310, 340, 370, LogInFunctionButton);
-            // wallPanel을 JLayeredPane으로 변경
+            //로그인 버튼 이미지 가져오고 패널 추가
+            BufferedImage logInButtonImage = bringImage("images/로그인 버튼.png");
+            addButtonBack(logInButtonImage, 300, 380, 300, 100, popUppedLogInButton);
+
+            backPanel.setLayout(null);
             JLayeredPane layeredPane = new JLayeredPane();
             wallPanel.removeAll(); // 기존 구성 요소 제거
             wallPanel.setLayout(new BorderLayout());
             wallPanel.add(layeredPane, BorderLayout.CENTER);
 
             // backPanel을 JLayeredPane에 추가
-            layeredPane.add(backPanel, JLayeredPane.PALETTE_LAYER); // 적절한 레이어 사용
-
+            layeredPane.add(backPanel, JLayeredPane.PALETTE_LAYER);
             mainFrame.revalidate(); // 변경 사항을 적용
         });
         addFunctionToButton(signUpButton, () -> {
-            // 버튼 클릭 시 실행할 내용 작성
-            System.out.println("Button clicked!");
+            System.out.println("버튼 클릭");
         });
         addFunctionToButton(idSearcherButton, () -> {
-            // 버튼 클릭 시 실행할 내용 작성
-            System.out.println("Button clicked!");
+            System.out.println("버튼 클릭");
         });
         addFunctionToButton(pwSearcherButton, () -> {
-            // 버튼 클릭 시 실행할 내용 작성
-            System.out.println("Button clicked!");
+            System.out.println("버튼 클릭");
         });
     }
 
@@ -115,6 +114,27 @@ public class MainFrame extends JFrame {
         return panel;
     }
 
+    public void addButtonBack(BufferedImage logInImage, int xCoordinate, int yCoordinate, int width, int height, JButton button) {
+        // 패널 생성
+        JPanel panel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawImage(logInImage, 0, 0, getWidth(), getHeight(), null);
+            }
+        };
+        panel.setOpaque(false); // 패널 배경을 투명하게 설정
+        panel.setBounds(xCoordinate, yCoordinate, width, height);
+
+        button.setPreferredSize(new Dimension(width, height));
+        button.setContentAreaFilled(false); // 버튼 배경을 투명하게 설정
+        panel.add(button);
+
+        backPanel.setLayout(null); // 레이아웃 매니저를 null로 설정하여 컴포넌트의 위치를 직접 지정
+        backPanel.add(panel); // 로그인 패널을 메인 패널에 추가
+
+        revalidate();
+    }
     //패널+버튼을 추가하는 메소드
     //매개변수는 이미지 객체, x/y좌표, 너비/높이
     public void addButton(BufferedImage logInImage, int xCoordinate, int yCoordinate, int width, int height, JButton button) {
@@ -134,7 +154,7 @@ public class MainFrame extends JFrame {
         panel.add(button);
 
         // 메인 패널 가져오기
-        mainPanel = (JPanel) getContentPane().getComponent(0); // 수정된 부분: getContentPane()를 사용하여 메인 패널 가져오기
+        mainPanel = (JPanel) getContentPane().getComponent(0); // getContentPane()를 사용하여 메인 패널 가져오기
 
         mainPanel.setLayout(null); // 레이아웃 매니저를 null로 설정하여 컴포넌트의 위치를 직접 지정
         mainPanel.add(panel); // 로그인 패널을 메인 패널에 추가
