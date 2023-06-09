@@ -54,12 +54,12 @@ public class MainFrame extends JFrame {
         addButton(idSearcherImage, 330, 490, 160, 80, idSearcherButton);
         addButton(pwSearcherImage, 510, 490, 160, 80, pwSearcherButton);
 
+        //로그인 버튼이 눌렸을경우
         addFunctionToButton(logInButton, () -> {
             Component[] components = mainPanel.getComponents();
             for (Component component : components) {
                 component.setVisible(false);
             } // mainPanel 구성요소 모두 안 보이게
-
             // backPanel에 패널 추가
             BufferedImage logInImage = bringImage("images/로그인.png");
             backPanel = addPanel(logInImage, 300, 310, 400, 230);
@@ -73,12 +73,27 @@ public class MainFrame extends JFrame {
             JTextField pwTextField = new JTextField();
             backPanel.add(pwTextField);
             pwTextField.setBounds(15, 100, 372, 58);
-
-            //로그인 버튼 이미지 가져오고 패널 추가
+            // 로그인 버튼 이미지 가져오고 버튼 추가
             BufferedImage logInButtonImage = bringImage("images/로그인 버튼.png");
-            addButtonBack(logInButtonImage, 300, 380, 300, 100, popUppedLogInButton);
+            JButton logInButton = new JButton(new ImageIcon(logInButtonImage));
+            logInButton.setBounds(10, 160, 380, 60);
+            logInButton.setContentAreaFilled(false);
+            logInButton.addActionListener(e -> {
+                String userId = idTextField.getText();
+                String userPw = pwTextField.getText();
+                SqlConnector sqlConnector = new SqlConnector();
+                sqlConnector.connectToSql(userId,userPw);
+                Component[] element = backPanel.getComponents();
+                for (Component component : element) {
+                    component.setVisible(false);
+                } // mainPanel 구성요소 모두 안 보이게
+                Component[] elements = mainPanel.getComponents();
+                for (Component component : elements) {
+                    component.setVisible(true);
+                } // mainPanel 구성요소 모두 안 보이게
+            });
+            backPanel.add(logInButton);
 
-            backPanel.setLayout(null);
             JLayeredPane layeredPane = new JLayeredPane();
             wallPanel.removeAll(); // 기존 구성 요소 제거
             wallPanel.setLayout(new BorderLayout());
@@ -89,7 +104,15 @@ public class MainFrame extends JFrame {
             mainFrame.revalidate(); // 변경 사항을 적용
         });
         addFunctionToButton(signUpButton, () -> {
-            System.out.println("버튼 클릭");
+            Component[] components = mainPanel.getComponents();
+            for (Component component : components) {
+                component.setVisible(false);
+            } // mainPanel 구성요소 모두 안 보이게
+            // backPanel에 패널 추가
+            BufferedImage logInImage = bringImage("images/로그인.png");
+            backPanel = addPanel(logInImage, 300, 310, 400, 230);
+
+            backPanel.setLayout(null); // 레이아웃 매니저를 null로 설정
         });
         addFunctionToButton(idSearcherButton, () -> {
             System.out.println("버튼 클릭");
@@ -114,7 +137,7 @@ public class MainFrame extends JFrame {
         return panel;
     }
 
-    public void addButtonBack(BufferedImage logInImage, int xCoordinate, int yCoordinate, int width, int height, JButton button) {
+    public JButton addButtonBack(BufferedImage logInImage, int xCoordinate, int yCoordinate, int width, int height, JButton button) {
         // 패널 생성
         JPanel panel = new JPanel() {
             @Override
@@ -134,6 +157,8 @@ public class MainFrame extends JFrame {
         backPanel.add(panel); // 로그인 패널을 메인 패널에 추가
 
         revalidate();
+
+        return button;
     }
     //패널+버튼을 추가하는 메소드
     //매개변수는 이미지 객체, x/y좌표, 너비/높이
