@@ -1,0 +1,121 @@
+0. dir c:\Users\대원
+1. Dir ..
+2. Cls
+3. Help
+4. Cd Onedrive
+5. Cd ..\..\..\..\..
+6. Cd c:\Users\대원\Desktop\CMD
+7. Copy abc.txt cmd2\b.txt
+(안될경우 copy abc.txt C:\Users\대원\Desktop\CMD\CMD2)
+8. Copy abc.txt abc.txt (같은 파일로 복사할 수 없습니다.)
+9. Cd \
+10. Cd C:\\Users\대원/Desktop\cmd/cmd2 (\랑 \\랑 / 섞어서 경로)
+11. Dir
+12. Copy b.txt C:\Users\대원\Desktop\CMD\xxx.txt
+13. Cd ..
+14. Dir
+
+15. Copy xxx.txt x.txt
+16. Copy x.txt xxx.txt (xxx.txt을(를) 덮어쓰시겠습니까? (Yes/No/All)
+17. Dir
+
+18. Move abc.txt C:\Users\대원\Desktop\CMD\CMD2\
+19. Dir
+20. Cd CMD2
+21. Move abc.txt c.txt
+22. Dir
+23. Move c.txt ..\abc.txt
+24. Move C:\Users\대원\Desktop\CMD\xxx.txt C:\Users\대원\Desktop
+25. Cd ..
+26. Move CMD2 C:\Users\대원\desktop\CMD3 (1개의 디렉터리를 이동했습니다)
+
+27. .. cd (‘..’ 은 내부 또는 외부 명령, 실행할 수 있는 프로그램 또는 배치 파일이 아닙니다.)
+
+** 드라이브 볼륨, 볼륨 일련 번호 파일용량 나오기, 줄맞춤
+** 기본적인 기능명세는 다 해야함.
+** 위에 모든 문장을 쳤을 때 기존 CMD랑 똑같이 떠야함.
+
+
+뒤로가기 cd.. 
+
+C:\Users\user>cd Onedrive
+
+C:\Users\user\Onedrive>cd 바탕 화면
+C:\Users\user\Onedrive\바탕 화면>cd CMD
+C:\Users\user\Onedrive\바탕 화면\CMD>cd abc.txt
+C:\Users\user\Onedrive\바탕 화면\CMD\abc.txt>
+현재 디렉터리 출력 cd 
+
+copy abc.txt CMD3
+
+cls
+
+절대경로
+cd C:\Users\user\Onedrive
+
+
+HELP
+
+
+
+
+C:\Users\user\Onedrive>cd desktop
+C:\Users\user\Onedrive\desktop>cd..
+C:\UsersuserOnedrive>cd desktop
+'cd desktop은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+
+배치 파일이 아닙니다.
+
+
+C:\UsersuserOnedrive>cd..\..
+C:\UsersuserOnedrive\..\..>
+
+cd main에서 절대경로로해놔서 다른컴퓨터에서는 안돌아감
+do while문 쓰지말기
+cmdla
+
+startwith 띄어쓰기하고 명령어하면 작동안함
+
+메소드가 입력받을때마다 되는데 인스턴스 여기서 하면ㅇ 입력받을때마다 계속생성하니까 생성자로하기
+
+하드코딩 박아놓은거 cmdplater
+
+
+ private void printMessage(){
+        System.out.println("Microsoft Windows [Version 10.0.22621.1555]");
+        System.out.println("(c) Microsoft Corporation. All rights reserved.");
+    } 컴퓨터마다 정보가 다르니까 정보받아와서 바꾸기 
+
+user 다른사람 컴퓨터에서 돌리면 터진다.
+startwith case문으로 바꾸기
+
+entermode 객체 생성자에서 초기화시키기
+
+예외처리 
+
+
+파일 안으로는 cd가 안들어감 
+
+객체지향 재사용 할 수 있는 측면 
+.. 이나 이런거 재사용 가능하면 캡슐화
+지금은 MODEPLAYER가 모든거 다하고 있음
+고민해보기 설계
+
+DO WHILE 직관성이 안좋음 조건이 뒤에있어서 
+
+ELSE 안써보기 최대한
+
+sourceFile.exists() && destinationDir.exists() && destinationDir.isDirectory()) 묶어서 캡슐화해보기
+
+
+PUBLIC 위로 올리고 PRIVATE 내리기 최대한 많이빼서 윗부분만 보고도 프로세스 어떻게 돌아가는지 알수있게하기 
+함수명만 보고도 프로세스 파악할수있도록 함수최대한 많이 빼서 캡슐화 하고 재활용 잘되게. 그러면 클래스도 잘뺄수있고 객체지향으로 표현할 수 있음
+SUBSTRING 기술 부채 구현만되게끔해논거
+어떤 기능 추가될수있을지. 확장성 
+ 
+유저라고 지었는데 오너있고 -- 있으면 안대니까 잘하기
+에코 등등 
+글자 딱딱 정해져있는거 카피면 5갸,, 3개, 이런거 글자의 갯수 그떄마다 셀수없으니까 글자를 알아서 세서 SUBSTRING으로 해서 만드는기능을짜보기따로
+
+
+
